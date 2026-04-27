@@ -1,0 +1,2530 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Patrick Dietz — Staatlich geprüfter Elektrotechniker. EPLAN P8, Motion Control, Maschinenbau. Freelance Engineering aus Singen, Deutschland." />
+<title>Dietz Engineering — Patrick Dietz | Electrical Engineer & EPLAN P8 Spezialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   THEME VARIABLES
+   ========================================================= */
+:root {
+  --gold: #C8A96E;
+  --gold-soft: #d8bd86;
+  --gold-dim: rgba(200, 169, 110, 0.15);
+  --gold-line: rgba(200, 169, 110, 0.35);
+}
+
+[data-theme="dark"] {
+  --bg: #0b0d10;
+  --bg-2: #111418;
+  --bg-3: #161a1f;
+  --bg-card: rgba(22, 26, 31, 0.8);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text: #ececec;
+  --text-soft: #b8b8b8;
+  --text-mute: #7a7a7a;
+  --grid: rgba(200, 169, 110, 0.05);
+  --shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+
+[data-theme="light"] {
+  --bg: #f7f5f0;
+  --bg-2: #ffffff;
+  --bg-3: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.14);
+  --text: #14181d;
+  --text-soft: #3c4350;
+  --text-mute: #6b7280;
+  --grid: rgba(180, 145, 80, 0.07);
+  --shadow: 0 18px 50px rgba(20, 20, 25, 0.08);
+}
+
+/* =========================================================
+   RESET & BASE
+   ========================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-weight: 400;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Syne', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.15;
+}
+
+.mono { font-family: 'JetBrains Mono', 'Courier New', monospace; }
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--bg-2);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  width: 100%;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--bg-3);
+}
+
+textarea { min-height: 130px; resize: vertical; }
+
+img, svg { display: block; max-width: 100%; }
+
+::selection { background: var(--gold); color: #000; }
+
+/* =========================================================
+   LAYOUT HELPERS
+   ========================================================= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+section {
+  padding: 6rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+.section-label::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 1rem;
+  max-width: 720px;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-soft);
+  max-width: 680px;
+  margin-bottom: 3rem;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.logo .logo-mark {
+  width: 28px; height: 28px;
+  border: 1.5px solid var(--gold);
+  border-radius: 6px;
+  display: grid; place-items: center;
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+.logo .logo-text { color: var(--text); }
+.logo .logo-text span { color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+}
+.nav-links a {
+  position: relative;
+  transition: color 0.2s ease;
+  padding: 0.3rem 0;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.icon-btn {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  color: var(--text-soft);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.icon-btn:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.lang-select {
+  padding: 0.5rem 2rem 0.5rem 0.8rem;
+  font-size: 0.85rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  color: var(--text);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C8A96E' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  width: auto;
+  transition: border-color 0.2s ease;
+}
+.lang-select:hover { border-color: var(--gold); }
+
+.nav-toggle {
+  display: none;
+  width: 38px; height: 38px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  align-items: center; justify-content: center;
+  color: var(--text-soft);
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  padding: 11rem 0 7rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.55;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+.hero-bg svg { width: 100%; height: 100%; }
+
+.hero-glow {
+  position: absolute;
+  width: 720px; height: 720px;
+  background: radial-gradient(circle, rgba(200,169,110,0.18) 0%, transparent 65%);
+  border-radius: 50%;
+  top: -200px; right: -200px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 880px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-line);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.8rem;
+}
+.hero-badge .dot {
+  width: 7px; height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--gold);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(1.15); }
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 800;
+  line-height: 1.02;
+  margin-bottom: 1.5rem;
+}
+.hero h1 .accent {
+  color: var(--gold);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.hero-tagline {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--text-soft);
+  max-width: 640px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-mute);
+  margin-bottom: 2.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+}
+.hero-meta span::before { content: '// '; color: var(--gold); }
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 2.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--gold);
+  color: #15110a;
+}
+.btn-primary:hover {
+  background: var(--gold-soft);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background: transparent;
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+.btn .arrow { transition: transform 0.2s ease; }
+.btn:hover .arrow { transform: translateX(4px); }
+
+.lang-badges {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.lang-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  color: var(--text-soft);
+  letter-spacing: 0.06em;
+}
+.lang-badge strong { color: var(--gold); margin-right: 0.4rem; }
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: start;
+}
+.about-text p {
+  color: var(--text-soft);
+  margin-bottom: 1.2rem;
+  font-size: 1.02rem;
+}
+
+.usp-quote {
+  border-left: 2px solid var(--gold);
+  padding: 0.5rem 0 0.5rem 1.4rem;
+  margin: 2rem 0;
+  font-family: 'Syne', sans-serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.travel-note {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1.3rem;
+  margin-top: 2rem;
+}
+.travel-note .icon {
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.travel-note p { font-size: 0.92rem; color: var(--text-soft); margin: 0; }
+.travel-note strong { color: var(--text); display: block; margin-bottom: 0.2rem; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem 1.3rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.stat:hover {
+  border-color: var(--gold-line);
+  transform: translateY(-3px);
+}
+.stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 24px; height: 24px;
+  border-top: 1px solid var(--gold);
+  border-left: 1px solid var(--gold);
+  border-radius: 14px 0 0 0;
+}
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+/* =========================================================
+   EDUCATION
+   ========================================================= */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.edu-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.edu-card:hover {
+  border-color: var(--gold-line);
+  transform: translateY(-3px);
+}
+.edu-period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.8rem;
+}
+.edu-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+}
+.edu-card p { color: var(--text-soft); font-size: 0.95rem; }
+
+/* =========================================================
+   SERVICES
+   ========================================================= */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.8rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.service-card:hover {
+  border-color: var(--gold-line);
+  transform: translateY(-4px);
+}
+.service-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--gold);
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.1em;
+}
+.service-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.01em;
+}
+.service-card p {
+  color: var(--text-soft);
+  font-size: 0.93rem;
+  margin-bottom: 1.3rem;
+  flex-grow: 1;
+}
+.service-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  color: var(--gold);
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border-strong);
+  letter-spacing: 0.02em;
+}
+
+/* =========================================================
+   EXPERIENCE TIMELINE
+   ========================================================= */
+.timeline {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  padding-left: 2.2rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 8px; bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--gold) 0%, var(--border) 100%);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -2.2rem;
+  top: 8px;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+.tl-period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+.tl-item h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.3rem;
+}
+.tl-company {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+.tl-item ul {
+  list-style: none;
+  margin-bottom: 1.2rem;
+}
+.tl-item ul li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
+.tl-item ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  padding: 0.3rem 0.7rem;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-line);
+  color: var(--gold);
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+.skills-wrapper {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+}
+.skill-bars { display: flex; flex-direction: column; gap: 1.3rem; }
+.skill-bar-item .label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.92rem;
+}
+.skill-bar-item .label-row .lvl {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+.bar-track {
+  height: 6px;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-soft) 100%);
+  border-radius: 4px;
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.tools-block { display: flex; flex-direction: column; gap: 2rem; }
+.tools-group h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pill {
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--text-soft);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* =========================================================
+   BOOKING
+   ========================================================= */
+.packages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.pkg-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 1.6rem 1.3rem;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+.pkg-card:hover {
+  border-color: var(--gold-line);
+  transform: translateY(-3px);
+}
+.pkg-card.selected {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, var(--gold-dim) 0%, var(--bg-card) 100%);
+}
+.pkg-card.popular::after {
+  content: attr(data-popular);
+  position: absolute;
+  top: -10px; right: 12px;
+  background: var(--gold);
+  color: #15110a;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+}
+.pkg-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+.pkg-desc {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin-bottom: 1rem;
+  min-height: 38px;
+}
+.pkg-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.booking-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 2.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.booking-form .full { grid-column: 1 / -1; }
+.field-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+}
+.pay-option {
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 0.85rem 0.6rem;
+  text-align: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-soft);
+}
+.pay-option:hover { border-color: var(--gold-line); }
+.pay-option.selected {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.payment-info {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  background: var(--bg-3);
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-top: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.5;
+}
+.form-note {
+  font-size: 0.85rem;
+  color: var(--text-mute);
+  margin-top: 1rem;
+  line-height: 1.55;
+  padding-left: 0.2rem;
+}
+.form-disclaimer {
+  font-size: 0.78rem;
+  color: var(--text-mute);
+  text-align: center;
+  margin-top: 1rem;
+  line-height: 1.55;
+}
+.form-disclaimer a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: var(--gold-line);
+  text-underline-offset: 3px;
+}
+.form-disclaimer a:hover { color: var(--gold-soft); }
+
+.success-msg {
+  display: none;
+  background: linear-gradient(135deg, var(--gold-dim), transparent);
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  align-items: center;
+  gap: 1rem;
+}
+.success-msg.active { display: flex; }
+.success-msg .check {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #15110a;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+.success-msg h4 { color: var(--gold); margin-bottom: 0.3rem; font-size: 1.05rem; }
+.success-msg p { color: var(--text-soft); font-size: 0.9rem; margin: 0; }
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+.contact-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--gold-dim) 0%, transparent 60%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.contact-card > * { position: relative; z-index: 1; }
+
+.contact-mail {
+  display: inline-block;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.4rem, 3.4vw, 2.1rem);
+  font-weight: 700;
+  color: var(--gold);
+  margin: 1rem 0 1.5rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.contact-mail:hover { border-bottom-color: var(--gold); }
+
+.contact-meta {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin-top: 1.5rem;
+}
+.contact-meta span { display: flex; align-items: center; gap: 0.5rem; }
+.contact-meta .ic { color: var(--gold); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 0 2rem;
+  margin-top: 3rem;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer .logo { font-size: 0.95rem; }
+.footer-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-mute);
+  letter-spacing: 0.04em;
+}
+.footer-legal {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 0.85rem;
+}
+.footer-legal a {
+  color: var(--text-soft);
+  transition: color 0.2s ease;
+}
+.footer-legal a:hover { color: var(--gold); }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links.open {
+    display: flex;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    background: var(--bg-2);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .about-grid, .skills-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+  .services-grid, .proj-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid::before { display: none; }
+  .packages { grid-template-columns: repeat(2, 1fr); }
+  .booking-form { grid-template-columns: 1fr; }
+  .payment-grid { grid-template-columns: repeat(2, 1fr); }
+  section { padding: 4.5rem 0; }
+  .hero { padding: 9rem 0 5rem; }
+}
+@media (max-width: 580px) {
+  .services-grid, .edu-grid, .packages, .stats, .proj-grid, .process-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.4rem; }
+  .booking-form { padding: 1.5rem; }
+}
+
+/* =========================================================
+   PROJECT PROFILES
+   ========================================================= */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+.proj-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+  overflow: hidden;
+}
+.proj-card:hover {
+  border-color: var(--gold-line);
+  transform: translateY(-4px);
+}
+.proj-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.proj-card:hover::after { transform: scaleX(1); }
+.proj-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+}
+.proj-meta span:not(:last-child)::after {
+  content: '·';
+  margin-left: 0.8rem;
+  color: var(--text-mute);
+}
+.proj-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.proj-card p {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  margin-bottom: 1.1rem;
+  flex-grow: 1;
+  line-height: 1.55;
+}
+
+.nda-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-mute);
+  background: var(--bg-3);
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  margin-top: 1.5rem;
+  letter-spacing: 0.04em;
+}
+.nda-banner svg { color: var(--gold); flex-shrink: 0; }
+
+/* =========================================================
+   PROCESS / HOW WE WORK
+   ========================================================= */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.3rem;
+  position: relative;
+}
+.process-grid::before {
+  content: '';
+  position: absolute;
+  top: 32px; left: 5%; right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line), var(--gold-line), transparent);
+  z-index: 0;
+}
+.proc-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem 1.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.proc-step:hover {
+  border-color: var(--gold-line);
+  transform: translateY(-3px);
+}
+.proc-num {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  display: grid; place-items: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: -3.3rem auto 1rem;
+  position: relative;
+  box-shadow: 0 0 0 6px var(--bg);
+}
+.proc-step h3 {
+  text-align: center;
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+}
+.proc-step p {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  text-align: center;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-list {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+.faq-item.open { border-color: var(--gold-line); }
+.faq-q {
+  width: 100%;
+  text-align: left;
+  padding: 1.2rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1.4;
+}
+.faq-q:hover { color: var(--gold); }
+.faq-q .plus {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  position: relative;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.faq-q .plus::before, .faq-q .plus::after {
+  content: '';
+  position: absolute;
+  background: var(--gold);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.faq-q .plus::before { width: 10px; height: 1.5px; }
+.faq-q .plus::after  { width: 1.5px; height: 10px; transition: transform 0.25s ease; }
+.faq-item.open .faq-q .plus { background: var(--gold); }
+.faq-item.open .faq-q .plus::before, .faq-item.open .faq-q .plus::after { background: var(--bg); }
+.faq-item.open .faq-q .plus::after { transform: translate(-50%, -50%) scaleY(0); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-a-inner {
+  padding: 0 1.4rem 1.4rem;
+  color: var(--text-soft);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   HERO CIRCUIT ANIMATION
+   ========================================================= */
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.85; r: 2.5; }
+  50%      { opacity: 0.3;  r: 3.5; }
+}
+.hero-bg svg circle { animation: node-pulse 4s ease-in-out infinite; }
+.hero-bg svg circle:nth-of-type(2n) { animation-delay: 0.7s; }
+.hero-bg svg circle:nth-of-type(3n) { animation-delay: 1.4s; }
+.hero-bg svg circle:nth-of-type(5n) { animation-delay: 2.1s; }
+
+@keyframes flow {
+  to { stroke-dashoffset: -300; }
+}
+.flow-line {
+  stroke-dasharray: 6 14;
+  animation: flow 8s linear infinite;
+}
+
+/* =========================================================
+   FADE-IN  (only hidden once JS is ready — so content stays
+   visible if scripting fails or is blocked)
+   ========================================================= */
+.js-ready .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.js-ready .fade.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ============================ NAV ============================ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo" aria-label="Dietz Engineering Home">
+      <span class="logo-mark">DE</span>
+      <span class="logo-text">DIETZ<span>—</span>ENGINEERING</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" data-i18n="nav.about">Über mich</a></li>
+      <li><a href="#services" data-i18n="nav.services">Leistungen</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projekte</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">Erfahrung</a></li>
+      <li><a href="#process" data-i18n="nav.process">Prozess</a></li>
+      <li><a href="#booking" data-i18n="nav.booking">Buchung</a></li>
+      <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+    </ul>
+    <div class="nav-actions">
+      <select class="lang-select" id="langSelect" aria-label="Sprache wählen">
+        <option value="de">DE — Deutsch</option>
+        <option value="en">EN — English</option>
+        <option value="es">ES — Español</option>
+        <option value="zh">ZH — 中文</option>
+      </select>
+      <button class="icon-btn" id="themeToggle" aria-label="Theme umschalten" title="Theme">
+        <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="top">
+  <div class="hero-glow"></div>
+  <div class="hero-bg" aria-hidden="true">
+    <svg viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="circuit" x="0" y="0" width="160" height="160" patternUnits="userSpaceOnUse">
+          <path d="M0 80 L60 80 L60 30 L120 30 L120 100 L160 100" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.55"/>
+          <path d="M0 130 L40 130 L40 160" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.4"/>
+          <path d="M80 0 L80 50 L130 50" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.45"/>
+          <circle cx="60" cy="80" r="2.5" fill="#C8A96E" opacity="0.85"/>
+          <circle cx="120" cy="30" r="2.5" fill="#C8A96E" opacity="0.85"/>
+          <circle cx="120" cy="100" r="2.5" fill="#C8A96E" opacity="0.85"/>
+          <circle cx="40" cy="130" r="2.5" fill="#C8A96E" opacity="0.6"/>
+          <circle cx="80" cy="50" r="2.5" fill="#C8A96E" opacity="0.6"/>
+          <rect x="55" y="75" width="10" height="10" fill="none" stroke="#C8A96E" stroke-width="0.6" opacity="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#circuit)"/>
+      <g opacity="0.7">
+        <path d="M50 350 Q400 200 750 380 T1350 320" stroke="#C8A96E" stroke-width="1" fill="none" opacity="0.4"/>
+        <path d="M50 450 Q500 600 950 420 T1350 460" stroke="#C8A96E" stroke-width="1" fill="none" opacity="0.3"/>
+      </g>
+      <g opacity="0.9">
+        <path class="flow-line" d="M0 220 L320 220 L360 260 L640 260 L680 220 L1000 220 L1040 280 L1400 280" stroke="#C8A96E" stroke-width="1.4" fill="none"/>
+        <path class="flow-line" d="M1400 540 L1080 540 L1040 500 L780 500 L740 540 L420 540 L380 480 L0 480" stroke="#C8A96E" stroke-width="1.2" fill="none" style="animation-duration: 11s;"/>
+      </g>
+    </svg>
+  </div>
+  <div class="container hero-inner fade">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span data-i18n="hero.badge">Verfügbar für Projekte · Remote &amp; Vor-Ort</span>
+    </div>
+    <h1>
+      <span data-i18n="hero.h1a">Patrick Dietz</span><br>
+      <span class="accent" data-i18n="hero.h1b">Electrical Engineering, präzise gebaut.</span>
+    </h1>
+    <p class="hero-tagline" data-i18n="hero.tagline">
+      Staatlich geprüfter Techniker (Bachelor Professional in Technik) mit über 13 Jahren Berufserfahrung in EPLAN P8, Antriebstechnik
+      und Maschinenentwicklung. Vom Schaltplan bis zur Inbetriebnahme — international, strukturiert, lösungsorientiert.
+    </p>
+    <div class="hero-meta mono">
+      <span data-i18n="hero.meta1">Singen, Baden-Württemberg · DE</span>
+      <span data-i18n="hero.meta2">13+ Jahre Berufserfahrung Elektrotechnik</span>
+      <span data-i18n="hero.meta3">EPLAN · Smartwiring · TIA Portal · Automation Studio</span>
+      <span data-i18n="hero.meta4">Drive Systems · Python · Visual Studio</span>
+    </div>
+    <div class="cta-row">
+      <a href="#booking" class="btn btn-primary">
+        <span data-i18n="hero.cta1">Projekt anfragen</span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#services" class="btn btn-secondary">
+        <span data-i18n="hero.cta2">Leistungen ansehen</span>
+      </a>
+    </div>
+    <div class="lang-badges">
+      <span class="lang-badge"><strong>DE</strong><span data-i18n="hero.langDE">Muttersprache</span></span>
+      <span class="lang-badge"><strong>EN</strong><span data-i18n="hero.langEN">Fortgeschritten</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ABOUT ============================ -->
+<section id="about">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="about.label">// Über mich</span>
+      <h2 class="section-title" data-i18n="about.title">Tiefes Maschinenverständnis trifft strukturierte Elektrokonstruktion.</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text fade">
+        <p data-i18n="about.p1">
+          Ich bin Patrick Dietz — Staatlich geprüfter Techniker für Elektrotechnik (Bachelor Professional in Technik, DQR-Niveau 6) mit über 13 Jahren Berufserfahrung in der Konstruktion, Inbetriebnahme und Optimierung industrieller Maschinen und Anlagen.
+        </p>
+        <p data-i18n="about.p2">
+          Mein Fokus liegt auf EPLAN P8, Antriebstechnik (B&amp;R ACOPOS P3, Motion Control),
+          Safety Circuits und der elektrischen Konstruktion komplexer Maschinen — von
+          Kunststoff-Extrusionsanlagen bis zu modernen Faseraufbereitungsmaschinen.
+        </p>
+        <div class="usp-quote" data-i18n="about.usp">
+          „Ich verbinde tiefes Maschinenverständnis mit strukturierter Elektrokonstruktion
+          und internationaler Praxiserfahrung. Nicht nur planen — sondern Probleme wirklich lösen."
+        </div>
+        <div class="travel-note">
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+          <p>
+            <strong data-i18n="about.travelTitle">International buchbar</strong>
+            <span data-i18n="about.travelText">Inbetriebnahmen, Vor-Ort-Einsätze und Retrofit-Projekte weltweit — gegen Aufwandsentschädigung (Flug, Verpflegung, Übernachtung). Erfahrung u.a. China &amp; Indien.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="stats fade">
+        <div class="stat">
+          <div class="stat-num">13+</div>
+          <div class="stat-label" data-i18n="about.stat1">Jahre Berufserfahrung</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">EPLAN</div>
+          <div class="stat-label" data-i18n="about.stat2">P8 Expertenlevel</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">CN · IN</div>
+          <div class="stat-label" data-i18n="about.stat3">International tätig</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">R&amp;D</div>
+          <div class="stat-label" data-i18n="about.stat4">Forschung &amp; Entwicklung</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ EDUCATION ============================ -->
+<section id="education">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="edu.label">// Ausbildung</span>
+      <h2 class="section-title" data-i18n="edu.title">Solide Grundlagen, kontinuierlich aufgebaut.</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card fade">
+        <div class="edu-period mono">2012 — 2016</div>
+        <h3 data-i18n="edu.card1Title">Elektroniker für Betriebstechnik</h3>
+        <p data-i18n="edu.card1Desc">
+          3,5-jährige Lehre mit Fokus auf industrielle Anlagentechnik, Schaltschrankbau, Steuerungstechnik
+          und elektrische Inbetriebnahme. Grundstein für strukturierte und normgerechte Elektrokonstruktion.
+        </p>
+      </div>
+      <div class="edu-card fade">
+        <div class="edu-period mono" data-i18n="edu.card2Period">Mai 2020 · DAA Technikum</div>
+        <h3 data-i18n="edu.card2Title">Staatlich geprüfter Techniker — Elektrotechnik</h3>
+        <p data-i18n="edu.card2Desc">
+          Fachrichtung Energietechnik &amp; Prozessautomatisierung. Vertiefte Ausbildung in Antriebstechnik, Automatisierung, Messtechnik und Projektmanagement — Schwerpunkt industrielle Steuerungssysteme, Motion Control, Safety-Konzepte. Der Abschluss entspricht dem Bachelor-Niveau (DQR Level 6 / Bachelor Professional in Technik gemäß BBiG-Novelle 2020).
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SERVICES ============================ -->
+<section id="services">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="srv.label">// Leistungen</span>
+      <h2 class="section-title" data-i18n="srv.title">Was ich für Ihr Projekt liefere.</h2>
+      <p class="section-subtitle" data-i18n="srv.subtitle">
+        Vom Schaltplan über Pro Panel, Antriebstechnik bis hin zu internationalen Inbetriebnahmen —
+        flexibel als Stundensatz, Festpreis oder Sprint-Paket.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade">
+        <div class="service-num mono">01 / EPLAN</div>
+        <h3 data-i18n="srv.s1Title">EPLAN P8 Schaltplanerstellung &amp; Optimierung</h3>
+        <p data-i18n="srv.s1Desc">Strukturierte, normgerechte Schaltpläne. Vorlagen, Makros, Auswertungen — sauber gepflegt und revisionssicher.</p>
+        <div class="service-price"><span data-i18n="srv.from">ab</span> 80 €/h <span data-i18n="srv.orFixed">oder Festpreis</span></div>
+      </div>
+      <div class="service-card fade">
+        <div class="service-num mono">02 / PRO PANEL</div>
+        <h3 data-i18n="srv.s2Title">EPLAN Pro Panel &amp; Smartwiring</h3>
+        <p data-i18n="srv.s2Desc">3D-Schaltschrankaufbau, Smartwiring-Daten, Fertigungsunterlagen — bereit für Produktion und Verdrahtungsroboter.</p>
+        <div class="service-price"><span data-i18n="srv.from">ab</span> 85 €/h</div>
+      </div>
+      <div class="service-card fade">
+        <div class="service-num mono">03 / MOTION</div>
+        <h3 data-i18n="srv.s3Title">Antriebstechnik &amp; Motion Control</h3>
+        <p data-i18n="srv.s3Desc">B&amp;R ACOPOS P3, Achsensynchronisation, Servo-Auslegung. Von der Spezifikation bis zur funktionierenden Achse.</p>
+        <div class="service-price"><span data-i18n="srv.from">ab</span> 95 €/h</div>
+      </div>
+      <div class="service-card fade">
+        <div class="service-num mono">04 / SUPPORT</div>
+        <h3 data-i18n="srv.s4Title">Troubleshooting &amp; Remote Support</h3>
+        <p data-i18n="srv.s4Desc">Schnelle Fehleranalyse bei Drives, Sensorik, Temperaturverhalten und Safety-Schaltungen — remote oder vor Ort.</p>
+        <div class="service-price"><span data-i18n="srv.from">ab</span> 90 €/h</div>
+      </div>
+      <div class="service-card fade">
+        <div class="service-num mono">05 / DOCS</div>
+        <h3 data-i18n="srv.s5Title">Technische Dokumentation &amp; BOM-Management</h3>
+        <p data-i18n="srv.s5Desc">Stücklistenpflege in SAP/ECTR, Prüfprotokolle, RCA-Reports, CE/UL-konforme Doku.</p>
+        <div class="service-price"><span data-i18n="srv.from">ab</span> 70 €/h</div>
+      </div>
+      <div class="service-card fade">
+        <div class="service-num mono">06 / GLOBAL</div>
+        <h3 data-i18n="srv.s6Title">Retrofit &amp; Internationale Projekte</h3>
+        <p data-i18n="srv.s6Desc">Maschinenupgrades, Retrofit-Kits, Inbetriebnahmen weltweit. Erfahren in China- und Indien-Projekten.</p>
+        <div class="service-price" data-i18n="srv.s6Price">Tages-/Projektpreis auf Anfrage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROJECT PROFILES ============================ -->
+<section id="projects">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="prj.label">// Projekt-Profile</span>
+      <h2 class="section-title" data-i18n="prj.title">Anonymisierte Auszüge aus über einem Jahrzehnt Praxis.</h2>
+      <p class="section-subtitle" data-i18n="prj.subtitle">
+        Die folgenden Profile zeigen typische Engagements meiner bisherigen Karriere — bewusst auf der Detail-Ebene gehalten, die mit bestehenden NDAs vereinbar ist. Die Substanz der Arbeit bleibt erkennbar.
+      </p>
+    </div>
+
+    <div class="proj-grid">
+      <div class="proj-card fade">
+        <div class="proj-meta mono">
+          <span>Breyer Maschinenfabrik</span><span data-i18n="prj.p1Region">DE · Multiple Projekte</span><span>2015 — 2022</span>
+        </div>
+        <h3 data-i18n="prj.p1Title">Plattenfolien-Extrusionslinien mit Co-Extrudern</h3>
+        <p data-i18n="prj.p1Desc">Projektdefinition, Auswahl und Beschaffung von Langläufer-Komponenten. Vollständige EPLAN-Schaltplanerstellung für Extruder, Co-Extruder, Vakuumsystem, Glättwerk inklusive Heiz- und Kühlgeräten.</p>
+        <div class="tags">
+          <span class="tag">EPLAN P8</span><span class="tag">Co-Extrusion</span><span class="tag" data-i18n="prj.tagCalender">Glättwerk</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-meta mono">
+          <span>Breyer Maschinenfabrik</span><span data-i18n="prj.p2Region">DE · Multiple Projekte</span><span>2018 — 2022</span>
+        </div>
+        <h3 data-i18n="prj.p2Title">Wickler-, Schneid- und Stapelanlagen</h3>
+        <p data-i18n="prj.p2Desc">Elektrokonstruktion komplexer Linienverbünde — Längs- und Querschneideinrichtungen, Stapelanlagen, Wickler. Pro Panel, Smartwiring, EPLAN Fluid für Pneumatik.</p>
+        <div class="tags">
+          <span class="tag">EPLAN Pro Panel</span><span class="tag">Smartwiring</span><span class="tag">EPLAN Fluid</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-meta mono">
+          <span>Breyer Maschinenfabrik</span><span data-i18n="prj.p3Region">Asien · Vor-Ort</span><span data-i18n="prj.p3Time">2020 / 21 · 5 Monate</span>
+        </div>
+        <h3 data-i18n="prj.p3Title">Inbetriebnahme während Corona-Lockdown</h3>
+        <p data-i18n="prj.p3Desc">Vollständige elektrische Inbetriebnahme einer Extrusionslinie unter Lockdown-Bedingungen. Kundeninstruktion, Troubleshooting an Drives, Sensorik und Temperaturverhalten.</p>
+        <div class="tags">
+          <span class="tag" data-i18n="prj.tagCommissioning">Inbetriebnahme</span><span class="tag" data-i18n="prj.tagTroubleshoot">Troubleshooting</span><span class="tag" data-i18n="prj.tagIntl">International</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-meta mono">
+          <span>Rieter AG</span><span data-i18n="prj.p4Region">CH · R&amp;D</span><span data-i18n="prj.p4Time">2023 — heute</span>
+        </div>
+        <h3 data-i18n="prj.p4Title">CGC, E40 &amp; Mikrowellen-Elektronik</h3>
+        <p data-i18n="prj.p4Desc">Mitwirkung an der elektrischen Entwicklung mehrerer Rieter-Maschinenfunktionen bis zur 0-Serien-Reife — Konzeptphase, RCA, Fertigungsunterlagen, Prototypen-Aufbau.</p>
+        <div class="tags">
+          <span class="tag">R&amp;D</span><span class="tag">ACOPOS P3</span><span class="tag" data-i18n="prj.tagPilot">0-Serie</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-meta mono">
+          <span>Rieter AG</span><span data-i18n="prj.p5Region">International</span><span data-i18n="prj.p4Time">2023 — heute</span>
+        </div>
+        <h3 data-i18n="prj.p5Title">Prototyp-Feldtest &amp; Customer Onboarding</h3>
+        <p data-i18n="prj.p5Desc">Bestellung von Prototypenteilen, Installation und Inbetriebnahme bei Pilotkunden, Erstellung von Umbau-Instruktionen, Schulung des Bedienpersonals.</p>
+        <div class="tags">
+          <span class="tag" data-i18n="prj.tagPilotCustomers">Pilotkunden</span><span class="tag" data-i18n="prj.tagTraining">Schulung</span><span class="tag" data-i18n="prj.tagRetrofit">Umbau-Instruktionen</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-meta mono">
+          <span>Rieter AG</span><span>Automation Studio</span><span data-i18n="prj.p4Time">2023 — heute</span>
+        </div>
+        <h3 data-i18n="prj.p6Title">Komponentenanalyse &amp; Supplier-Quality</h3>
+        <p data-i18n="prj.p6Desc">Programmierung in Automation Studio (B&amp;R), Lieferantenkoordination, Problemanalysen mit 8D-Reports, interdisziplinäre Entwicklung von Steuerungsfunktionen.</p>
+        <div class="tags">
+          <span class="tag">8D-Reports</span><span class="tag">Automation Studio</span><span class="tag">RCA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nda-banner fade">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span data-i18n="prj.ndaNote">NDA-konform — Detailtiefe bewusst gehalten. Konkrete Projekt-Insights gerne im persönlichen Gespräch.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ EXPERIENCE ============================ -->
+<section id="experience">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="exp.label">// Berufserfahrung</span>
+      <h2 class="section-title" data-i18n="exp.title">Über ein Jahrzehnt im industriellen Maschinenbau.</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item fade">
+        <div class="tl-period mono" data-i18n="exp.e1Period">2023 — heute</div>
+        <h3 data-i18n="exp.e1Title">Electrical Engineer — R&amp;D</h3>
+        <div class="tl-company" data-i18n="exp.e1Company">Rieter AG, Schweiz · Faseraufbereitungsmaschinen</div>
+        <ul>
+          <li data-i18n="exp.e1L1">Entwicklung und Pflege elektrischer Schaltpläne mit EPLAN P8</li>
+          <li data-i18n="exp.e1L2">R&amp;D für textile Maschinen — Strecke, Kämmerei, E40, E86</li>
+          <li data-i18n="exp.e1L3">Unterstützung internationaler Projekte (China, Indien)</li>
+          <li data-i18n="exp.e1L4">Technischer Kundensupport und Inbetriebnahmen (ACHA, Intercot)</li>
+          <li data-i18n="exp.e1L5">Analyse komplexer Maschinenprobleme — Drives, Sensorik, Temperaturverhalten, Safety</li>
+          <li data-i18n="exp.e1L6">Stücklistenpflege in SAP / ECTR</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">ACOPOS P3</span>
+          <span class="tag">Motion Control</span>
+          <span class="tag">Safety Circuits</span>
+          <span class="tag">Retrofit-Kits</span>
+          <span class="tag">CE / UL</span>
+          <span class="tag">EPLAN P8</span>
+        </div>
+      </div>
+
+      <div class="tl-item fade">
+        <div class="tl-period mono">2012 — 2023</div>
+        <h3 data-i18n="exp.e2Title">Elektrotechniker — Konstruktion</h3>
+        <div class="tl-company" data-i18n="exp.e2Company">Breyer Maschinenfabrik GmbH · Kunststoff-Extrusionsanlagen</div>
+        <ul>
+          <li data-i18n="exp.e2L1">Elektrische Konstruktion von Extrusionsanlagen — Plattenfolien, Tubenschlauch, Batteriefolien, Glättwerke</li>
+          <li data-i18n="exp.e2L2">Kabelauslegung und Definition von Kabellängen</li>
+          <li data-i18n="exp.e2L3">EPLAN Systemadministration — Artikeldaten, Auswertungen, Vorlagen, Prüfprotokolle, RCA</li>
+          <li data-i18n="exp.e2L4">Absprache mit Produktion, Produktabkündigungen, Lieferantenkommunikation</li>
+          <li data-i18n="exp.e2L5">Inbetriebnahmen und Kundensupport — u.a. 5 Monate am Stück in China während Corona</li>
+          <li data-i18n="exp.e2L6">EPLAN Pro Panel, Smartwiring, EPLAN Fluid (Pneumatik)</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">EPLAN Pro Panel</span>
+          <span class="tag">Smartwiring</span>
+          <span class="tag">EPLAN Fluid</span>
+          <span class="tag">RCA</span>
+          <span class="tag">BOM</span>
+          <span class="tag">Inbetriebnahme</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SKILLS ============================ -->
+<section id="skills">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="skl.label">// Technische Skills</span>
+      <h2 class="section-title" data-i18n="skl.title">Tools, Methoden, Erfahrungen.</h2>
+    </div>
+    <div class="skills-wrapper">
+      <div class="skill-bars fade">
+        <div class="skill-bar-item">
+          <div class="label-row"><span>EPLAN P8 / Pro Panel / Smartwiring</span><span class="lvl mono">95%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-fill="95"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="label-row"><span data-i18n="skl.b2">Antriebstechnik &amp; Motion Control (B&amp;R ACOPOS P3)</span><span class="lvl mono">85%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-fill="85"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="label-row"><span data-i18n="skl.b3">Schaltschrankbau &amp; Verdrahtung</span><span class="lvl mono">90%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-fill="90"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="label-row"><span data-i18n="skl.b4">Safety Circuits &amp; CE / UL Normen</span><span class="lvl mono">80%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-fill="80"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="label-row"><span data-i18n="skl.b5">Inbetriebnahme &amp; Troubleshooting</span><span class="lvl mono">90%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-fill="90"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="label-row"><span data-i18n="skl.b6">Technische Dokumentation &amp; BOM</span><span class="lvl mono">88%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-fill="88"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="label-row"><span data-i18n="skl.b7">Python &amp; Excel — Datenanalyse</span><span class="lvl mono">70%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-fill="70"></div></div>
+        </div>
+      </div>
+
+      <div class="tools-block fade">
+        <div class="tools-group">
+          <h4 data-i18n="skl.toolsSW">Software &amp; Systeme</h4>
+          <div class="pill-list">
+            <span class="pill">EPLAN P8</span>
+            <span class="pill">EPLAN Pro Panel</span>
+            <span class="pill">Smartwiring</span>
+            <span class="pill">EPLAN Fluid</span>
+            <span class="pill">SAP</span>
+            <span class="pill">ECTR</span>
+            <span class="pill">Teamcenter</span>
+            <span class="pill">Siemens NX</span>
+            <span class="pill">Automation Studio (B&amp;R)</span>
+            <span class="pill">Python</span>
+            <span class="pill">Excel</span>
+          </div>
+        </div>
+        <div class="tools-group">
+          <h4 data-i18n="skl.toolsMethods">Methoden &amp; Domänen</h4>
+          <div class="pill-list">
+            <span class="pill">ACOPOS P3</span>
+            <span class="pill" data-i18n="skl.m1">Motion Control</span>
+            <span class="pill" data-i18n="skl.m2">Achsensynchronisation</span>
+            <span class="pill" data-i18n="skl.m3">Safety Circuits</span>
+            <span class="pill" data-i18n="skl.m4">CE / UL Normen</span>
+            <span class="pill" data-i18n="skl.m5">Kabelauslegung</span>
+            <span class="pill" data-i18n="skl.m6">BOM-Management</span>
+            <span class="pill" data-i18n="skl.m7">Retrofit</span>
+            <span class="pill">RCA</span>
+            <span class="pill" data-i18n="skl.m8">Inbetriebnahme</span>
+            <span class="pill" data-i18n="skl.m9">Troubleshooting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROCESS ============================ -->
+<section id="process">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="prc.label">// Wie ich arbeite</span>
+      <h2 class="section-title" data-i18n="prc.title">Vom Briefing bis zur Übergabe — vier klare Schritte.</h2>
+      <p class="section-subtitle" data-i18n="prc.subtitle">
+        Strukturiert, transparent, ohne Überraschungen. Sie wissen jederzeit, wo Ihr Projekt steht.
+      </p>
+    </div>
+
+    <div class="process-grid">
+      <div class="proc-step fade">
+        <div class="proc-num mono">01</div>
+        <h3 data-i18n="prc.s1Title">Briefing &amp; Scope</h3>
+        <p data-i18n="prc.s1Desc">Wir klären Umfang, Schnittstellen und Zeitrahmen — auf Wunsch unter NDA. Output: ein einseitiges Auftragsblatt mit klaren Liefergegenständen.</p>
+      </div>
+      <div class="proc-step fade">
+        <div class="proc-num mono">02</div>
+        <h3 data-i18n="prc.s2Title">Konstruktion &amp; Engineering</h3>
+        <p data-i18n="prc.s2Desc">EPLAN-Schaltpläne, Pro-Panel-Aufbau, Komponentenauswahl. Wöchentlicher Stand inklusive Zwischenversionen — keine Black-Box-Phasen.</p>
+      </div>
+      <div class="proc-step fade">
+        <div class="proc-num mono">03</div>
+        <h3 data-i18n="prc.s3Title">Review &amp; Test</h3>
+        <p data-i18n="prc.s3Desc">Prüfprotokolle, gemeinsamer Walkthrough, RCA falls nötig. Korrekturen werden direkt eingearbeitet, bevor abgenommen wird.</p>
+      </div>
+      <div class="proc-step fade">
+        <div class="proc-num mono">04</div>
+        <h3 data-i18n="prc.s4Title">Übergabe &amp; Support</h3>
+        <p data-i18n="prc.s4Desc">Vollständige Dokumentation, CE/UL-konform, Übergabe in Ihr System (SAP / ECTR / Teamcenter). Optional zwei Wochen kostenloser Folge-Support.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BOOKING ============================ -->
+<section id="booking">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="bk.label">// Online Buchung &amp; Bezahlung</span>
+      <h2 class="section-title" data-i18n="bk.title">Paket wählen, Projekt beschreiben, loslegen.</h2>
+      <p class="section-subtitle" data-i18n="bk.subtitle">
+        Wählen Sie ein passendes Paket, beschreiben Sie kurz Ihr Vorhaben — ich melde mich innerhalb von 24 Stunden mit einem konkreten Vorschlag.
+      </p>
+    </div>
+
+    <div class="packages fade">
+      <div class="pkg-card" data-pkg="quick">
+        <div class="pkg-name">Quick Check</div>
+        <div class="pkg-desc" data-i18n="bk.p1Desc">1 Stunde Consulting — schnelle Einschätzung Ihres Themas.</div>
+        <div class="pkg-price">90 €</div>
+      </div>
+      <div class="pkg-card popular selected" data-pkg="starter" data-popular="POPULAR">
+        <div class="pkg-name">EPLAN Starter</div>
+        <div class="pkg-desc" data-i18n="bk.p2Desc">Schaltplan-Paket bis 8 h — kompakt &amp; planbar.</div>
+        <div class="pkg-price">580 €</div>
+      </div>
+      <div class="pkg-card" data-pkg="sprint">
+        <div class="pkg-name">Engineering Sprint</div>
+        <div class="pkg-desc" data-i18n="bk.p3Desc">1 Woche Remote (40 h) für komplexe Aufgaben.</div>
+        <div class="pkg-price">1.800 €</div>
+      </div>
+      <div class="pkg-card" data-pkg="custom">
+        <div class="pkg-name" data-i18n="bk.p4Name">Custom Projekt</div>
+        <div class="pkg-desc" data-i18n="bk.p4Desc">Maßgeschneidert — Festpreis oder Tagessatz.</div>
+        <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
+      </div>
+    </div>
+
+    <form class="booking-form fade" id="bookingForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <!-- Web3Forms-Konfiguration: access_key wird unten via JS gesetzt aus dem data-Attribut. -->
+      <input type="hidden" name="access_key" id="w3f_access_key" value="27231522-ef31-4725-8741-cb9e8bfecf39">
+      <input type="hidden" name="subject" value="Neue Anfrage über dietz-engineering.com">
+      <input type="hidden" name="from_name" value="Dietz Engineering Website">
+      <!-- Honeypot-Feld gegen Bots — bleibt unsichtbar; falls ausgefüllt, ignoriert Web3Forms die Submission. -->
+      <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+
+      <div>
+        <label class="field-label" data-i18n="bk.fFirst">Vorname *</label>
+        <input type="text" name="firstname" required>
+      </div>
+      <div>
+        <label class="field-label" data-i18n="bk.fLast">Nachname *</label>
+        <input type="text" name="lastname" required>
+      </div>
+      <div>
+        <label class="field-label" data-i18n="bk.fEmail">E-Mail *</label>
+        <input type="email" name="email" required>
+      </div>
+      <div>
+        <label class="field-label" data-i18n="bk.fCompany">Firma (optional)</label>
+        <input type="text" name="company">
+      </div>
+      <div class="full">
+        <label class="field-label" data-i18n="bk.fProject">Projektbeschreibung *</label>
+        <textarea name="project" required data-i18n-placeholder="bk.fProjectPh" placeholder="Was möchten Sie umsetzen? Welche Maschinen, welche Disziplinen, welcher Zeitrahmen?"></textarea>
+      </div>
+      <div>
+        <label class="field-label" data-i18n="bk.fDate">Wunschtermin</label>
+        <input type="date" name="preferred_date">
+      </div>
+      <div>
+        <label class="field-label" data-i18n="bk.fPkg">Gewähltes Paket</label>
+        <input type="text" name="package" id="selectedPackage" value="EPLAN Starter — 580 €" readonly>
+      </div>
+
+      <div class="full">
+        <label class="field-label" data-i18n="bk.fPay">Bevorzugte Zahlungsart</label>
+        <div class="payment-grid">
+          <div class="pay-option selected" data-pay="paypal">PayPal</div>
+          <div class="pay-option" data-pay="stripe" data-i18n="bk.payCard">Kreditkarte</div>
+          <div class="pay-option" data-pay="invoice" data-i18n="bk.payInvoice">Rechnung 14 T.</div>
+          <div class="pay-option" data-pay="crypto">Crypto</div>
+        </div>
+        <div class="payment-info mono" id="paymentInfo" data-i18n="bk.payInfoPP">// PayPal — sichere Zahlung sofort. Zahlungslink wird nach Auftragsbestätigung per E-Mail zugesendet.</div>
+        <p class="form-note" data-i18n="bk.payNote">Über das Formular wird keine automatische Zahlung ausgelöst. Sie erhalten nach Eingang Ihrer Anfrage eine persönliche Antwort mit konkretem Vorschlag, Vertrag und Zahlungsdetails.</p>
+      </div>
+
+      <div class="full">
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:1.05rem;">
+          <span data-i18n="bk.submit">Unverbindliche Anfrage absenden</span>
+          <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <p class="form-disclaimer" data-i18n="bk.disclaimer" data-i18n-html>Mit Absenden des Formulars erklären Sie sich mit der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage einverstanden — Details siehe <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+        <div class="success-msg" id="successMsg">
+          <div class="check">✓</div>
+          <div>
+            <h4 data-i18n="bk.successTitle">Anfrage erfolgreich übermittelt</h4>
+            <p data-i18n="bk.successText">Vielen Dank — ich melde mich innerhalb von 24 Stunden persönlich mit einem konkreten Vorschlag, Vertragsentwurf und den passenden Zahlungsdetails.</p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section id="faq">
+  <div class="container">
+    <div class="fade" style="text-align:center;">
+      <span class="section-label" style="justify-content:center;" data-i18n="faq.label">// Häufige Fragen</span>
+      <h2 class="section-title" style="margin-left:auto; margin-right:auto;" data-i18n="faq.title">Was Kunden vor dem ersten Gespräch wissen wollen.</h2>
+    </div>
+
+    <div class="faq-list fade">
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          <span data-i18n="faq.q1">Wie läuft eine Erstanfrage ab?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a1">
+          Anfrage über das Buchungsformular oder per Mail. Innerhalb von 24 Stunden erhalten Sie einen konkreten Vorschlag mit Zeit- und Preisrahmen. Das Erstgespräch ist immer unverbindlich.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          <span data-i18n="faq.q2">Arbeitest du mit NDAs?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a2">
+          Ja, selbstverständlich. NDAs sind in meinem Geschäft Standard — auf Wunsch unterschreibe ich vor dem Erstgespräch. Auch kunden- und projektspezifische Verschwiegenheitsregelungen sind kein Problem.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          <span data-i18n="faq.q3">Was passiert bei Reisetätigkeit ins Ausland?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a3">
+          Internationale Vor-Ort-Einsätze sind möglich. Reisekosten (Flug, Verpflegung, Übernachtung) werden 1:1 weitergegeben. Der Tagessatz vor Ort wird projektspezifisch vereinbart. Erfahrung u.a. mit längeren Aufenthalten in China und Indien.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          <span data-i18n="faq.q4">Mit welchen Tools und Systemen arbeitest du?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a4">
+          EPLAN P8 inklusive Pro Panel, Smartwiring und Fluid; SAP / ECTR / Teamcenter, Siemens NX, Automation Studio von B&amp;R. Auf Wunsch arbeite ich auch direkt in der Tool-Umgebung Ihres Unternehmens — Lizenzen und Zugänge stellen Sie bereit.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          <span data-i18n="faq.q5">Wie sieht die Abrechnung aus?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a5">
+          Stundennachweis bei Stundensätzen, fester Betrag bei Paketen oder Festpreis-Projekten. Zahlung per Rechnung (14 Tage netto), PayPal, Kreditkarte oder Crypto (BTC, ETH, USDC). Geschäftskunden mit gültiger USt-ID erhalten Rechnung gemäß §13b UStG.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button">
+          <span data-i18n="faq.q6">Bist du auch für längere Engagements verfügbar?</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a6">
+          Ja — typische Engineering-Sprints sind 1–4 Wochen, längere Engagements bis zu 3 Monaten möglich. Bitte planen Sie Anfragen mit klarer Verfügbarkeit frühzeitig — meine Kapazitäten sind in der Regel 4–6 Wochen im Voraus belegt.
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section id="contact">
+  <div class="container">
+    <div class="fade" style="text-align:center;">
+      <span class="section-label" style="justify-content:center;" data-i18n="ct.label">// Kontakt</span>
+      <h2 class="section-title" style="margin-left:auto; margin-right:auto;" data-i18n="ct.title">Lassen Sie uns über Ihr Projekt sprechen.</h2>
+    </div>
+    <div class="contact-card fade">
+      <p style="color:var(--text-soft);" data-i18n="ct.p1">
+        Direkter Draht — keine Hotline, keine Tickets. Schreiben Sie mir, ich melde mich persönlich zurück.
+      </p>
+      <a class="contact-mail" href="mailto:patrick@dietz-engineering.com">patrick@dietz-engineering.com</a>
+      <div class="contact-meta">
+        <span><svg class="ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Singen, Baden-Württemberg · DE</span>
+        <span><svg class="ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> <span data-i18n="ct.remote">Remote &amp; Vor-Ort weltweit</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#top" class="logo">
+        <span class="logo-mark">DE</span>
+        <span class="logo-text">DIETZ<span>—</span>ENGINEERING.COM</span>
+      </a>
+      <div class="footer-copy">© <span id="year"></span> Patrick Dietz · <span data-i18n="ft.rights">Alle Rechte vorbehalten</span></div>
+      <div class="footer-legal">
+        <a href="impressum.html" data-i18n="ft.imprint">Impressum</a>
+        <a href="datenschutz.html" data-i18n="ft.privacy">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ SCRIPT ============================ -->
+<script>
+/* Activate JS-only styles (fade-ins) — without this class, content
+   remains visible even when this script is blocked or errors out. */
+document.documentElement.classList.add('js-ready');
+/* =========================================================
+   I18N STRINGS — DE / EN / ES / ZH
+   ========================================================= */
+const i18n = {
+  de: {
+    "nav.about":"Über mich","nav.education":"Ausbildung","nav.services":"Leistungen","nav.projects":"Projekte","nav.experience":"Erfahrung","nav.process":"Prozess","nav.skills":"Skills","nav.booking":"Buchung","nav.faq":"FAQ","nav.contact":"Kontakt",
+    "prj.label":"// Projekt-Profile","prj.title":"Anonymisierte Auszüge aus über einem Jahrzehnt Praxis.",
+    "prj.subtitle":"Die folgenden Profile zeigen typische Engagements meiner bisherigen Karriere — bewusst auf der Detail-Ebene gehalten, die mit bestehenden NDAs vereinbar ist. Die Substanz der Arbeit bleibt erkennbar.",
+    "prj.p1Region":"DE · Multiple Projekte","prj.p1Title":"Plattenfolien-Extrusionslinien mit Co-Extrudern","prj.p1Desc":"Projektdefinition, Auswahl und Beschaffung von Langläufer-Komponenten. Vollständige EPLAN-Schaltplanerstellung für Extruder, Co-Extruder, Vakuumsystem, Glättwerk inklusive Heiz- und Kühlgeräten.",
+    "prj.p2Region":"DE · Multiple Projekte","prj.p2Title":"Wickler-, Schneid- und Stapelanlagen","prj.p2Desc":"Elektrokonstruktion komplexer Linienverbünde — Längs- und Querschneideinrichtungen, Stapelanlagen, Wickler. Pro Panel, Smartwiring, EPLAN Fluid für Pneumatik.",
+    "prj.p3Region":"Asien · Vor-Ort","prj.p3Time":"2020 / 21 · 5 Monate","prj.p3Title":"Inbetriebnahme während Corona-Lockdown","prj.p3Desc":"Vollständige elektrische Inbetriebnahme einer Extrusionslinie unter Lockdown-Bedingungen. Kundeninstruktion, Troubleshooting an Drives, Sensorik und Temperaturverhalten.",
+    "prj.p4Region":"CH · R&D","prj.p4Time":"2023 — heute","prj.p4Title":"CGC, E40 & Mikrowellen-Elektronik","prj.p4Desc":"Mitwirkung an der elektrischen Entwicklung mehrerer Rieter-Maschinenfunktionen bis zur 0-Serien-Reife — Konzeptphase, RCA, Fertigungsunterlagen, Prototypen-Aufbau.",
+    "prj.p5Region":"International","prj.p5Title":"Prototyp-Feldtest & Customer Onboarding","prj.p5Desc":"Bestellung von Prototypenteilen, Installation und Inbetriebnahme bei Pilotkunden, Erstellung von Umbau-Instruktionen, Schulung des Bedienpersonals.",
+    "prj.p6Title":"Komponentenanalyse & Supplier-Quality","prj.p6Desc":"Programmierung in Automation Studio (B&R), Lieferantenkoordination, Problemanalysen mit 8D-Reports, interdisziplinäre Entwicklung von Steuerungsfunktionen.",
+    "prj.tagCalender":"Glättwerk","prj.tagCommissioning":"Inbetriebnahme","prj.tagTroubleshoot":"Troubleshooting","prj.tagIntl":"International","prj.tagPilot":"0-Serie","prj.tagPilotCustomers":"Pilotkunden","prj.tagTraining":"Schulung","prj.tagRetrofit":"Umbau-Instruktionen",
+    "prj.ndaNote":"NDA-konform — Detailtiefe bewusst gehalten. Konkrete Projekt-Insights gerne im persönlichen Gespräch.",
+    "prc.label":"// Wie ich arbeite","prc.title":"Vom Briefing bis zur Übergabe — vier klare Schritte.","prc.subtitle":"Strukturiert, transparent, ohne Überraschungen. Sie wissen jederzeit, wo Ihr Projekt steht.",
+    "prc.s1Title":"Briefing & Scope","prc.s1Desc":"Wir klären Umfang, Schnittstellen und Zeitrahmen — auf Wunsch unter NDA. Output: ein einseitiges Auftragsblatt mit klaren Liefergegenständen.",
+    "prc.s2Title":"Konstruktion & Engineering","prc.s2Desc":"EPLAN-Schaltpläne, Pro-Panel-Aufbau, Komponentenauswahl. Wöchentlicher Stand inklusive Zwischenversionen — keine Black-Box-Phasen.",
+    "prc.s3Title":"Review & Test","prc.s3Desc":"Prüfprotokolle, gemeinsamer Walkthrough, RCA falls nötig. Korrekturen werden direkt eingearbeitet, bevor abgenommen wird.",
+    "prc.s4Title":"Übergabe & Support","prc.s4Desc":"Vollständige Dokumentation, CE/UL-konform, Übergabe in Ihr System (SAP / ECTR / Teamcenter). Optional zwei Wochen kostenloser Folge-Support.",
+    "faq.label":"// Häufige Fragen","faq.title":"Was Kunden vor dem ersten Gespräch wissen wollen.",
+    "faq.q1":"Wie läuft eine Erstanfrage ab?","faq.a1":"Anfrage über das Buchungsformular oder per Mail. Innerhalb von 24 Stunden erhalten Sie einen konkreten Vorschlag mit Zeit- und Preisrahmen. Das Erstgespräch ist immer unverbindlich.",
+    "faq.q2":"Arbeitest du mit NDAs?","faq.a2":"Ja, selbstverständlich. NDAs sind in meinem Geschäft Standard — auf Wunsch unterschreibe ich vor dem Erstgespräch. Auch kunden- und projektspezifische Verschwiegenheitsregelungen sind kein Problem.",
+    "faq.q3":"Was passiert bei Reisetätigkeit ins Ausland?","faq.a3":"Internationale Vor-Ort-Einsätze sind möglich. Reisekosten (Flug, Verpflegung, Übernachtung) werden 1:1 weitergegeben. Der Tagessatz vor Ort wird projektspezifisch vereinbart. Erfahrung u.a. mit längeren Aufenthalten in China und Indien.",
+    "faq.q4":"Mit welchen Tools und Systemen arbeitest du?","faq.a4":"EPLAN P8 inklusive Pro Panel, Smartwiring und Fluid; SAP / ECTR / Teamcenter, Siemens NX, Automation Studio von B&R. Auf Wunsch arbeite ich auch direkt in der Tool-Umgebung Ihres Unternehmens — Lizenzen und Zugänge stellen Sie bereit.",
+    "faq.q5":"Wie sieht die Abrechnung aus?","faq.a5":"Stundennachweis bei Stundensätzen, fester Betrag bei Paketen oder Festpreis-Projekten. Zahlung per Rechnung (14 Tage netto), PayPal, Kreditkarte oder Crypto (BTC, ETH, USDC). Geschäftskunden mit gültiger USt-ID erhalten Rechnung gemäß §13b UStG.",
+    "faq.q6":"Bist du auch für längere Engagements verfügbar?","faq.a6":"Ja — typische Engineering-Sprints sind 1–4 Wochen, längere Engagements bis zu 3 Monaten möglich. Bitte planen Sie Anfragen mit klarer Verfügbarkeit frühzeitig — meine Kapazitäten sind in der Regel 4–6 Wochen im Voraus belegt.",
+    "hero.badge":"Verfügbar für Projekte · Remote & Vor-Ort",
+    "hero.h1a":"Patrick Dietz","hero.h1b":"Electrical Engineering, präzise gebaut.",
+    "hero.tagline":"Staatlich geprüfter Techniker (Bachelor Professional in Technik) mit über 13 Jahren Berufserfahrung in EPLAN P8, Antriebstechnik und Maschinenentwicklung. Vom Schaltplan bis zur Inbetriebnahme — international, strukturiert, lösungsorientiert.",
+    "hero.meta1":"Singen, Baden-Württemberg · DE","hero.meta2":"13+ Jahre Berufserfahrung Elektrotechnik","hero.meta3":"EPLAN · Smartwiring · TIA Portal · Automation Studio","hero.meta4":"Drive Systems · Python · Visual Studio",
+    "hero.cta1":"Projekt anfragen","hero.cta2":"Leistungen ansehen",
+    "hero.langDE":"Muttersprache","hero.langEN":"Fortgeschritten",
+    "about.label":"// Über mich","about.title":"Tiefes Maschinenverständnis trifft strukturierte Elektrokonstruktion.",
+    "about.p1":"Ich bin Patrick Dietz — Staatlich geprüfter Techniker für Elektrotechnik (Bachelor Professional in Technik, DQR-Niveau 6) mit über 13 Jahren Berufserfahrung in der Konstruktion, Inbetriebnahme und Optimierung industrieller Maschinen und Anlagen.",
+    "about.p2":"Mein Fokus liegt auf EPLAN P8, Antriebstechnik (B&R ACOPOS P3, Motion Control), Safety Circuits und der elektrischen Konstruktion komplexer Maschinen — von Kunststoff-Extrusionsanlagen bis zu modernen Faseraufbereitungsmaschinen.",
+    "about.usp":"„Ich verbinde tiefes Maschinenverständnis mit strukturierter Elektrokonstruktion und internationaler Praxiserfahrung. Nicht nur planen — sondern Probleme wirklich lösen.\"",
+    "about.travelTitle":"International buchbar","about.travelText":"Inbetriebnahmen, Vor-Ort-Einsätze und Retrofit-Projekte weltweit — gegen Aufwandsentschädigung (Flug, Verpflegung, Übernachtung). Erfahrung u.a. China & Indien.",
+    "about.stat1":"Jahre Berufserfahrung","about.stat2":"P8 Expertenlevel","about.stat3":"International tätig","about.stat4":"Forschung & Entwicklung",
+    "edu.label":"// Ausbildung","edu.title":"Solide Grundlagen, kontinuierlich aufgebaut.",
+    "edu.card1Title":"Elektroniker für Betriebstechnik",
+    "edu.card1Desc":"3,5-jährige Lehre mit Fokus auf industrielle Anlagentechnik, Schaltschrankbau, Steuerungstechnik und elektrische Inbetriebnahme. Grundstein für strukturierte und normgerechte Elektrokonstruktion.",
+    "edu.card2Period":"Mai 2020 · DAA Technikum",
+    "edu.card2Title":"Staatlich geprüfter Techniker — Elektrotechnik",
+    "edu.card2Desc":"Fachrichtung Energietechnik & Prozessautomatisierung. Vertiefte Ausbildung in Antriebstechnik, Automatisierung, Messtechnik und Projektmanagement — Schwerpunkt industrielle Steuerungssysteme, Motion Control, Safety-Konzepte. Der Abschluss entspricht dem Bachelor-Niveau (DQR Level 6 / Bachelor Professional in Technik gemäß BBiG-Novelle 2020).",
+    "srv.label":"// Leistungen","srv.title":"Was ich für Ihr Projekt liefere.",
+    "srv.subtitle":"Vom Schaltplan über Pro Panel, Antriebstechnik bis hin zu internationalen Inbetriebnahmen — flexibel als Stundensatz, Festpreis oder Sprint-Paket.",
+    "srv.from":"ab","srv.orFixed":"oder Festpreis",
+    "srv.s1Title":"EPLAN P8 Schaltplanerstellung & Optimierung","srv.s1Desc":"Strukturierte, normgerechte Schaltpläne. Vorlagen, Makros, Auswertungen — sauber gepflegt und revisionssicher.",
+    "srv.s2Title":"EPLAN Pro Panel & Smartwiring","srv.s2Desc":"3D-Schaltschrankaufbau, Smartwiring-Daten, Fertigungsunterlagen — bereit für Produktion und Verdrahtungsroboter.",
+    "srv.s3Title":"Antriebstechnik & Motion Control","srv.s3Desc":"B&R ACOPOS P3, Achsensynchronisation, Servo-Auslegung. Von der Spezifikation bis zur funktionierenden Achse.",
+    "srv.s4Title":"Troubleshooting & Remote Support","srv.s4Desc":"Schnelle Fehleranalyse bei Drives, Sensorik, Temperaturverhalten und Safety-Schaltungen — remote oder vor Ort.",
+    "srv.s5Title":"Technische Dokumentation & BOM-Management","srv.s5Desc":"Stücklistenpflege in SAP/ECTR, Prüfprotokolle, RCA-Reports, CE/UL-konforme Doku.",
+    "srv.s6Title":"Retrofit & Internationale Projekte","srv.s6Desc":"Maschinenupgrades, Retrofit-Kits, Inbetriebnahmen weltweit. Erfahren in China- und Indien-Projekten.",
+    "srv.s6Price":"Tages-/Projektpreis auf Anfrage",
+    "exp.label":"// Berufserfahrung","exp.title":"Über ein Jahrzehnt im industriellen Maschinenbau.",
+    "exp.e1Period":"2023 — heute","exp.e1Title":"Electrical Engineer — R&D","exp.e1Company":"Rieter AG, Schweiz · Faseraufbereitungsmaschinen",
+    "exp.e1L1":"Entwicklung und Pflege elektrischer Schaltpläne mit EPLAN P8",
+    "exp.e1L2":"R&D für textile Maschinen — Strecke, Kämmerei, E40, E86",
+    "exp.e1L3":"Unterstützung internationaler Projekte (China, Indien)",
+    "exp.e1L4":"Technischer Kundensupport und Inbetriebnahmen (ACHA, Intercot)",
+    "exp.e1L5":"Analyse komplexer Maschinenprobleme — Drives, Sensorik, Temperaturverhalten, Safety",
+    "exp.e1L6":"Stücklistenpflege in SAP / ECTR",
+    "exp.e2Title":"Elektrotechniker — Konstruktion","exp.e2Company":"Breyer Maschinenfabrik GmbH · Kunststoff-Extrusionsanlagen",
+    "exp.e2L1":"Elektrische Konstruktion von Extrusionsanlagen — Plattenfolien, Tubenschlauch, Batteriefolien, Glättwerke",
+    "exp.e2L2":"Kabelauslegung und Definition von Kabellängen",
+    "exp.e2L3":"EPLAN Systemadministration — Artikeldaten, Auswertungen, Vorlagen, Prüfprotokolle, RCA",
+    "exp.e2L4":"Absprache mit Produktion, Produktabkündigungen, Lieferantenkommunikation",
+    "exp.e2L5":"Inbetriebnahmen und Kundensupport — u.a. 5 Monate am Stück in China während Corona",
+    "exp.e2L6":"EPLAN Pro Panel, Smartwiring, EPLAN Fluid (Pneumatik)",
+    "skl.label":"// Technische Skills","skl.title":"Tools, Methoden, Erfahrungen.",
+    "skl.b2":"Antriebstechnik & Motion Control (B&R ACOPOS P3)","skl.b3":"Schaltschrankbau & Verdrahtung","skl.b4":"Safety Circuits & CE / UL Normen","skl.b5":"Inbetriebnahme & Troubleshooting","skl.b6":"Technische Dokumentation & BOM","skl.b7":"Python & Excel — Datenanalyse",
+    "skl.toolsSW":"Software & Systeme","skl.toolsMethods":"Methoden & Domänen",
+    "skl.m1":"Motion Control","skl.m2":"Achsensynchronisation","skl.m3":"Safety Circuits","skl.m4":"CE / UL Normen","skl.m5":"Kabelauslegung","skl.m6":"BOM-Management","skl.m7":"Retrofit","skl.m8":"Inbetriebnahme","skl.m9":"Troubleshooting",
+    "bk.label":"// Online Buchung & Bezahlung","bk.title":"Paket wählen, Projekt beschreiben, loslegen.",
+    "bk.subtitle":"Wählen Sie ein passendes Paket, beschreiben Sie kurz Ihr Vorhaben — ich melde mich innerhalb von 24 Stunden mit einem konkreten Vorschlag.",
+    "bk.p1Desc":"1 Stunde Consulting — schnelle Einschätzung Ihres Themas.","bk.p2Desc":"Schaltplan-Paket bis 8 h — kompakt & planbar.","bk.p3Desc":"1 Woche Remote (40 h) für komplexe Aufgaben.","bk.p4Name":"Custom Projekt","bk.p4Desc":"Maßgeschneidert — Festpreis oder Tagessatz.","bk.onRequest":"Auf Anfrage",
+    "bk.fFirst":"Vorname *","bk.fLast":"Nachname *","bk.fEmail":"E-Mail *","bk.fCompany":"Firma (optional)",
+    "bk.fProject":"Projektbeschreibung *","bk.fProjectPh":"Was möchten Sie umsetzen? Welche Maschinen, welche Disziplinen, welcher Zeitrahmen?",
+    "bk.fDate":"Wunschtermin","bk.fPkg":"Gewähltes Paket",
+    "bk.fPay":"Bevorzugte Zahlungsart","bk.payCard":"Kreditkarte","bk.payInvoice":"Rechnung 14 T.",
+    "bk.payInfoPP":"// PayPal — sichere Zahlung sofort. Zahlungslink wird nach Auftragsbestätigung per E-Mail zugesendet.",
+    "bk.payInfoStripe":"// Kreditkarte via Stripe — Visa, Mastercard, Amex. Sicherer Checkout-Link folgt nach Auftragsbestätigung per E-Mail.",
+    "bk.payInfoInv":"// Rechnung — Zahlungsziel 14 Tage netto. Für Geschäftskunden mit gültiger USt-ID.",
+    "bk.payInfoCrypto":"// Crypto — Zahlung in BTC, ETH oder USDC möglich. Wallet-Adresse folgt nach Auftragsbestätigung per E-Mail.",
+    "bk.payNote":"Über das Formular wird keine automatische Zahlung ausgelöst. Sie erhalten nach Eingang Ihrer Anfrage eine persönliche Antwort mit konkretem Vorschlag, Vertrag und Zahlungsdetails.",
+    "bk.submit":"Unverbindliche Anfrage absenden",
+    "bk.disclaimer":"Mit Absenden des Formulars erklären Sie sich mit der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage einverstanden — Details siehe <a href=\"datenschutz.html\">Datenschutzerklärung</a>.",
+    "bk.successTitle":"Anfrage erfolgreich übermittelt","bk.successText":"Vielen Dank — ich melde mich innerhalb von 24 Stunden persönlich mit einem konkreten Vorschlag, Vertragsentwurf und den passenden Zahlungsdetails.",
+    "bk.errorMsg":"Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt eine E-Mail an patrick@dietz-engineering.com.",
+    "ct.label":"// Kontakt","ct.title":"Lassen Sie uns über Ihr Projekt sprechen.",
+    "ct.p1":"Direkter Draht — keine Hotline, keine Tickets. Schreiben Sie mir, ich melde mich persönlich zurück.","ct.remote":"Remote & Vor-Ort weltweit",
+    "ft.rights":"Alle Rechte vorbehalten","ft.imprint":"Impressum","ft.privacy":"Datenschutz"
+  },
+
+  en: {
+    "nav.about":"About","nav.education":"Education","nav.services":"Services","nav.projects":"Projects","nav.experience":"Experience","nav.process":"Process","nav.skills":"Skills","nav.booking":"Booking","nav.faq":"FAQ","nav.contact":"Contact",
+    "prj.label":"// Project Profiles","prj.title":"Anonymized highlights from over a decade in the field.",
+    "prj.subtitle":"The profiles below illustrate typical engagements from my career so far — kept at a level of detail that is compatible with existing NDAs. The substance of the work remains visible.",
+    "prj.p1Region":"DE · Multiple projects","prj.p1Title":"Sheet-film extrusion lines with co-extruders","prj.p1Desc":"Project definition, selection and procurement of long-lead components. Full EPLAN schematic design for extruders, co-extruders, vacuum systems, calenders incl. heating and cooling units.",
+    "prj.p2Region":"DE · Multiple projects","prj.p2Title":"Winders, slitters and stacker units","prj.p2Desc":"Electrical design of complex line composites — longitudinal and cross-cut units, stackers, winders. Pro Panel, Smartwiring, EPLAN Fluid for pneumatics.",
+    "prj.p3Region":"Asia · On-site","prj.p3Time":"2020 / 21 · 5 months","prj.p3Title":"Commissioning during the Covid lockdown","prj.p3Desc":"Full electrical commissioning of an extrusion line under lockdown conditions. Customer training, troubleshooting on drives, sensors and thermal behavior.",
+    "prj.p4Region":"CH · R&D","prj.p4Time":"2023 — present","prj.p4Title":"CGC, E40 & microwave electronics","prj.p4Desc":"Contributing to the electrical development of several Rieter machine functions through to 0-series readiness — concept phase, RCA, manufacturing documents, prototype build.",
+    "prj.p5Region":"International","prj.p5Title":"Prototype field-test & customer onboarding","prj.p5Desc":"Procurement of prototype parts, installation and commissioning at pilot customers, creation of conversion instructions, training of operating personnel.",
+    "prj.p6Title":"Component analysis & supplier quality","prj.p6Desc":"Programming in Automation Studio (B&R), supplier coordination, problem analyses with 8D reports, cross-disciplinary development of control functions.",
+    "prj.tagCalender":"Calender","prj.tagCommissioning":"Commissioning","prj.tagTroubleshoot":"Troubleshooting","prj.tagIntl":"International","prj.tagPilot":"0-series","prj.tagPilotCustomers":"Pilot customers","prj.tagTraining":"Training","prj.tagRetrofit":"Conversion docs",
+    "prj.ndaNote":"NDA-compliant — detail level deliberately limited. Concrete project insights happily shared in person.",
+    "prc.label":"// How I work","prc.title":"From briefing to handover — four clear steps.","prc.subtitle":"Structured, transparent, no surprises. You always know where your project stands.",
+    "prc.s1Title":"Briefing & Scope","prc.s1Desc":"We clarify scope, interfaces and timeline — under NDA if needed. Output: a one-page work order with clear deliverables.",
+    "prc.s2Title":"Design & Engineering","prc.s2Desc":"EPLAN schematics, Pro Panel build, component selection. Weekly status including intermediate versions — no black-box phases.",
+    "prc.s3Title":"Review & Test","prc.s3Desc":"Test reports, joint walkthrough, RCA if needed. Corrections are integrated immediately before sign-off.",
+    "prc.s4Title":"Handover & Support","prc.s4Desc":"Complete documentation, CE/UL-compliant, handover into your system (SAP / ECTR / Teamcenter). Optional two weeks of free follow-up support.",
+    "faq.label":"// Frequently Asked","faq.title":"What clients want to know before the first call.",
+    "faq.q1":"How does an initial inquiry work?","faq.a1":"Inquire via the booking form or by email. Within 24 hours you'll receive a concrete proposal with timeframe and pricing. The first call is always non-binding.",
+    "faq.q2":"Do you work under NDAs?","faq.a2":"Yes, of course. NDAs are standard in my line of work — I'm happy to sign one before the first call. Customer- and project-specific confidentiality clauses are no problem either.",
+    "faq.q3":"What about international travel?","faq.a3":"International on-site work is possible. Travel costs (flight, meals, accommodation) are passed through 1:1. The on-site day rate is agreed per project. Field experience includes longer stays in China and India.",
+    "faq.q4":"Which tools and systems do you use?","faq.a4":"EPLAN P8 incl. Pro Panel, Smartwiring and Fluid; SAP / ECTR / Teamcenter, Siemens NX, Automation Studio by B&R. On request I can also work directly in your company's tool environment — you provide licenses and access.",
+    "faq.q5":"How does billing work?","faq.a5":"Time tracking for hourly rates, fixed amount for packages or fixed-price projects. Payment by invoice (net 14 days), PayPal, credit card or crypto (BTC, ETH, USDC). Business clients with valid VAT ID receive an EU reverse-charge invoice where applicable.",
+    "faq.q6":"Are you available for longer engagements?","faq.a6":"Yes — typical engineering sprints are 1–4 weeks, longer engagements up to 3 months are possible. Please plan inquiries with clear availability early — my capacity is usually booked 4–6 weeks ahead.",
+    "hero.badge":"Available for projects · Remote & On-site",
+    "hero.h1a":"Patrick Dietz","hero.h1b":"Electrical engineering, built with precision.",
+    "hero.tagline":"Bachelor Professional in Technik (state-certified electrical engineer, DQR level 6) with 13+ years of hands-on experience in EPLAN P8, motion control and machine development. From schematic to commissioning — international, structured, solution-driven.",
+    "hero.meta1":"Singen, Baden-Württemberg · DE","hero.meta2":"13+ years in electrical engineering","hero.meta3":"EPLAN · Smartwiring · TIA Portal · Automation Studio","hero.meta4":"Drive Systems · Python · Visual Studio",
+    "hero.cta1":"Request a project","hero.cta2":"View services",
+    "hero.langDE":"Native","hero.langEN":"Advanced",
+    "about.label":"// About","about.title":"Deep machine understanding meets structured electrical design.",
+    "about.p1":"I'm Patrick Dietz — a state-certified electrical engineer (Bachelor Professional in Technik, DQR / EQF level 6, equivalent to a bachelor's degree) with more than 13 years of hands-on experience designing, commissioning and optimizing industrial machinery.",
+    "about.p2":"My focus is EPLAN P8, drive technology (B&R ACOPOS P3, motion control), safety circuits and the electrical design of complex machines — from plastic extrusion lines to modern fiber-preparation systems.",
+    "about.usp":"\"I combine deep machine understanding with structured electrical design and international hands-on experience. Not just planning — actually solving problems.\"",
+    "about.travelTitle":"Available internationally","about.travelText":"Commissioning, on-site work and retrofit projects worldwide — billed against expenses (flights, meals, accommodation). Field experience includes China and India.",
+    "about.stat1":"Years in the field","about.stat2":"P8 expert level","about.stat3":"International work","about.stat4":"Research & Development",
+    "edu.label":"// Education","edu.title":"Solid foundations, built up step by step.",
+    "edu.card1Title":"Industrial Electronics Technician",
+    "edu.card1Desc":"3.5-year apprenticeship focused on industrial plant engineering, control cabinet construction, control technology and electrical commissioning. The foundation for clean, standards-compliant electrical design.",
+    "edu.card2Period":"May 2020 · DAA Technikum",
+    "edu.card2Title":"Bachelor Professional in Technik — Electrical Engineering",
+    "edu.card2Desc":"Specialization in Energy Technology & Process Automation. Advanced training in drive technology, automation, measurement and project management — focus on industrial control systems, motion control and safety concepts. Equivalent to a bachelor's degree under the German Qualifications Framework (DQR / EQF level 6, official designation introduced via the 2020 BBiG amendment; the underlying qualification is the German »Staatlich geprüfter Techniker«).",
+    "srv.label":"// Services","srv.title":"What I deliver for your project.",
+    "srv.subtitle":"From schematics to Pro Panel, drives and international commissioning — flexible as hourly, fixed-price or sprint package.",
+    "srv.from":"from","srv.orFixed":"or fixed price",
+    "srv.s1Title":"EPLAN P8 Schematic Design & Optimization","srv.s1Desc":"Structured, standards-compliant schematics. Templates, macros, evaluations — cleanly maintained and revision-safe.",
+    "srv.s2Title":"EPLAN Pro Panel & Smartwiring","srv.s2Desc":"3D cabinet builds, Smartwiring data, manufacturing documentation — ready for production and wiring robots.",
+    "srv.s3Title":"Drive Technology & Motion Control","srv.s3Desc":"B&R ACOPOS P3, axis synchronization, servo sizing. From specification to a working axis.",
+    "srv.s4Title":"Troubleshooting & Remote Support","srv.s4Desc":"Fast root-cause analysis on drives, sensors, thermal behavior and safety circuits — remote or on-site.",
+    "srv.s5Title":"Technical Documentation & BOM Management","srv.s5Desc":"BOM maintenance in SAP/ECTR, test reports, RCA documents, CE/UL-compliant documentation.",
+    "srv.s6Title":"Retrofit & International Projects","srv.s6Desc":"Machine upgrades, retrofit kits, commissioning worldwide. Experienced in China and India projects.",
+    "srv.s6Price":"Day/project rate on request",
+    "exp.label":"// Experience","exp.title":"More than a decade in industrial machinery.",
+    "exp.e1Period":"2023 — present","exp.e1Title":"Electrical Engineer — R&D","exp.e1Company":"Rieter AG, Switzerland · Fiber-preparation machinery",
+    "exp.e1L1":"Development and maintenance of electrical schematics with EPLAN P8",
+    "exp.e1L2":"R&D for textile machines — draw frame, comber, E40, E86",
+    "exp.e1L3":"Support for international projects (China, India)",
+    "exp.e1L4":"Technical customer support and commissioning (ACHA, Intercot)",
+    "exp.e1L5":"Analysis of complex machine problems — drives, sensors, thermal behavior, safety",
+    "exp.e1L6":"BOM maintenance in SAP / ECTR",
+    "exp.e2Title":"Electrical Technician — Design","exp.e2Company":"Breyer Maschinenfabrik GmbH · Plastic extrusion lines",
+    "exp.e2L1":"Electrical design of extrusion lines — sheet film, tube hose, battery film, calenders",
+    "exp.e2L2":"Cable sizing and definition of cable lengths",
+    "exp.e2L3":"EPLAN system administration — article data, evaluations, templates, test reports, RCA",
+    "exp.e2L4":"Coordination with production, product phase-outs, supplier communication",
+    "exp.e2L5":"Commissioning and customer support — incl. 5 months continuous on-site in China during Covid",
+    "exp.e2L6":"EPLAN Pro Panel, Smartwiring, EPLAN Fluid (pneumatics)",
+    "skl.label":"// Technical Skills","skl.title":"Tools, methods, experience.",
+    "skl.b2":"Drive Technology & Motion Control (B&R ACOPOS P3)","skl.b3":"Cabinet Build & Wiring","skl.b4":"Safety Circuits & CE / UL Standards","skl.b5":"Commissioning & Troubleshooting","skl.b6":"Technical Documentation & BOM","skl.b7":"Python & Excel — Data Analysis",
+    "skl.toolsSW":"Software & Systems","skl.toolsMethods":"Methods & Domains",
+    "skl.m1":"Motion Control","skl.m2":"Axis Synchronization","skl.m3":"Safety Circuits","skl.m4":"CE / UL Standards","skl.m5":"Cable Sizing","skl.m6":"BOM Management","skl.m7":"Retrofit","skl.m8":"Commissioning","skl.m9":"Troubleshooting",
+    "bk.label":"// Online Booking & Payment","bk.title":"Pick a package, describe your project, get started.",
+    "bk.subtitle":"Choose a suitable package, briefly describe your scope — I'll get back to you within 24 hours with a concrete proposal.",
+    "bk.p1Desc":"1 hour of consulting — quick assessment of your topic.","bk.p2Desc":"Schematic package up to 8 h — compact & predictable.","bk.p3Desc":"1 week remote (40 h) for complex tasks.","bk.p4Name":"Custom Project","bk.p4Desc":"Tailored — fixed price or day rate.","bk.onRequest":"On request",
+    "bk.fFirst":"First name *","bk.fLast":"Last name *","bk.fEmail":"Email *","bk.fCompany":"Company (optional)",
+    "bk.fProject":"Project description *","bk.fProjectPh":"What do you want to build? Which machines, which disciplines, what timeframe?",
+    "bk.fDate":"Preferred start date","bk.fPkg":"Selected package",
+    "bk.fPay":"Preferred payment method","bk.payCard":"Credit Card","bk.payInvoice":"Invoice 14 d.",
+    "bk.payInfoPP":"// PayPal — secure instant payment. Payment link will be sent by email after order confirmation.",
+    "bk.payInfoStripe":"// Credit card via Stripe — Visa, Mastercard, Amex. Secure checkout link will follow by email after order confirmation.",
+    "bk.payInfoInv":"// Invoice — net 14 days. For business clients with valid VAT ID.",
+    "bk.payInfoCrypto":"// Crypto — payment in BTC, ETH or USDC accepted. Wallet address will follow by email after order confirmation.",
+    "bk.payNote":"Submitting this form does not trigger any automated payment. You will receive a personal reply with a concrete proposal, contract and payment details after we've reviewed your request.",
+    "bk.submit":"Send non-binding inquiry",
+    "bk.disclaimer":"By submitting this form you consent to your data being processed to handle your inquiry — details in the <a href=\"datenschutz.html\">privacy policy</a>.",
+    "bk.successTitle":"Inquiry submitted successfully","bk.successText":"Thank you — I'll personally get back to you within 24 hours with a concrete proposal, draft contract and matching payment details.",
+    "bk.errorMsg":"There was an error sending your request. Please try again or email patrick@dietz-engineering.com directly.",
+    "ct.label":"// Contact","ct.title":"Let's talk about your project.",
+    "ct.p1":"A direct line — no hotline, no tickets. Drop me a message and I'll get back to you personally.","ct.remote":"Remote & on-site worldwide",
+    "ft.rights":"All rights reserved","ft.imprint":"Imprint","ft.privacy":"Privacy"
+  },
+
+  es: {
+    "nav.about":"Sobre mí","nav.education":"Formación","nav.services":"Servicios","nav.projects":"Proyectos","nav.experience":"Experiencia","nav.process":"Proceso","nav.skills":"Skills","nav.booking":"Reserva","nav.faq":"FAQ","nav.contact":"Contacto",
+    "prj.label":"// Perfiles de proyecto","prj.title":"Extractos anonimizados de más de una década en el sector.",
+    "prj.subtitle":"Los siguientes perfiles muestran encargos típicos de mi trayectoria — con un nivel de detalle compatible con los NDA existentes. La sustancia del trabajo sigue siendo visible.",
+    "prj.p1Region":"DE · Múltiples proyectos","prj.p1Title":"Líneas de extrusión de láminas con co-extrusores","prj.p1Desc":"Definición del proyecto, selección y aprovisionamiento de componentes de plazo largo. Diseño completo en EPLAN para extrusores, co-extrusores, sistema de vacío y calandra incluyendo equipos de calefacción y refrigeración.",
+    "prj.p2Region":"DE · Múltiples proyectos","prj.p2Title":"Bobinadoras, cortadoras y apiladoras","prj.p2Desc":"Diseño eléctrico de conjuntos de línea complejos — cortes longitudinales y transversales, apiladoras, bobinadoras. Pro Panel, Smartwiring, EPLAN Fluid para neumática.",
+    "prj.p3Region":"Asia · In situ","prj.p3Time":"2020 / 21 · 5 meses","prj.p3Title":"Puesta en marcha durante el confinamiento","prj.p3Desc":"Puesta en marcha eléctrica completa de una línea de extrusión bajo confinamiento. Formación al cliente, diagnóstico de accionamientos, sensórica y comportamiento térmico.",
+    "prj.p4Region":"CH · I+D","prj.p4Time":"2023 — actualidad","prj.p4Title":"CGC, E40 y electrónica de microondas","prj.p4Desc":"Contribución al desarrollo eléctrico de varias funciones de máquina Rieter hasta la madurez serie 0 — fase conceptual, RCA, documentación de fabricación, montaje de prototipos.",
+    "prj.p5Region":"Internacional","prj.p5Title":"Pruebas de campo de prototipos y onboarding de clientes","prj.p5Desc":"Pedido de piezas prototipo, instalación y puesta en marcha en clientes piloto, redacción de instrucciones de modificación, formación del personal operario.",
+    "prj.p6Title":"Análisis de componentes y calidad de proveedores","prj.p6Desc":"Programación en Automation Studio (B&R), coordinación con proveedores, análisis de problemas con informes 8D, desarrollo interdisciplinario de funciones de control.",
+    "prj.tagCalender":"Calandra","prj.tagCommissioning":"Puesta en marcha","prj.tagTroubleshoot":"Diagnóstico","prj.tagIntl":"Internacional","prj.tagPilot":"Serie 0","prj.tagPilotCustomers":"Clientes piloto","prj.tagTraining":"Formación","prj.tagRetrofit":"Modificaciones",
+    "prj.ndaNote":"Conforme a NDA — nivel de detalle limitado de forma intencionada. Insights concretos del proyecto, en conversación personal.",
+    "prc.label":"// Cómo trabajo","prc.title":"Del briefing a la entrega — cuatro pasos claros.","prc.subtitle":"Estructurado, transparente, sin sorpresas. En todo momento sabes en qué punto está tu proyecto.",
+    "prc.s1Title":"Briefing y alcance","prc.s1Desc":"Definimos alcance, interfaces y plazos — bajo NDA si hace falta. Resultado: una hoja de pedido de una página con entregables claros.",
+    "prc.s2Title":"Diseño e ingeniería","prc.s2Desc":"Esquemas EPLAN, montaje en Pro Panel, selección de componentes. Estado semanal incluyendo versiones intermedias — sin fases de caja negra.",
+    "prc.s3Title":"Revisión y prueba","prc.s3Desc":"Protocolos de prueba, walkthrough conjunto, RCA si es necesario. Las correcciones se integran de inmediato antes de la aceptación.",
+    "prc.s4Title":"Entrega y soporte","prc.s4Desc":"Documentación completa, conforme a CE/UL, entrega en tu sistema (SAP / ECTR / Teamcenter). Opcional: dos semanas gratuitas de soporte posterior.",
+    "faq.label":"// Preguntas frecuentes","faq.title":"Lo que los clientes quieren saber antes de la primera llamada.",
+    "faq.q1":"¿Cómo es una primera consulta?","faq.a1":"Solicítalo por el formulario de reserva o por correo. En 24 horas recibirás una propuesta concreta con plazo y precio. La primera llamada siempre es sin compromiso.",
+    "faq.q2":"¿Trabajas bajo NDA?","faq.a2":"Sí, por supuesto. Los NDA son estándar en mi sector — los firmo encantado antes de la primera llamada. Cláusulas específicas de cliente o proyecto tampoco son problema.",
+    "faq.q3":"¿Qué pasa con los desplazamientos internacionales?","faq.a3":"Los trabajos internacionales in situ son posibles. Los costes de viaje (vuelo, dietas, alojamiento) se repercuten 1:1. La tarifa diaria in situ se acuerda por proyecto. Experiencia con estancias largas en China e India.",
+    "faq.q4":"¿Qué herramientas y sistemas utilizas?","faq.a4":"EPLAN P8 incluyendo Pro Panel, Smartwiring y Fluid; SAP / ECTR / Teamcenter, Siemens NX, Automation Studio de B&R. Si lo prefieres, trabajo directamente en el entorno de herramientas de tu empresa — tú facilitas licencias y accesos.",
+    "faq.q5":"¿Cómo es la facturación?","faq.a5":"Parte de horas para tarifas por hora, importe fijo en paquetes o proyectos a precio cerrado. Pago por factura (14 días neto), PayPal, tarjeta o crypto (BTC, ETH, USDC). Para clientes empresariales con NIF/VAT válido se aplica inversión del sujeto pasivo intracomunitario cuando proceda.",
+    "faq.q6":"¿Estás disponible para encargos largos?","faq.a6":"Sí — los sprints típicos son de 1 a 4 semanas, con encargos de hasta 3 meses posibles. Por favor planifica con disponibilidad clara con suficiente antelación — mi capacidad suele estar reservada con 4–6 semanas de adelanto.",
+    "hero.badge":"Disponible para proyectos · Remoto y presencial",
+    "hero.h1a":"Patrick Dietz","hero.h1b":"Ingeniería eléctrica, con precisión.",
+    "hero.tagline":"Bachelor Professional in Technik (Técnico Superior en Electrotecnia, nivel DQR 6 — equivalente a grado universitario) con más de 13 años de experiencia profesional en EPLAN P8, accionamientos y desarrollo de maquinaria. Del esquema a la puesta en marcha — internacional, estructurado y orientado a soluciones.",
+    "hero.meta1":"Singen, Baden-Württemberg · DE","hero.meta2":"13+ años en electrotecnia","hero.meta3":"EPLAN · Smartwiring · TIA Portal · Automation Studio","hero.meta4":"Drive Systems · Python · Visual Studio",
+    "hero.cta1":"Solicitar proyecto","hero.cta2":"Ver servicios",
+    "hero.langDE":"Nativo","hero.langEN":"Avanzado",
+    "about.label":"// Sobre mí","about.title":"Profundo conocimiento de máquinas y diseño eléctrico estructurado.",
+    "about.p1":"Soy Patrick Dietz — Técnico Superior en Electrotecnia (Bachelor Professional in Technik, DQR/EQF nivel 6, equivalente a un grado universitario) con más de 13 años de experiencia diseñando, poniendo en marcha y optimizando maquinaria industrial.",
+    "about.p2":"Me especializo en EPLAN P8, accionamientos (B&R ACOPOS P3, motion control), circuitos de seguridad y el diseño eléctrico de máquinas complejas — desde líneas de extrusión de plástico hasta modernas máquinas de preparación de fibra.",
+    "about.usp":"«Combino un conocimiento profundo de la máquina con un diseño eléctrico estructurado y experiencia internacional sobre el terreno. No solo planificar — sino resolver problemas de verdad.»",
+    "about.travelTitle":"Disponible internacionalmente","about.travelText":"Puestas en marcha, intervenciones in situ y proyectos retrofit en todo el mundo — con compensación de gastos (vuelo, dietas, alojamiento). Experiencia en China e India, entre otros.",
+    "about.stat1":"Años de experiencia","about.stat2":"Nivel experto P8","about.stat3":"Trabajo internacional","about.stat4":"I+D",
+    "edu.label":"// Formación","edu.title":"Bases sólidas, construidas paso a paso.",
+    "edu.card1Title":"Técnico Electrónico Industrial",
+    "edu.card1Desc":"Formación profesional de 3,5 años centrada en instalaciones industriales, construcción de armarios eléctricos, técnica de control y puesta en marcha. La base de un diseño eléctrico limpio y normativo.",
+    "edu.card2Period":"Mayo 2020 · DAA Technikum",
+    "edu.card2Title":"Bachelor Professional in Technik — Electrotecnia",
+    "edu.card2Desc":"Especialidad en Energética y Automatización de Procesos. Formación avanzada en accionamientos, automatización, metrología y gestión de proyectos — énfasis en sistemas de control industrial, motion control y conceptos de seguridad. Título equivalente a un grado universitario según el Marco Alemán de Cualificaciones (DQR / EQF nivel 6 — denominación oficial introducida por la reforma del BBiG en 2020; cualificación de base »Staatlich geprüfter Techniker«).",
+    "srv.label":"// Servicios","srv.title":"Lo que aporto a tu proyecto.",
+    "srv.subtitle":"Del esquema a Pro Panel, accionamientos y puestas en marcha internacionales — flexible por hora, precio fijo o paquete sprint.",
+    "srv.from":"desde","srv.orFixed":"o precio fijo",
+    "srv.s1Title":"Esquemas EPLAN P8 — diseño y optimización","srv.s1Desc":"Esquemas estructurados y conformes a la norma. Plantillas, macros, listados — bien mantenidos y a prueba de revisiones.",
+    "srv.s2Title":"EPLAN Pro Panel y Smartwiring","srv.s2Desc":"Armarios en 3D, datos Smartwiring, documentación de fabricación — listos para producción y robots de cableado.",
+    "srv.s3Title":"Accionamientos y Motion Control","srv.s3Desc":"B&R ACOPOS P3, sincronización de ejes, dimensionado de servos. De la especificación al eje funcionando.",
+    "srv.s4Title":"Diagnóstico y soporte remoto","srv.s4Desc":"Análisis rápido de fallos en accionamientos, sensórica, comportamiento térmico y circuitos de seguridad — en remoto o in situ.",
+    "srv.s5Title":"Documentación técnica y gestión de BOM","srv.s5Desc":"Mantenimiento de listas en SAP/ECTR, protocolos de prueba, informes RCA, documentación conforme a CE/UL.",
+    "srv.s6Title":"Retrofit y proyectos internacionales","srv.s6Desc":"Modernizaciones de máquinas, kits retrofit, puestas en marcha en todo el mundo. Experiencia en proyectos en China e India.",
+    "srv.s6Price":"Tarifa diaria/proyecto bajo solicitud",
+    "exp.label":"// Experiencia","exp.title":"Más de una década en maquinaria industrial.",
+    "exp.e1Period":"2023 — actualidad","exp.e1Title":"Electrical Engineer — I+D","exp.e1Company":"Rieter AG, Suiza · Maquinaria de preparación de fibra",
+    "exp.e1L1":"Desarrollo y mantenimiento de esquemas eléctricos con EPLAN P8",
+    "exp.e1L2":"I+D para máquinas textiles — manuar, peinadora, E40, E86",
+    "exp.e1L3":"Apoyo a proyectos internacionales (China, India)",
+    "exp.e1L4":"Soporte técnico al cliente y puestas en marcha (ACHA, Intercot)",
+    "exp.e1L5":"Análisis de problemas complejos de máquina — accionamientos, sensórica, térmica, seguridad",
+    "exp.e1L6":"Mantenimiento de BOM en SAP / ECTR",
+    "exp.e2Title":"Técnico eléctrico — Diseño","exp.e2Company":"Breyer Maschinenfabrik GmbH · Líneas de extrusión de plástico",
+    "exp.e2L1":"Diseño eléctrico de líneas de extrusión — láminas, tubos, films de batería, calandras",
+    "exp.e2L2":"Dimensionado y definición de longitudes de cable",
+    "exp.e2L3":"Administración de EPLAN — datos de artículos, listados, plantillas, protocolos, RCA",
+    "exp.e2L4":"Coordinación con producción, gestión de obsolescencias, comunicación con proveedores",
+    "exp.e2L5":"Puestas en marcha y soporte al cliente — incl. 5 meses seguidos en China durante el Covid",
+    "exp.e2L6":"EPLAN Pro Panel, Smartwiring, EPLAN Fluid (neumática)",
+    "skl.label":"// Skills técnicos","skl.title":"Herramientas, métodos y experiencia.",
+    "skl.b2":"Accionamientos y Motion Control (B&R ACOPOS P3)","skl.b3":"Armarios eléctricos y cableado","skl.b4":"Circuitos de seguridad y normas CE / UL","skl.b5":"Puesta en marcha y diagnóstico","skl.b6":"Documentación técnica y BOM","skl.b7":"Python y Excel — análisis de datos",
+    "skl.toolsSW":"Software y sistemas","skl.toolsMethods":"Métodos y dominios",
+    "skl.m1":"Motion Control","skl.m2":"Sincronización de ejes","skl.m3":"Circuitos de seguridad","skl.m4":"Normas CE / UL","skl.m5":"Dimensionado de cables","skl.m6":"Gestión BOM","skl.m7":"Retrofit","skl.m8":"Puesta en marcha","skl.m9":"Diagnóstico",
+    "bk.label":"// Reserva online y pago","bk.title":"Elige un paquete, describe tu proyecto y empezamos.",
+    "bk.subtitle":"Elige un paquete adecuado, describe brevemente tu proyecto — te respondo en menos de 24 horas con una propuesta concreta.",
+    "bk.p1Desc":"1 hora de consultoría — valoración rápida de tu tema.","bk.p2Desc":"Paquete de esquemas hasta 8 h — compacto y predecible.","bk.p3Desc":"1 semana remoto (40 h) para tareas complejas.","bk.p4Name":"Proyecto a medida","bk.p4Desc":"Personalizado — precio fijo o tarifa diaria.","bk.onRequest":"A consultar",
+    "bk.fFirst":"Nombre *","bk.fLast":"Apellidos *","bk.fEmail":"Correo electrónico *","bk.fCompany":"Empresa (opcional)",
+    "bk.fProject":"Descripción del proyecto *","bk.fProjectPh":"¿Qué quieres realizar? ¿Qué máquinas, qué disciplinas, qué plazo?",
+    "bk.fDate":"Fecha preferida","bk.fPkg":"Paquete seleccionado",
+    "bk.fPay":"Forma de pago preferida","bk.payCard":"Tarjeta","bk.payInvoice":"Factura 14 d.",
+    "bk.payInfoPP":"// PayPal — pago seguro inmediato. El enlace de pago se envía por correo tras la confirmación del encargo.",
+    "bk.payInfoStripe":"// Tarjeta vía Stripe — Visa, Mastercard, Amex. Recibirás un enlace de pago seguro por correo tras la confirmación.",
+    "bk.payInfoInv":"// Factura — vencimiento 14 días neto. Para clientes empresariales con NIF/VAT válido.",
+    "bk.payInfoCrypto":"// Crypto — pago en BTC, ETH o USDC. La dirección de la wallet se envía por correo tras la confirmación.",
+    "bk.payNote":"Este formulario no inicia ningún pago automático. Tras revisar tu solicitud recibirás una respuesta personal con una propuesta concreta, el contrato y los detalles de pago.",
+    "bk.submit":"Enviar consulta sin compromiso",
+    "bk.disclaimer":"Al enviar el formulario consientes el tratamiento de tus datos para gestionar tu consulta — detalles en la <a href=\"datenschutz.html\">política de privacidad</a>.",
+    "bk.successTitle":"Solicitud enviada correctamente","bk.successText":"Gracias — te responderé personalmente en menos de 24 horas con una propuesta concreta, borrador de contrato y los detalles de pago correspondientes.",
+    "bk.errorMsg":"Hubo un error al enviar tu solicitud. Inténtalo de nuevo o escríbeme directamente a patrick@dietz-engineering.com.",
+    "ct.label":"// Contacto","ct.title":"Hablemos de tu proyecto.",
+    "ct.p1":"Línea directa — sin centralita ni tickets. Escríbeme y te respondo personalmente.","ct.remote":"Remoto y presencial en todo el mundo",
+    "ft.rights":"Todos los derechos reservados","ft.imprint":"Aviso legal","ft.privacy":"Privacidad"
+  },
+
+  zh: {
+    "nav.about":"关于我","nav.education":"教育背景","nav.services":"服务","nav.projects":"项目","nav.experience":"工作经验","nav.process":"流程","nav.skills":"技能","nav.booking":"预约","nav.faq":"常见问题","nav.contact":"联系",
+    "prj.label":"// 项目案例","prj.title":"十余年实战经验中的匿名摘录。",
+    "prj.subtitle":"以下案例展示了我职业生涯中的典型项目 — 详细程度有意控制在与现行保密协议相符的范围内。工作的实质内容仍清晰可见。",
+    "prj.p1Region":"德国 · 多个项目","prj.p1Title":"带共挤出机的板材薄膜挤出生产线","prj.p1Desc":"项目定义、长周期物料的选型与采购。完整的 EPLAN 电路图设计 — 涵盖挤出机、共挤出机、真空系统、压光机及其加热与冷却装置。",
+    "prj.p2Region":"德国 · 多个项目","prj.p2Title":"卷绕机、分切机与堆垛设备","prj.p2Desc":"复杂联动生产线的电气设计 — 纵切、横切设备、堆垛机、卷绕机。Pro Panel、Smartwiring，以及用于气动的 EPLAN Fluid。",
+    "prj.p3Region":"亚洲 · 现场","prj.p3Time":"2020 / 21 · 5 个月","prj.p3Title":"疫情封控期间的现场调试","prj.p3Desc":"在封控条件下完成挤出生产线的全部电气调试。客户培训、驱动器、传感器与温升表现的故障排查。",
+    "prj.p4Region":"瑞士 · 研发","prj.p4Time":"2023 — 至今","prj.p4Title":"CGC、E40 与微波电子模块","prj.p4Desc":"参与多项 Rieter 机型功能模块的电气开发，直至 0 系列成熟阶段 — 概念阶段、RCA、生产文件、原型搭建。",
+    "prj.p5Region":"国际","prj.p5Title":"原型现场测试与客户上线","prj.p5Desc":"原型零件订购、客户试点装机与调试、改造说明的编写、操作人员培训。",
+    "prj.p6Title":"零部件分析与供应商质量","prj.p6Desc":"使用 B&R Automation Studio 编程、供应商协调、基于 8D 报告的问题分析、跨学科开发控制功能。",
+    "prj.tagCalender":"压光机","prj.tagCommissioning":"现场调试","prj.tagTroubleshoot":"故障排查","prj.tagIntl":"国际项目","prj.tagPilot":"0 系列","prj.tagPilotCustomers":"试点客户","prj.tagTraining":"培训","prj.tagRetrofit":"改造说明",
+    "prj.ndaNote":"符合 NDA — 详细程度刻意保留。具体项目细节欢迎当面深聊。",
+    "prc.label":"// 我的工作方式","prc.title":"从需求到交付 — 四个清晰步骤。","prc.subtitle":"结构化、透明、无意外。您随时清楚项目所处阶段。",
+    "prc.s1Title":"需求与范围","prc.s1Desc":"我们一起界定范围、接口与时间表 — 必要时签署 NDA。交付物：一页式工单，明确写明可交付内容。",
+    "prc.s2Title":"设计与工程","prc.s2Desc":"EPLAN 电路图、Pro Panel 搭建、零部件选型。每周状态汇报并交付中间版本 — 没有黑盒阶段。",
+    "prc.s3Title":"评审与测试","prc.s3Desc":"测试报告、共同走查、必要时执行 RCA。修正在验收前直接落实到位。",
+    "prc.s4Title":"交付与支持","prc.s4Desc":"完整文档，符合 CE/UL 要求，交付到您的系统（SAP / ECTR / Teamcenter）。可选两周免费的后续支持。",
+    "faq.label":"// 常见问题","faq.title":"客户在首次沟通前最关心的问题。",
+    "faq.q1":"首次咨询的流程是怎样的？","faq.a1":"通过预约表单或邮件提出咨询。24 小时内您将收到包含时间和价格框架的具体方案。首次沟通始终不收费、不绑定。",
+    "faq.q2":"您接受 NDA（保密协议）吗？","faq.a2":"当然可以。NDA 在我的工作中是常态 — 可在首次沟通前签署。客户或项目特定的保密条款也完全没有问题。",
+    "faq.q3":"国际出差怎么处理？","faq.a3":"可以承接国际现场项目。差旅成本（机票、餐饮、住宿）按实报销。现场日费按项目协商。在中国和印度均有较长时间的现场经验。",
+    "faq.q4":"您使用哪些工具与系统？","faq.a4":"EPLAN P8（包含 Pro Panel、Smartwiring、Fluid）；SAP / ECTR / Teamcenter、Siemens NX、B&R Automation Studio。若有需要，也可直接在贵公司的工具环境内工作 — 由您提供许可证与访问权限。",
+    "faq.q5":"如何结算？","faq.a5":"按小时计费时记录工时表，套餐或固定价项目按约定金额。支持对公开票（净 14 天）、PayPal、信用卡或加密货币（BTC、ETH、USDC）。具备有效税号的企业客户可按欧盟反向征收开具发票。",
+    "faq.q6":"您是否承接长期项目？","faq.a6":"可以 — 典型工程冲刺为 1–4 周，最长可承接约 3 个月的长期项目。请尽早提出有明确时间窗口的咨询 — 我的档期通常会提前 4–6 周排满。",
+    "hero.badge":"可承接项目 · 远程与现场",
+    "hero.h1a":"Patrick Dietz","hero.h1b":"精密构建的电气工程。",
+    "hero.tagline":"Bachelor Professional in Technik（德国国家认证电气技术员，DQR / EQF 第 6 级，等同于学士学位），13 年以上 EPLAN P8、驱动技术与机械研发实战经验。从电路图到调试 — 国际化、结构化、以解决方案为导向。",
+    "hero.meta1":"德国 巴登-符腾堡州 辛根","hero.meta2":"13+ 年电气工程从业经验","hero.meta3":"EPLAN · Smartwiring · TIA Portal · Automation Studio","hero.meta4":"Drive Systems · Python · Visual Studio",
+    "hero.cta1":"咨询项目","hero.cta2":"查看服务",
+    "hero.langDE":"母语","hero.langEN":"高级",
+    "about.label":"// 关于我","about.title":"深入的机械理解 + 结构化电气设计。",
+    "about.p1":"我是 Patrick Dietz — 德国国家认证电气技术员（Bachelor Professional in Technik，DQR / EQF 第 6 级，等同于学士学位），拥有 13 年以上工业机械设计、调试与优化经验。",
+    "about.p2":"我专注于 EPLAN P8、驱动技术（B&R ACOPOS P3、Motion Control）、安全回路以及复杂机械的电气设计 — 从塑料挤出生产线到现代纤维准备机械。",
+    "about.usp":"「我将深入的机械理解、结构化的电气设计与丰富的国际现场经验结合在一起。不仅做规划 — 而是真正解决问题。」",
+    "about.travelTitle":"可全球出差","about.travelText":"全球范围的调试、现场支持与改造项目 — 按差旅成本（机票、餐饮、住宿）计费。具有中国和印度等地的现场经验。",
+    "about.stat1":"年从业经验","about.stat2":"P8 专家级别","about.stat3":"国际项目经验","about.stat4":"研究与开发",
+    "edu.label":"// 教育背景","edu.title":"扎实的基础，逐步构建。",
+    "edu.card1Title":"工业电子技术员（学徒）",
+    "edu.card1Desc":"3.5 年学徒制培训，专注于工业设备技术、电控柜制造、控制技术与电气调试。这是规范、合规电气设计的根基。",
+    "edu.card2Period":"2020 年 5 月 · DAA Technikum",
+    "edu.card2Title":"Bachelor Professional in Technik — 电气工程",
+    "edu.card2Desc":"主修方向：能源技术与过程自动化。在驱动技术、自动化、测量技术与项目管理方面的进阶培训，重点方向为工业控制系统、Motion Control 与安全方案。该资历等同于学士学位（依据德国资历框架 DQR / EQF 第 6 级；该正式称谓由 2020 年 BBiG 修订引入；底层资格名称为德语 »Staatlich geprüfter Techniker«）。",
+    "srv.label":"// 服务","srv.title":"我能为您的项目交付什么。",
+    "srv.subtitle":"从电路图、Pro Panel、驱动技术到国际现场调试 — 灵活按小时、固定价或冲刺套餐计费。",
+    "srv.from":"起价","srv.orFixed":"或固定价",
+    "srv.s1Title":"EPLAN P8 电路图设计与优化","srv.s1Desc":"结构化、符合规范的电路图。模板、宏、报表 — 维护清晰，便于版本管理。",
+    "srv.s2Title":"EPLAN Pro Panel 与 Smartwiring","srv.s2Desc":"3D 电控柜搭建、Smartwiring 数据、生产文档 — 直接对接生产与布线机器人。",
+    "srv.s3Title":"驱动技术与 Motion Control","srv.s3Desc":"B&R ACOPOS P3、轴同步、伺服选型。从规格书到正常运行的轴系。",
+    "srv.s4Title":"故障排查与远程支持","srv.s4Desc":"针对驱动器、传感器、温升与安全回路的快速故障分析 — 远程或现场。",
+    "srv.s5Title":"技术文档与 BOM 管理","srv.s5Desc":"SAP/ECTR 中的物料清单维护、测试报告、RCA 报告，符合 CE/UL 标准的文档。",
+    "srv.s6Title":"改造与国际项目","srv.s6Desc":"机器升级、改造套件、全球范围调试。具备中国与印度项目经验。",
+    "srv.s6Price":"日费 / 项目报价面议",
+    "exp.label":"// 工作经验","exp.title":"工业机械领域十余年的深耕。",
+    "exp.e1Period":"2023 — 至今","exp.e1Title":"电气工程师 — 研发","exp.e1Company":"瑞士 Rieter AG · 纤维准备机械",
+    "exp.e1L1":"使用 EPLAN P8 进行电气电路图的开发与维护",
+    "exp.e1L2":"纺织机械研发 — 并条机、精梳机、E40、E86",
+    "exp.e1L3":"支持中国、印度等国际项目",
+    "exp.e1L4":"客户技术支持与现场调试（ACHA、Intercot）",
+    "exp.e1L5":"复杂机器问题分析 — 驱动、传感、温升表现、安全回路",
+    "exp.e1L6":"在 SAP / ECTR 中维护 BOM",
+    "exp.e2Title":"电气技术员 — 设计","exp.e2Company":"Breyer Maschinenfabrik GmbH · 塑料挤出生产线",
+    "exp.e2L1":"挤出生产线电气设计 — 板材薄膜、管材、电池薄膜、压光机",
+    "exp.e2L2":"电缆选型与电缆长度定义",
+    "exp.e2L3":"EPLAN 系统管理 — 物料数据、报表、模板、测试协议、RCA",
+    "exp.e2L4":"与生产部门沟通、产品停产管理、供应商沟通",
+    "exp.e2L5":"现场调试与客户支持 — 包括疫情期间在中国连续 5 个月驻场",
+    "exp.e2L6":"EPLAN Pro Panel、Smartwiring、EPLAN Fluid（气动）",
+    "skl.label":"// 技术能力","skl.title":"工具、方法与经验。",
+    "skl.b2":"驱动技术与 Motion Control（B&R ACOPOS P3）","skl.b3":"电控柜搭建与布线","skl.b4":"安全回路与 CE / UL 标准","skl.b5":"调试与故障排查","skl.b6":"技术文档与 BOM","skl.b7":"Python 与 Excel — 数据分析",
+    "skl.toolsSW":"软件与系统","skl.toolsMethods":"方法与领域",
+    "skl.m1":"Motion Control","skl.m2":"轴同步","skl.m3":"安全回路","skl.m4":"CE / UL 标准","skl.m5":"电缆选型","skl.m6":"BOM 管理","skl.m7":"机器改造","skl.m8":"现场调试","skl.m9":"故障排查",
+    "bk.label":"// 在线预约与付款","bk.title":"选套餐，描述项目，立即开始。",
+    "bk.subtitle":"选择合适的套餐，简要描述您的项目 — 我会在 24 小时内回复具体方案。",
+    "bk.p1Desc":"1 小时咨询 — 快速评估您的议题。","bk.p2Desc":"电路图套餐至多 8 小时 — 紧凑可控。","bk.p3Desc":"1 周远程（40 小时），适合复杂任务。","bk.p4Name":"定制项目","bk.p4Desc":"按需定制 — 固定价或日费。","bk.onRequest":"面议",
+    "bk.fFirst":"名 *","bk.fLast":"姓 *","bk.fEmail":"电子邮箱 *","bk.fCompany":"公司（可选）",
+    "bk.fProject":"项目描述 *","bk.fProjectPh":"您希望实现什么？涉及哪些机器、哪些专业领域、什么时间范围？",
+    "bk.fDate":"期望开始日期","bk.fPkg":"已选套餐",
+    "bk.fPay":"首选付款方式","bk.payCard":"信用卡","bk.payInvoice":"发票（14 天）",
+    "bk.payInfoPP":"// PayPal — 即时安全付款。订单确认后付款链接将通过邮件发送。",
+    "bk.payInfoStripe":"// 信用卡（Stripe） — 支持 Visa、Mastercard、Amex。订单确认后将通过邮件发送安全付款链接。",
+    "bk.payInfoInv":"// 发票 — 净 14 天到期。仅限拥有有效税号的企业客户。",
+    "bk.payInfoCrypto":"// 加密货币 — 接受 BTC、ETH 或 USDC。订单确认后钱包地址将通过邮件发送。",
+    "bk.payNote":"提交本表单不会触发任何自动付款。我收到您的咨询后，会以个人方式回复，包含具体方案、合同与对应的付款详情。",
+    "bk.submit":"发送无约束力咨询",
+    "bk.disclaimer":"提交本表单即表示您同意我处理您的数据以回复您的咨询 — 详见<a href=\"datenschutz.html\">隐私声明</a>。",
+    "bk.successTitle":"咨询已成功提交","bk.successText":"感谢您 — 我会在 24 小时内亲自回复您具体方案、合同草案与对应的付款详情。",
+    "bk.errorMsg":"发送时出现错误。请重试，或直接发送邮件至 patrick@dietz-engineering.com。",
+    "ct.label":"// 联系","ct.title":"让我们聊聊您的项目。",
+    "ct.p1":"直接联系 — 没有热线，没有工单。给我留言，我会亲自回复。","ct.remote":"远程与全球现场",
+    "ft.rights":"保留所有权利","ft.imprint":"法律声明","ft.privacy":"隐私"
+  }
+};
+
+/* =========================================================
+   STATE  (declared up front — must exist before applyLang runs,
+   otherwise the let-bindings below would throw a ReferenceError
+   from the temporal dead zone and crash the whole script)
+   ========================================================= */
+const langSelect = document.getElementById('langSelect');
+
+const pkgPriceMap = {
+  quick:   { de:'Quick Check — 90 €',          en:'Quick Check — €90',          es:'Quick Check — 90 €',           zh:'Quick Check — €90' },
+  starter: { de:'EPLAN Starter — 580 €',       en:'EPLAN Starter — €580',       es:'EPLAN Starter — 580 €',        zh:'EPLAN Starter — €580' },
+  sprint:  { de:'Engineering Sprint — 1.800 €',en:'Engineering Sprint — €1,800',es:'Engineering Sprint — 1.800 €', zh:'Engineering Sprint — €1,800' },
+  custom:  { de:'Custom Projekt — Auf Anfrage',en:'Custom Project — On request',es:'Proyecto a medida — A consultar',zh:'定制项目 — 面议' }
+};
+let selectedPkg = 'starter';
+
+const payInfoKeys = {
+  paypal:  'bk.payInfoPP',
+  stripe:  'bk.payInfoStripe',
+  invoice: 'bk.payInfoInv',
+  crypto:  'bk.payInfoCrypto'
+};
+let selectedPay = 'paypal';
+
+function refreshSelectedPackage() {
+  const lang = langSelect.value;
+  const el = document.getElementById('selectedPackage');
+  if (!el) return;
+  el.value = (pkgPriceMap[selectedPkg] && pkgPriceMap[selectedPkg][lang]) || pkgPriceMap[selectedPkg].de;
+}
+function refreshPaymentInfo() {
+  const dict = i18n[langSelect.value] || i18n.de;
+  const el = document.getElementById('paymentInfo');
+  if (!el) return;
+  el.textContent = dict[payInfoKeys[selectedPay]] || '';
+}
+
+/* =========================================================
+   LANGUAGE SWITCHING
+   ========================================================= */
+function applyLang(lang) {
+  const dict = i18n[lang] || i18n.de;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] === undefined) return;
+    // Strings flagged with data-i18n-html may contain inline links; render as HTML.
+    if (el.hasAttribute('data-i18n-html')) {
+      el.innerHTML = dict[key];
+    } else {
+      el.textContent = dict[key];
+    }
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+  });
+  refreshSelectedPackage();
+  refreshPaymentInfo();
+  try { localStorage.setItem('de_lang', lang); } catch(e){}
+}
+
+let storedLang = 'de';
+try { storedLang = localStorage.getItem('de_lang') || 'de'; } catch(e){}
+langSelect.value = storedLang;
+applyLang(storedLang);
+langSelect.addEventListener('change', e => applyLang(e.target.value));
+
+/* =========================================================
+   THEME TOGGLE
+   ========================================================= */
+const themeToggle = document.getElementById('themeToggle');
+const iconMoon = document.getElementById('iconMoon');
+const iconSun = document.getElementById('iconSun');
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  iconMoon.style.display = theme === 'dark' ? 'block' : 'none';
+  iconSun.style.display  = theme === 'dark' ? 'none'  : 'block';
+  try { localStorage.setItem('de_theme', theme); } catch(e){}
+}
+let storedTheme = 'dark';
+try { storedTheme = localStorage.getItem('de_theme') || 'dark'; } catch(e){}
+applyTheme(storedTheme);
+themeToggle.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+});
+
+/* =========================================================
+   MOBILE NAV
+   ========================================================= */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+/* =========================================================
+   PACKAGES + PAYMENT — click handlers (state already declared above)
+   ========================================================= */
+document.querySelectorAll('.pkg-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedPkg = card.dataset.pkg;
+    refreshSelectedPackage();
+  });
+});
+
+document.querySelectorAll('.pay-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    selectedPay = opt.dataset.pay;
+    refreshPaymentInfo();
+  });
+});
+
+/* =========================================================
+   FORM SUBMIT (Web3Forms backend)
+   ========================================================= */
+const bookingForm = document.getElementById('bookingForm');
+const successMsg  = document.getElementById('successMsg');
+const submitBtn   = bookingForm.querySelector('button[type="submit"]');
+
+bookingForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!bookingForm.checkValidity()) {
+    bookingForm.reportValidity();
+    return;
+  }
+
+  const accessKey = document.getElementById('w3f_access_key').value;
+  // Wenn der Access-Key noch nicht gesetzt wurde, simulieren wir Erfolg (Demo-Modus)
+  // — verhindert kaputte Form-Submissions vor dem ersten Web3Forms-Setup.
+  if (!accessKey || accessKey === 'REPLACE_WITH_YOUR_WEB3FORMS_ACCESS_KEY') {
+    console.warn('[bookingForm] Kein Web3Forms-Access-Key konfiguriert — Demo-Modus aktiv.');
+    successMsg.classList.add('active');
+    bookingForm.reset();
+    refreshSelectedPackage();
+    setTimeout(() => successMsg.scrollIntoView({behavior:'smooth', block:'center'}), 80);
+    return;
+  }
+
+  const originalText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span>…</span>';
+
+  try {
+    const formData = new FormData(bookingForm);
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      successMsg.classList.add('active');
+      bookingForm.reset();
+      refreshSelectedPackage();
+      setTimeout(() => successMsg.scrollIntoView({behavior:'smooth', block:'center'}), 80);
+    } else {
+      throw new Error(result.message || 'Submission failed');
+    }
+  } catch (err) {
+    console.error('[bookingForm] Submit-Fehler:', err);
+    const dict = i18n[langSelect.value] || i18n.de;
+    alert(dict['bk.errorMsg'] || 'Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie eine E-Mail an patrick@dietz-engineering.com.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
+});
+
+/* =========================================================
+   FAQ ACCORDION
+   ========================================================= */
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      const inner = el.querySelector('.faq-a');
+      if (inner) inner.style.maxHeight = '0px';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+});
+
+/* =========================================================
+   FADE-IN ON SCROLL
+   ========================================================= */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      // animate skill bars
+      e.target.querySelectorAll('.bar-fill').forEach(b => {
+        const val = b.getAttribute('data-fill');
+        b.style.width = val + '%';
+      });
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+/* Year */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
