@@ -1214,70 +1214,149 @@ section {
 }
 
 /* =========================================================
-   COOKIE / PRIVACY INFO BANNER
+   PRIVACY MODAL (Centered Consent Dialog)
    ========================================================= */
-.cookie-banner {
+.privacy-modal {
   position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.privacy-modal.show { display: flex; }
+.privacy-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.privacy-dialog {
+  position: relative;
   background: var(--bg-2);
   border: 1px solid var(--gold-line);
-  border-radius: 14px;
-  padding: 1rem 1.2rem;
-  z-index: 200;
-  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.45);
-  display: none;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  border-radius: 16px;
+  max-width: 540px;
+  width: 100%;
+  padding: 1.8rem 1.6rem 1.4rem;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
 }
-.cookie-banner.show {
-  display: block;
+.privacy-dialog h2 {
+  font-family: 'Syne', system-ui, sans-serif;
+  font-size: 1.35rem;
+  color: var(--text);
+  margin: 0 0 1.1rem;
+  letter-spacing: -0.01em;
+  text-align: center;
 }
-.cookie-banner.in {
-  opacity: 1;
-  transform: none;
-}
-.cookie-banner-inner {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.cookie-text {
-  font-size: 0.85rem;
+.privacy-content p {
+  font-size: 0.9rem;
   color: var(--text-soft);
-  margin: 0;
-  flex: 1;
-  line-height: 1.5;
+  line-height: 1.6;
+  margin: 0 0 0.7rem;
 }
-.cookie-text a {
+.privacy-content p:last-child { margin-bottom: 0; }
+.privacy-content a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-details {
+  margin: 1rem 0 0;
+  padding: 1rem 1.1rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.privacy-details h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--gold);
+  margin: 0 0 0.7rem;
+  font-weight: 500;
+}
+.privacy-details ul { margin: 0; padding-left: 1.1rem; list-style: none; }
+.privacy-details li {
+  font-size: 0.83rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+  margin-bottom: 0.6rem;
+  position: relative;
+  padding-left: 0.4rem;
+}
+.privacy-details li:last-child { margin-bottom: 0; }
+.privacy-details li::before {
+  content: '▸';
+  position: absolute;
+  left: -0.9rem;
+  color: var(--gold);
+}
+.privacy-details strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
+.privacy-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 1.3rem;
+}
+.privacy-btn {
+  padding: 0.85rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  text-align: center;
+}
+.privacy-btn.primary {
+  background: var(--gold);
+  color: #15110a;
+}
+.privacy-btn.primary:hover {
+  background: var(--gold-soft);
+  transform: translateY(-1px);
+}
+.privacy-btn.secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+.privacy-btn.secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.privacy-btn.link {
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0.5rem 0.8rem;
+}
+.privacy-btn.link:hover { color: var(--gold); }
+.privacy-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+.privacy-footer a {
+  color: var(--text-mute);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-.cookie-btn {
-  background: var(--gold);
-  color: #15110a;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.2s ease, transform 0.15s ease;
-  font-family: inherit;
-}
-.cookie-btn:hover { background: var(--gold-soft); transform: translateY(-1px); }
+.privacy-footer a:hover { color: var(--gold); }
 
 @media (max-width: 580px) {
-  .cookie-banner { padding: 0.9rem 1rem; left: 0.6rem; right: 0.6rem; }
-  .cookie-banner-inner { flex-direction: column; align-items: stretch; gap: 0.7rem; }
-  .cookie-btn { width: 100%; }
-  .cookie-text { font-size: 0.82rem; }
+  .privacy-dialog { padding: 1.4rem 1.2rem 1.1rem; }
+  .privacy-dialog h2 { font-size: 1.2rem; }
 }
 
 /* =========================================================
@@ -1996,13 +2075,44 @@ section {
   </div>
 </footer>
 
-<!-- ============================ COOKIE / PRIVACY INFO BANNER ============================ -->
-<div class="cookie-banner" id="cookieBanner" role="region" aria-label="Datenschutz-Hinweis">
-  <div class="cookie-banner-inner">
-    <p class="cookie-text" data-i18n="ck.text" data-i18n-html>
-      Diese Website lädt Schriftarten von Google Fonts (USA) und speichert deine Theme- und Sprachpräferenzen lokal in deinem Browser. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>.
-    </p>
-    <button type="button" class="cookie-btn" id="cookieAccept" data-i18n="ck.btn">Verstanden</button>
+<!-- ============================ PRIVACY MODAL ============================ -->
+<div class="privacy-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="privacy-backdrop"></div>
+  <div class="privacy-dialog">
+    <h2 id="privacyTitle" data-i18n="pv.title">Privatsphäre-Einstellungen</h2>
+    <div class="privacy-content">
+      <p data-i18n="pv.intro" data-i18n-html>Diese Website lädt Schriftarten von <strong>Google Fonts (USA)</strong>, übermittelt Buchungsanfragen über <strong>Web3Forms</strong> und speichert deine Theme- und Sprachpräferenz lokal in deinem Browser. Beim Laden externer Schriftarten kann deine IP-Adresse an Google übertragen werden. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p data-i18n="pv.rights">Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.</p>
+    </div>
+
+    <div class="privacy-details" id="privacyDetails" hidden>
+      <h3 data-i18n="pv.detailsTitle">// Was gespeichert wird</h3>
+      <ul>
+        <li>
+          <strong data-i18n="pv.cat1Name">Technisch notwendig</strong>
+          <span data-i18n="pv.cat1Desc">Theme- und Sprachpräferenz im Local Storage deines Browsers. Einwilligungsfrei nach §25 Abs. 2 Nr. 2 TTDSG, da unbedingt erforderlich für die Bereitstellung des Dienstes.</span>
+        </li>
+        <li>
+          <strong data-i18n="pv.cat2Name">Externe Schriftarten · Google Fonts</strong>
+          <span data-i18n="pv.cat2Desc">Lädt Typografie vom Google-CDN (Google Ireland Limited). IP-Adresse wird übertragen, ggf. Drittlandtransfer in die USA. Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, EU-DPF-Framework.</span>
+        </li>
+        <li>
+          <strong data-i18n="pv.cat3Name">Formular-Backend · Web3Forms</strong>
+          <span data-i18n="pv.cat3Desc">Beim Absenden des Buchungsformulars werden deine Eingaben an Web3Forms übermittelt, um eine Mail an mich auszulösen. Auftragsverarbeitung gemäß Art. 28 DSGVO.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="privacy-actions">
+      <button class="privacy-btn primary" id="privacyAcceptAll" type="button" data-i18n="pv.acceptAll">Alle akzeptieren</button>
+      <button class="privacy-btn secondary" id="privacyContinue" type="button" data-i18n="pv.continue">Weiter ohne Einwilligung</button>
+      <button class="privacy-btn link" id="privacyCustomize" type="button" data-i18n="pv.customize">Privatsphäre-Einstellungen individuell festlegen</button>
+    </div>
+
+    <div class="privacy-footer">
+      <a href="datenschutz.html" data-i18n="pv.privacyLink">Datenschutzerklärung</a>
+      <a href="impressum.html" data-i18n="pv.imprintLink">Impressum</a>
+    </div>
   </div>
 </div>
 
@@ -2099,8 +2209,21 @@ const i18n = {
     "ct.label":"// Kontakt","ct.title":"Lassen Sie uns über Ihr Projekt sprechen.",
     "ct.p1":"Direkter Draht — keine Hotline, keine Tickets. Schreiben Sie mir, ich melde mich persönlich zurück.","ct.remote":"Remote & Vor-Ort weltweit",
     "ft.rights":"Alle Rechte vorbehalten","ft.imprint":"Impressum","ft.privacy":"Datenschutz","ft.terms":"AGB",
-    "ck.text":"Diese Website lädt Schriftarten von Google Fonts (USA) und speichert deine Theme- und Sprachpräferenzen lokal in deinem Browser. Details in der <a href=\"datenschutz.html\">Datenschutzerklärung</a>.",
-    "ck.btn":"Verstanden"
+    "pv.title":"Privatsphäre-Einstellungen",
+    "pv.intro":"Diese Website lädt Schriftarten von <strong>Google Fonts (USA)</strong>, übermittelt Buchungsanfragen über <strong>Web3Forms</strong> und speichert deine Theme- und Sprachpräferenz lokal in deinem Browser. Beim Laden externer Schriftarten kann deine IP-Adresse an Google übertragen werden. Details findest du in der <a href=\"datenschutz.html\">Datenschutzerklärung</a>.",
+    "pv.rights":"Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.",
+    "pv.detailsTitle":"// Was gespeichert wird",
+    "pv.cat1Name":"Technisch notwendig",
+    "pv.cat1Desc":"Theme- und Sprachpräferenz im Local Storage deines Browsers. Einwilligungsfrei nach §25 Abs. 2 Nr. 2 TTDSG, da unbedingt erforderlich für die Bereitstellung des Dienstes.",
+    "pv.cat2Name":"Externe Schriftarten · Google Fonts",
+    "pv.cat2Desc":"Lädt Typografie vom Google-CDN (Google Ireland Limited). IP-Adresse wird übertragen, ggf. Drittlandtransfer in die USA. Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, EU-DPF-Framework.",
+    "pv.cat3Name":"Formular-Backend · Web3Forms",
+    "pv.cat3Desc":"Beim Absenden des Buchungsformulars werden deine Eingaben an Web3Forms übermittelt, um eine Mail an mich auszulösen. Auftragsverarbeitung gemäß Art. 28 DSGVO.",
+    "pv.acceptAll":"Alle akzeptieren",
+    "pv.continue":"Weiter ohne Einwilligung",
+    "pv.customize":"Privatsphäre-Einstellungen individuell festlegen",
+    "pv.privacyLink":"Datenschutzerklärung",
+    "pv.imprintLink":"Impressum"
   },
 
   en: {
@@ -2187,8 +2310,21 @@ const i18n = {
     "ct.label":"// Contact","ct.title":"Let's talk about your project.",
     "ct.p1":"A direct line — no hotline, no tickets. Drop me a message and I'll get back to you personally.","ct.remote":"Remote & on-site worldwide",
     "ft.rights":"All rights reserved","ft.imprint":"Imprint","ft.privacy":"Privacy","ft.terms":"Terms",
-    "ck.text":"This website loads fonts from Google Fonts (USA) and stores your theme and language preferences locally in your browser. Details in the <a href=\"datenschutz.html\">privacy policy</a>.",
-    "ck.btn":"Got it"
+    "pv.title":"Privacy settings",
+    "pv.intro":"This website loads fonts from <strong>Google Fonts (USA)</strong>, sends booking inquiries via <strong>Web3Forms</strong> and stores your theme and language preference locally in your browser. When external fonts load, your IP address may be transmitted to Google. Details in the <a href=\"datenschutz.html\">privacy policy</a>.",
+    "pv.rights":"You have the right not to consent and to withdraw your consent at any time.",
+    "pv.detailsTitle":"// What is stored",
+    "pv.cat1Name":"Strictly necessary",
+    "pv.cat1Desc":"Theme and language preference in your browser's Local Storage. Consent-free under §25 (2) No. 2 TTDSG, as strictly necessary to provide the service.",
+    "pv.cat2Name":"External fonts · Google Fonts",
+    "pv.cat2Desc":"Loads typography from the Google CDN (Google Ireland Limited). IP address is transmitted; possible third-country transfer to the USA. Legal basis Art. 6(1)(f) GDPR, EU-DPF framework.",
+    "pv.cat3Name":"Form backend · Web3Forms",
+    "pv.cat3Desc":"When submitting the booking form, your input is transmitted to Web3Forms in order to trigger an email to me. Data processing per Art. 28 GDPR.",
+    "pv.acceptAll":"Accept all",
+    "pv.continue":"Continue without consent",
+    "pv.customize":"Configure privacy settings individually",
+    "pv.privacyLink":"Privacy policy",
+    "pv.imprintLink":"Imprint"
   },
 
   es: {
@@ -2275,8 +2411,21 @@ const i18n = {
     "ct.label":"// Contacto","ct.title":"Hablemos de tu proyecto.",
     "ct.p1":"Línea directa — sin centralita ni tickets. Escríbeme y te respondo personalmente.","ct.remote":"Remoto y presencial en todo el mundo",
     "ft.rights":"Todos los derechos reservados","ft.imprint":"Aviso legal","ft.privacy":"Privacidad","ft.terms":"Condiciones",
-    "ck.text":"Este sitio web carga fuentes de Google Fonts (EE. UU.) y guarda tus preferencias de tema e idioma localmente en tu navegador. Más detalles en la <a href=\"datenschutz.html\">política de privacidad</a>.",
-    "ck.btn":"Entendido"
+    "pv.title":"Configuración de privacidad",
+    "pv.intro":"Este sitio web carga fuentes de <strong>Google Fonts (EE. UU.)</strong>, envía solicitudes de reserva mediante <strong>Web3Forms</strong> y guarda tu preferencia de tema e idioma localmente en tu navegador. Al cargar fuentes externas, tu dirección IP puede transmitirse a Google. Más detalles en la <a href=\"datenschutz.html\">política de privacidad</a>.",
+    "pv.rights":"Tienes derecho a no dar tu consentimiento y a retirarlo en cualquier momento.",
+    "pv.detailsTitle":"// Qué se almacena",
+    "pv.cat1Name":"Estrictamente necesario",
+    "pv.cat1Desc":"Preferencia de tema e idioma en el Local Storage de tu navegador. Sin consentimiento según §25 (2) Nº 2 TTDSG, ya que es estrictamente necesario para prestar el servicio.",
+    "pv.cat2Name":"Fuentes externas · Google Fonts",
+    "pv.cat2Desc":"Carga la tipografía desde el CDN de Google (Google Ireland Limited). Se transmite la dirección IP; posible transferencia a los EE. UU. Base jurídica art. 6(1)(f) RGPD, marco EU-DPF.",
+    "pv.cat3Name":"Backend del formulario · Web3Forms",
+    "pv.cat3Desc":"Al enviar el formulario de reserva, tus datos se transmiten a Web3Forms para enviarme un correo. Tratamiento de datos según art. 28 RGPD.",
+    "pv.acceptAll":"Aceptar todo",
+    "pv.continue":"Continuar sin consentimiento",
+    "pv.customize":"Configurar la privacidad de forma individual",
+    "pv.privacyLink":"Política de privacidad",
+    "pv.imprintLink":"Aviso legal"
   },
 
   zh: {
@@ -2363,8 +2512,21 @@ const i18n = {
     "ct.label":"// 联系","ct.title":"让我们聊聊您的项目。",
     "ct.p1":"直接联系 — 没有热线，没有工单。给我留言，我会亲自回复。","ct.remote":"远程与全球现场",
     "ft.rights":"保留所有权利","ft.imprint":"法律声明","ft.privacy":"隐私","ft.terms":"服务条款",
-    "ck.text":"本网站从 Google Fonts（美国）加载字体，并在您的浏览器中本地保存主题和语言偏好。详见<a href=\"datenschutz.html\">隐私声明</a>。",
-    "ck.btn":"我了解了"
+    "pv.title":"隐私设置",
+    "pv.intro":"本网站从 <strong>Google Fonts（美国）</strong>加载字体，通过 <strong>Web3Forms</strong> 转发预约咨询，并在您的浏览器中本地保存主题与语言偏好。加载外部字体时，您的 IP 地址可能会被传输至 Google。详见<a href=\"datenschutz.html\">隐私声明</a>。",
+    "pv.rights":"您有权不予同意，并可随时撤回您的同意。",
+    "pv.detailsTitle":"// 存储内容",
+    "pv.cat1Name":"必需项",
+    "pv.cat1Desc":"主题与语言偏好保存在您浏览器的 Local Storage 中。依据 §25 Abs. 2 Nr. 2 TTDSG 属于绝对必要，无需同意。",
+    "pv.cat2Name":"外部字体 · Google Fonts",
+    "pv.cat2Desc":"从 Google CDN（Google Ireland Limited）加载字体。会传输 IP 地址，可能涉及向美国的第三国传输。法律依据 GDPR 第 6 条第 1 款 f 项，EU-DPF 框架。",
+    "pv.cat3Name":"表单后端 · Web3Forms",
+    "pv.cat3Desc":"提交预约表单时，您的输入会被转发至 Web3Forms，以便向我发送邮件通知。依据 GDPR 第 28 条进行数据委托处理。",
+    "pv.acceptAll":"全部接受",
+    "pv.continue":"不同意继续",
+    "pv.customize":"自定义隐私设置",
+    "pv.privacyLink":"隐私声明",
+    "pv.imprintLink":"法律声明"
   }
 };
 
@@ -2561,27 +2723,33 @@ document.querySelectorAll('.fade').forEach(el => io.observe(el));
 document.getElementById('year').textContent = new Date().getFullYear();
 
 /* =========================================================
-   COOKIE / PRIVACY INFO BANNER
+   PRIVACY MODAL (centered consent dialog)
    ========================================================= */
 (function() {
-  const banner = document.getElementById('cookieBanner');
-  const btn = document.getElementById('cookieAccept');
-  if (!banner || !btn) return;
+  const modal = document.getElementById('privacyModal');
+  if (!modal) return;
+  const acceptBtn   = document.getElementById('privacyAcceptAll');
+  const continueBtn = document.getElementById('privacyContinue');
+  const customizeBtn= document.getElementById('privacyCustomize');
+  const detailsEl   = document.getElementById('privacyDetails');
 
-  let accepted = false;
-  try { accepted = localStorage.getItem('de_cookie_ack') === '1'; } catch(e) {}
+  let consent = null;
+  try { consent = localStorage.getItem('de_privacy_v2'); } catch(e){}
 
-  if (!accepted) {
-    setTimeout(() => {
-      banner.classList.add('show');
-      requestAnimationFrame(() => banner.classList.add('in'));
-    }, 700);
+  if (!consent) {
+    setTimeout(() => modal.classList.add('show'), 700);
   }
 
-  btn.addEventListener('click', () => {
-    banner.classList.remove('in');
-    setTimeout(() => banner.classList.remove('show'), 300);
-    try { localStorage.setItem('de_cookie_ack', '1'); } catch(e) {}
+  function close(choice) {
+    try { localStorage.setItem('de_privacy_v2', choice); } catch(e){}
+    modal.classList.remove('show');
+  }
+
+  acceptBtn.addEventListener('click', () => close('accept'));
+  continueBtn.addEventListener('click', () => close('reject'));
+  customizeBtn.addEventListener('click', () => {
+    detailsEl.hidden = !detailsEl.hidden;
+    customizeBtn.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
 })();
 </script>

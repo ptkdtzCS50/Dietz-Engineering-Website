@@ -279,44 +279,33 @@ ol li::marker { color: var(--gold); font-family: 'JetBrains Mono', monospace; fo
 .footer-links a:hover { color: var(--gold); text-decoration: none; }
 .footer-links a.active { color: var(--gold); }
 
-/* Cookie banner */
-.cookie-banner {
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
-  background: var(--bg-2);
-  border: 1px solid var(--gold-line);
-  border-radius: 14px;
-  padding: 1rem 1.2rem;
-  z-index: 200;
-  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.45);
-  display: none;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-.cookie-banner.show { display: block; }
-.cookie-banner.in { opacity: 1; transform: none; }
-.cookie-banner-inner { display: flex; align-items: center; gap: 1rem; }
-.cookie-text { font-size: 0.85rem; color: var(--text-soft); margin: 0; flex: 1; line-height: 1.5; }
-.cookie-text a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
-.cookie-btn {
-  background: var(--gold);
-  color: #15110a;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.2s ease;
-  font-family: inherit;
-}
-.cookie-btn:hover { background: var(--gold-soft); }
+/* Privacy modal */
+.privacy-modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+.privacy-modal.show { display: flex; }
+.privacy-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.privacy-dialog { position: relative; background: var(--bg-2); border: 1px solid var(--gold-line); border-radius: 16px; max-width: 540px; width: 100%; padding: 1.8rem 1.6rem 1.4rem; max-height: 88vh; overflow-y: auto; box-shadow: 0 24px 70px rgba(0,0,0,0.6); }
+.privacy-dialog h2 { font-family: 'Syne', system-ui, sans-serif; font-size: 1.35rem; color: var(--text); margin: 0 0 1.1rem; letter-spacing: -0.01em; text-align: center; }
+.privacy-content p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.6; margin: 0 0 0.7rem; }
+.privacy-content p:last-child { margin-bottom: 0; }
+.privacy-content a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-details { margin: 1rem 0 0; padding: 1rem 1.1rem; background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; }
+.privacy-details h3 { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.7rem; font-weight: 500; }
+.privacy-details ul { margin: 0; padding-left: 1.1rem; list-style: none; }
+.privacy-details li { font-size: 0.83rem; color: var(--text-soft); line-height: 1.55; margin-bottom: 0.6rem; position: relative; padding-left: 0.4rem; }
+.privacy-details li:last-child { margin-bottom: 0; }
+.privacy-details li::before { content: '▸'; position: absolute; left: -0.9rem; color: var(--gold); }
+.privacy-details strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
+.privacy-actions { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1.3rem; }
+.privacy-btn { padding: 0.85rem 1.2rem; border: none; border-radius: 10px; font-family: inherit; font-size: 0.92rem; font-weight: 600; cursor: pointer; text-align: center; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease; }
+.privacy-btn.primary { background: var(--gold); color: #15110a; }
+.privacy-btn.primary:hover { background: var(--gold-soft); transform: translateY(-1px); }
+.privacy-btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
+.privacy-btn.secondary:hover { border-color: var(--gold); color: var(--gold); }
+.privacy-btn.link { background: transparent; color: var(--text-soft); font-size: 0.85rem; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; padding: 0.5rem 0.8rem; }
+.privacy-btn.link:hover { color: var(--gold); }
+.privacy-footer { display: flex; justify-content: center; gap: 1.4rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; }
+.privacy-footer a { color: var(--text-mute); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-footer a:hover { color: var(--gold); }
 
 @media (max-width: 600px) {
   .nav-inner { padding: 0.8rem 1rem; }
@@ -326,9 +315,8 @@ ol li::marker { color: var(--gold); font-family: 'JetBrains Mono', monospace; fo
   .back-link span { display: none; }
 }
 @media (max-width: 580px) {
-  .cookie-banner { padding: 0.9rem 1rem; left: 0.6rem; right: 0.6rem; }
-  .cookie-banner-inner { flex-direction: column; align-items: stretch; gap: 0.7rem; }
-  .cookie-btn { width: 100%; }
+  .privacy-dialog { padding: 1.4rem 1.2rem 1.1rem; }
+  .privacy-dialog h2 { font-size: 1.2rem; }
 }
 </style>
 </head>
@@ -712,13 +700,32 @@ ol li::marker { color: var(--gold); font-family: 'JetBrains Mono', monospace; fo
   </div>
 </footer>
 
-<!-- Cookie banner -->
-<div class="cookie-banner" id="cookieBanner" role="region" aria-label="Datenschutz-Hinweis">
-  <div class="cookie-banner-inner">
-    <p class="cookie-text">
-      Diese Website lädt Schriftarten von Google Fonts (USA) und speichert deine Theme-Präferenz lokal in deinem Browser. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>.
-    </p>
-    <button type="button" class="cookie-btn" id="cookieAccept">Verstanden</button>
+<!-- Privacy modal -->
+<div class="privacy-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="privacy-backdrop"></div>
+  <div class="privacy-dialog">
+    <h2 id="privacyTitle">Privatsphäre-Einstellungen</h2>
+    <div class="privacy-content">
+      <p>Diese Website lädt Schriftarten von <strong>Google Fonts (USA)</strong>, übermittelt Buchungsanfragen über <strong>Web3Forms</strong> und speichert deine Theme-Präferenz lokal in deinem Browser. Beim Laden externer Schriftarten kann deine IP-Adresse an Google übertragen werden. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p>Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.</p>
+    </div>
+    <div class="privacy-details" id="privacyDetails" hidden>
+      <h3>// Was gespeichert wird</h3>
+      <ul>
+        <li><strong>Technisch notwendig</strong><span>Theme-Präferenz im Local Storage deines Browsers. Einwilligungsfrei nach §25 Abs. 2 Nr. 2 TTDSG, da unbedingt erforderlich für die Bereitstellung des Dienstes.</span></li>
+        <li><strong>Externe Schriftarten · Google Fonts</strong><span>Lädt Typografie vom Google-CDN (Google Ireland Limited). IP-Adresse wird übertragen, ggf. Drittlandtransfer in die USA. Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, EU-DPF-Framework.</span></li>
+        <li><strong>Formular-Backend · Web3Forms</strong><span>Bei Absenden des Buchungsformulars auf der Hauptseite werden Eingaben an Web3Forms übermittelt. Auftragsverarbeitung gemäß Art. 28 DSGVO.</span></li>
+      </ul>
+    </div>
+    <div class="privacy-actions">
+      <button class="privacy-btn primary" id="privacyAcceptAll" type="button">Alle akzeptieren</button>
+      <button class="privacy-btn secondary" id="privacyContinue" type="button">Weiter ohne Einwilligung</button>
+      <button class="privacy-btn link" id="privacyCustomize" type="button">Privatsphäre-Einstellungen individuell festlegen</button>
+    </div>
+    <div class="privacy-footer">
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
   </div>
 </div>
 
@@ -746,23 +753,26 @@ const dateStr = d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long' }
 document.getElementById('dateStamp').textContent = dateStr;
 document.getElementById('dateStamp2').textContent = dateStr;
 
-/* Cookie banner */
+/* Privacy modal */
 (function() {
-  const banner = document.getElementById('cookieBanner');
-  const btn = document.getElementById('cookieAccept');
-  if (!banner || !btn) return;
-  let accepted = false;
-  try { accepted = localStorage.getItem('de_cookie_ack') === '1'; } catch(e) {}
-  if (!accepted) {
-    setTimeout(() => {
-      banner.classList.add('show');
-      requestAnimationFrame(() => banner.classList.add('in'));
-    }, 700);
+  const modal = document.getElementById('privacyModal');
+  if (!modal) return;
+  const acceptBtn   = document.getElementById('privacyAcceptAll');
+  const continueBtn = document.getElementById('privacyContinue');
+  const customizeBtn= document.getElementById('privacyCustomize');
+  const detailsEl   = document.getElementById('privacyDetails');
+  let consent = null;
+  try { consent = localStorage.getItem('de_privacy_v2'); } catch(e){}
+  if (!consent) setTimeout(() => modal.classList.add('show'), 700);
+  function close(choice) {
+    try { localStorage.setItem('de_privacy_v2', choice); } catch(e){}
+    modal.classList.remove('show');
   }
-  btn.addEventListener('click', () => {
-    banner.classList.remove('in');
-    setTimeout(() => banner.classList.remove('show'), 300);
-    try { localStorage.setItem('de_cookie_ack', '1'); } catch(e) {}
+  acceptBtn.addEventListener('click', () => close('accept'));
+  continueBtn.addEventListener('click', () => close('reject'));
+  customizeBtn.addEventListener('click', () => {
+    detailsEl.hidden = !detailsEl.hidden;
+    customizeBtn.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
 })();
 </script>
