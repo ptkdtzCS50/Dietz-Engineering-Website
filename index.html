@@ -189,23 +189,28 @@ section {
 }
 
 .logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  color: var(--gold);
+  text-decoration: none;
+  flex-shrink: 0;
 }
-.logo .logo-mark {
-  height: 24px;
+.logo-lockup-svg {
+  height: 28px;
   width: auto;
   color: var(--gold);
-  flex-shrink: 0;
   display: block;
 }
-.logo .logo-text { color: var(--text); }
-.logo .logo-text span { color: var(--gold); }
+.logo-mark-only {
+  height: 26px;
+  width: auto;
+  color: var(--gold);
+  display: none;
+}
+@media (max-width: 760px) {
+  .logo-lockup-svg { display: none; }
+  .logo-mark-only { display: block; }
+}
 
 .nav-links {
   display: flex;
@@ -1373,7 +1378,20 @@ section {
 <nav class="nav">
   <div class="nav-inner">
     <a href="#top" class="logo" aria-label="Dietz Engineering Home">
-      <svg class="logo-mark" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="logo-lockup-svg" viewBox="0 0 760 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(0, 10)">
+          <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
+          <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
+          <g transform="translate(95, 0)" fill="currentColor">
+            <rect x="0" y="0" width="22" height="80"/>
+            <rect x="0" y="0" width="65" height="22"/>
+            <rect x="0" y="29" width="48" height="22"/>
+            <rect x="0" y="58" width="65" height="22"/>
+          </g>
+        </g>
+        <text x="200" y="69" font-family="Syne, system-ui, sans-serif" font-weight="800" font-size="42" letter-spacing="2" fill="currentColor">DIETZ&#8212;ENGINEERING</text>
+      </svg>
+      <svg class="logo-mark-only" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
         <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
         <g transform="translate(95, 0)" fill="currentColor">
@@ -1383,7 +1401,6 @@ section {
           <rect x="0" y="58" width="65" height="22"/>
         </g>
       </svg>
-      <span class="logo-text">DIETZ<span>—</span>ENGINEERING</span>
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about" data-i18n="nav.about">Über mich</a></li>
@@ -1814,10 +1831,15 @@ section {
             <span class="pill" data-i18n="skl.m2">Achsensynchronisation</span>
             <span class="pill" data-i18n="skl.m3">Safety Circuits</span>
             <span class="pill" data-i18n="skl.m4">CE / UL Normen</span>
+            <span class="pill" data-i18n="skl.mEMV">EMV-Messungen</span>
+            <span class="pill" data-i18n="skl.mRisk">Risikobeurteilungen</span>
+            <span class="pill" data-i18n="skl.mClimate">Klimaberechnung Schaltschrank</span>
+            <span class="pill" data-i18n="skl.mPower">Transformatoren &amp; Spannungsversorgung</span>
             <span class="pill" data-i18n="skl.m5">Kabelauslegung</span>
             <span class="pill" data-i18n="skl.m6">BOM-Management</span>
             <span class="pill" data-i18n="skl.m7">Retrofit</span>
             <span class="pill">RCA</span>
+            <span class="pill" data-i18n="skl.mSpecs">Lastenhefte</span>
             <span class="pill" data-i18n="skl.m8">Inbetriebnahme</span>
             <span class="pill" data-i18n="skl.m9">Troubleshooting</span>
           </div>
@@ -2053,7 +2075,20 @@ section {
   <div class="container">
     <div class="footer-inner">
       <a href="#top" class="logo">
-        <svg class="logo-mark" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg class="logo-lockup-svg" viewBox="0 0 880 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g transform="translate(0, 10)">
+            <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
+            <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
+            <g transform="translate(95, 0)" fill="currentColor">
+              <rect x="0" y="0" width="22" height="80"/>
+              <rect x="0" y="0" width="65" height="22"/>
+              <rect x="0" y="29" width="48" height="22"/>
+              <rect x="0" y="58" width="65" height="22"/>
+            </g>
+          </g>
+          <text x="200" y="69" font-family="Syne, system-ui, sans-serif" font-weight="800" font-size="42" letter-spacing="2" fill="currentColor">DIETZ&#8212;ENGINEERING.COM</text>
+        </svg>
+        <svg class="logo-mark-only" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
           <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
           <g transform="translate(95, 0)" fill="currentColor">
@@ -2063,7 +2098,6 @@ section {
             <rect x="0" y="58" width="65" height="22"/>
           </g>
         </svg>
-        <span class="logo-text">DIETZ<span>—</span>ENGINEERING.COM</span>
       </a>
       <div class="footer-copy">© <span id="year"></span> Patrick Dietz · <span data-i18n="ft.rights">Alle Rechte vorbehalten</span></div>
       <div class="footer-legal">
@@ -2156,7 +2190,7 @@ const i18n = {
     "hero.cta1":"Projekt anfragen","hero.cta2":"Leistungen ansehen",
     "hero.langDE":"Muttersprache","hero.langEN":"Fortgeschritten",
     "about.label":"// Über mich","about.title":"Tiefes Maschinenverständnis trifft strukturierte Elektrokonstruktion.",
-    "about.p1":"Ich bin Patrick Dietz — Staatlich geprüfter Techniker für Elektrotechnik (Bachelor Professional in Technik, DQR-Niveau 6) mit über 13 Jahren Berufserfahrung in der Konstruktion, Inbetriebnahme und Optimierung industrieller Maschinen und Anlagen.",
+    "about.p1":"Ich bin Patrick Dietz — Staatlich geprüfter Techniker für Elektrotechnik (Bachelor Professional in Technik, DQR-Niveau 6) mit über 13 Jahren Berufserfahrung im Sondermaschinenbau. Von der Elektrokonstruktion über EMV-konforme Schaltschrankauslegung bis zur Inbetriebnahme und Kundenschulung weltweit.",
     "about.p2":"Mein Fokus liegt auf EPLAN P8, Antriebstechnik (B&R ACOPOS P3, Motion Control), Safety Circuits und der elektrischen Konstruktion komplexer Maschinen — von Kunststoff-Extrusionsanlagen bis zu modernen Faseraufbereitungsmaschinen.",
     "about.usp":"„Ich verbinde tiefes Maschinenverständnis mit strukturierter Elektrokonstruktion und internationaler Praxiserfahrung. Nicht nur planen — sondern Probleme wirklich lösen.\"",
     "about.travelTitle":"International buchbar","about.travelText":"Inbetriebnahmen, Vor-Ort-Einsätze und Retrofit-Projekte weltweit — gegen Aufwandsentschädigung (Flug, Verpflegung, Übernachtung). Erfahrung u.a. China & Indien.",
@@ -2194,7 +2228,7 @@ const i18n = {
     "skl.label":"// Technische Skills","skl.title":"Tools, Methoden, Erfahrungen.",
     "skl.b2":"Antriebstechnik & Motion Control (B&R ACOPOS P3)","skl.b3":"Schaltschrankbau & Verdrahtung","skl.b4":"Safety Circuits & CE / UL Normen","skl.b5":"Inbetriebnahme & Troubleshooting","skl.b6":"Technische Dokumentation & BOM","skl.b7":"Python & Excel — Datenanalyse",
     "skl.toolsSW":"Software & Systeme","skl.toolsMethods":"Methoden & Domänen",
-    "skl.m1":"Motion Control","skl.m2":"Achsensynchronisation","skl.m3":"Safety Circuits","skl.m4":"CE / UL Normen","skl.m5":"Kabelauslegung","skl.m6":"BOM-Management","skl.m7":"Retrofit","skl.m8":"Inbetriebnahme","skl.m9":"Troubleshooting",
+    "skl.m1":"Motion Control","skl.m2":"Achsensynchronisation","skl.m3":"Safety Circuits","skl.m4":"CE / UL Normen","skl.m5":"Kabelauslegung","skl.m6":"BOM-Management","skl.m7":"Retrofit","skl.m8":"Inbetriebnahme","skl.m9":"Troubleshooting","skl.mEMV":"EMV-Messungen","skl.mRisk":"Risikobeurteilungen","skl.mClimate":"Klimaberechnung Schaltschrank","skl.mPower":"Transformatoren & Spannungsversorgung","skl.mSpecs":"Lastenhefte",
     "bk.label":"// Online Buchung & Bezahlung","bk.title":"Paket wählen, Projekt beschreiben, loslegen.",
     "bk.subtitle":"Wählen Sie ein passendes Paket, beschreiben Sie kurz Ihr Vorhaben — ich melde mich innerhalb von 24 Stunden mit einem konkreten Vorschlag.",
     "bk.p1Desc":"Kurzes Consulting — schnelle Einschätzung Ihres Themas.","bk.p2Desc":"Kompaktes Schaltplan-Paket — planbarer Umfang, klar definierter Liefergegenstand.","bk.p3Desc":"Mehrtägiges bis -wöchiges Remote-Engagement für komplexere Aufgaben.","bk.p4Name":"Custom Projekt","bk.p4Desc":"Maßgeschneidert — Festpreis oder Tagessatz nach individueller Absprache.","bk.onRequest":"Auf Anfrage",
@@ -2257,7 +2291,7 @@ const i18n = {
     "hero.cta1":"Request a project","hero.cta2":"View services",
     "hero.langDE":"Native","hero.langEN":"Advanced",
     "about.label":"// About","about.title":"Deep machine understanding meets structured electrical design.",
-    "about.p1":"I'm Patrick Dietz — a state-certified electrical engineer (Bachelor Professional in Technik, DQR / EQF level 6, equivalent to a bachelor's degree) with more than 13 years of hands-on experience designing, commissioning and optimizing industrial machinery.",
+    "about.p1":"I'm Patrick Dietz — a state-certified electrical engineer (Bachelor Professional in Technik, DQR / EQF level 6, equivalent to a bachelor's degree) with more than 13 years of hands-on experience in special-purpose machinery — from electrical design and EMC-compliant cabinet engineering through commissioning and on-site customer training worldwide.",
     "about.p2":"My focus is EPLAN P8, drive technology (B&R ACOPOS P3, motion control), safety circuits and the electrical design of complex machines — from plastic extrusion lines to modern fiber-preparation systems.",
     "about.usp":"\"I combine deep machine understanding with structured electrical design and international hands-on experience. Not just planning — actually solving problems.\"",
     "about.travelTitle":"Available internationally","about.travelText":"Commissioning, on-site work and retrofit projects worldwide — billed against expenses (flights, meals, accommodation). Field experience includes China and India.",
@@ -2295,7 +2329,7 @@ const i18n = {
     "skl.label":"// Technical Skills","skl.title":"Tools, methods, experience.",
     "skl.b2":"Drive Technology & Motion Control (B&R ACOPOS P3)","skl.b3":"Cabinet Build & Wiring","skl.b4":"Safety Circuits & CE / UL Standards","skl.b5":"Commissioning & Troubleshooting","skl.b6":"Technical Documentation & BOM","skl.b7":"Python & Excel — Data Analysis",
     "skl.toolsSW":"Software & Systems","skl.toolsMethods":"Methods & Domains",
-    "skl.m1":"Motion Control","skl.m2":"Axis Synchronization","skl.m3":"Safety Circuits","skl.m4":"CE / UL Standards","skl.m5":"Cable Sizing","skl.m6":"BOM Management","skl.m7":"Retrofit","skl.m8":"Commissioning","skl.m9":"Troubleshooting",
+    "skl.m1":"Motion Control","skl.m2":"Axis Synchronization","skl.m3":"Safety Circuits","skl.m4":"CE / UL Standards","skl.m5":"Cable Sizing","skl.m6":"BOM Management","skl.m7":"Retrofit","skl.m8":"Commissioning","skl.m9":"Troubleshooting","skl.mEMV":"EMC Measurements","skl.mRisk":"Risk Assessments","skl.mClimate":"Cabinet Climate Calculation","skl.mPower":"Transformers & Power Supply","skl.mSpecs":"Specification Documents",
     "bk.label":"// Online Booking & Payment","bk.title":"Pick a package, describe your project, get started.",
     "bk.subtitle":"Choose a suitable package, briefly describe your scope — I'll get back to you within 24 hours with a concrete proposal.",
     "bk.p1Desc":"Short consulting block — quick assessment of your topic.","bk.p2Desc":"Compact schematic engagement — predictable scope, clearly defined deliverable.","bk.p3Desc":"Multi-day to multi-week remote engagement for more complex tasks.","bk.p4Name":"Custom Project","bk.p4Desc":"Tailored — fixed price or day rate, agreed individually.","bk.onRequest":"On request",
@@ -2358,7 +2392,7 @@ const i18n = {
     "hero.cta1":"Solicitar proyecto","hero.cta2":"Ver servicios",
     "hero.langDE":"Nativo","hero.langEN":"Avanzado",
     "about.label":"// Sobre mí","about.title":"Profundo conocimiento de máquinas y diseño eléctrico estructurado.",
-    "about.p1":"Soy Patrick Dietz — Técnico Superior en Electrotecnia (Bachelor Professional in Technik, DQR/EQF nivel 6, equivalente a un grado universitario) con más de 13 años de experiencia diseñando, poniendo en marcha y optimizando maquinaria industrial.",
+    "about.p1":"Soy Patrick Dietz — Técnico Superior en Electrotecnia (Bachelor Professional in Technik, DQR/EQF nivel 6, equivalente a un grado universitario) con más de 13 años de experiencia en maquinaria especial — desde el diseño eléctrico y la ingeniería de armarios conforme a CEM hasta la puesta en marcha y la formación de clientes in situ en todo el mundo.",
     "about.p2":"Me especializo en EPLAN P8, accionamientos (B&R ACOPOS P3, motion control), circuitos de seguridad y el diseño eléctrico de máquinas complejas — desde líneas de extrusión de plástico hasta modernas máquinas de preparación de fibra.",
     "about.usp":"«Combino un conocimiento profundo de la máquina con un diseño eléctrico estructurado y experiencia internacional sobre el terreno. No solo planificar — sino resolver problemas de verdad.»",
     "about.travelTitle":"Disponible internacionalmente","about.travelText":"Puestas en marcha, intervenciones in situ y proyectos retrofit en todo el mundo — con compensación de gastos (vuelo, dietas, alojamiento). Experiencia en China e India, entre otros.",
@@ -2396,7 +2430,7 @@ const i18n = {
     "skl.label":"// Skills técnicos","skl.title":"Herramientas, métodos y experiencia.",
     "skl.b2":"Accionamientos y Motion Control (B&R ACOPOS P3)","skl.b3":"Armarios eléctricos y cableado","skl.b4":"Circuitos de seguridad y normas CE / UL","skl.b5":"Puesta en marcha y diagnóstico","skl.b6":"Documentación técnica y BOM","skl.b7":"Python y Excel — análisis de datos",
     "skl.toolsSW":"Software y sistemas","skl.toolsMethods":"Métodos y dominios",
-    "skl.m1":"Motion Control","skl.m2":"Sincronización de ejes","skl.m3":"Circuitos de seguridad","skl.m4":"Normas CE / UL","skl.m5":"Dimensionado de cables","skl.m6":"Gestión BOM","skl.m7":"Retrofit","skl.m8":"Puesta en marcha","skl.m9":"Diagnóstico",
+    "skl.m1":"Motion Control","skl.m2":"Sincronización de ejes","skl.m3":"Circuitos de seguridad","skl.m4":"Normas CE / UL","skl.m5":"Dimensionado de cables","skl.m6":"Gestión BOM","skl.m7":"Retrofit","skl.m8":"Puesta en marcha","skl.m9":"Diagnóstico","skl.mEMV":"Mediciones CEM","skl.mRisk":"Evaluación de riesgos","skl.mClimate":"Cálculo de climatización del armario","skl.mPower":"Transformadores y alimentación","skl.mSpecs":"Pliegos de condiciones",
     "bk.label":"// Reserva online y pago","bk.title":"Elige un paquete, describe tu proyecto y empezamos.",
     "bk.subtitle":"Elige un paquete adecuado, describe brevemente tu proyecto — te respondo en menos de 24 horas con una propuesta concreta.",
     "bk.p1Desc":"Bloque corto de consultoría — valoración rápida de tu tema.","bk.p2Desc":"Paquete compacto de esquemas — alcance previsible y entregable claramente definido.","bk.p3Desc":"Encargo remoto de varios días o semanas para tareas más complejas.","bk.p4Name":"Proyecto a medida","bk.p4Desc":"Personalizado — precio fijo o tarifa diaria, acordados individualmente.","bk.onRequest":"A consultar",
@@ -2459,7 +2493,7 @@ const i18n = {
     "hero.cta1":"咨询项目","hero.cta2":"查看服务",
     "hero.langDE":"母语","hero.langEN":"高级",
     "about.label":"// 关于我","about.title":"深入的机械理解 + 结构化电气设计。",
-    "about.p1":"我是 Patrick Dietz — 德国国家认证电气技术员（Bachelor Professional in Technik，DQR / EQF 第 6 级，等同于学士学位），拥有 13 年以上工业机械设计、调试与优化经验。",
+    "about.p1":"我是 Patrick Dietz — 德国国家认证电气技术员（Bachelor Professional in Technik，DQR / EQF 第 6 级，等同于学士学位），13 年以上专用机械设备实战经验 — 从电气设计、电控柜 EMC 合规到全球范围内的现场调试与客户培训。",
     "about.p2":"我专注于 EPLAN P8、驱动技术（B&R ACOPOS P3、Motion Control）、安全回路以及复杂机械的电气设计 — 从塑料挤出生产线到现代纤维准备机械。",
     "about.usp":"「我将深入的机械理解、结构化的电气设计与丰富的国际现场经验结合在一起。不仅做规划 — 而是真正解决问题。」",
     "about.travelTitle":"可全球出差","about.travelText":"全球范围的调试、现场支持与改造项目 — 按差旅成本（机票、餐饮、住宿）计费。具有中国和印度等地的现场经验。",
@@ -2497,7 +2531,7 @@ const i18n = {
     "skl.label":"// 技术能力","skl.title":"工具、方法与经验。",
     "skl.b2":"驱动技术与 Motion Control（B&R ACOPOS P3）","skl.b3":"电控柜搭建与布线","skl.b4":"安全回路与 CE / UL 标准","skl.b5":"调试与故障排查","skl.b6":"技术文档与 BOM","skl.b7":"Python 与 Excel — 数据分析",
     "skl.toolsSW":"软件与系统","skl.toolsMethods":"方法与领域",
-    "skl.m1":"Motion Control","skl.m2":"轴同步","skl.m3":"安全回路","skl.m4":"CE / UL 标准","skl.m5":"电缆选型","skl.m6":"BOM 管理","skl.m7":"机器改造","skl.m8":"现场调试","skl.m9":"故障排查",
+    "skl.m1":"Motion Control","skl.m2":"轴同步","skl.m3":"安全回路","skl.m4":"CE / UL 标准","skl.m5":"电缆选型","skl.m6":"BOM 管理","skl.m7":"机器改造","skl.m8":"现场调试","skl.m9":"故障排查","skl.mEMV":"EMC 测量","skl.mRisk":"风险评估","skl.mClimate":"电控柜散热计算","skl.mPower":"变压器与电源","skl.mSpecs":"规格说明书",
     "bk.label":"// 在线预约与付款","bk.title":"选套餐，描述项目，立即开始。",
     "bk.subtitle":"选择合适的套餐，简要描述您的项目 — 我会在 24 小时内回复具体方案。",
     "bk.p1Desc":"短时咨询 — 快速评估您的议题。","bk.p2Desc":"紧凑的电路图项目 — 范围可控，交付物明确。","bk.p3Desc":"数日至数周的远程项目，适合较复杂任务。","bk.p4Name":"定制项目","bk.p4Desc":"按需定制 — 固定价或日费，逐案商定。","bk.onRequest":"面议",

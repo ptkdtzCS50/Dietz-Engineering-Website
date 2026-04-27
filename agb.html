@@ -75,24 +75,19 @@ a:hover { color: var(--gold-soft); text-decoration: underline; }
   gap: 1rem;
 }
 .logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1rem;
-  letter-spacing: 0.04em;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  color: var(--text);
-}
-.logo:hover { text-decoration: none; color: var(--text); }
-.logo .logo-mark {
-  height: 22px;
-  width: auto;
   color: var(--gold);
+  text-decoration: none;
   flex-shrink: 0;
-  display: block;
 }
-.logo span.dash { color: var(--gold); }
+.logo:hover { text-decoration: none; }
+.logo-lockup-svg { height: 26px; width: auto; color: var(--gold); display: block; }
+.logo-mark-only { height: 24px; width: auto; color: var(--gold); display: none; }
+@media (max-width: 540px) {
+  .logo-lockup-svg { display: none; }
+  .logo-mark-only { display: block; }
+}
 .nav-actions { display: flex; gap: 0.6rem; align-items: center; }
 .back-link {
   font-size: 0.9rem;
@@ -325,7 +320,20 @@ ol li::marker { color: var(--gold); font-family: 'JetBrains Mono', monospace; fo
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">
-      <svg class="logo-mark" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="logo-lockup-svg" viewBox="0 0 760 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(0, 10)">
+          <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
+          <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
+          <g transform="translate(95, 0)" fill="currentColor">
+            <rect x="0" y="0" width="22" height="80"/>
+            <rect x="0" y="0" width="65" height="22"/>
+            <rect x="0" y="29" width="48" height="22"/>
+            <rect x="0" y="58" width="65" height="22"/>
+          </g>
+        </g>
+        <text x="200" y="69" font-family="Syne, system-ui, sans-serif" font-weight="800" font-size="42" letter-spacing="2" fill="currentColor">DIETZ&#8212;ENGINEERING</text>
+      </svg>
+      <svg class="logo-mark-only" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
         <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
         <g transform="translate(95, 0)" fill="currentColor">
@@ -335,7 +343,6 @@ ol li::marker { color: var(--gold); font-family: 'JetBrains Mono', monospace; fo
           <rect x="0" y="58" width="65" height="22"/>
         </g>
       </svg>
-      <span>DIETZ<span class="dash">—</span>ENGINEERING</span>
     </a>
     <div class="nav-actions">
       <a href="index.html" class="back-link">
@@ -679,7 +686,20 @@ ol li::marker { color: var(--gold); font-family: 'JetBrains Mono', monospace; fo
 <footer class="footer">
   <div class="footer-inner">
     <a href="index.html" class="logo">
-      <svg class="logo-mark" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="logo-lockup-svg" viewBox="0 0 880 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(0, 10)">
+          <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
+          <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
+          <g transform="translate(95, 0)" fill="currentColor">
+            <rect x="0" y="0" width="22" height="80"/>
+            <rect x="0" y="0" width="65" height="22"/>
+            <rect x="0" y="29" width="48" height="22"/>
+            <rect x="0" y="58" width="65" height="22"/>
+          </g>
+        </g>
+        <text x="200" y="69" font-family="Syne, system-ui, sans-serif" font-weight="800" font-size="42" letter-spacing="2" fill="currentColor">DIETZ&#8212;ENGINEERING.COM</text>
+      </svg>
+      <svg class="logo-mark-only" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
         <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
         <g transform="translate(95, 0)" fill="currentColor">
@@ -689,7 +709,6 @@ ol li::marker { color: var(--gold); font-family: 'JetBrains Mono', monospace; fo
           <rect x="0" y="58" width="65" height="22"/>
         </g>
       </svg>
-      <span>DIETZ<span class="dash">—</span>ENGINEERING.COM</span>
     </a>
     <div class="footer-meta">© <span id="year"></span> Patrick Dietz</div>
     <div class="footer-links">
