@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 100" role="img" aria-labelledby="hLockupTitle">
+  <title id="hLockupTitle">Dietz Engineering</title>
+  <g transform="translate(0, 10)">
+    <rect x="0" y="0" width="22" height="80" fill="#C8A96E"/>
+    <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="#C8A96E" stroke-width="22"/>
+    <g transform="translate(95, 0)" fill="#C8A96E">
+      <rect x="0" y="0" width="22" height="80"/>
+      <rect x="0" y="0" width="65" height="22"/>
+      <rect x="0" y="29" width="48" height="22"/>
+      <rect x="0" y="58" width="65" height="22"/>
+    </g>
+  </g>
+  <g fill="#C8A96E" stroke="#C8A96E" stroke-linecap="square" stroke-linejoin="miter">
+    <circle cx="190" cy="50" r="4"/>
+    <path d="M 190 50 L 205 50 L 215 42 L 240 42 L 250 50 L 265 50" fill="none" stroke-width="2.5"/>
+    <circle cx="265" cy="50" r="4"/>
+  </g>
+  <text x="290" y="68" font-family="Syne, system-ui, sans-serif" font-weight="800" font-size="42" letter-spacing="2" fill="#C8A96E">DIETZ &#8212; ENGINEERING</text>
+</svg>

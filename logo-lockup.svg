@@ -14,5 +14,5 @@
   <path d="M 100 130 L 145 130 L 165 115 L 235 115 L 255 130 L 300 130" fill="none" stroke="#C8A96E" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
   <circle cx="100" cy="130" r="4" fill="#C8A96E"/>
   <circle cx="300" cy="130" r="4" fill="#C8A96E"/>
-  <text x="200" y="170" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="14" letter-spacing="3" fill="#C8A96E" text-anchor="middle">DIETZ &#xB7; ENGINEERING</text>
+  <text x="200" y="172" font-family="Syne, system-ui, sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="#C8A96E" text-anchor="middle">DIETZ &#183; ENGINEERING</text>
 </svg>
