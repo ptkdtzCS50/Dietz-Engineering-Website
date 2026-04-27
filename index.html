@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="Patrick Dietz — Staatlich geprüfter Elektrotechniker. EPLAN P8, Motion Control, Maschinenbau. Freelance Engineering aus Singen, Deutschland." />
 <title>Dietz Engineering — Patrick Dietz | Electrical Engineer & EPLAN P8 Spezialist</title>
+<link rel="icon" type="image/svg+xml" href="logo-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -197,12 +198,11 @@ section {
   gap: 0.6rem;
 }
 .logo .logo-mark {
-  width: 28px; height: 28px;
-  border: 1.5px solid var(--gold);
-  border-radius: 6px;
-  display: grid; place-items: center;
+  height: 24px;
+  width: auto;
   color: var(--gold);
-  font-size: 0.85rem;
+  flex-shrink: 0;
+  display: block;
 }
 .logo .logo-text { color: var(--text); }
 .logo .logo-text span { color: var(--gold); }
@@ -812,41 +812,6 @@ section {
   display: block;
 }
 
-.payment-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.7rem;
-  margin-top: 0.4rem;
-}
-.pay-option {
-  border: 1px solid var(--border-strong);
-  border-radius: 10px;
-  padding: 0.85rem 0.6rem;
-  text-align: center;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--text-soft);
-}
-.pay-option:hover { border-color: var(--gold-line); }
-.pay-option.selected {
-  border-color: var(--gold);
-  background: var(--gold-dim);
-  color: var(--gold);
-}
-
-.payment-info {
-  font-size: 0.85rem;
-  color: var(--text-soft);
-  background: var(--bg-3);
-  border: 1px dashed var(--border-strong);
-  border-radius: 8px;
-  padding: 0.85rem 1rem;
-  margin-top: 0.8rem;
-  font-family: 'JetBrains Mono', monospace;
-  line-height: 1.5;
-}
 .form-note {
   font-size: 0.85rem;
   color: var(--text-mute);
@@ -997,7 +962,6 @@ section {
   .process-grid::before { display: none; }
   .packages { grid-template-columns: repeat(2, 1fr); }
   .booking-form { grid-template-columns: 1fr; }
-  .payment-grid { grid-template-columns: repeat(2, 1fr); }
   section { padding: 4.5rem 0; }
   .hero { padding: 9rem 0 5rem; }
 }
@@ -1330,7 +1294,16 @@ section {
 <nav class="nav">
   <div class="nav-inner">
     <a href="#top" class="logo" aria-label="Dietz Engineering Home">
-      <span class="logo-mark">DE</span>
+      <svg class="logo-mark" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
+        <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
+        <g transform="translate(95, 0)" fill="currentColor">
+          <rect x="0" y="0" width="22" height="80"/>
+          <rect x="0" y="0" width="65" height="22"/>
+          <rect x="0" y="29" width="48" height="22"/>
+          <rect x="0" y="58" width="65" height="22"/>
+        </g>
+      </svg>
       <span class="logo-text">DIETZ<span>—</span>ENGINEERING</span>
     </a>
     <ul class="nav-links" id="navLinks">
@@ -1521,37 +1494,37 @@ section {
         <div class="service-num mono">01 / EPLAN</div>
         <h3 data-i18n="srv.s1Title">EPLAN P8 Schaltplanerstellung &amp; Optimierung</h3>
         <p data-i18n="srv.s1Desc">Strukturierte, normgerechte Schaltpläne. Vorlagen, Makros, Auswertungen — sauber gepflegt und revisionssicher.</p>
-        <div class="service-price"><span data-i18n="srv.from">ab</span> 80 €/h <span data-i18n="srv.orFixed">oder Festpreis</span></div>
+        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
       <div class="service-card fade">
         <div class="service-num mono">02 / PRO PANEL</div>
         <h3 data-i18n="srv.s2Title">EPLAN Pro Panel &amp; Smartwiring</h3>
         <p data-i18n="srv.s2Desc">3D-Schaltschrankaufbau, Smartwiring-Daten, Fertigungsunterlagen — bereit für Produktion und Verdrahtungsroboter.</p>
-        <div class="service-price"><span data-i18n="srv.from">ab</span> 85 €/h</div>
+        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
       <div class="service-card fade">
         <div class="service-num mono">03 / MOTION</div>
         <h3 data-i18n="srv.s3Title">Antriebstechnik &amp; Motion Control</h3>
         <p data-i18n="srv.s3Desc">B&amp;R ACOPOS P3, Achsensynchronisation, Servo-Auslegung. Von der Spezifikation bis zur funktionierenden Achse.</p>
-        <div class="service-price"><span data-i18n="srv.from">ab</span> 95 €/h</div>
+        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
       <div class="service-card fade">
         <div class="service-num mono">04 / SUPPORT</div>
         <h3 data-i18n="srv.s4Title">Troubleshooting &amp; Remote Support</h3>
         <p data-i18n="srv.s4Desc">Schnelle Fehleranalyse bei Drives, Sensorik, Temperaturverhalten und Safety-Schaltungen — remote oder vor Ort.</p>
-        <div class="service-price"><span data-i18n="srv.from">ab</span> 90 €/h</div>
+        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
       <div class="service-card fade">
         <div class="service-num mono">05 / DOCS</div>
         <h3 data-i18n="srv.s5Title">Technische Dokumentation &amp; BOM-Management</h3>
         <p data-i18n="srv.s5Desc">Stücklistenpflege in SAP/ECTR, Prüfprotokolle, RCA-Reports, CE/UL-konforme Doku.</p>
-        <div class="service-price"><span data-i18n="srv.from">ab</span> 70 €/h</div>
+        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
       <div class="service-card fade">
         <div class="service-num mono">06 / GLOBAL</div>
         <h3 data-i18n="srv.s6Title">Retrofit &amp; Internationale Projekte</h3>
         <p data-i18n="srv.s6Desc">Maschinenupgrades, Retrofit-Kits, Inbetriebnahmen weltweit. Erfahren in China- und Indien-Projekten.</p>
-        <div class="service-price" data-i18n="srv.s6Price">Tages-/Projektpreis auf Anfrage</div>
+        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
     </div>
   </div>
@@ -1823,24 +1796,24 @@ section {
     </div>
 
     <div class="packages fade">
-      <div class="pkg-card" data-pkg="quick">
+      <div class="pkg-card selected" data-pkg="quick">
         <div class="pkg-name">Quick Check</div>
-        <div class="pkg-desc" data-i18n="bk.p1Desc">1 Stunde Consulting — schnelle Einschätzung Ihres Themas.</div>
-        <div class="pkg-price">90 €</div>
+        <div class="pkg-desc" data-i18n="bk.p1Desc">Kurzes Consulting — schnelle Einschätzung Ihres Themas.</div>
+        <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
       </div>
-      <div class="pkg-card popular selected" data-pkg="starter" data-popular="POPULAR">
+      <div class="pkg-card popular" data-pkg="starter" data-popular="POPULAR">
         <div class="pkg-name">EPLAN Starter</div>
-        <div class="pkg-desc" data-i18n="bk.p2Desc">Schaltplan-Paket bis 8 h — kompakt &amp; planbar.</div>
-        <div class="pkg-price">580 €</div>
+        <div class="pkg-desc" data-i18n="bk.p2Desc">Kompaktes Schaltplan-Paket — planbarer Umfang, klar definierter Liefergegenstand.</div>
+        <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
       </div>
       <div class="pkg-card" data-pkg="sprint">
         <div class="pkg-name">Engineering Sprint</div>
-        <div class="pkg-desc" data-i18n="bk.p3Desc">1 Woche Remote (40 h) für komplexe Aufgaben.</div>
-        <div class="pkg-price">1.800 €</div>
+        <div class="pkg-desc" data-i18n="bk.p3Desc">Mehrtägiges bis -wöchiges Remote-Engagement für komplexere Aufgaben.</div>
+        <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
       </div>
       <div class="pkg-card" data-pkg="custom">
         <div class="pkg-name" data-i18n="bk.p4Name">Custom Projekt</div>
-        <div class="pkg-desc" data-i18n="bk.p4Desc">Maßgeschneidert — Festpreis oder Tagessatz.</div>
+        <div class="pkg-desc" data-i18n="bk.p4Desc">Maßgeschneidert — Festpreis oder Tagessatz nach individueller Absprache.</div>
         <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
       </div>
     </div>
@@ -1883,15 +1856,7 @@ section {
       </div>
 
       <div class="full">
-        <label class="field-label" data-i18n="bk.fPay">Bevorzugte Zahlungsart</label>
-        <div class="payment-grid">
-          <div class="pay-option selected" data-pay="paypal">PayPal</div>
-          <div class="pay-option" data-pay="stripe" data-i18n="bk.payCard">Kreditkarte</div>
-          <div class="pay-option" data-pay="invoice" data-i18n="bk.payInvoice">Rechnung 14 T.</div>
-          <div class="pay-option" data-pay="crypto">Crypto</div>
-        </div>
-        <div class="payment-info mono" id="paymentInfo" data-i18n="bk.payInfoPP">// PayPal — sichere Zahlung sofort. Zahlungslink wird nach Auftragsbestätigung per E-Mail zugesendet.</div>
-        <p class="form-note" data-i18n="bk.payNote">Über das Formular wird keine automatische Zahlung ausgelöst. Sie erhalten nach Eingang Ihrer Anfrage eine persönliche Antwort mit konkretem Vorschlag, Vertrag und Zahlungsdetails.</p>
+        <p class="form-note" data-i18n="bk.formNote">Über das Formular wird keine automatische Zahlung ausgelöst. Sie erhalten nach Eingang Ihrer Anfrage eine persönliche Antwort mit konkretem Vorschlag, Konditionen und Vertragsentwurf.</p>
       </div>
 
       <div class="full">
@@ -2009,7 +1974,16 @@ section {
   <div class="container">
     <div class="footer-inner">
       <a href="#top" class="logo">
-        <span class="logo-mark">DE</span>
+        <svg class="logo-mark" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
+          <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
+          <g transform="translate(95, 0)" fill="currentColor">
+            <rect x="0" y="0" width="22" height="80"/>
+            <rect x="0" y="0" width="65" height="22"/>
+            <rect x="0" y="29" width="48" height="22"/>
+            <rect x="0" y="58" width="65" height="22"/>
+          </g>
+        </svg>
         <span class="logo-text">DIETZ<span>—</span>ENGINEERING.COM</span>
       </a>
       <div class="footer-copy">© <span id="year"></span> Patrick Dietz · <span data-i18n="ft.rights">Alle Rechte vorbehalten</span></div>
@@ -2084,15 +2058,14 @@ const i18n = {
     "edu.card2Title":"Staatlich geprüfter Techniker — Elektrotechnik",
     "edu.card2Desc":"Fachrichtung Energietechnik & Prozessautomatisierung. Vertiefte Ausbildung in Antriebstechnik, Automatisierung, Messtechnik und Projektmanagement — Schwerpunkt industrielle Steuerungssysteme, Motion Control, Safety-Konzepte. Der Abschluss entspricht dem Bachelor-Niveau (DQR Level 6 / Bachelor Professional in Technik gemäß BBiG-Novelle 2020).",
     "srv.label":"// Leistungen","srv.title":"Was ich für Ihr Projekt liefere.",
-    "srv.subtitle":"Vom Schaltplan über Pro Panel, Antriebstechnik bis hin zu internationalen Inbetriebnahmen — flexibel als Stundensatz, Festpreis oder Sprint-Paket.",
-    "srv.from":"ab","srv.orFixed":"oder Festpreis",
+    "srv.subtitle":"Vom Schaltplan über Pro Panel, Antriebstechnik bis hin zu internationalen Inbetriebnahmen — flexibel als Stundensatz, Festpreis oder Sprint-Engagement, individuell nach Projekt.",
+    "srv.priceOnRequest":"Konditionen auf Anfrage",
     "srv.s1Title":"EPLAN P8 Schaltplanerstellung & Optimierung","srv.s1Desc":"Strukturierte, normgerechte Schaltpläne. Vorlagen, Makros, Auswertungen — sauber gepflegt und revisionssicher.",
     "srv.s2Title":"EPLAN Pro Panel & Smartwiring","srv.s2Desc":"3D-Schaltschrankaufbau, Smartwiring-Daten, Fertigungsunterlagen — bereit für Produktion und Verdrahtungsroboter.",
     "srv.s3Title":"Antriebstechnik & Motion Control","srv.s3Desc":"B&R ACOPOS P3, Achsensynchronisation, Servo-Auslegung. Von der Spezifikation bis zur funktionierenden Achse.",
     "srv.s4Title":"Troubleshooting & Remote Support","srv.s4Desc":"Schnelle Fehleranalyse bei Drives, Sensorik, Temperaturverhalten und Safety-Schaltungen — remote oder vor Ort.",
     "srv.s5Title":"Technische Dokumentation & BOM-Management","srv.s5Desc":"Stücklistenpflege in SAP/ECTR, Prüfprotokolle, RCA-Reports, CE/UL-konforme Doku.",
     "srv.s6Title":"Retrofit & Internationale Projekte","srv.s6Desc":"Maschinenupgrades, Retrofit-Kits, Inbetriebnahmen weltweit. Erfahren in China- und Indien-Projekten.",
-    "srv.s6Price":"Tages-/Projektpreis auf Anfrage",
     "exp.label":"// Berufserfahrung","exp.title":"Über ein Jahrzehnt im industriellen Maschinenbau.",
     "exp.e1Period":"2023 — heute","exp.e1Title":"Electrical Engineer — R&D","exp.e1Company":"Rieter AG, Schweiz · Faseraufbereitungsmaschinen",
     "exp.e1L1":"Entwicklung und Pflege elektrischer Schaltpläne mit EPLAN P8",
@@ -2114,19 +2087,14 @@ const i18n = {
     "skl.m1":"Motion Control","skl.m2":"Achsensynchronisation","skl.m3":"Safety Circuits","skl.m4":"CE / UL Normen","skl.m5":"Kabelauslegung","skl.m6":"BOM-Management","skl.m7":"Retrofit","skl.m8":"Inbetriebnahme","skl.m9":"Troubleshooting",
     "bk.label":"// Online Buchung & Bezahlung","bk.title":"Paket wählen, Projekt beschreiben, loslegen.",
     "bk.subtitle":"Wählen Sie ein passendes Paket, beschreiben Sie kurz Ihr Vorhaben — ich melde mich innerhalb von 24 Stunden mit einem konkreten Vorschlag.",
-    "bk.p1Desc":"1 Stunde Consulting — schnelle Einschätzung Ihres Themas.","bk.p2Desc":"Schaltplan-Paket bis 8 h — kompakt & planbar.","bk.p3Desc":"1 Woche Remote (40 h) für komplexe Aufgaben.","bk.p4Name":"Custom Projekt","bk.p4Desc":"Maßgeschneidert — Festpreis oder Tagessatz.","bk.onRequest":"Auf Anfrage",
+    "bk.p1Desc":"Kurzes Consulting — schnelle Einschätzung Ihres Themas.","bk.p2Desc":"Kompaktes Schaltplan-Paket — planbarer Umfang, klar definierter Liefergegenstand.","bk.p3Desc":"Mehrtägiges bis -wöchiges Remote-Engagement für komplexere Aufgaben.","bk.p4Name":"Custom Projekt","bk.p4Desc":"Maßgeschneidert — Festpreis oder Tagessatz nach individueller Absprache.","bk.onRequest":"Auf Anfrage",
     "bk.fFirst":"Vorname *","bk.fLast":"Nachname *","bk.fEmail":"E-Mail *","bk.fCompany":"Firma (optional)",
     "bk.fProject":"Projektbeschreibung *","bk.fProjectPh":"Was möchten Sie umsetzen? Welche Maschinen, welche Disziplinen, welcher Zeitrahmen?",
     "bk.fDate":"Wunschtermin","bk.fPkg":"Gewähltes Paket",
-    "bk.fPay":"Bevorzugte Zahlungsart","bk.payCard":"Kreditkarte","bk.payInvoice":"Rechnung 14 T.",
-    "bk.payInfoPP":"// PayPal — sichere Zahlung sofort. Zahlungslink wird nach Auftragsbestätigung per E-Mail zugesendet.",
-    "bk.payInfoStripe":"// Kreditkarte via Stripe — Visa, Mastercard, Amex. Sicherer Checkout-Link folgt nach Auftragsbestätigung per E-Mail.",
-    "bk.payInfoInv":"// Rechnung — Zahlungsziel 14 Tage netto. Für Geschäftskunden mit gültiger USt-ID.",
-    "bk.payInfoCrypto":"// Crypto — Zahlung in BTC, ETH oder USDC möglich. Wallet-Adresse folgt nach Auftragsbestätigung per E-Mail.",
-    "bk.payNote":"Über das Formular wird keine automatische Zahlung ausgelöst. Sie erhalten nach Eingang Ihrer Anfrage eine persönliche Antwort mit konkretem Vorschlag, Vertrag und Zahlungsdetails.",
+    "bk.formNote":"Über das Formular wird keine automatische Zahlung ausgelöst. Sie erhalten nach Eingang Ihrer Anfrage eine persönliche Antwort mit konkretem Vorschlag, Konditionen und Vertragsentwurf.",
     "bk.submit":"Unverbindliche Anfrage absenden",
     "bk.disclaimer":"Mit Absenden des Formulars erklären Sie sich mit der Verarbeitung Ihrer Daten gemäß <a href=\"datenschutz.html\">Datenschutzerklärung</a> einverstanden. Es gelten meine <a href=\"agb.html\">Allgemeinen Geschäftsbedingungen</a>.",
-    "bk.successTitle":"Anfrage erfolgreich übermittelt","bk.successText":"Vielen Dank — ich melde mich innerhalb von 24 Stunden persönlich mit einem konkreten Vorschlag, Vertragsentwurf und den passenden Zahlungsdetails.",
+    "bk.successTitle":"Anfrage erfolgreich übermittelt","bk.successText":"Vielen Dank — ich melde mich innerhalb von 24 Stunden persönlich mit einem konkreten Vorschlag, Konditionen und Vertragsentwurf.",
     "bk.errorMsg":"Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt eine E-Mail an patrick@dietz-engineering.com.",
     "ct.label":"// Kontakt","ct.title":"Lassen Sie uns über Ihr Projekt sprechen.",
     "ct.p1":"Direkter Draht — keine Hotline, keine Tickets. Schreiben Sie mir, ich melde mich persönlich zurück.","ct.remote":"Remote & Vor-Ort weltweit",
@@ -2178,15 +2146,14 @@ const i18n = {
     "edu.card2Title":"Bachelor Professional in Technik — Electrical Engineering",
     "edu.card2Desc":"Specialization in Energy Technology & Process Automation. Advanced training in drive technology, automation, measurement and project management — focus on industrial control systems, motion control and safety concepts. Equivalent to a bachelor's degree under the German Qualifications Framework (DQR / EQF level 6, official designation introduced via the 2020 BBiG amendment; the underlying qualification is the German »Staatlich geprüfter Techniker«).",
     "srv.label":"// Services","srv.title":"What I deliver for your project.",
-    "srv.subtitle":"From schematics to Pro Panel, drives and international commissioning — flexible as hourly, fixed-price or sprint package.",
-    "srv.from":"from","srv.orFixed":"or fixed price",
+    "srv.subtitle":"From schematics to Pro Panel, drives and international commissioning — flexible as hourly, fixed-price or sprint engagement, individually scoped per project.",
+    "srv.priceOnRequest":"Terms on request",
     "srv.s1Title":"EPLAN P8 Schematic Design & Optimization","srv.s1Desc":"Structured, standards-compliant schematics. Templates, macros, evaluations — cleanly maintained and revision-safe.",
     "srv.s2Title":"EPLAN Pro Panel & Smartwiring","srv.s2Desc":"3D cabinet builds, Smartwiring data, manufacturing documentation — ready for production and wiring robots.",
     "srv.s3Title":"Drive Technology & Motion Control","srv.s3Desc":"B&R ACOPOS P3, axis synchronization, servo sizing. From specification to a working axis.",
     "srv.s4Title":"Troubleshooting & Remote Support","srv.s4Desc":"Fast root-cause analysis on drives, sensors, thermal behavior and safety circuits — remote or on-site.",
     "srv.s5Title":"Technical Documentation & BOM Management","srv.s5Desc":"BOM maintenance in SAP/ECTR, test reports, RCA documents, CE/UL-compliant documentation.",
     "srv.s6Title":"Retrofit & International Projects","srv.s6Desc":"Machine upgrades, retrofit kits, commissioning worldwide. Experienced in China and India projects.",
-    "srv.s6Price":"Day/project rate on request",
     "exp.label":"// Experience","exp.title":"More than a decade in industrial machinery.",
     "exp.e1Period":"2023 — present","exp.e1Title":"Electrical Engineer — R&D","exp.e1Company":"Rieter AG, Switzerland · Fiber-preparation machinery",
     "exp.e1L1":"Development and maintenance of electrical schematics with EPLAN P8",
@@ -2208,19 +2175,14 @@ const i18n = {
     "skl.m1":"Motion Control","skl.m2":"Axis Synchronization","skl.m3":"Safety Circuits","skl.m4":"CE / UL Standards","skl.m5":"Cable Sizing","skl.m6":"BOM Management","skl.m7":"Retrofit","skl.m8":"Commissioning","skl.m9":"Troubleshooting",
     "bk.label":"// Online Booking & Payment","bk.title":"Pick a package, describe your project, get started.",
     "bk.subtitle":"Choose a suitable package, briefly describe your scope — I'll get back to you within 24 hours with a concrete proposal.",
-    "bk.p1Desc":"1 hour of consulting — quick assessment of your topic.","bk.p2Desc":"Schematic package up to 8 h — compact & predictable.","bk.p3Desc":"1 week remote (40 h) for complex tasks.","bk.p4Name":"Custom Project","bk.p4Desc":"Tailored — fixed price or day rate.","bk.onRequest":"On request",
+    "bk.p1Desc":"Short consulting block — quick assessment of your topic.","bk.p2Desc":"Compact schematic engagement — predictable scope, clearly defined deliverable.","bk.p3Desc":"Multi-day to multi-week remote engagement for more complex tasks.","bk.p4Name":"Custom Project","bk.p4Desc":"Tailored — fixed price or day rate, agreed individually.","bk.onRequest":"On request",
     "bk.fFirst":"First name *","bk.fLast":"Last name *","bk.fEmail":"Email *","bk.fCompany":"Company (optional)",
     "bk.fProject":"Project description *","bk.fProjectPh":"What do you want to build? Which machines, which disciplines, what timeframe?",
     "bk.fDate":"Preferred start date","bk.fPkg":"Selected package",
-    "bk.fPay":"Preferred payment method","bk.payCard":"Credit Card","bk.payInvoice":"Invoice 14 d.",
-    "bk.payInfoPP":"// PayPal — secure instant payment. Payment link will be sent by email after order confirmation.",
-    "bk.payInfoStripe":"// Credit card via Stripe — Visa, Mastercard, Amex. Secure checkout link will follow by email after order confirmation.",
-    "bk.payInfoInv":"// Invoice — net 14 days. For business clients with valid VAT ID.",
-    "bk.payInfoCrypto":"// Crypto — payment in BTC, ETH or USDC accepted. Wallet address will follow by email after order confirmation.",
-    "bk.payNote":"Submitting this form does not trigger any automated payment. You will receive a personal reply with a concrete proposal, contract and payment details after we've reviewed your request.",
+    "bk.formNote":"Submitting this form does not trigger any automated payment. You will receive a personal reply with a concrete proposal, terms and a draft contract after we've reviewed your request.",
     "bk.submit":"Send non-binding inquiry",
     "bk.disclaimer":"By submitting this form you consent to your data being processed in accordance with the <a href=\"datenschutz.html\">privacy policy</a>. My <a href=\"agb.html\">Terms &amp; Conditions</a> apply.",
-    "bk.successTitle":"Inquiry submitted successfully","bk.successText":"Thank you — I'll personally get back to you within 24 hours with a concrete proposal, draft contract and matching payment details.",
+    "bk.successTitle":"Inquiry submitted successfully","bk.successText":"Thank you — I'll personally get back to you within 24 hours with a concrete proposal, terms and a draft contract.",
     "bk.errorMsg":"There was an error sending your request. Please try again or email patrick@dietz-engineering.com directly.",
     "ct.label":"// Contact","ct.title":"Let's talk about your project.",
     "ct.p1":"A direct line — no hotline, no tickets. Drop me a message and I'll get back to you personally.","ct.remote":"Remote & on-site worldwide",
@@ -2272,15 +2234,14 @@ const i18n = {
     "edu.card2Title":"Bachelor Professional in Technik — Electrotecnia",
     "edu.card2Desc":"Especialidad en Energética y Automatización de Procesos. Formación avanzada en accionamientos, automatización, metrología y gestión de proyectos — énfasis en sistemas de control industrial, motion control y conceptos de seguridad. Título equivalente a un grado universitario según el Marco Alemán de Cualificaciones (DQR / EQF nivel 6 — denominación oficial introducida por la reforma del BBiG en 2020; cualificación de base »Staatlich geprüfter Techniker«).",
     "srv.label":"// Servicios","srv.title":"Lo que aporto a tu proyecto.",
-    "srv.subtitle":"Del esquema a Pro Panel, accionamientos y puestas en marcha internacionales — flexible por hora, precio fijo o paquete sprint.",
-    "srv.from":"desde","srv.orFixed":"o precio fijo",
+    "srv.subtitle":"Del esquema a Pro Panel, accionamientos y puestas en marcha internacionales — flexible por hora, precio fijo o sprint, ajustado individualmente al proyecto.",
+    "srv.priceOnRequest":"Condiciones a consultar",
     "srv.s1Title":"Esquemas EPLAN P8 — diseño y optimización","srv.s1Desc":"Esquemas estructurados y conformes a la norma. Plantillas, macros, listados — bien mantenidos y a prueba de revisiones.",
     "srv.s2Title":"EPLAN Pro Panel y Smartwiring","srv.s2Desc":"Armarios en 3D, datos Smartwiring, documentación de fabricación — listos para producción y robots de cableado.",
     "srv.s3Title":"Accionamientos y Motion Control","srv.s3Desc":"B&R ACOPOS P3, sincronización de ejes, dimensionado de servos. De la especificación al eje funcionando.",
     "srv.s4Title":"Diagnóstico y soporte remoto","srv.s4Desc":"Análisis rápido de fallos en accionamientos, sensórica, comportamiento térmico y circuitos de seguridad — en remoto o in situ.",
     "srv.s5Title":"Documentación técnica y gestión de BOM","srv.s5Desc":"Mantenimiento de listas en SAP/ECTR, protocolos de prueba, informes RCA, documentación conforme a CE/UL.",
     "srv.s6Title":"Retrofit y proyectos internacionales","srv.s6Desc":"Modernizaciones de máquinas, kits retrofit, puestas en marcha en todo el mundo. Experiencia en proyectos en China e India.",
-    "srv.s6Price":"Tarifa diaria/proyecto bajo solicitud",
     "exp.label":"// Experiencia","exp.title":"Más de una década en maquinaria industrial.",
     "exp.e1Period":"2023 — actualidad","exp.e1Title":"Electrical Engineer — I+D","exp.e1Company":"Rieter AG, Suiza · Maquinaria de preparación de fibra",
     "exp.e1L1":"Desarrollo y mantenimiento de esquemas eléctricos con EPLAN P8",
@@ -2302,19 +2263,14 @@ const i18n = {
     "skl.m1":"Motion Control","skl.m2":"Sincronización de ejes","skl.m3":"Circuitos de seguridad","skl.m4":"Normas CE / UL","skl.m5":"Dimensionado de cables","skl.m6":"Gestión BOM","skl.m7":"Retrofit","skl.m8":"Puesta en marcha","skl.m9":"Diagnóstico",
     "bk.label":"// Reserva online y pago","bk.title":"Elige un paquete, describe tu proyecto y empezamos.",
     "bk.subtitle":"Elige un paquete adecuado, describe brevemente tu proyecto — te respondo en menos de 24 horas con una propuesta concreta.",
-    "bk.p1Desc":"1 hora de consultoría — valoración rápida de tu tema.","bk.p2Desc":"Paquete de esquemas hasta 8 h — compacto y predecible.","bk.p3Desc":"1 semana remoto (40 h) para tareas complejas.","bk.p4Name":"Proyecto a medida","bk.p4Desc":"Personalizado — precio fijo o tarifa diaria.","bk.onRequest":"A consultar",
+    "bk.p1Desc":"Bloque corto de consultoría — valoración rápida de tu tema.","bk.p2Desc":"Paquete compacto de esquemas — alcance previsible y entregable claramente definido.","bk.p3Desc":"Encargo remoto de varios días o semanas para tareas más complejas.","bk.p4Name":"Proyecto a medida","bk.p4Desc":"Personalizado — precio fijo o tarifa diaria, acordados individualmente.","bk.onRequest":"A consultar",
     "bk.fFirst":"Nombre *","bk.fLast":"Apellidos *","bk.fEmail":"Correo electrónico *","bk.fCompany":"Empresa (opcional)",
     "bk.fProject":"Descripción del proyecto *","bk.fProjectPh":"¿Qué quieres realizar? ¿Qué máquinas, qué disciplinas, qué plazo?",
     "bk.fDate":"Fecha preferida","bk.fPkg":"Paquete seleccionado",
-    "bk.fPay":"Forma de pago preferida","bk.payCard":"Tarjeta","bk.payInvoice":"Factura 14 d.",
-    "bk.payInfoPP":"// PayPal — pago seguro inmediato. El enlace de pago se envía por correo tras la confirmación del encargo.",
-    "bk.payInfoStripe":"// Tarjeta vía Stripe — Visa, Mastercard, Amex. Recibirás un enlace de pago seguro por correo tras la confirmación.",
-    "bk.payInfoInv":"// Factura — vencimiento 14 días neto. Para clientes empresariales con NIF/VAT válido.",
-    "bk.payInfoCrypto":"// Crypto — pago en BTC, ETH o USDC. La dirección de la wallet se envía por correo tras la confirmación.",
-    "bk.payNote":"Este formulario no inicia ningún pago automático. Tras revisar tu solicitud recibirás una respuesta personal con una propuesta concreta, el contrato y los detalles de pago.",
+    "bk.formNote":"Este formulario no inicia ningún pago automático. Tras revisar tu solicitud recibirás una respuesta personal con una propuesta concreta, condiciones y un borrador de contrato.",
     "bk.submit":"Enviar consulta sin compromiso",
     "bk.disclaimer":"Al enviar el formulario consientes el tratamiento de tus datos conforme a la <a href=\"datenschutz.html\">política de privacidad</a>. Se aplican mis <a href=\"agb.html\">Condiciones Generales</a>.",
-    "bk.successTitle":"Solicitud enviada correctamente","bk.successText":"Gracias — te responderé personalmente en menos de 24 horas con una propuesta concreta, borrador de contrato y los detalles de pago correspondientes.",
+    "bk.successTitle":"Solicitud enviada correctamente","bk.successText":"Gracias — te responderé personalmente en menos de 24 horas con una propuesta concreta, condiciones y un borrador de contrato.",
     "bk.errorMsg":"Hubo un error al enviar tu solicitud. Inténtalo de nuevo o escríbeme directamente a patrick@dietz-engineering.com.",
     "ct.label":"// Contacto","ct.title":"Hablemos de tu proyecto.",
     "ct.p1":"Línea directa — sin centralita ni tickets. Escríbeme y te respondo personalmente.","ct.remote":"Remoto y presencial en todo el mundo",
@@ -2366,15 +2322,14 @@ const i18n = {
     "edu.card2Title":"Bachelor Professional in Technik — 电气工程",
     "edu.card2Desc":"主修方向：能源技术与过程自动化。在驱动技术、自动化、测量技术与项目管理方面的进阶培训，重点方向为工业控制系统、Motion Control 与安全方案。该资历等同于学士学位（依据德国资历框架 DQR / EQF 第 6 级；该正式称谓由 2020 年 BBiG 修订引入；底层资格名称为德语 »Staatlich geprüfter Techniker«）。",
     "srv.label":"// 服务","srv.title":"我能为您的项目交付什么。",
-    "srv.subtitle":"从电路图、Pro Panel、驱动技术到国际现场调试 — 灵活按小时、固定价或冲刺套餐计费。",
-    "srv.from":"起价","srv.orFixed":"或固定价",
+    "srv.subtitle":"从电路图、Pro Panel、驱动技术到国际现场调试 — 可按小时、固定价或冲刺方式合作，按项目个性化报价。",
+    "srv.priceOnRequest":"条款面议",
     "srv.s1Title":"EPLAN P8 电路图设计与优化","srv.s1Desc":"结构化、符合规范的电路图。模板、宏、报表 — 维护清晰，便于版本管理。",
     "srv.s2Title":"EPLAN Pro Panel 与 Smartwiring","srv.s2Desc":"3D 电控柜搭建、Smartwiring 数据、生产文档 — 直接对接生产与布线机器人。",
     "srv.s3Title":"驱动技术与 Motion Control","srv.s3Desc":"B&R ACOPOS P3、轴同步、伺服选型。从规格书到正常运行的轴系。",
     "srv.s4Title":"故障排查与远程支持","srv.s4Desc":"针对驱动器、传感器、温升与安全回路的快速故障分析 — 远程或现场。",
     "srv.s5Title":"技术文档与 BOM 管理","srv.s5Desc":"SAP/ECTR 中的物料清单维护、测试报告、RCA 报告，符合 CE/UL 标准的文档。",
     "srv.s6Title":"改造与国际项目","srv.s6Desc":"机器升级、改造套件、全球范围调试。具备中国与印度项目经验。",
-    "srv.s6Price":"日费 / 项目报价面议",
     "exp.label":"// 工作经验","exp.title":"工业机械领域十余年的深耕。",
     "exp.e1Period":"2023 — 至今","exp.e1Title":"电气工程师 — 研发","exp.e1Company":"瑞士 Rieter AG · 纤维准备机械",
     "exp.e1L1":"使用 EPLAN P8 进行电气电路图的开发与维护",
@@ -2396,19 +2351,14 @@ const i18n = {
     "skl.m1":"Motion Control","skl.m2":"轴同步","skl.m3":"安全回路","skl.m4":"CE / UL 标准","skl.m5":"电缆选型","skl.m6":"BOM 管理","skl.m7":"机器改造","skl.m8":"现场调试","skl.m9":"故障排查",
     "bk.label":"// 在线预约与付款","bk.title":"选套餐，描述项目，立即开始。",
     "bk.subtitle":"选择合适的套餐，简要描述您的项目 — 我会在 24 小时内回复具体方案。",
-    "bk.p1Desc":"1 小时咨询 — 快速评估您的议题。","bk.p2Desc":"电路图套餐至多 8 小时 — 紧凑可控。","bk.p3Desc":"1 周远程（40 小时），适合复杂任务。","bk.p4Name":"定制项目","bk.p4Desc":"按需定制 — 固定价或日费。","bk.onRequest":"面议",
+    "bk.p1Desc":"短时咨询 — 快速评估您的议题。","bk.p2Desc":"紧凑的电路图项目 — 范围可控，交付物明确。","bk.p3Desc":"数日至数周的远程项目，适合较复杂任务。","bk.p4Name":"定制项目","bk.p4Desc":"按需定制 — 固定价或日费，逐案商定。","bk.onRequest":"面议",
     "bk.fFirst":"名 *","bk.fLast":"姓 *","bk.fEmail":"电子邮箱 *","bk.fCompany":"公司（可选）",
     "bk.fProject":"项目描述 *","bk.fProjectPh":"您希望实现什么？涉及哪些机器、哪些专业领域、什么时间范围？",
     "bk.fDate":"期望开始日期","bk.fPkg":"已选套餐",
-    "bk.fPay":"首选付款方式","bk.payCard":"信用卡","bk.payInvoice":"发票（14 天）",
-    "bk.payInfoPP":"// PayPal — 即时安全付款。订单确认后付款链接将通过邮件发送。",
-    "bk.payInfoStripe":"// 信用卡（Stripe） — 支持 Visa、Mastercard、Amex。订单确认后将通过邮件发送安全付款链接。",
-    "bk.payInfoInv":"// 发票 — 净 14 天到期。仅限拥有有效税号的企业客户。",
-    "bk.payInfoCrypto":"// 加密货币 — 接受 BTC、ETH 或 USDC。订单确认后钱包地址将通过邮件发送。",
-    "bk.payNote":"提交本表单不会触发任何自动付款。我收到您的咨询后，会以个人方式回复，包含具体方案、合同与对应的付款详情。",
+    "bk.formNote":"提交本表单不会触发任何自动付款。我收到您的咨询后，会以个人方式回复，包含具体方案、条款与合同草案。",
     "bk.submit":"发送无约束力咨询",
     "bk.disclaimer":"提交本表单即表示您同意按<a href=\"datenschutz.html\">隐私声明</a>处理您的数据。我的<a href=\"agb.html\">服务条款</a>同时适用。",
-    "bk.successTitle":"咨询已成功提交","bk.successText":"感谢您 — 我会在 24 小时内亲自回复您具体方案、合同草案与对应的付款详情。",
+    "bk.successTitle":"咨询已成功提交","bk.successText":"感谢您 — 我会在 24 小时内亲自回复您具体方案、条款与合同草案。",
     "bk.errorMsg":"发送时出现错误。请重试，或直接发送邮件至 patrick@dietz-engineering.com。",
     "ct.label":"// 联系","ct.title":"让我们聊聊您的项目。",
     "ct.p1":"直接联系 — 没有热线，没有工单。给我留言，我会亲自回复。","ct.remote":"远程与全球现场",
@@ -2425,33 +2375,19 @@ const i18n = {
    ========================================================= */
 const langSelect = document.getElementById('langSelect');
 
-const pkgPriceMap = {
-  quick:   { de:'Quick Check — 90 €',          en:'Quick Check — €90',          es:'Quick Check — 90 €',           zh:'Quick Check — €90' },
-  starter: { de:'EPLAN Starter — 580 €',       en:'EPLAN Starter — €580',       es:'EPLAN Starter — 580 €',        zh:'EPLAN Starter — €580' },
-  sprint:  { de:'Engineering Sprint — 1.800 €',en:'Engineering Sprint — €1,800',es:'Engineering Sprint — 1.800 €', zh:'Engineering Sprint — €1,800' },
-  custom:  { de:'Custom Projekt — Auf Anfrage',en:'Custom Project — On request',es:'Proyecto a medida — A consultar',zh:'定制项目 — 面议' }
+const pkgNameMap = {
+  quick:   { de:'Quick Check',          en:'Quick Check',          es:'Quick Check',           zh:'Quick Check' },
+  starter: { de:'EPLAN Starter',        en:'EPLAN Starter',        es:'EPLAN Starter',         zh:'EPLAN Starter' },
+  sprint:  { de:'Engineering Sprint',   en:'Engineering Sprint',   es:'Engineering Sprint',    zh:'Engineering Sprint' },
+  custom:  { de:'Custom Projekt',       en:'Custom Project',       es:'Proyecto a medida',     zh:'定制项目' }
 };
-let selectedPkg = 'starter';
-
-const payInfoKeys = {
-  paypal:  'bk.payInfoPP',
-  stripe:  'bk.payInfoStripe',
-  invoice: 'bk.payInfoInv',
-  crypto:  'bk.payInfoCrypto'
-};
-let selectedPay = 'paypal';
+let selectedPkg = 'quick';
 
 function refreshSelectedPackage() {
   const lang = langSelect.value;
   const el = document.getElementById('selectedPackage');
   if (!el) return;
-  el.value = (pkgPriceMap[selectedPkg] && pkgPriceMap[selectedPkg][lang]) || pkgPriceMap[selectedPkg].de;
-}
-function refreshPaymentInfo() {
-  const dict = i18n[langSelect.value] || i18n.de;
-  const el = document.getElementById('paymentInfo');
-  if (!el) return;
-  el.textContent = dict[payInfoKeys[selectedPay]] || '';
+  el.value = (pkgNameMap[selectedPkg] && pkgNameMap[selectedPkg][lang]) || pkgNameMap[selectedPkg].de;
 }
 
 /* =========================================================
@@ -2475,7 +2411,6 @@ function applyLang(lang) {
     if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
   });
   refreshSelectedPackage();
-  refreshPaymentInfo();
   try { localStorage.setItem('de_lang', lang); } catch(e){}
 }
 
@@ -2526,14 +2461,6 @@ document.querySelectorAll('.pkg-card').forEach(card => {
   });
 });
 
-document.querySelectorAll('.pay-option').forEach(opt => {
-  opt.addEventListener('click', () => {
-    document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
-    opt.classList.add('selected');
-    selectedPay = opt.dataset.pay;
-    refreshPaymentInfo();
-  });
-});
 
 /* =========================================================
    FORM SUBMIT (Web3Forms backend)

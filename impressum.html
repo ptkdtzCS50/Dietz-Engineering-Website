@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, follow" />
 <title>Impressum — Dietz Engineering</title>
+<link rel="icon" type="image/svg+xml" href="logo-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -86,12 +87,11 @@ a:hover { color: var(--gold-soft); text-decoration: underline; }
 }
 .logo:hover { text-decoration: none; color: var(--text); }
 .logo .logo-mark {
-  width: 28px; height: 28px;
-  border: 1.5px solid var(--gold);
-  border-radius: 6px;
-  display: grid; place-items: center;
+  height: 22px;
+  width: auto;
   color: var(--gold);
-  font-size: 0.85rem;
+  flex-shrink: 0;
+  display: block;
 }
 .logo span.dash { color: var(--gold); }
 .nav-actions { display: flex; gap: 0.6rem; align-items: center; }
@@ -284,8 +284,17 @@ ul li::before {
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">
-      <span class="logo-mark">DE</span>
-      DIETZ<span class="dash">—</span>ENGINEERING
+      <svg class="logo-mark" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
+        <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
+        <g transform="translate(95, 0)" fill="currentColor">
+          <rect x="0" y="0" width="22" height="80"/>
+          <rect x="0" y="0" width="65" height="22"/>
+          <rect x="0" y="29" width="48" height="22"/>
+          <rect x="0" y="58" width="65" height="22"/>
+        </g>
+      </svg>
+      <span>DIETZ<span class="dash">—</span>ENGINEERING</span>
     </a>
     <div class="nav-actions">
       <a href="index.html" class="back-link">
@@ -426,8 +435,17 @@ ul li::before {
 <footer class="footer">
   <div class="footer-inner">
     <a href="index.html" class="logo">
-      <span class="logo-mark">DE</span>
-      DIETZ<span class="dash">—</span>ENGINEERING.COM
+      <svg class="logo-mark" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
+        <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
+        <g transform="translate(95, 0)" fill="currentColor">
+          <rect x="0" y="0" width="22" height="80"/>
+          <rect x="0" y="0" width="65" height="22"/>
+          <rect x="0" y="29" width="48" height="22"/>
+          <rect x="0" y="58" width="65" height="22"/>
+        </g>
+      </svg>
+      <span>DIETZ<span class="dash">—</span>ENGINEERING.COM</span>
     </a>
     <div class="footer-meta">© <span id="year"></span> Patrick Dietz</div>
     <div class="footer-links">
