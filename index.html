@@ -1005,6 +1005,27 @@ section {
   .services-grid, .edu-grid, .packages, .stats, .proj-grid, .process-grid { grid-template-columns: 1fr; }
   .hero h1 { font-size: 2.4rem; }
   .booking-form { padding: 1.5rem; }
+  /* Projekt-Karten: vertikale Meta-Zeile, keine Trenndots am Zeilenende */
+  .proj-meta {
+    flex-direction: column;
+    gap: 0.15rem;
+    line-height: 1.4;
+  }
+  .proj-meta span:not(:last-child)::after { display: none; }
+  .proj-card { padding: 1.4rem; }
+  .nda-banner { font-size: 0.72rem; padding: 0.6rem 0.85rem; }
+  /* Top-Navigation kompakt halten — Logo-Text raus, Aktionen kompakter,
+     damit Sprach-Dropdown + Theme-Toggle + Burger auf 375px-iPhones reinpassen */
+  .nav-inner { padding: 0.8rem 1rem; gap: 0.5rem; }
+  .logo .logo-text { display: none; }
+  .nav-actions { gap: 0.4rem; }
+  .lang-select {
+    max-width: 88px;
+    padding: 0.45rem 1.6rem 0.45rem 0.6rem;
+    font-size: 0.78rem;
+    background-position: right 0.55rem center;
+  }
+  .icon-btn, .nav-toggle { width: 36px; height: 36px; }
 }
 
 /* =========================================================
@@ -1226,6 +1247,73 @@ section {
 .flow-line {
   stroke-dasharray: 6 14;
   animation: flow 8s linear infinite;
+}
+
+/* =========================================================
+   COOKIE / PRIVACY INFO BANNER
+   ========================================================= */
+.cookie-banner {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--bg-2);
+  border: 1px solid var(--gold-line);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  z-index: 200;
+  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.45);
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.cookie-banner.show {
+  display: block;
+}
+.cookie-banner.in {
+  opacity: 1;
+  transform: none;
+}
+.cookie-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.cookie-text {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin: 0;
+  flex: 1;
+  line-height: 1.5;
+}
+.cookie-text a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cookie-btn {
+  background: var(--gold);
+  color: #15110a;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.15s ease;
+  font-family: inherit;
+}
+.cookie-btn:hover { background: var(--gold-soft); transform: translateY(-1px); }
+
+@media (max-width: 580px) {
+  .cookie-banner { padding: 0.9rem 1rem; left: 0.6rem; right: 0.6rem; }
+  .cookie-banner-inner { flex-direction: column; align-items: stretch; gap: 0.7rem; }
+  .cookie-btn { width: 100%; }
+  .cookie-text { font-size: 0.82rem; }
 }
 
 /* =========================================================
@@ -1473,10 +1561,10 @@ section {
 <section id="projects">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="prj.label">// Projekt-Profile</span>
-      <h2 class="section-title" data-i18n="prj.title">Anonymisierte Auszüge aus über einem Jahrzehnt Praxis.</h2>
+      <span class="section-label" data-i18n="prj.label">// Projekte</span>
+      <h2 class="section-title" data-i18n="prj.title">Eine Auswahl aus über einem Jahrzehnt Praxis.</h2>
       <p class="section-subtitle" data-i18n="prj.subtitle">
-        Die folgenden Profile zeigen typische Engagements meiner bisherigen Karriere — bewusst auf der Detail-Ebene gehalten, die mit bestehenden NDAs vereinbar ist. Die Substanz der Arbeit bleibt erkennbar.
+        Sechs typische Engagements aus meiner bisherigen Karriere im industriellen Maschinenbau — Schaltplankonstruktion, Inbetriebnahme, R&amp;D und internationale Vor-Ort-Einsätze.
       </p>
     </div>
 
@@ -1549,8 +1637,8 @@ section {
     </div>
 
     <div class="nda-banner fade">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      <span data-i18n="prj.ndaNote">NDA-konform — Detailtiefe bewusst gehalten. Konkrete Projekt-Insights gerne im persönlichen Gespräch.</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span data-i18n="prj.ndaNote">Konkrete technische Details und Projekt-Insights gerne im persönlichen Gespräch.</span>
     </div>
   </div>
 </section>
@@ -1811,7 +1899,7 @@ section {
           <span data-i18n="bk.submit">Unverbindliche Anfrage absenden</span>
           <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </button>
-        <p class="form-disclaimer" data-i18n="bk.disclaimer" data-i18n-html>Mit Absenden des Formulars erklären Sie sich mit der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage einverstanden — Details siehe <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+        <p class="form-disclaimer" data-i18n="bk.disclaimer" data-i18n-html>Mit Absenden des Formulars erklären Sie sich mit der Verarbeitung Ihrer Daten gemäß <a href="datenschutz.html">Datenschutzerklärung</a> einverstanden. Es gelten meine <a href="agb.html">Allgemeinen Geschäftsbedingungen</a>.</p>
         <div class="success-msg" id="successMsg">
           <div class="check">✓</div>
           <div>
@@ -1927,11 +2015,22 @@ section {
       <div class="footer-copy">© <span id="year"></span> Patrick Dietz · <span data-i18n="ft.rights">Alle Rechte vorbehalten</span></div>
       <div class="footer-legal">
         <a href="impressum.html" data-i18n="ft.imprint">Impressum</a>
+        <a href="agb.html" data-i18n="ft.terms">AGB</a>
         <a href="datenschutz.html" data-i18n="ft.privacy">Datenschutz</a>
       </div>
     </div>
   </div>
 </footer>
+
+<!-- ============================ COOKIE / PRIVACY INFO BANNER ============================ -->
+<div class="cookie-banner" id="cookieBanner" role="region" aria-label="Datenschutz-Hinweis">
+  <div class="cookie-banner-inner">
+    <p class="cookie-text" data-i18n="ck.text" data-i18n-html>
+      Diese Website lädt Schriftarten von Google Fonts (USA) und speichert deine Theme- und Sprachpräferenzen lokal in deinem Browser. Details in der <a href="datenschutz.html">Datenschutzerklärung</a>.
+    </p>
+    <button type="button" class="cookie-btn" id="cookieAccept" data-i18n="ck.btn">Verstanden</button>
+  </div>
+</div>
 
 <!-- ============================ SCRIPT ============================ -->
 <script>
@@ -1944,8 +2043,8 @@ document.documentElement.classList.add('js-ready');
 const i18n = {
   de: {
     "nav.about":"Über mich","nav.education":"Ausbildung","nav.services":"Leistungen","nav.projects":"Projekte","nav.experience":"Erfahrung","nav.process":"Prozess","nav.skills":"Skills","nav.booking":"Buchung","nav.faq":"FAQ","nav.contact":"Kontakt",
-    "prj.label":"// Projekt-Profile","prj.title":"Anonymisierte Auszüge aus über einem Jahrzehnt Praxis.",
-    "prj.subtitle":"Die folgenden Profile zeigen typische Engagements meiner bisherigen Karriere — bewusst auf der Detail-Ebene gehalten, die mit bestehenden NDAs vereinbar ist. Die Substanz der Arbeit bleibt erkennbar.",
+    "prj.label":"// Projekte","prj.title":"Eine Auswahl aus über einem Jahrzehnt Praxis.",
+    "prj.subtitle":"Sechs typische Engagements aus meiner bisherigen Karriere im industriellen Maschinenbau — Schaltplankonstruktion, Inbetriebnahme, R&D und internationale Vor-Ort-Einsätze.",
     "prj.p1Region":"DE · Multiple Projekte","prj.p1Title":"Plattenfolien-Extrusionslinien mit Co-Extrudern","prj.p1Desc":"Projektdefinition, Auswahl und Beschaffung von Langläufer-Komponenten. Vollständige EPLAN-Schaltplanerstellung für Extruder, Co-Extruder, Vakuumsystem, Glättwerk inklusive Heiz- und Kühlgeräten.",
     "prj.p2Region":"DE · Multiple Projekte","prj.p2Title":"Wickler-, Schneid- und Stapelanlagen","prj.p2Desc":"Elektrokonstruktion komplexer Linienverbünde — Längs- und Querschneideinrichtungen, Stapelanlagen, Wickler. Pro Panel, Smartwiring, EPLAN Fluid für Pneumatik.",
     "prj.p3Region":"Asien · Vor-Ort","prj.p3Time":"2020 / 21 · 5 Monate","prj.p3Title":"Inbetriebnahme während Corona-Lockdown","prj.p3Desc":"Vollständige elektrische Inbetriebnahme einer Extrusionslinie unter Lockdown-Bedingungen. Kundeninstruktion, Troubleshooting an Drives, Sensorik und Temperaturverhalten.",
@@ -1953,7 +2052,7 @@ const i18n = {
     "prj.p5Region":"International","prj.p5Title":"Prototyp-Feldtest & Customer Onboarding","prj.p5Desc":"Bestellung von Prototypenteilen, Installation und Inbetriebnahme bei Pilotkunden, Erstellung von Umbau-Instruktionen, Schulung des Bedienpersonals.",
     "prj.p6Title":"Komponentenanalyse & Supplier-Quality","prj.p6Desc":"Programmierung in Automation Studio (B&R), Lieferantenkoordination, Problemanalysen mit 8D-Reports, interdisziplinäre Entwicklung von Steuerungsfunktionen.",
     "prj.tagCalender":"Glättwerk","prj.tagCommissioning":"Inbetriebnahme","prj.tagTroubleshoot":"Troubleshooting","prj.tagIntl":"International","prj.tagPilot":"0-Serie","prj.tagPilotCustomers":"Pilotkunden","prj.tagTraining":"Schulung","prj.tagRetrofit":"Umbau-Instruktionen",
-    "prj.ndaNote":"NDA-konform — Detailtiefe bewusst gehalten. Konkrete Projekt-Insights gerne im persönlichen Gespräch.",
+    "prj.ndaNote":"Konkrete technische Details und Projekt-Insights gerne im persönlichen Gespräch.",
     "prc.label":"// Wie ich arbeite","prc.title":"Vom Briefing bis zur Übergabe — vier klare Schritte.","prc.subtitle":"Strukturiert, transparent, ohne Überraschungen. Sie wissen jederzeit, wo Ihr Projekt steht.",
     "prc.s1Title":"Briefing & Scope","prc.s1Desc":"Wir klären Umfang, Schnittstellen und Zeitrahmen — auf Wunsch unter NDA. Output: ein einseitiges Auftragsblatt mit klaren Liefergegenständen.",
     "prc.s2Title":"Konstruktion & Engineering","prc.s2Desc":"EPLAN-Schaltpläne, Pro-Panel-Aufbau, Komponentenauswahl. Wöchentlicher Stand inklusive Zwischenversionen — keine Black-Box-Phasen.",
@@ -2026,18 +2125,20 @@ const i18n = {
     "bk.payInfoCrypto":"// Crypto — Zahlung in BTC, ETH oder USDC möglich. Wallet-Adresse folgt nach Auftragsbestätigung per E-Mail.",
     "bk.payNote":"Über das Formular wird keine automatische Zahlung ausgelöst. Sie erhalten nach Eingang Ihrer Anfrage eine persönliche Antwort mit konkretem Vorschlag, Vertrag und Zahlungsdetails.",
     "bk.submit":"Unverbindliche Anfrage absenden",
-    "bk.disclaimer":"Mit Absenden des Formulars erklären Sie sich mit der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage einverstanden — Details siehe <a href=\"datenschutz.html\">Datenschutzerklärung</a>.",
+    "bk.disclaimer":"Mit Absenden des Formulars erklären Sie sich mit der Verarbeitung Ihrer Daten gemäß <a href=\"datenschutz.html\">Datenschutzerklärung</a> einverstanden. Es gelten meine <a href=\"agb.html\">Allgemeinen Geschäftsbedingungen</a>.",
     "bk.successTitle":"Anfrage erfolgreich übermittelt","bk.successText":"Vielen Dank — ich melde mich innerhalb von 24 Stunden persönlich mit einem konkreten Vorschlag, Vertragsentwurf und den passenden Zahlungsdetails.",
     "bk.errorMsg":"Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt eine E-Mail an patrick@dietz-engineering.com.",
     "ct.label":"// Kontakt","ct.title":"Lassen Sie uns über Ihr Projekt sprechen.",
     "ct.p1":"Direkter Draht — keine Hotline, keine Tickets. Schreiben Sie mir, ich melde mich persönlich zurück.","ct.remote":"Remote & Vor-Ort weltweit",
-    "ft.rights":"Alle Rechte vorbehalten","ft.imprint":"Impressum","ft.privacy":"Datenschutz"
+    "ft.rights":"Alle Rechte vorbehalten","ft.imprint":"Impressum","ft.privacy":"Datenschutz","ft.terms":"AGB",
+    "ck.text":"Diese Website lädt Schriftarten von Google Fonts (USA) und speichert deine Theme- und Sprachpräferenzen lokal in deinem Browser. Details in der <a href=\"datenschutz.html\">Datenschutzerklärung</a>.",
+    "ck.btn":"Verstanden"
   },
 
   en: {
     "nav.about":"About","nav.education":"Education","nav.services":"Services","nav.projects":"Projects","nav.experience":"Experience","nav.process":"Process","nav.skills":"Skills","nav.booking":"Booking","nav.faq":"FAQ","nav.contact":"Contact",
-    "prj.label":"// Project Profiles","prj.title":"Anonymized highlights from over a decade in the field.",
-    "prj.subtitle":"The profiles below illustrate typical engagements from my career so far — kept at a level of detail that is compatible with existing NDAs. The substance of the work remains visible.",
+    "prj.label":"// Projects","prj.title":"A selection from more than a decade in the field.",
+    "prj.subtitle":"Six typical engagements from my career in industrial machinery — schematic design, commissioning, R&D and international on-site work.",
     "prj.p1Region":"DE · Multiple projects","prj.p1Title":"Sheet-film extrusion lines with co-extruders","prj.p1Desc":"Project definition, selection and procurement of long-lead components. Full EPLAN schematic design for extruders, co-extruders, vacuum systems, calenders incl. heating and cooling units.",
     "prj.p2Region":"DE · Multiple projects","prj.p2Title":"Winders, slitters and stacker units","prj.p2Desc":"Electrical design of complex line composites — longitudinal and cross-cut units, stackers, winders. Pro Panel, Smartwiring, EPLAN Fluid for pneumatics.",
     "prj.p3Region":"Asia · On-site","prj.p3Time":"2020 / 21 · 5 months","prj.p3Title":"Commissioning during the Covid lockdown","prj.p3Desc":"Full electrical commissioning of an extrusion line under lockdown conditions. Customer training, troubleshooting on drives, sensors and thermal behavior.",
@@ -2045,7 +2146,7 @@ const i18n = {
     "prj.p5Region":"International","prj.p5Title":"Prototype field-test & customer onboarding","prj.p5Desc":"Procurement of prototype parts, installation and commissioning at pilot customers, creation of conversion instructions, training of operating personnel.",
     "prj.p6Title":"Component analysis & supplier quality","prj.p6Desc":"Programming in Automation Studio (B&R), supplier coordination, problem analyses with 8D reports, cross-disciplinary development of control functions.",
     "prj.tagCalender":"Calender","prj.tagCommissioning":"Commissioning","prj.tagTroubleshoot":"Troubleshooting","prj.tagIntl":"International","prj.tagPilot":"0-series","prj.tagPilotCustomers":"Pilot customers","prj.tagTraining":"Training","prj.tagRetrofit":"Conversion docs",
-    "prj.ndaNote":"NDA-compliant — detail level deliberately limited. Concrete project insights happily shared in person.",
+    "prj.ndaNote":"Concrete technical details and project insights happily shared in person.",
     "prc.label":"// How I work","prc.title":"From briefing to handover — four clear steps.","prc.subtitle":"Structured, transparent, no surprises. You always know where your project stands.",
     "prc.s1Title":"Briefing & Scope","prc.s1Desc":"We clarify scope, interfaces and timeline — under NDA if needed. Output: a one-page work order with clear deliverables.",
     "prc.s2Title":"Design & Engineering","prc.s2Desc":"EPLAN schematics, Pro Panel build, component selection. Weekly status including intermediate versions — no black-box phases.",
@@ -2118,18 +2219,20 @@ const i18n = {
     "bk.payInfoCrypto":"// Crypto — payment in BTC, ETH or USDC accepted. Wallet address will follow by email after order confirmation.",
     "bk.payNote":"Submitting this form does not trigger any automated payment. You will receive a personal reply with a concrete proposal, contract and payment details after we've reviewed your request.",
     "bk.submit":"Send non-binding inquiry",
-    "bk.disclaimer":"By submitting this form you consent to your data being processed to handle your inquiry — details in the <a href=\"datenschutz.html\">privacy policy</a>.",
+    "bk.disclaimer":"By submitting this form you consent to your data being processed in accordance with the <a href=\"datenschutz.html\">privacy policy</a>. My <a href=\"agb.html\">Terms &amp; Conditions</a> apply.",
     "bk.successTitle":"Inquiry submitted successfully","bk.successText":"Thank you — I'll personally get back to you within 24 hours with a concrete proposal, draft contract and matching payment details.",
     "bk.errorMsg":"There was an error sending your request. Please try again or email patrick@dietz-engineering.com directly.",
     "ct.label":"// Contact","ct.title":"Let's talk about your project.",
     "ct.p1":"A direct line — no hotline, no tickets. Drop me a message and I'll get back to you personally.","ct.remote":"Remote & on-site worldwide",
-    "ft.rights":"All rights reserved","ft.imprint":"Imprint","ft.privacy":"Privacy"
+    "ft.rights":"All rights reserved","ft.imprint":"Imprint","ft.privacy":"Privacy","ft.terms":"Terms",
+    "ck.text":"This website loads fonts from Google Fonts (USA) and stores your theme and language preferences locally in your browser. Details in the <a href=\"datenschutz.html\">privacy policy</a>.",
+    "ck.btn":"Got it"
   },
 
   es: {
     "nav.about":"Sobre mí","nav.education":"Formación","nav.services":"Servicios","nav.projects":"Proyectos","nav.experience":"Experiencia","nav.process":"Proceso","nav.skills":"Skills","nav.booking":"Reserva","nav.faq":"FAQ","nav.contact":"Contacto",
-    "prj.label":"// Perfiles de proyecto","prj.title":"Extractos anonimizados de más de una década en el sector.",
-    "prj.subtitle":"Los siguientes perfiles muestran encargos típicos de mi trayectoria — con un nivel de detalle compatible con los NDA existentes. La sustancia del trabajo sigue siendo visible.",
+    "prj.label":"// Proyectos","prj.title":"Una selección de más de una década de práctica.",
+    "prj.subtitle":"Seis encargos típicos de mi trayectoria en maquinaria industrial — diseño de esquemas, puesta en marcha, I+D y trabajo internacional in situ.",
     "prj.p1Region":"DE · Múltiples proyectos","prj.p1Title":"Líneas de extrusión de láminas con co-extrusores","prj.p1Desc":"Definición del proyecto, selección y aprovisionamiento de componentes de plazo largo. Diseño completo en EPLAN para extrusores, co-extrusores, sistema de vacío y calandra incluyendo equipos de calefacción y refrigeración.",
     "prj.p2Region":"DE · Múltiples proyectos","prj.p2Title":"Bobinadoras, cortadoras y apiladoras","prj.p2Desc":"Diseño eléctrico de conjuntos de línea complejos — cortes longitudinales y transversales, apiladoras, bobinadoras. Pro Panel, Smartwiring, EPLAN Fluid para neumática.",
     "prj.p3Region":"Asia · In situ","prj.p3Time":"2020 / 21 · 5 meses","prj.p3Title":"Puesta en marcha durante el confinamiento","prj.p3Desc":"Puesta en marcha eléctrica completa de una línea de extrusión bajo confinamiento. Formación al cliente, diagnóstico de accionamientos, sensórica y comportamiento térmico.",
@@ -2137,7 +2240,7 @@ const i18n = {
     "prj.p5Region":"Internacional","prj.p5Title":"Pruebas de campo de prototipos y onboarding de clientes","prj.p5Desc":"Pedido de piezas prototipo, instalación y puesta en marcha en clientes piloto, redacción de instrucciones de modificación, formación del personal operario.",
     "prj.p6Title":"Análisis de componentes y calidad de proveedores","prj.p6Desc":"Programación en Automation Studio (B&R), coordinación con proveedores, análisis de problemas con informes 8D, desarrollo interdisciplinario de funciones de control.",
     "prj.tagCalender":"Calandra","prj.tagCommissioning":"Puesta en marcha","prj.tagTroubleshoot":"Diagnóstico","prj.tagIntl":"Internacional","prj.tagPilot":"Serie 0","prj.tagPilotCustomers":"Clientes piloto","prj.tagTraining":"Formación","prj.tagRetrofit":"Modificaciones",
-    "prj.ndaNote":"Conforme a NDA — nivel de detalle limitado de forma intencionada. Insights concretos del proyecto, en conversación personal.",
+    "prj.ndaNote":"Detalles técnicos concretos e insights del proyecto, encantado de comentarlos en conversación personal.",
     "prc.label":"// Cómo trabajo","prc.title":"Del briefing a la entrega — cuatro pasos claros.","prc.subtitle":"Estructurado, transparente, sin sorpresas. En todo momento sabes en qué punto está tu proyecto.",
     "prc.s1Title":"Briefing y alcance","prc.s1Desc":"Definimos alcance, interfaces y plazos — bajo NDA si hace falta. Resultado: una hoja de pedido de una página con entregables claros.",
     "prc.s2Title":"Diseño e ingeniería","prc.s2Desc":"Esquemas EPLAN, montaje en Pro Panel, selección de componentes. Estado semanal incluyendo versiones intermedias — sin fases de caja negra.",
@@ -2210,18 +2313,20 @@ const i18n = {
     "bk.payInfoCrypto":"// Crypto — pago en BTC, ETH o USDC. La dirección de la wallet se envía por correo tras la confirmación.",
     "bk.payNote":"Este formulario no inicia ningún pago automático. Tras revisar tu solicitud recibirás una respuesta personal con una propuesta concreta, el contrato y los detalles de pago.",
     "bk.submit":"Enviar consulta sin compromiso",
-    "bk.disclaimer":"Al enviar el formulario consientes el tratamiento de tus datos para gestionar tu consulta — detalles en la <a href=\"datenschutz.html\">política de privacidad</a>.",
+    "bk.disclaimer":"Al enviar el formulario consientes el tratamiento de tus datos conforme a la <a href=\"datenschutz.html\">política de privacidad</a>. Se aplican mis <a href=\"agb.html\">Condiciones Generales</a>.",
     "bk.successTitle":"Solicitud enviada correctamente","bk.successText":"Gracias — te responderé personalmente en menos de 24 horas con una propuesta concreta, borrador de contrato y los detalles de pago correspondientes.",
     "bk.errorMsg":"Hubo un error al enviar tu solicitud. Inténtalo de nuevo o escríbeme directamente a patrick@dietz-engineering.com.",
     "ct.label":"// Contacto","ct.title":"Hablemos de tu proyecto.",
     "ct.p1":"Línea directa — sin centralita ni tickets. Escríbeme y te respondo personalmente.","ct.remote":"Remoto y presencial en todo el mundo",
-    "ft.rights":"Todos los derechos reservados","ft.imprint":"Aviso legal","ft.privacy":"Privacidad"
+    "ft.rights":"Todos los derechos reservados","ft.imprint":"Aviso legal","ft.privacy":"Privacidad","ft.terms":"Condiciones",
+    "ck.text":"Este sitio web carga fuentes de Google Fonts (EE. UU.) y guarda tus preferencias de tema e idioma localmente en tu navegador. Más detalles en la <a href=\"datenschutz.html\">política de privacidad</a>.",
+    "ck.btn":"Entendido"
   },
 
   zh: {
     "nav.about":"关于我","nav.education":"教育背景","nav.services":"服务","nav.projects":"项目","nav.experience":"工作经验","nav.process":"流程","nav.skills":"技能","nav.booking":"预约","nav.faq":"常见问题","nav.contact":"联系",
-    "prj.label":"// 项目案例","prj.title":"十余年实战经验中的匿名摘录。",
-    "prj.subtitle":"以下案例展示了我职业生涯中的典型项目 — 详细程度有意控制在与现行保密协议相符的范围内。工作的实质内容仍清晰可见。",
+    "prj.label":"// 项目","prj.title":"十余年实战经验中的代表性项目。",
+    "prj.subtitle":"我在工业机械领域的六个典型项目 — 涵盖电路图设计、现场调试、研发以及国际驻场工作。",
     "prj.p1Region":"德国 · 多个项目","prj.p1Title":"带共挤出机的板材薄膜挤出生产线","prj.p1Desc":"项目定义、长周期物料的选型与采购。完整的 EPLAN 电路图设计 — 涵盖挤出机、共挤出机、真空系统、压光机及其加热与冷却装置。",
     "prj.p2Region":"德国 · 多个项目","prj.p2Title":"卷绕机、分切机与堆垛设备","prj.p2Desc":"复杂联动生产线的电气设计 — 纵切、横切设备、堆垛机、卷绕机。Pro Panel、Smartwiring，以及用于气动的 EPLAN Fluid。",
     "prj.p3Region":"亚洲 · 现场","prj.p3Time":"2020 / 21 · 5 个月","prj.p3Title":"疫情封控期间的现场调试","prj.p3Desc":"在封控条件下完成挤出生产线的全部电气调试。客户培训、驱动器、传感器与温升表现的故障排查。",
@@ -2229,7 +2334,7 @@ const i18n = {
     "prj.p5Region":"国际","prj.p5Title":"原型现场测试与客户上线","prj.p5Desc":"原型零件订购、客户试点装机与调试、改造说明的编写、操作人员培训。",
     "prj.p6Title":"零部件分析与供应商质量","prj.p6Desc":"使用 B&R Automation Studio 编程、供应商协调、基于 8D 报告的问题分析、跨学科开发控制功能。",
     "prj.tagCalender":"压光机","prj.tagCommissioning":"现场调试","prj.tagTroubleshoot":"故障排查","prj.tagIntl":"国际项目","prj.tagPilot":"0 系列","prj.tagPilotCustomers":"试点客户","prj.tagTraining":"培训","prj.tagRetrofit":"改造说明",
-    "prj.ndaNote":"符合 NDA — 详细程度刻意保留。具体项目细节欢迎当面深聊。",
+    "prj.ndaNote":"具体技术细节与项目内容，欢迎当面深聊。",
     "prc.label":"// 我的工作方式","prc.title":"从需求到交付 — 四个清晰步骤。","prc.subtitle":"结构化、透明、无意外。您随时清楚项目所处阶段。",
     "prc.s1Title":"需求与范围","prc.s1Desc":"我们一起界定范围、接口与时间表 — 必要时签署 NDA。交付物：一页式工单，明确写明可交付内容。",
     "prc.s2Title":"设计与工程","prc.s2Desc":"EPLAN 电路图、Pro Panel 搭建、零部件选型。每周状态汇报并交付中间版本 — 没有黑盒阶段。",
@@ -2302,12 +2407,14 @@ const i18n = {
     "bk.payInfoCrypto":"// 加密货币 — 接受 BTC、ETH 或 USDC。订单确认后钱包地址将通过邮件发送。",
     "bk.payNote":"提交本表单不会触发任何自动付款。我收到您的咨询后，会以个人方式回复，包含具体方案、合同与对应的付款详情。",
     "bk.submit":"发送无约束力咨询",
-    "bk.disclaimer":"提交本表单即表示您同意我处理您的数据以回复您的咨询 — 详见<a href=\"datenschutz.html\">隐私声明</a>。",
+    "bk.disclaimer":"提交本表单即表示您同意按<a href=\"datenschutz.html\">隐私声明</a>处理您的数据。我的<a href=\"agb.html\">服务条款</a>同时适用。",
     "bk.successTitle":"咨询已成功提交","bk.successText":"感谢您 — 我会在 24 小时内亲自回复您具体方案、合同草案与对应的付款详情。",
     "bk.errorMsg":"发送时出现错误。请重试，或直接发送邮件至 patrick@dietz-engineering.com。",
     "ct.label":"// 联系","ct.title":"让我们聊聊您的项目。",
     "ct.p1":"直接联系 — 没有热线，没有工单。给我留言，我会亲自回复。","ct.remote":"远程与全球现场",
-    "ft.rights":"保留所有权利","ft.imprint":"法律声明","ft.privacy":"隐私"
+    "ft.rights":"保留所有权利","ft.imprint":"法律声明","ft.privacy":"隐私","ft.terms":"服务条款",
+    "ck.text":"本网站从 Google Fonts（美国）加载字体，并在您的浏览器中本地保存主题和语言偏好。详见<a href=\"datenschutz.html\">隐私声明</a>。",
+    "ck.btn":"我了解了"
   }
 };
 
@@ -2525,6 +2632,31 @@ document.querySelectorAll('.fade').forEach(el => io.observe(el));
 
 /* Year */
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* =========================================================
+   COOKIE / PRIVACY INFO BANNER
+   ========================================================= */
+(function() {
+  const banner = document.getElementById('cookieBanner');
+  const btn = document.getElementById('cookieAccept');
+  if (!banner || !btn) return;
+
+  let accepted = false;
+  try { accepted = localStorage.getItem('de_cookie_ack') === '1'; } catch(e) {}
+
+  if (!accepted) {
+    setTimeout(() => {
+      banner.classList.add('show');
+      requestAnimationFrame(() => banner.classList.add('in'));
+    }, 700);
+  }
+
+  btn.addEventListener('click', () => {
+    banner.classList.remove('in');
+    setTimeout(() => banner.classList.remove('show'), 300);
+    try { localStorage.setItem('de_cookie_ack', '1'); } catch(e) {}
+  });
+})();
 </script>
 </body>
 </html>
