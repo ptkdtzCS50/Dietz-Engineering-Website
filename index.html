@@ -163,6 +163,19 @@ section {
   max-width: 680px;
   margin-bottom: 3rem;
 }
+.bk-intro-line {
+  text-align: center;
+  margin: -1.5rem 0 0.6rem;
+  color: var(--text-soft);
+  font-size: 0.96rem;
+}
+.bk-free-note {
+  text-align: center;
+  margin: 0 0 2.5rem;
+  color: var(--text-mute);
+  font-size: 0.88rem;
+  font-style: italic;
+}
 
 /* =========================================================
    NAV
@@ -426,6 +439,47 @@ section {
 }
 .lang-badge strong { color: var(--gold); margin-right: 0.4rem; }
 
+.hero-subnote {
+  margin-top: 1.2rem;
+  font-size: 0.88rem;
+  color: var(--text-mute);
+  font-style: italic;
+}
+
+/* =========================================================
+   TRUST BAND
+   ========================================================= */
+.trust-section {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, transparent 0%, var(--bg-2) 50%, transparent 100%);
+}
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6rem 2rem;
+}
+.trust-block { display: flex; flex-direction: column; gap: 0.4rem; }
+.trust-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.trust-text {
+  font-size: 0.93rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+@media (max-width: 960px) {
+  .trust-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 580px) {
+  .trust-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .trust-section { padding: 2rem 0; }
+}
+
 /* =========================================================
    ABOUT
    ========================================================= */
@@ -553,6 +607,12 @@ section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.4rem;
+}
+.services-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1100px) {
+  .services-grid-4 { grid-template-columns: repeat(2, 1fr); }
 }
 .service-card {
   background: var(--bg-card);
@@ -739,6 +799,41 @@ section {
 .pill:hover {
   border-color: var(--gold);
   color: var(--gold);
+}
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem;
+}
+.result-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem 1.8rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+  position: relative;
+}
+.result-card:hover {
+  border-color: var(--gold-line);
+  transform: translateY(-3px);
+}
+.result-card h3 {
+  font-size: 1.18rem;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.01em;
+  color: var(--gold);
+}
+.result-card p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+@media (max-width: 760px) {
+  .results-grid { grid-template-columns: 1fr; }
 }
 
 /* =========================================================
@@ -1071,6 +1166,27 @@ section {
   margin-bottom: 1.1rem;
   flex-grow: 1;
   line-height: 1.55;
+}
+.proj-csr {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.proj-csr p {
+  font-size: 0.86rem;
+  margin-bottom: 0;
+  flex-grow: 0;
+  line-height: 1.5;
+}
+.proj-csr strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
 }
 
 .nda-banner {
@@ -1483,31 +1599,55 @@ section {
       <span data-i18n="hero.badge">Verfügbar für Projekte · Remote &amp; Vor-Ort</span>
     </div>
     <h1>
-      <span data-i18n="hero.h1a">Patrick Dietz</span><br>
-      <span class="accent" data-i18n="hero.h1b">Electrical Engineering, präzise gebaut.</span>
+      <span data-i18n="hero.h1a">Elektrokonstruktion &amp; EPLAN-Lösungen</span><br>
+      <span class="accent" data-i18n="hero.h1b">für den industriellen Maschinenbau.</span>
     </h1>
     <p class="hero-tagline" data-i18n="hero.tagline">
-      Staatlich geprüfter Techniker (Bachelor Professional in Technik) mit über 13 Jahren Berufserfahrung in EPLAN P8, Antriebstechnik
-      und Maschinenentwicklung. Vom Schaltplan bis zur Inbetriebnahme — international, strukturiert, lösungsorientiert.
+      Weniger Engineering-Fehler, schnellere Inbetriebnahme und höhere Maschinenzuverlässigkeit — durch strukturierte Elektrokonstruktion und 13+ Jahre Erfahrung im Sondermaschinenbau.
     </p>
     <div class="hero-meta mono">
-      <span data-i18n="hero.meta1">Singen, Baden-Württemberg · DE</span>
-      <span data-i18n="hero.meta2">13+ Jahre Berufserfahrung Elektrotechnik</span>
-      <span data-i18n="hero.meta3">EPLAN · Smartwiring · TIA Portal · Automation Studio</span>
-      <span data-i18n="hero.meta4">Drive Systems · Python · Visual Studio</span>
+      <span data-i18n="hero.meta1">13+ Jahre im Maschinenbau</span>
+      <span data-i18n="hero.meta2">EPLAN P8 · Motion Control · Drive Systems</span>
+      <span data-i18n="hero.meta3">R&amp;D-Erfahrung · Internationale Projekte</span>
+      <span data-i18n="hero.meta4">Deutschland · Schweiz · China · Indien</span>
     </div>
     <div class="cta-row">
       <a href="#booking" class="btn btn-primary">
-        <span data-i18n="hero.cta1">Projekt anfragen</span>
+        <span data-i18n="hero.cta1">Kostenloses Erstgespräch</span>
         <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
-      <a href="#services" class="btn btn-secondary">
-        <span data-i18n="hero.cta2">Leistungen ansehen</span>
+      <a href="#projects" class="btn btn-secondary">
+        <span data-i18n="hero.cta2">Projekt-Cases ansehen</span>
       </a>
     </div>
     <div class="lang-badges">
       <span class="lang-badge"><strong>DE</strong><span data-i18n="hero.langDE">Muttersprache</span></span>
-      <span class="lang-badge"><strong>EN</strong><span data-i18n="hero.langEN">Fortgeschritten</span></span>
+      <span class="lang-badge"><strong>EN</strong><span data-i18n="hero.langEN">Professionell</span></span>
+    </div>
+    <p class="hero-subnote" data-i18n="hero.subnote">20-Minuten-Erstgespräch — kostenlos und unverbindlich.</p>
+  </div>
+</section>
+
+<!-- ============================ TRUST BAND ============================ -->
+<section id="trust" class="trust-section">
+  <div class="container">
+    <div class="trust-grid fade">
+      <div class="trust-block">
+        <div class="trust-label mono" data-i18n="trust.industriesLabel">// Branchen</div>
+        <div class="trust-text" data-i18n="trust.industries">Sondermaschinenbau · Faseraufbereitung · Kunststoff-Extrusion · Antriebstechnik</div>
+      </div>
+      <div class="trust-block">
+        <div class="trust-label mono" data-i18n="trust.locationsLabel">// Vor-Ort</div>
+        <div class="trust-text" data-i18n="trust.locations">Deutschland · Schweiz · China · Indien</div>
+      </div>
+      <div class="trust-block">
+        <div class="trust-label mono" data-i18n="trust.standardsLabel">// Standards</div>
+        <div class="trust-text" data-i18n="trust.standards">CE · UL · EMV-Messung · Safety Circuits · DGUV-Schulung</div>
+      </div>
+      <div class="trust-block">
+        <div class="trust-label mono" data-i18n="trust.toolsLabel">// Tools</div>
+        <div class="trust-text" data-i18n="trust.tools">EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1603,41 +1743,29 @@ section {
         flexibel als Stundensatz, Festpreis oder Sprint-Paket.
       </p>
     </div>
-    <div class="services-grid">
+    <div class="services-grid services-grid-4">
       <div class="service-card fade">
-        <div class="service-num mono">01 / EPLAN</div>
-        <h3 data-i18n="srv.s1Title">EPLAN P8 Schaltplanerstellung &amp; Optimierung</h3>
-        <p data-i18n="srv.s1Desc">Strukturierte, normgerechte Schaltpläne. Vorlagen, Makros, Auswertungen — sauber gepflegt und revisionssicher.</p>
+        <div class="service-num mono">01 / DESIGN</div>
+        <h3 data-i18n="srv.s1Title">EPLAN Design &amp; Documentation</h3>
+        <p data-i18n="srv.s1Desc">Reduzieren Sie Engineering-Fehler und beschleunigen Sie die Produktion durch strukturierte, revisionssichere EPLAN-Konstruktion. Saubere Schaltpläne, BOM-Integration und CE/UL-konforme Dokumentation.</p>
         <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
       <div class="service-card fade">
-        <div class="service-num mono">02 / PRO PANEL</div>
-        <h3 data-i18n="srv.s2Title">EPLAN Pro Panel &amp; Smartwiring</h3>
-        <p data-i18n="srv.s2Desc">3D-Schaltschrankaufbau, Smartwiring-Daten, Fertigungsunterlagen — bereit für Produktion und Verdrahtungsroboter.</p>
+        <div class="service-num mono">02 / ENGINEERING</div>
+        <h3 data-i18n="srv.s2Title">Machine Electrical Design</h3>
+        <p data-i18n="srv.s2Desc">Komplette Elektrokonstruktion für industrielle Maschinen — inklusive Antriebstechnik, Motion Control und EMV-konformer Schaltschrankauslegung.</p>
         <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
       <div class="service-card fade">
-        <div class="service-num mono">03 / MOTION</div>
-        <h3 data-i18n="srv.s3Title">Antriebstechnik &amp; Motion Control</h3>
-        <p data-i18n="srv.s3Desc">B&amp;R ACOPOS P3, Achsensynchronisation, Servo-Auslegung. Von der Spezifikation bis zur funktionierenden Achse.</p>
+        <div class="service-num mono">03 / SUPPORT</div>
+        <h3 data-i18n="srv.s3Title">Troubleshooting &amp; Support</h3>
+        <p data-i18n="srv.s3Desc">Schnelle Problemlösung bei Antrieben, Sensorik und Steuerungen. Remote oder vor Ort, mit Root-Cause-Analyse.</p>
         <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
       <div class="service-card fade">
-        <div class="service-num mono">04 / SUPPORT</div>
-        <h3 data-i18n="srv.s4Title">Troubleshooting &amp; Remote Support</h3>
-        <p data-i18n="srv.s4Desc">Schnelle Fehleranalyse bei Drives, Sensorik, Temperaturverhalten und Safety-Schaltungen — remote oder vor Ort.</p>
-        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
-      </div>
-      <div class="service-card fade">
-        <div class="service-num mono">05 / DOCS</div>
-        <h3 data-i18n="srv.s5Title">Technische Dokumentation &amp; BOM-Management</h3>
-        <p data-i18n="srv.s5Desc">Stücklistenpflege in SAP/ECTR, Prüfprotokolle, RCA-Reports, CE/UL-konforme Doku.</p>
-        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
-      </div>
-      <div class="service-card fade">
-        <div class="service-num mono">06 / GLOBAL</div>
-        <h3 data-i18n="srv.s6Title">Retrofit &amp; Internationale Projekte</h3>
-        <p data-i18n="srv.s6Desc">Maschinenupgrades, Retrofit-Kits, Inbetriebnahmen weltweit. Erfahren in China- und Indien-Projekten.</p>
+        <div class="service-num mono">04 / RETROFIT</div>
+        <h3 data-i18n="srv.s4Title">Retrofit &amp; Optimization</h3>
+        <p data-i18n="srv.s4Desc">Bestehende Maschinen aufrüsten, Performance verbessern und langfristige Zuverlässigkeit durch optimierte elektrische Systeme sichern.</p>
         <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
     </div>
@@ -1661,7 +1789,11 @@ section {
           <span>Breyer Maschinenfabrik</span><span data-i18n="prj.p1Region">DE · Multiple Projekte</span><span>2015 — 2022</span>
         </div>
         <h3 data-i18n="prj.p1Title">Plattenfolien-Extrusionslinien mit Co-Extrudern</h3>
-        <p data-i18n="prj.p1Desc">Projektdefinition, Auswahl und Beschaffung von Langläufer-Komponenten. Vollständige EPLAN-Schaltplanerstellung für Extruder, Co-Extruder, Vakuumsystem, Glättwerk inklusive Heiz- und Kühlgeräten.</p>
+        <div class="proj-csr">
+          <p><strong data-i18n="prj.lblChallenge">Herausforderung:</strong><br><span data-i18n="prj.p1Cha">Komplexe Extrusionslinie mit Co-Extrudern, Vakuumsystem, Glättwerk und langen Lieferzeiten der Hauptkomponenten.</span></p>
+          <p><strong data-i18n="prj.lblSolution">Lösung:</strong><br><span data-i18n="prj.p1Sol">Projektdefinition, frühe Beschaffung der Langläufer und vollständige EPLAN-P8-Konstruktion über alle Linienkomponenten hinweg.</span></p>
+          <p><strong data-i18n="prj.lblResult">Ergebnis:</strong><br><span data-i18n="prj.p1Res">Termintreue Auslieferung mehrerer Linien mit konsistenter Doku — eine Anlaufstelle für die gesamte Elektrokonstruktion.</span></p>
+        </div>
         <div class="tags">
           <span class="tag">EPLAN P8</span><span class="tag">Co-Extrusion</span><span class="tag" data-i18n="prj.tagCalender">Glättwerk</span>
         </div>
@@ -1672,7 +1804,11 @@ section {
           <span>Breyer Maschinenfabrik</span><span data-i18n="prj.p2Region">DE · Multiple Projekte</span><span>2018 — 2022</span>
         </div>
         <h3 data-i18n="prj.p2Title">Wickler-, Schneid- und Stapelanlagen</h3>
-        <p data-i18n="prj.p2Desc">Elektrokonstruktion komplexer Linienverbünde — Längs- und Querschneideinrichtungen, Stapelanlagen, Wickler. Pro Panel, Smartwiring, EPLAN Fluid für Pneumatik.</p>
+        <div class="proj-csr">
+          <p><strong data-i18n="prj.lblChallenge">Herausforderung:</strong><br><span data-i18n="prj.p2Cha">Komplexe Linienverbünde mit Wicklern, Längs- und Querschneideinrichtungen sowie Stapelanlagen — koordinierte Verdrahtung über mehrere Komponenten.</span></p>
+          <p><strong data-i18n="prj.lblSolution">Lösung:</strong><br><span data-i18n="prj.p2Sol">Pro-Panel-3D-Aufbau, Smartwiring-Daten und EPLAN Fluid für die Pneumatik in einem konsistenten Gesamtprojekt.</span></p>
+          <p><strong data-i18n="prj.lblResult">Ergebnis:</strong><br><span data-i18n="prj.p2Res">Fertigungsfähige Schaltschrank-Pakete mit sauberer Verdrahtungsdaten-Basis für die Produktion.</span></p>
+        </div>
         <div class="tags">
           <span class="tag">EPLAN Pro Panel</span><span class="tag">Smartwiring</span><span class="tag">EPLAN Fluid</span>
         </div>
@@ -1683,7 +1819,11 @@ section {
           <span>Breyer Maschinenfabrik</span><span data-i18n="prj.p3Region">Asien · Vor-Ort</span><span data-i18n="prj.p3Time">2020 / 21 · 5 Monate</span>
         </div>
         <h3 data-i18n="prj.p3Title">Inbetriebnahme während Corona-Lockdown</h3>
-        <p data-i18n="prj.p3Desc">Vollständige elektrische Inbetriebnahme einer Extrusionslinie unter Lockdown-Bedingungen. Kundeninstruktion, Troubleshooting an Drives, Sensorik und Temperaturverhalten.</p>
+        <div class="proj-csr">
+          <p><strong data-i18n="prj.lblChallenge">Herausforderung:</strong><br><span data-i18n="prj.p3Cha">Vollständige elektrische Inbetriebnahme einer Extrusionslinie unter Lockdown-Bedingungen, ohne reguläre Heimat-Unterstützung aus Deutschland.</span></p>
+          <p><strong data-i18n="prj.lblSolution">Lösung:</strong><br><span data-i18n="prj.p3Sol">5 Monate durchgehende Vor-Ort-Präsenz, eigenständiges Troubleshooting an Drives und Sensorik, parallele Schulung des Kundenpersonals.</span></p>
+          <p><strong data-i18n="prj.lblResult">Ergebnis:</strong><br><span data-i18n="prj.p3Res">Termingerechte Inbetriebnahme trotz Reise-Restriktionen, übergebenes Kunden-Team mit operativem Know-how.</span></p>
+        </div>
         <div class="tags">
           <span class="tag" data-i18n="prj.tagCommissioning">Inbetriebnahme</span><span class="tag" data-i18n="prj.tagTroubleshoot">Troubleshooting</span><span class="tag" data-i18n="prj.tagIntl">International</span>
         </div>
@@ -1694,7 +1834,11 @@ section {
           <span>Rieter AG</span><span data-i18n="prj.p4Region">CH · R&amp;D</span><span data-i18n="prj.p4Time">2023 — heute</span>
         </div>
         <h3 data-i18n="prj.p4Title">CGC, E40 &amp; Mikrowellen-Elektronik</h3>
-        <p data-i18n="prj.p4Desc">Mitwirkung an der elektrischen Entwicklung mehrerer Rieter-Maschinenfunktionen bis zur 0-Serien-Reife — Konzeptphase, RCA, Fertigungsunterlagen, Prototypen-Aufbau.</p>
+        <div class="proj-csr">
+          <p><strong data-i18n="prj.lblChallenge">Herausforderung:</strong><br><span data-i18n="prj.p4Cha">Mehrere Maschinenfunktionen von der Konzeptphase bis zur 0-Serien-Reife — inklusive EMV-Anforderungen für CE-Zertifizierung.</span></p>
+          <p><strong data-i18n="prj.lblSolution">Lösung:</strong><br><span data-i18n="prj.p4Sol">Elektrische Konzeptarbeit, RCA-getriebene Iterationen, EMV-Messungen, Fertigungsunterlagen und Prototypen-Aufbau im interdisziplinären Team.</span></p>
+          <p><strong data-i18n="prj.lblResult">Ergebnis:</strong><br><span data-i18n="prj.p4Res">0-Serien-reife Funktionsmodule mit validierter Doku, eingespeist in Rieters internationale Produktion.</span></p>
+        </div>
         <div class="tags">
           <span class="tag">R&amp;D</span><span class="tag">ACOPOS P3</span><span class="tag" data-i18n="prj.tagPilot">0-Serie</span>
         </div>
@@ -1705,7 +1849,11 @@ section {
           <span>Rieter AG</span><span data-i18n="prj.p5Region">International</span><span data-i18n="prj.p4Time">2023 — heute</span>
         </div>
         <h3 data-i18n="prj.p5Title">Prototyp-Feldtest &amp; Customer Onboarding</h3>
-        <p data-i18n="prj.p5Desc">Bestellung von Prototypenteilen, Installation und Inbetriebnahme bei Pilotkunden, Erstellung von Umbau-Instruktionen, Schulung des Bedienpersonals.</p>
+        <div class="proj-csr">
+          <p><strong data-i18n="prj.lblChallenge">Herausforderung:</strong><br><span data-i18n="prj.p5Cha">Pilotkunden brauchten Installation, Inbetriebnahme und Schulung an neuen Prototypen — verteilt über mehrere Standorte.</span></p>
+          <p><strong data-i18n="prj.lblSolution">Lösung:</strong><br><span data-i18n="prj.p5Sol">Selbstorganisierte Logistik der Prototypenteile, Vor-Ort-Installation, Erstellung von Umbau-Instruktionen, Schulung der Bediener.</span></p>
+          <p><strong data-i18n="prj.lblResult">Ergebnis:</strong><br><span data-i18n="prj.p5Res">Pilotkunden produktiv und unabhängig, dokumentiertes Onboarding-Paket für Folge-Rollouts.</span></p>
+        </div>
         <div class="tags">
           <span class="tag" data-i18n="prj.tagPilotCustomers">Pilotkunden</span><span class="tag" data-i18n="prj.tagTraining">Schulung</span><span class="tag" data-i18n="prj.tagRetrofit">Umbau-Instruktionen</span>
         </div>
@@ -1716,7 +1864,11 @@ section {
           <span>Rieter AG</span><span>Automation Studio</span><span data-i18n="prj.p4Time">2023 — heute</span>
         </div>
         <h3 data-i18n="prj.p6Title">Komponentenanalyse &amp; Supplier-Quality</h3>
-        <p data-i18n="prj.p6Desc">Programmierung in Automation Studio (B&amp;R), Lieferantenkoordination, Problemanalysen mit 8D-Reports, interdisziplinäre Entwicklung von Steuerungsfunktionen.</p>
+        <div class="proj-csr">
+          <p><strong data-i18n="prj.lblChallenge">Herausforderung:</strong><br><span data-i18n="prj.p6Cha">Wiederkehrende Komponenten-Issues bei mehreren Lieferanten — interdisziplinäre Probleme zwischen Elektrik, Software und Mechanik.</span></p>
+          <p><strong data-i18n="prj.lblSolution">Lösung:</strong><br><span data-i18n="prj.p6Sol">Programmierung in Automation Studio (B&amp;R), Lieferantenkoordination, strukturierte 8D-Reports und Root-Cause-Analyse.</span></p>
+          <p><strong data-i18n="prj.lblResult">Ergebnis:</strong><br><span data-i18n="prj.p6Res">Lieferantenseitige Probleme nachhaltig gelöst, dokumentierter QS-Prozess für vergleichbare künftige Fälle.</span></p>
+        </div>
         <div class="tags">
           <span class="tag">8D-Reports</span><span class="tag">Automation Studio</span><span class="tag">RCA</span>
         </div>
@@ -1903,6 +2055,34 @@ section {
   </div>
 </section>
 
+<!-- ============================ RESULTS ============================ -->
+<section id="results">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="res.label">// Ergebnisse</span>
+      <h2 class="section-title" data-i18n="res.title">Was Kunden konkret gewinnen.</h2>
+    </div>
+    <div class="results-grid">
+      <div class="result-card fade">
+        <h3 data-i18n="res.r1Title">Schnellere Inbetriebnahme</h3>
+        <p data-i18n="res.r1Desc">Strukturierte Konstruktion verkürzt die Anlaufzeit und vermeidet Verzögerungen bei der Inbetriebnahme.</p>
+      </div>
+      <div class="result-card fade">
+        <h3 data-i18n="res.r2Title">Weniger Fehler</h3>
+        <p data-i18n="res.r2Desc">Saubere EPLAN-Struktur minimiert Verdrahtungsfehler und Probleme in der Produktion.</p>
+      </div>
+      <div class="result-card fade">
+        <h3 data-i18n="res.r3Title">Höhere Zuverlässigkeit</h3>
+        <p data-i18n="res.r3Desc">Optimierte Systeme reduzieren Ausfälle und verbessern die langfristige Stabilität.</p>
+      </div>
+      <div class="result-card fade">
+        <h3 data-i18n="res.r4Title">Bessere Skalierbarkeit</h3>
+        <p data-i18n="res.r4Desc">Standardisierte Dokumentation ermöglicht einfacheres Skalieren und globale Auslieferung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ BOOKING ============================ -->
 <section id="booking">
   <div class="container">
@@ -1912,6 +2092,8 @@ section {
       <p class="section-subtitle" data-i18n="bk.subtitle">
         Wählen Sie ein passendes Paket, beschreiben Sie kurz Ihr Vorhaben — ich melde mich innerhalb von 24 Stunden mit einem konkreten Vorschlag.
       </p>
+      <p class="bk-intro-line" data-i18n="bk.introLine">Im Erstgespräch besprechen wir Ihr Projekt, identifizieren Knackpunkte und definieren die nächsten Schritte.</p>
+      <p class="bk-free-note" data-i18n="bk.freeNote">20-Minuten-Erstgespräch — kostenlos und unverbindlich.</p>
     </div>
 
     <div class="packages fade">
@@ -2174,12 +2356,31 @@ const i18n = {
     "nav.about":"Über mich","nav.education":"Ausbildung","nav.services":"Leistungen","nav.projects":"Projekte","nav.experience":"Erfahrung","nav.process":"Prozess","nav.skills":"Skills","nav.booking":"Buchung","nav.faq":"FAQ","nav.contact":"Kontakt",
     "prj.label":"// Projekte","prj.title":"Eine Auswahl aus über einem Jahrzehnt Praxis.",
     "prj.subtitle":"Sechs typische Engagements aus meiner bisherigen Karriere im industriellen Maschinenbau — Schaltplankonstruktion, Inbetriebnahme, R&D und internationale Vor-Ort-Einsätze.",
-    "prj.p1Region":"DE · Multiple Projekte","prj.p1Title":"Plattenfolien-Extrusionslinien mit Co-Extrudern","prj.p1Desc":"Projektdefinition, Auswahl und Beschaffung von Langläufer-Komponenten. Vollständige EPLAN-Schaltplanerstellung für Extruder, Co-Extruder, Vakuumsystem, Glättwerk inklusive Heiz- und Kühlgeräten.",
-    "prj.p2Region":"DE · Multiple Projekte","prj.p2Title":"Wickler-, Schneid- und Stapelanlagen","prj.p2Desc":"Elektrokonstruktion komplexer Linienverbünde — Längs- und Querschneideinrichtungen, Stapelanlagen, Wickler. Pro Panel, Smartwiring, EPLAN Fluid für Pneumatik.",
-    "prj.p3Region":"Asien · Vor-Ort","prj.p3Time":"2020 / 21 · 5 Monate","prj.p3Title":"Inbetriebnahme während Corona-Lockdown","prj.p3Desc":"Vollständige elektrische Inbetriebnahme einer Extrusionslinie unter Lockdown-Bedingungen. Kundeninstruktion, Troubleshooting an Drives, Sensorik und Temperaturverhalten.",
-    "prj.p4Region":"CH · R&D","prj.p4Time":"2023 — heute","prj.p4Title":"CGC, E40 & Mikrowellen-Elektronik","prj.p4Desc":"Mitwirkung an der elektrischen Entwicklung mehrerer Rieter-Maschinenfunktionen bis zur 0-Serien-Reife — Konzeptphase, RCA, Fertigungsunterlagen, Prototypen-Aufbau.",
-    "prj.p5Region":"International","prj.p5Title":"Prototyp-Feldtest & Customer Onboarding","prj.p5Desc":"Bestellung von Prototypenteilen, Installation und Inbetriebnahme bei Pilotkunden, Erstellung von Umbau-Instruktionen, Schulung des Bedienpersonals.",
-    "prj.p6Title":"Komponentenanalyse & Supplier-Quality","prj.p6Desc":"Programmierung in Automation Studio (B&R), Lieferantenkoordination, Problemanalysen mit 8D-Reports, interdisziplinäre Entwicklung von Steuerungsfunktionen.",
+    "prj.lblChallenge":"Herausforderung:","prj.lblSolution":"Lösung:","prj.lblResult":"Ergebnis:",
+    "prj.p1Region":"DE · Multiple Projekte","prj.p1Title":"Plattenfolien-Extrusionslinien mit Co-Extrudern",
+    "prj.p1Cha":"Komplexe Extrusionslinie mit Co-Extrudern, Vakuumsystem, Glättwerk und langen Lieferzeiten der Hauptkomponenten.",
+    "prj.p1Sol":"Projektdefinition, frühe Beschaffung der Langläufer und vollständige EPLAN-P8-Konstruktion über alle Linienkomponenten hinweg.",
+    "prj.p1Res":"Termintreue Auslieferung mehrerer Linien mit konsistenter Doku — eine Anlaufstelle für die gesamte Elektrokonstruktion.",
+    "prj.p2Region":"DE · Multiple Projekte","prj.p2Title":"Wickler-, Schneid- und Stapelanlagen",
+    "prj.p2Cha":"Komplexe Linienverbünde mit Wicklern, Längs- und Querschneideinrichtungen sowie Stapelanlagen — koordinierte Verdrahtung über mehrere Komponenten.",
+    "prj.p2Sol":"Pro-Panel-3D-Aufbau, Smartwiring-Daten und EPLAN Fluid für die Pneumatik in einem konsistenten Gesamtprojekt.",
+    "prj.p2Res":"Fertigungsfähige Schaltschrank-Pakete mit sauberer Verdrahtungsdaten-Basis für die Produktion.",
+    "prj.p3Region":"Asien · Vor-Ort","prj.p3Time":"2020 / 21 · 5 Monate","prj.p3Title":"Inbetriebnahme während Corona-Lockdown",
+    "prj.p3Cha":"Vollständige elektrische Inbetriebnahme einer Extrusionslinie unter Lockdown-Bedingungen, ohne reguläre Heimat-Unterstützung aus Deutschland.",
+    "prj.p3Sol":"5 Monate durchgehende Vor-Ort-Präsenz, eigenständiges Troubleshooting an Drives und Sensorik, parallele Schulung des Kundenpersonals.",
+    "prj.p3Res":"Termingerechte Inbetriebnahme trotz Reise-Restriktionen, übergebenes Kunden-Team mit operativem Know-how.",
+    "prj.p4Region":"CH · R&D","prj.p4Time":"2023 — heute","prj.p4Title":"CGC, E40 & Mikrowellen-Elektronik",
+    "prj.p4Cha":"Mehrere Maschinenfunktionen von der Konzeptphase bis zur 0-Serien-Reife — inklusive EMV-Anforderungen für CE-Zertifizierung.",
+    "prj.p4Sol":"Elektrische Konzeptarbeit, RCA-getriebene Iterationen, EMV-Messungen, Fertigungsunterlagen und Prototypen-Aufbau im interdisziplinären Team.",
+    "prj.p4Res":"0-Serien-reife Funktionsmodule mit validierter Doku, eingespeist in Rieters internationale Produktion.",
+    "prj.p5Region":"International","prj.p5Title":"Prototyp-Feldtest & Customer Onboarding",
+    "prj.p5Cha":"Pilotkunden brauchten Installation, Inbetriebnahme und Schulung an neuen Prototypen — verteilt über mehrere Standorte.",
+    "prj.p5Sol":"Selbstorganisierte Logistik der Prototypenteile, Vor-Ort-Installation, Erstellung von Umbau-Instruktionen, Schulung der Bediener.",
+    "prj.p5Res":"Pilotkunden produktiv und unabhängig, dokumentiertes Onboarding-Paket für Folge-Rollouts.",
+    "prj.p6Title":"Komponentenanalyse & Supplier-Quality",
+    "prj.p6Cha":"Wiederkehrende Komponenten-Issues bei mehreren Lieferanten — interdisziplinäre Probleme zwischen Elektrik, Software und Mechanik.",
+    "prj.p6Sol":"Programmierung in Automation Studio (B&R), Lieferantenkoordination, strukturierte 8D-Reports und Root-Cause-Analyse.",
+    "prj.p6Res":"Lieferantenseitige Probleme nachhaltig gelöst, dokumentierter QS-Prozess für vergleichbare künftige Fälle.",
     "prj.tagCalender":"Glättwerk","prj.tagCommissioning":"Inbetriebnahme","prj.tagTroubleshoot":"Troubleshooting","prj.tagIntl":"International","prj.tagPilot":"0-Serie","prj.tagPilotCustomers":"Pilotkunden","prj.tagTraining":"Schulung","prj.tagRetrofit":"Umbau-Instruktionen",
     "prj.ndaNote":"Konkrete technische Details und Projekt-Insights gerne im persönlichen Gespräch.",
     "prc.label":"// Wie ich arbeite","prc.title":"Vom Briefing bis zur Übergabe — vier klare Schritte.","prc.subtitle":"Strukturiert, transparent, ohne Überraschungen. Sie wissen jederzeit, wo Ihr Projekt steht.",
@@ -2195,13 +2396,14 @@ const i18n = {
     "faq.q5":"Wie sieht die Abrechnung aus?","faq.a5":"Stundennachweis bei Stundensätzen, fester Betrag bei Paketen oder Festpreis-Projekten. Zahlung per Rechnung (14 Tage netto), PayPal, Kreditkarte oder Crypto (BTC, ETH, USDC). Geschäftskunden mit gültiger USt-ID erhalten Rechnung gemäß §13b UStG.",
     "faq.q6":"Bist du auch für längere Engagements verfügbar?","faq.a6":"Ja — typische Engineering-Sprints sind 1–4 Wochen, längere Engagements bis zu 3 Monaten möglich. Bitte planen Sie Anfragen mit klarer Verfügbarkeit frühzeitig — meine Kapazitäten sind in der Regel 4–6 Wochen im Voraus belegt.",
     "hero.badge":"Verfügbar für Projekte · Remote & Vor-Ort",
-    "hero.h1a":"Patrick Dietz","hero.h1b":"Electrical Engineering, präzise gebaut.",
-    "hero.tagline":"Staatlich geprüfter Techniker (Bachelor Professional in Technik) mit über 13 Jahren Berufserfahrung in EPLAN P8, Antriebstechnik und Maschinenentwicklung. Vom Schaltplan bis zur Inbetriebnahme — international, strukturiert, lösungsorientiert.",
-    "hero.meta1":"Singen, Baden-Württemberg · DE","hero.meta2":"13+ Jahre Berufserfahrung Elektrotechnik","hero.meta3":"EPLAN · Smartwiring · TIA Portal · Automation Studio","hero.meta4":"Drive Systems · Python · Visual Studio",
-    "hero.cta1":"Projekt anfragen","hero.cta2":"Leistungen ansehen",
-    "hero.langDE":"Muttersprache","hero.langEN":"Fortgeschritten",
+    "hero.h1a":"Elektrokonstruktion & EPLAN-Lösungen","hero.h1b":"für den industriellen Maschinenbau.",
+    "hero.tagline":"Weniger Engineering-Fehler, schnellere Inbetriebnahme und höhere Maschinenzuverlässigkeit — durch strukturierte Elektrokonstruktion und 13+ Jahre Erfahrung im Sondermaschinenbau.",
+    "hero.meta1":"13+ Jahre im Maschinenbau","hero.meta2":"EPLAN P8 · Motion Control · Drive Systems","hero.meta3":"R&D-Erfahrung · Internationale Projekte","hero.meta4":"Deutschland · Schweiz · China · Indien",
+    "hero.cta1":"Kostenloses Erstgespräch","hero.cta2":"Projekt-Cases ansehen",
+    "hero.langDE":"Muttersprache","hero.langEN":"Professionell",
+    "hero.subnote":"20-Minuten-Erstgespräch — kostenlos und unverbindlich.",
     "about.label":"// Über mich","about.title":"Tiefes Maschinenverständnis trifft strukturierte Elektrokonstruktion.",
-    "about.p1":"Ich bin Patrick Dietz — Staatlich geprüfter Techniker für Elektrotechnik (Bachelor Professional in Technik, DQR-Niveau 6) mit über 13 Jahren Berufserfahrung im Sondermaschinenbau. Von der Elektrokonstruktion über EMV-konforme Schaltschrankauslegung bis zur Inbetriebnahme und Kundenschulung weltweit.",
+    "about.p1":"Ich bin Patrick Dietz — angefangen 2012 als Elektroniker-Lehrling, heute mit 13+ Jahren im Sondermaschinenbau und über 5 Monaten reiner Vor-Ort-Inbetriebnahme in China während Corona auf dem Buckel. Was mich antreibt: Maschinen, die elektrotechnisch sauber durchdacht sind, in Betrieb gehen ohne Workarounds — und Kunden, die nach der Übergabe ohne mich auskommen, weil die Doku stimmt.",
     "about.p2":"Mein Fokus liegt auf EPLAN P8, Antriebstechnik (B&R ACOPOS P3, Motion Control), Safety Circuits und der elektrischen Konstruktion komplexer Maschinen — von Kunststoff-Extrusionsanlagen bis zu modernen Faseraufbereitungsmaschinen.",
     "about.usp":"„Ich verbinde tiefes Maschinenverständnis mit strukturierter Elektrokonstruktion und internationaler Praxiserfahrung. Nicht nur planen — sondern Probleme wirklich lösen.\"",
     "about.travelTitle":"International buchbar","about.travelText":"Inbetriebnahmen, Vor-Ort-Einsätze und Retrofit-Projekte weltweit — gegen Aufwandsentschädigung (Flug, Verpflegung, Übernachtung). Erfahrung u.a. China & Indien.",
@@ -2215,12 +2417,19 @@ const i18n = {
     "srv.label":"// Leistungen","srv.title":"Was ich für Ihr Projekt liefere.",
     "srv.subtitle":"Vom Schaltplan über Pro Panel, Antriebstechnik bis hin zu internationalen Inbetriebnahmen — flexibel als Stundensatz, Festpreis oder Sprint-Engagement, individuell nach Projekt.",
     "srv.priceOnRequest":"Konditionen auf Anfrage",
-    "srv.s1Title":"EPLAN P8 Schaltplanerstellung & Optimierung","srv.s1Desc":"Strukturierte, normgerechte Schaltpläne. Vorlagen, Makros, Auswertungen — sauber gepflegt und revisionssicher.",
-    "srv.s2Title":"EPLAN Pro Panel & Smartwiring","srv.s2Desc":"3D-Schaltschrankaufbau, Smartwiring-Daten, Fertigungsunterlagen — bereit für Produktion und Verdrahtungsroboter.",
-    "srv.s3Title":"Antriebstechnik & Motion Control","srv.s3Desc":"B&R ACOPOS P3, Achsensynchronisation, Servo-Auslegung. Von der Spezifikation bis zur funktionierenden Achse.",
-    "srv.s4Title":"Troubleshooting & Remote Support","srv.s4Desc":"Schnelle Fehleranalyse bei Drives, Sensorik, Temperaturverhalten und Safety-Schaltungen — remote oder vor Ort.",
-    "srv.s5Title":"Technische Dokumentation & BOM-Management","srv.s5Desc":"Stücklistenpflege in SAP/ECTR, Prüfprotokolle, RCA-Reports, CE/UL-konforme Doku.",
-    "srv.s6Title":"Retrofit & Internationale Projekte","srv.s6Desc":"Maschinenupgrades, Retrofit-Kits, Inbetriebnahmen weltweit. Erfahren in China- und Indien-Projekten.",
+    "trust.industriesLabel":"// Branchen","trust.industries":"Sondermaschinenbau · Faseraufbereitung · Kunststoff-Extrusion · Antriebstechnik",
+    "trust.locationsLabel":"// Vor-Ort","trust.locations":"Deutschland · Schweiz · China · Indien",
+    "trust.standardsLabel":"// Standards","trust.standards":"CE · UL · EMV-Messung · Safety Circuits · DGUV-Schulung",
+    "trust.toolsLabel":"// Tools","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
+    "res.label":"// Ergebnisse","res.title":"Was Kunden konkret gewinnen.",
+    "res.r1Title":"Schnellere Inbetriebnahme","res.r1Desc":"Strukturierte Konstruktion verkürzt die Anlaufzeit und vermeidet Verzögerungen bei der Inbetriebnahme.",
+    "res.r2Title":"Weniger Fehler","res.r2Desc":"Saubere EPLAN-Struktur minimiert Verdrahtungsfehler und Probleme in der Produktion.",
+    "res.r3Title":"Höhere Zuverlässigkeit","res.r3Desc":"Optimierte Systeme reduzieren Ausfälle und verbessern die langfristige Stabilität.",
+    "res.r4Title":"Bessere Skalierbarkeit","res.r4Desc":"Standardisierte Dokumentation ermöglicht einfacheres Skalieren und globale Auslieferung.",
+    "srv.s1Title":"EPLAN Design & Documentation","srv.s1Desc":"Reduzieren Sie Engineering-Fehler und beschleunigen Sie die Produktion durch strukturierte, revisionssichere EPLAN-Konstruktion. Saubere Schaltpläne, BOM-Integration und CE/UL-konforme Dokumentation.",
+    "srv.s2Title":"Machine Electrical Design","srv.s2Desc":"Komplette Elektrokonstruktion für industrielle Maschinen — inklusive Antriebstechnik, Motion Control und EMV-konformer Schaltschrankauslegung.",
+    "srv.s3Title":"Troubleshooting & Support","srv.s3Desc":"Schnelle Problemlösung bei Antrieben, Sensorik und Steuerungen. Remote oder vor Ort, mit Root-Cause-Analyse.",
+    "srv.s4Title":"Retrofit & Optimization","srv.s4Desc":"Bestehende Maschinen aufrüsten, Performance verbessern und langfristige Zuverlässigkeit durch optimierte elektrische Systeme sichern.",
     "exp.label":"// Berufserfahrung","exp.title":"Über ein Jahrzehnt im industriellen Maschinenbau.",
     "exp.e1Period":"2023 — heute","exp.e1Title":"Electrical Engineer — R&D","exp.e1Company":"Rieter AG, Schweiz · Faseraufbereitungsmaschinen",
     "exp.e1L1":"Entwicklung und Pflege elektrischer Schaltpläne mit EPLAN P8",
@@ -2242,6 +2451,8 @@ const i18n = {
     "skl.m1":"Motion Control","skl.m2":"Achsensynchronisation","skl.m3":"Safety Circuits","skl.m4":"CE / UL Normen","skl.m5":"Kabelauslegung","skl.m6":"BOM-Management","skl.m7":"Retrofit","skl.m8":"Inbetriebnahme","skl.m9":"Troubleshooting","skl.mEMV":"EMV-Messungen","skl.mRisk":"Risikobeurteilungen","skl.mClimate":"Klimaberechnung Schaltschrank","skl.mPower":"Transformatoren & Spannungsversorgung","skl.mSpecs":"Lastenhefte",
     "bk.label":"// Online Buchung & Bezahlung","bk.title":"Paket wählen, Projekt beschreiben, loslegen.",
     "bk.subtitle":"Wählen Sie ein passendes Paket, beschreiben Sie kurz Ihr Vorhaben — ich melde mich innerhalb von 24 Stunden mit einem konkreten Vorschlag.",
+    "bk.introLine":"Im Erstgespräch besprechen wir Ihr Projekt, identifizieren Knackpunkte und definieren die nächsten Schritte.",
+    "bk.freeNote":"20-Minuten-Erstgespräch — kostenlos und unverbindlich.",
     "bk.p1Desc":"Kurzes Consulting — schnelle Einschätzung Ihres Themas.","bk.p2Desc":"Kompaktes Schaltplan-Paket — planbarer Umfang, klar definierter Liefergegenstand.","bk.p3Desc":"Mehrtägiges bis -wöchiges Remote-Engagement für komplexere Aufgaben.","bk.p4Name":"Custom Projekt","bk.p4Desc":"Maßgeschneidert — Festpreis oder Tagessatz nach individueller Absprache.","bk.onRequest":"Auf Anfrage",
     "bk.fFirst":"Vorname *","bk.fLast":"Nachname *","bk.fEmail":"E-Mail *","bk.fCompany":"Firma (optional)",
     "bk.fProject":"Projektbeschreibung *","bk.fProjectPh":"Was möchten Sie umsetzen? Welche Maschinen, welche Disziplinen, welcher Zeitrahmen?",
@@ -2275,12 +2486,31 @@ const i18n = {
     "nav.about":"About","nav.education":"Education","nav.services":"Services","nav.projects":"Projects","nav.experience":"Experience","nav.process":"Process","nav.skills":"Skills","nav.booking":"Booking","nav.faq":"FAQ","nav.contact":"Contact",
     "prj.label":"// Projects","prj.title":"A selection from more than a decade in the field.",
     "prj.subtitle":"Six typical engagements from my career in industrial machinery — schematic design, commissioning, R&D and international on-site work.",
-    "prj.p1Region":"DE · Multiple projects","prj.p1Title":"Sheet-film extrusion lines with co-extruders","prj.p1Desc":"Project definition, selection and procurement of long-lead components. Full EPLAN schematic design for extruders, co-extruders, vacuum systems, calenders incl. heating and cooling units.",
-    "prj.p2Region":"DE · Multiple projects","prj.p2Title":"Winders, slitters and stacker units","prj.p2Desc":"Electrical design of complex line composites — longitudinal and cross-cut units, stackers, winders. Pro Panel, Smartwiring, EPLAN Fluid for pneumatics.",
-    "prj.p3Region":"Asia · On-site","prj.p3Time":"2020 / 21 · 5 months","prj.p3Title":"Commissioning during the Covid lockdown","prj.p3Desc":"Full electrical commissioning of an extrusion line under lockdown conditions. Customer training, troubleshooting on drives, sensors and thermal behavior.",
-    "prj.p4Region":"CH · R&D","prj.p4Time":"2023 — present","prj.p4Title":"CGC, E40 & microwave electronics","prj.p4Desc":"Contributing to the electrical development of several Rieter machine functions through to 0-series readiness — concept phase, RCA, manufacturing documents, prototype build.",
-    "prj.p5Region":"International","prj.p5Title":"Prototype field-test & customer onboarding","prj.p5Desc":"Procurement of prototype parts, installation and commissioning at pilot customers, creation of conversion instructions, training of operating personnel.",
-    "prj.p6Title":"Component analysis & supplier quality","prj.p6Desc":"Programming in Automation Studio (B&R), supplier coordination, problem analyses with 8D reports, cross-disciplinary development of control functions.",
+    "prj.lblChallenge":"Challenge:","prj.lblSolution":"Solution:","prj.lblResult":"Result:",
+    "prj.p1Region":"DE · Multiple projects","prj.p1Title":"Sheet-film extrusion lines with co-extruders",
+    "prj.p1Cha":"Complex extrusion line with co-extruders, vacuum system, calender and long lead times for major components.",
+    "prj.p1Sol":"Project scoping, early procurement of long-lead items and full EPLAN P8 design across all line components.",
+    "prj.p1Res":"On-time delivery of multiple lines with consistent documentation — single point of accountability for the entire electrical engineering.",
+    "prj.p2Region":"DE · Multiple projects","prj.p2Title":"Winders, slitters and stacker units",
+    "prj.p2Cha":"Complex line composites with winders, longitudinal/cross-cutters and stackers — coordinated wiring across multiple components.",
+    "prj.p2Sol":"Pro Panel 3D build, Smartwiring data and EPLAN Fluid for pneumatics — all in a coherent overall project.",
+    "prj.p2Res":"Production-ready cabinet packages with clean wiring data foundation for manufacturing.",
+    "prj.p3Region":"Asia · On-site","prj.p3Time":"2020 / 21 · 5 months","prj.p3Title":"Commissioning during the Covid lockdown",
+    "prj.p3Cha":"Full electrical commissioning of an extrusion line under lockdown conditions, without regular home-office support from Germany.",
+    "prj.p3Sol":"5 months of continuous on-site presence, independent troubleshooting on drives and sensors, parallel training of customer staff.",
+    "prj.p3Res":"On-time commissioning despite travel restrictions, customer team handed over with operational know-how.",
+    "prj.p4Region":"CH · R&D","prj.p4Time":"2023 — present","prj.p4Title":"CGC, E40 & microwave electronics",
+    "prj.p4Cha":"Multiple machine functions from concept phase through 0-series readiness — including EMC requirements for CE certification.",
+    "prj.p4Sol":"Electrical concept work, RCA-driven iterations, EMC measurements, manufacturing documents and prototype builds with the cross-disciplinary team.",
+    "prj.p4Res":"0-series-ready function modules with validated documentation, fed into Rieter's international production.",
+    "prj.p5Region":"International","prj.p5Title":"Prototype field-test & customer onboarding",
+    "prj.p5Cha":"Pilot customers needed installation, commissioning and training on new prototypes — distributed across multiple sites.",
+    "prj.p5Sol":"Self-organized logistics for prototype parts, on-site installation, creation of conversion instructions, operator training.",
+    "prj.p5Res":"Pilot customers operational and independent, documented onboarding package for follow-up rollouts.",
+    "prj.p6Title":"Component analysis & supplier quality",
+    "prj.p6Cha":"Recurring component issues across multiple suppliers — cross-disciplinary problems between electrical, software and mechanical.",
+    "prj.p6Sol":"Programming in Automation Studio (B&R), supplier coordination, structured 8D reports and root-cause analysis.",
+    "prj.p6Res":"Supplier-side issues resolved sustainably, documented QA process for similar future cases.",
     "prj.tagCalender":"Calender","prj.tagCommissioning":"Commissioning","prj.tagTroubleshoot":"Troubleshooting","prj.tagIntl":"International","prj.tagPilot":"0-series","prj.tagPilotCustomers":"Pilot customers","prj.tagTraining":"Training","prj.tagRetrofit":"Conversion docs",
     "prj.ndaNote":"Concrete technical details and project insights happily shared in person.",
     "prc.label":"// How I work","prc.title":"From briefing to handover — four clear steps.","prc.subtitle":"Structured, transparent, no surprises. You always know where your project stands.",
@@ -2296,13 +2526,14 @@ const i18n = {
     "faq.q5":"How does billing work?","faq.a5":"Time tracking for hourly rates, fixed amount for packages or fixed-price projects. Payment by invoice (net 14 days), PayPal, credit card or crypto (BTC, ETH, USDC). Business clients with valid VAT ID receive an EU reverse-charge invoice where applicable.",
     "faq.q6":"Are you available for longer engagements?","faq.a6":"Yes — typical engineering sprints are 1–4 weeks, longer engagements up to 3 months are possible. Please plan inquiries with clear availability early — my capacity is usually booked 4–6 weeks ahead.",
     "hero.badge":"Available for projects · Remote & On-site",
-    "hero.h1a":"Patrick Dietz","hero.h1b":"Electrical engineering, built with precision.",
-    "hero.tagline":"Bachelor Professional in Technik (state-certified electrical engineer, DQR level 6) with 13+ years of hands-on experience in EPLAN P8, motion control and machine development. From schematic to commissioning — international, structured, solution-driven.",
-    "hero.meta1":"Singen, Baden-Württemberg · DE","hero.meta2":"13+ years in electrical engineering","hero.meta3":"EPLAN · Smartwiring · TIA Portal · Automation Studio","hero.meta4":"Drive Systems · Python · Visual Studio",
-    "hero.cta1":"Request a project","hero.cta2":"View services",
-    "hero.langDE":"Native","hero.langEN":"Advanced",
+    "hero.h1a":"Electrical Engineering & EPLAN Solutions","hero.h1b":"for Industrial Machinery.",
+    "hero.tagline":"Reduce engineering errors, speed up commissioning and improve machine reliability — with structured electrical design and 13+ years of hands-on experience in industrial machinery.",
+    "hero.meta1":"13+ years in machine engineering","hero.meta2":"EPLAN P8 · Motion Control · Drive Systems","hero.meta3":"R&D Experience · International Projects","hero.meta4":"Germany · Switzerland · China · India",
+    "hero.cta1":"Book a Free Consultation","hero.cta2":"View Project Cases",
+    "hero.langDE":"Native","hero.langEN":"Professional",
+    "hero.subnote":"Free 20-minute consultation — no commitment.",
     "about.label":"// About","about.title":"Deep machine understanding meets structured electrical design.",
-    "about.p1":"I'm Patrick Dietz — a state-certified electrical engineer (Bachelor Professional in Technik, DQR / EQF level 6, equivalent to a bachelor's degree) with more than 13 years of hands-on experience in special-purpose machinery — from electrical design and EMC-compliant cabinet engineering through commissioning and on-site customer training worldwide.",
+    "about.p1":"I'm Patrick Dietz — started as an electronics apprentice in 2012, today with 13+ years in special-purpose machinery, including 5+ months of continuous on-site commissioning in China during Covid. What drives me: machinery that's thought through electrically clean, goes into operation without workarounds — and clients who run without me after handover because the documentation actually holds up.",
     "about.p2":"My focus is EPLAN P8, drive technology (B&R ACOPOS P3, motion control), safety circuits and the electrical design of complex machines — from plastic extrusion lines to modern fiber-preparation systems.",
     "about.usp":"\"I combine deep machine understanding with structured electrical design and international hands-on experience. Not just planning — actually solving problems.\"",
     "about.travelTitle":"Available internationally","about.travelText":"Commissioning, on-site work and retrofit projects worldwide — billed against expenses (flights, meals, accommodation). Field experience includes China and India.",
@@ -2316,12 +2547,19 @@ const i18n = {
     "srv.label":"// Services","srv.title":"What I deliver for your project.",
     "srv.subtitle":"From schematics to Pro Panel, drives and international commissioning — flexible as hourly, fixed-price or sprint engagement, individually scoped per project.",
     "srv.priceOnRequest":"Terms on request",
-    "srv.s1Title":"EPLAN P8 Schematic Design & Optimization","srv.s1Desc":"Structured, standards-compliant schematics. Templates, macros, evaluations — cleanly maintained and revision-safe.",
-    "srv.s2Title":"EPLAN Pro Panel & Smartwiring","srv.s2Desc":"3D cabinet builds, Smartwiring data, manufacturing documentation — ready for production and wiring robots.",
-    "srv.s3Title":"Drive Technology & Motion Control","srv.s3Desc":"B&R ACOPOS P3, axis synchronization, servo sizing. From specification to a working axis.",
-    "srv.s4Title":"Troubleshooting & Remote Support","srv.s4Desc":"Fast root-cause analysis on drives, sensors, thermal behavior and safety circuits — remote or on-site.",
-    "srv.s5Title":"Technical Documentation & BOM Management","srv.s5Desc":"BOM maintenance in SAP/ECTR, test reports, RCA documents, CE/UL-compliant documentation.",
-    "srv.s6Title":"Retrofit & International Projects","srv.s6Desc":"Machine upgrades, retrofit kits, commissioning worldwide. Experienced in China and India projects.",
+    "trust.industriesLabel":"// Industries","trust.industries":"Special-purpose machinery · Fiber preparation · Plastic extrusion · Drive systems",
+    "trust.locationsLabel":"// On-site","trust.locations":"Germany · Switzerland · China · India",
+    "trust.standardsLabel":"// Standards","trust.standards":"CE · UL · EMC measurement · Safety circuits · DGUV training",
+    "trust.toolsLabel":"// Tools","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
+    "res.label":"// Results","res.title":"What Clients Actually Gain.",
+    "res.r1Title":"Faster Commissioning","res.r1Desc":"Structured engineering reduces startup time and avoids delays during commissioning.",
+    "res.r2Title":"Fewer Errors","res.r2Desc":"Clean EPLAN structure minimizes wiring errors and production issues.",
+    "res.r3Title":"Higher Reliability","res.r3Desc":"Optimized systems reduce failures and improve long-term stability.",
+    "res.r4Title":"Better Scalability","res.r4Desc":"Standardized documentation enables easier scaling and global deployment.",
+    "srv.s1Title":"EPLAN Design & Documentation","srv.s1Desc":"Reduce engineering errors and speed up production with structured, revision-safe EPLAN design. Clean schematics, BOM integration and CE/UL compliant documentation.",
+    "srv.s2Title":"Machine Electrical Design","srv.s2Desc":"Complete electrical design for industrial machinery — including drive systems, motion control and EMC-compliant cabinet design.",
+    "srv.s3Title":"Troubleshooting & Support","srv.s3Desc":"Fast problem solving for drives, sensors and control systems. Remote or on-site with Root Cause Analysis.",
+    "srv.s4Title":"Retrofit & Optimization","srv.s4Desc":"Upgrade existing machines, improve performance and ensure long-term reliability through optimized electrical systems.",
     "exp.label":"// Experience","exp.title":"More than a decade in industrial machinery.",
     "exp.e1Period":"2023 — present","exp.e1Title":"Electrical Engineer — R&D","exp.e1Company":"Rieter AG, Switzerland · Fiber-preparation machinery",
     "exp.e1L1":"Development and maintenance of electrical schematics with EPLAN P8",
@@ -2343,6 +2581,8 @@ const i18n = {
     "skl.m1":"Motion Control","skl.m2":"Axis Synchronization","skl.m3":"Safety Circuits","skl.m4":"CE / UL Standards","skl.m5":"Cable Sizing","skl.m6":"BOM Management","skl.m7":"Retrofit","skl.m8":"Commissioning","skl.m9":"Troubleshooting","skl.mEMV":"EMC Measurements","skl.mRisk":"Risk Assessments","skl.mClimate":"Cabinet Climate Calculation","skl.mPower":"Transformers & Power Supply","skl.mSpecs":"Specification Documents",
     "bk.label":"// Online Booking & Payment","bk.title":"Pick a package, describe your project, get started.",
     "bk.subtitle":"Choose a suitable package, briefly describe your scope — I'll get back to you within 24 hours with a concrete proposal.",
+    "bk.introLine":"We will discuss your project, identify challenges and define next steps.",
+    "bk.freeNote":"Free 20-minute consultation — no commitment.",
     "bk.p1Desc":"Short consulting block — quick assessment of your topic.","bk.p2Desc":"Compact schematic engagement — predictable scope, clearly defined deliverable.","bk.p3Desc":"Multi-day to multi-week remote engagement for more complex tasks.","bk.p4Name":"Custom Project","bk.p4Desc":"Tailored — fixed price or day rate, agreed individually.","bk.onRequest":"On request",
     "bk.fFirst":"First name *","bk.fLast":"Last name *","bk.fEmail":"Email *","bk.fCompany":"Company (optional)",
     "bk.fProject":"Project description *","bk.fProjectPh":"What do you want to build? Which machines, which disciplines, what timeframe?",
@@ -2376,12 +2616,31 @@ const i18n = {
     "nav.about":"Sobre mí","nav.education":"Formación","nav.services":"Servicios","nav.projects":"Proyectos","nav.experience":"Experiencia","nav.process":"Proceso","nav.skills":"Skills","nav.booking":"Reserva","nav.faq":"FAQ","nav.contact":"Contacto",
     "prj.label":"// Proyectos","prj.title":"Una selección de más de una década de práctica.",
     "prj.subtitle":"Seis encargos típicos de mi trayectoria en maquinaria industrial — diseño de esquemas, puesta en marcha, I+D y trabajo internacional in situ.",
-    "prj.p1Region":"DE · Múltiples proyectos","prj.p1Title":"Líneas de extrusión de láminas con co-extrusores","prj.p1Desc":"Definición del proyecto, selección y aprovisionamiento de componentes de plazo largo. Diseño completo en EPLAN para extrusores, co-extrusores, sistema de vacío y calandra incluyendo equipos de calefacción y refrigeración.",
-    "prj.p2Region":"DE · Múltiples proyectos","prj.p2Title":"Bobinadoras, cortadoras y apiladoras","prj.p2Desc":"Diseño eléctrico de conjuntos de línea complejos — cortes longitudinales y transversales, apiladoras, bobinadoras. Pro Panel, Smartwiring, EPLAN Fluid para neumática.",
-    "prj.p3Region":"Asia · In situ","prj.p3Time":"2020 / 21 · 5 meses","prj.p3Title":"Puesta en marcha durante el confinamiento","prj.p3Desc":"Puesta en marcha eléctrica completa de una línea de extrusión bajo confinamiento. Formación al cliente, diagnóstico de accionamientos, sensórica y comportamiento térmico.",
-    "prj.p4Region":"CH · I+D","prj.p4Time":"2023 — actualidad","prj.p4Title":"CGC, E40 y electrónica de microondas","prj.p4Desc":"Contribución al desarrollo eléctrico de varias funciones de máquina Rieter hasta la madurez serie 0 — fase conceptual, RCA, documentación de fabricación, montaje de prototipos.",
-    "prj.p5Region":"Internacional","prj.p5Title":"Pruebas de campo de prototipos y onboarding de clientes","prj.p5Desc":"Pedido de piezas prototipo, instalación y puesta en marcha en clientes piloto, redacción de instrucciones de modificación, formación del personal operario.",
-    "prj.p6Title":"Análisis de componentes y calidad de proveedores","prj.p6Desc":"Programación en Automation Studio (B&R), coordinación con proveedores, análisis de problemas con informes 8D, desarrollo interdisciplinario de funciones de control.",
+    "prj.lblChallenge":"Desafío:","prj.lblSolution":"Solución:","prj.lblResult":"Resultado:",
+    "prj.p1Region":"DE · Múltiples proyectos","prj.p1Title":"Líneas de extrusión de láminas con co-extrusores",
+    "prj.p1Cha":"Línea de extrusión compleja con co-extrusores, sistema de vacío, calandra y plazos de entrega largos para los componentes principales.",
+    "prj.p1Sol":"Definición del proyecto, aprovisionamiento temprano de componentes críticos y diseño EPLAN P8 completo de toda la línea.",
+    "prj.p1Res":"Entrega puntual de varias líneas con documentación coherente — un único punto de responsabilidad para toda la ingeniería eléctrica.",
+    "prj.p2Region":"DE · Múltiples proyectos","prj.p2Title":"Bobinadoras, cortadoras y apiladoras",
+    "prj.p2Cha":"Conjuntos de línea complejos con bobinadoras, cortadoras y apiladoras — cableado coordinado entre múltiples componentes.",
+    "prj.p2Sol":"Construcción Pro Panel 3D, datos Smartwiring y EPLAN Fluid para neumática — todo en un proyecto coherente.",
+    "prj.p2Res":"Paquetes de armarios listos para producción con base de datos de cableado limpia.",
+    "prj.p3Region":"Asia · In situ","prj.p3Time":"2020 / 21 · 5 meses","prj.p3Title":"Puesta en marcha durante el confinamiento",
+    "prj.p3Cha":"Puesta en marcha eléctrica completa de una línea de extrusión bajo confinamiento, sin soporte habitual desde Alemania.",
+    "prj.p3Sol":"5 meses de presencia continua in situ, diagnóstico autónomo de accionamientos y sensórica, formación paralela del personal del cliente.",
+    "prj.p3Res":"Puesta en marcha puntual a pesar de las restricciones de viaje, equipo del cliente entregado con know-how operativo.",
+    "prj.p4Region":"CH · I+D","prj.p4Time":"2023 — actualidad","prj.p4Title":"CGC, E40 y electrónica de microondas",
+    "prj.p4Cha":"Múltiples funciones de máquina desde la fase conceptual hasta la madurez serie 0 — incluidos requisitos CEM para la certificación CE.",
+    "prj.p4Sol":"Trabajo conceptual eléctrico, iteraciones impulsadas por RCA, mediciones CEM, documentación de fabricación y montaje de prototipos en equipo interdisciplinario.",
+    "prj.p4Res":"Módulos funcionales en estado serie 0 con documentación validada, integrados en la producción internacional de Rieter.",
+    "prj.p5Region":"Internacional","prj.p5Title":"Pruebas de campo de prototipos y onboarding",
+    "prj.p5Cha":"Los clientes piloto requerían instalación, puesta en marcha y formación en nuevos prototipos — distribuidos en varias localizaciones.",
+    "prj.p5Sol":"Logística autoorganizada de las piezas prototipo, instalación in situ, redacción de instrucciones de modificación, formación de operarios.",
+    "prj.p5Res":"Clientes piloto operativos e independientes, paquete de onboarding documentado para despliegues posteriores.",
+    "prj.p6Title":"Análisis de componentes y calidad de proveedores",
+    "prj.p6Cha":"Problemas recurrentes de componentes en varios proveedores — fallos interdisciplinarios entre eléctrica, software y mecánica.",
+    "prj.p6Sol":"Programación en Automation Studio (B&R), coordinación con proveedores, informes 8D estructurados y análisis de causa raíz.",
+    "prj.p6Res":"Problemas del lado del proveedor resueltos de forma sostenible, proceso de QA documentado para casos similares futuros.",
     "prj.tagCalender":"Calandra","prj.tagCommissioning":"Puesta en marcha","prj.tagTroubleshoot":"Diagnóstico","prj.tagIntl":"Internacional","prj.tagPilot":"Serie 0","prj.tagPilotCustomers":"Clientes piloto","prj.tagTraining":"Formación","prj.tagRetrofit":"Modificaciones",
     "prj.ndaNote":"Detalles técnicos concretos e insights del proyecto, encantado de comentarlos en conversación personal.",
     "prc.label":"// Cómo trabajo","prc.title":"Del briefing a la entrega — cuatro pasos claros.","prc.subtitle":"Estructurado, transparente, sin sorpresas. En todo momento sabes en qué punto está tu proyecto.",
@@ -2397,13 +2656,14 @@ const i18n = {
     "faq.q5":"¿Cómo es la facturación?","faq.a5":"Parte de horas para tarifas por hora, importe fijo en paquetes o proyectos a precio cerrado. Pago por factura (14 días neto), PayPal, tarjeta o crypto (BTC, ETH, USDC). Para clientes empresariales con NIF/VAT válido se aplica inversión del sujeto pasivo intracomunitario cuando proceda.",
     "faq.q6":"¿Estás disponible para encargos largos?","faq.a6":"Sí — los sprints típicos son de 1 a 4 semanas, con encargos de hasta 3 meses posibles. Por favor planifica con disponibilidad clara con suficiente antelación — mi capacidad suele estar reservada con 4–6 semanas de adelanto.",
     "hero.badge":"Disponible para proyectos · Remoto y presencial",
-    "hero.h1a":"Patrick Dietz","hero.h1b":"Ingeniería eléctrica, con precisión.",
-    "hero.tagline":"Bachelor Professional in Technik (Técnico Superior en Electrotecnia, nivel DQR 6 — equivalente a grado universitario) con más de 13 años de experiencia profesional en EPLAN P8, accionamientos y desarrollo de maquinaria. Del esquema a la puesta en marcha — internacional, estructurado y orientado a soluciones.",
-    "hero.meta1":"Singen, Baden-Württemberg · DE","hero.meta2":"13+ años en electrotecnia","hero.meta3":"EPLAN · Smartwiring · TIA Portal · Automation Studio","hero.meta4":"Drive Systems · Python · Visual Studio",
-    "hero.cta1":"Solicitar proyecto","hero.cta2":"Ver servicios",
-    "hero.langDE":"Nativo","hero.langEN":"Avanzado",
+    "hero.h1a":"Ingeniería eléctrica & soluciones EPLAN","hero.h1b":"para maquinaria industrial.",
+    "hero.tagline":"Reduce errores de ingeniería, acelera la puesta en marcha y mejora la fiabilidad de las máquinas — con un diseño eléctrico estructurado y más de 13 años de experiencia práctica en maquinaria industrial.",
+    "hero.meta1":"13+ años en ingeniería de máquinas","hero.meta2":"EPLAN P8 · Motion Control · Drive Systems","hero.meta3":"Experiencia I+D · Proyectos internacionales","hero.meta4":"Alemania · Suiza · China · India",
+    "hero.cta1":"Reservar consulta gratuita","hero.cta2":"Ver casos de proyecto",
+    "hero.langDE":"Nativo","hero.langEN":"Profesional",
+    "hero.subnote":"Consulta gratuita de 20 minutos — sin compromiso.",
     "about.label":"// Sobre mí","about.title":"Profundo conocimiento de máquinas y diseño eléctrico estructurado.",
-    "about.p1":"Soy Patrick Dietz — Técnico Superior en Electrotecnia (Bachelor Professional in Technik, DQR/EQF nivel 6, equivalente a un grado universitario) con más de 13 años de experiencia en maquinaria especial — desde el diseño eléctrico y la ingeniería de armarios conforme a CEM hasta la puesta en marcha y la formación de clientes in situ en todo el mundo.",
+    "about.p1":"Soy Patrick Dietz — empecé como aprendiz de electrónico en 2012 y hoy llevo más de 13 años en maquinaria especial, incluidos 5 meses seguidos de puesta en marcha in situ en China durante la pandemia. Lo que me mueve: máquinas eléctricamente bien pensadas que entran en producción sin parches — y clientes que tras la entrega siguen sin mí porque la documentación realmente aguanta.",
     "about.p2":"Me especializo en EPLAN P8, accionamientos (B&R ACOPOS P3, motion control), circuitos de seguridad y el diseño eléctrico de máquinas complejas — desde líneas de extrusión de plástico hasta modernas máquinas de preparación de fibra.",
     "about.usp":"«Combino un conocimiento profundo de la máquina con un diseño eléctrico estructurado y experiencia internacional sobre el terreno. No solo planificar — sino resolver problemas de verdad.»",
     "about.travelTitle":"Disponible internacionalmente","about.travelText":"Puestas en marcha, intervenciones in situ y proyectos retrofit en todo el mundo — con compensación de gastos (vuelo, dietas, alojamiento). Experiencia en China e India, entre otros.",
@@ -2417,12 +2677,19 @@ const i18n = {
     "srv.label":"// Servicios","srv.title":"Lo que aporto a tu proyecto.",
     "srv.subtitle":"Del esquema a Pro Panel, accionamientos y puestas en marcha internacionales — flexible por hora, precio fijo o sprint, ajustado individualmente al proyecto.",
     "srv.priceOnRequest":"Condiciones a consultar",
-    "srv.s1Title":"Esquemas EPLAN P8 — diseño y optimización","srv.s1Desc":"Esquemas estructurados y conformes a la norma. Plantillas, macros, listados — bien mantenidos y a prueba de revisiones.",
-    "srv.s2Title":"EPLAN Pro Panel y Smartwiring","srv.s2Desc":"Armarios en 3D, datos Smartwiring, documentación de fabricación — listos para producción y robots de cableado.",
-    "srv.s3Title":"Accionamientos y Motion Control","srv.s3Desc":"B&R ACOPOS P3, sincronización de ejes, dimensionado de servos. De la especificación al eje funcionando.",
-    "srv.s4Title":"Diagnóstico y soporte remoto","srv.s4Desc":"Análisis rápido de fallos en accionamientos, sensórica, comportamiento térmico y circuitos de seguridad — en remoto o in situ.",
-    "srv.s5Title":"Documentación técnica y gestión de BOM","srv.s5Desc":"Mantenimiento de listas en SAP/ECTR, protocolos de prueba, informes RCA, documentación conforme a CE/UL.",
-    "srv.s6Title":"Retrofit y proyectos internacionales","srv.s6Desc":"Modernizaciones de máquinas, kits retrofit, puestas en marcha en todo el mundo. Experiencia en proyectos en China e India.",
+    "trust.industriesLabel":"// Sectores","trust.industries":"Maquinaria especial · Preparación de fibra · Extrusión de plástico · Accionamientos",
+    "trust.locationsLabel":"// In situ","trust.locations":"Alemania · Suiza · China · India",
+    "trust.standardsLabel":"// Normas","trust.standards":"CE · UL · medición CEM · Circuitos de seguridad · Formación DGUV",
+    "trust.toolsLabel":"// Herramientas","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
+    "res.label":"// Resultados","res.title":"Lo que los clientes ganan realmente.",
+    "res.r1Title":"Puesta en marcha más rápida","res.r1Desc":"La ingeniería estructurada reduce el tiempo de arranque y evita retrasos durante la puesta en marcha.",
+    "res.r2Title":"Menos errores","res.r2Desc":"Una estructura EPLAN limpia minimiza errores de cableado y problemas en producción.",
+    "res.r3Title":"Mayor fiabilidad","res.r3Desc":"Los sistemas optimizados reducen fallos y mejoran la estabilidad a largo plazo.",
+    "res.r4Title":"Mejor escalabilidad","res.r4Desc":"La documentación estandarizada facilita el escalado y el despliegue global.",
+    "srv.s1Title":"EPLAN Design & Documentation","srv.s1Desc":"Reduce errores de ingeniería y acelera la producción con un diseño EPLAN estructurado y a prueba de revisiones. Esquemas limpios, integración BOM y documentación conforme a CE/UL.",
+    "srv.s2Title":"Machine Electrical Design","srv.s2Desc":"Diseño eléctrico completo para maquinaria industrial — incluyendo accionamientos, motion control y diseño de armarios conforme a CEM.",
+    "srv.s3Title":"Troubleshooting & Support","srv.s3Desc":"Resolución rápida de problemas en accionamientos, sensores y sistemas de control. En remoto o in situ, con análisis de causa raíz.",
+    "srv.s4Title":"Retrofit & Optimization","srv.s4Desc":"Moderniza máquinas existentes, mejora el rendimiento y asegura fiabilidad a largo plazo mediante sistemas eléctricos optimizados.",
     "exp.label":"// Experiencia","exp.title":"Más de una década en maquinaria industrial.",
     "exp.e1Period":"2023 — actualidad","exp.e1Title":"Electrical Engineer — I+D","exp.e1Company":"Rieter AG, Suiza · Maquinaria de preparación de fibra",
     "exp.e1L1":"Desarrollo y mantenimiento de esquemas eléctricos con EPLAN P8",
@@ -2444,6 +2711,8 @@ const i18n = {
     "skl.m1":"Motion Control","skl.m2":"Sincronización de ejes","skl.m3":"Circuitos de seguridad","skl.m4":"Normas CE / UL","skl.m5":"Dimensionado de cables","skl.m6":"Gestión BOM","skl.m7":"Retrofit","skl.m8":"Puesta en marcha","skl.m9":"Diagnóstico","skl.mEMV":"Mediciones CEM","skl.mRisk":"Evaluación de riesgos","skl.mClimate":"Cálculo de climatización del armario","skl.mPower":"Transformadores y alimentación","skl.mSpecs":"Pliegos de condiciones",
     "bk.label":"// Reserva online y pago","bk.title":"Elige un paquete, describe tu proyecto y empezamos.",
     "bk.subtitle":"Elige un paquete adecuado, describe brevemente tu proyecto — te respondo en menos de 24 horas con una propuesta concreta.",
+    "bk.introLine":"En la primera consulta hablaremos de tu proyecto, identificaremos los puntos críticos y definiremos los próximos pasos.",
+    "bk.freeNote":"Consulta gratuita de 20 minutos — sin compromiso.",
     "bk.p1Desc":"Bloque corto de consultoría — valoración rápida de tu tema.","bk.p2Desc":"Paquete compacto de esquemas — alcance previsible y entregable claramente definido.","bk.p3Desc":"Encargo remoto de varios días o semanas para tareas más complejas.","bk.p4Name":"Proyecto a medida","bk.p4Desc":"Personalizado — precio fijo o tarifa diaria, acordados individualmente.","bk.onRequest":"A consultar",
     "bk.fFirst":"Nombre *","bk.fLast":"Apellidos *","bk.fEmail":"Correo electrónico *","bk.fCompany":"Empresa (opcional)",
     "bk.fProject":"Descripción del proyecto *","bk.fProjectPh":"¿Qué quieres realizar? ¿Qué máquinas, qué disciplinas, qué plazo?",
@@ -2477,12 +2746,31 @@ const i18n = {
     "nav.about":"关于我","nav.education":"教育背景","nav.services":"服务","nav.projects":"项目","nav.experience":"工作经验","nav.process":"流程","nav.skills":"技能","nav.booking":"预约","nav.faq":"常见问题","nav.contact":"联系",
     "prj.label":"// 项目","prj.title":"十余年实战经验中的代表性项目。",
     "prj.subtitle":"我在工业机械领域的六个典型项目 — 涵盖电路图设计、现场调试、研发以及国际驻场工作。",
-    "prj.p1Region":"德国 · 多个项目","prj.p1Title":"带共挤出机的板材薄膜挤出生产线","prj.p1Desc":"项目定义、长周期物料的选型与采购。完整的 EPLAN 电路图设计 — 涵盖挤出机、共挤出机、真空系统、压光机及其加热与冷却装置。",
-    "prj.p2Region":"德国 · 多个项目","prj.p2Title":"卷绕机、分切机与堆垛设备","prj.p2Desc":"复杂联动生产线的电气设计 — 纵切、横切设备、堆垛机、卷绕机。Pro Panel、Smartwiring，以及用于气动的 EPLAN Fluid。",
-    "prj.p3Region":"亚洲 · 现场","prj.p3Time":"2020 / 21 · 5 个月","prj.p3Title":"疫情封控期间的现场调试","prj.p3Desc":"在封控条件下完成挤出生产线的全部电气调试。客户培训、驱动器、传感器与温升表现的故障排查。",
-    "prj.p4Region":"瑞士 · 研发","prj.p4Time":"2023 — 至今","prj.p4Title":"CGC、E40 与微波电子模块","prj.p4Desc":"参与多项 Rieter 机型功能模块的电气开发，直至 0 系列成熟阶段 — 概念阶段、RCA、生产文件、原型搭建。",
-    "prj.p5Region":"国际","prj.p5Title":"原型现场测试与客户上线","prj.p5Desc":"原型零件订购、客户试点装机与调试、改造说明的编写、操作人员培训。",
-    "prj.p6Title":"零部件分析与供应商质量","prj.p6Desc":"使用 B&R Automation Studio 编程、供应商协调、基于 8D 报告的问题分析、跨学科开发控制功能。",
+    "prj.lblChallenge":"挑战：","prj.lblSolution":"解决方案：","prj.lblResult":"成果：",
+    "prj.p1Region":"德国 · 多个项目","prj.p1Title":"带共挤出机的板材薄膜挤出生产线",
+    "prj.p1Cha":"复杂的挤出生产线，包含共挤出机、真空系统、压光机及主要部件长交付周期。",
+    "prj.p1Sol":"项目范围界定、提前采购长交付物料，完整的 EPLAN P8 设计覆盖整条产线的所有部件。",
+    "prj.p1Res":"按时交付多条生产线，文档保持一致 — 整条电气工程的单一负责人。",
+    "prj.p2Region":"德国 · 多个项目","prj.p2Title":"卷绕机、分切机与堆垛设备",
+    "prj.p2Cha":"复杂的联动生产线，包含卷绕机、纵/横切机和堆垛机 — 多部件协调布线。",
+    "prj.p2Sol":"Pro Panel 3D 搭建、Smartwiring 数据，以及用于气动的 EPLAN Fluid — 全部整合在一个一致的项目里。",
+    "prj.p2Res":"具备生产可行性的电控柜方案，配套整洁的接线数据基础。",
+    "prj.p3Region":"亚洲 · 现场","prj.p3Time":"2020 / 21 · 5 个月","prj.p3Title":"疫情封控期间的现场调试",
+    "prj.p3Cha":"在封控条件下完成挤出生产线的全部电气调试，缺乏来自德国的常规后台支援。",
+    "prj.p3Sol":"连续 5 个月驻场，独立排查驱动与传感问题，并同时培训客户人员。",
+    "prj.p3Res":"在差旅限制下仍按期完成调试，并成功向客户团队移交了运行所需的实操能力。",
+    "prj.p4Region":"瑞士 · 研发","prj.p4Time":"2023 — 至今","prj.p4Title":"CGC、E40 与微波电子模块",
+    "prj.p4Cha":"多个机型功能模块从概念阶段推进至 0 系列状态 — 包含 CE 认证所需的 EMC 要求。",
+    "prj.p4Sol":"电气概念设计、由 RCA 驱动的迭代优化、EMC 测量、生产文件与原型搭建，跨学科团队协作完成。",
+    "prj.p4Res":"达到 0 系列水准的功能模块及验证过的文档，已纳入 Rieter 国际化生产体系。",
+    "prj.p5Region":"国际","prj.p5Title":"原型现场测试与客户上线",
+    "prj.p5Cha":"试点客户分布在多个站点，需要完成新原型的安装、调试与培训。",
+    "prj.p5Sol":"自主统筹原型零件物流、现场安装、改造说明的撰写与操作人员培训。",
+    "prj.p5Res":"试点客户独立投入运行，并形成可复用于后续推广的上线手册。",
+    "prj.p6Title":"零部件分析与供应商质量",
+    "prj.p6Cha":"多家供应商出现重复性零部件问题 — 涉及电气、软件与机械的跨领域故障。",
+    "prj.p6Sol":"在 Automation Studio（B&R）中进行编程、协调供应商，并基于 8D 报告进行根本原因分析。",
+    "prj.p6Res":"供应商侧问题得以彻底解决，并形成可复用于类似情形的质量保证流程。",
     "prj.tagCalender":"压光机","prj.tagCommissioning":"现场调试","prj.tagTroubleshoot":"故障排查","prj.tagIntl":"国际项目","prj.tagPilot":"0 系列","prj.tagPilotCustomers":"试点客户","prj.tagTraining":"培训","prj.tagRetrofit":"改造说明",
     "prj.ndaNote":"具体技术细节与项目内容，欢迎当面深聊。",
     "prc.label":"// 我的工作方式","prc.title":"从需求到交付 — 四个清晰步骤。","prc.subtitle":"结构化、透明、无意外。您随时清楚项目所处阶段。",
@@ -2498,13 +2786,14 @@ const i18n = {
     "faq.q5":"如何结算？","faq.a5":"按小时计费时记录工时表，套餐或固定价项目按约定金额。支持对公开票（净 14 天）、PayPal、信用卡或加密货币（BTC、ETH、USDC）。具备有效税号的企业客户可按欧盟反向征收开具发票。",
     "faq.q6":"您是否承接长期项目？","faq.a6":"可以 — 典型工程冲刺为 1–4 周，最长可承接约 3 个月的长期项目。请尽早提出有明确时间窗口的咨询 — 我的档期通常会提前 4–6 周排满。",
     "hero.badge":"可承接项目 · 远程与现场",
-    "hero.h1a":"Patrick Dietz","hero.h1b":"精密构建的电气工程。",
-    "hero.tagline":"Bachelor Professional in Technik（德国国家认证电气技术员，DQR / EQF 第 6 级，等同于学士学位），13 年以上 EPLAN P8、驱动技术与机械研发实战经验。从电路图到调试 — 国际化、结构化、以解决方案为导向。",
-    "hero.meta1":"德国 巴登-符腾堡州 辛根","hero.meta2":"13+ 年电气工程从业经验","hero.meta3":"EPLAN · Smartwiring · TIA Portal · Automation Studio","hero.meta4":"Drive Systems · Python · Visual Studio",
-    "hero.cta1":"咨询项目","hero.cta2":"查看服务",
-    "hero.langDE":"母语","hero.langEN":"高级",
+    "hero.h1a":"工业机械的电气工程","hero.h1b":"与 EPLAN 解决方案。",
+    "hero.tagline":"减少工程错误、加快现场调试、提升机器可靠性 — 通过结构化的电气设计与 13 年以上工业机械实战经验。",
+    "hero.meta1":"13+ 年机械工程经验","hero.meta2":"EPLAN P8 · Motion Control · Drive Systems","hero.meta3":"研发经验 · 国际项目","hero.meta4":"德国 · 瑞士 · 中国 · 印度",
+    "hero.cta1":"预约免费咨询","hero.cta2":"查看项目案例",
+    "hero.langDE":"母语","hero.langEN":"专业",
+    "hero.subnote":"20 分钟免费咨询 — 无任何承诺。",
     "about.label":"// 关于我","about.title":"深入的机械理解 + 结构化电气设计。",
-    "about.p1":"我是 Patrick Dietz — 德国国家认证电气技术员（Bachelor Professional in Technik，DQR / EQF 第 6 级，等同于学士学位），13 年以上专用机械设备实战经验 — 从电气设计、电控柜 EMC 合规到全球范围内的现场调试与客户培训。",
+    "about.p1":"我是 Patrick Dietz — 2012 年从电子学学徒起步，至今在专用机械领域积累了 13 年以上经验，其中疫情期间在中国连续驻场调试逾 5 个月。我所追求的：电气设计严谨清晰、机器投产无须临时补救；客户在交付后凭借扎实的文档可独立运行，不再依赖我。",
     "about.p2":"我专注于 EPLAN P8、驱动技术（B&R ACOPOS P3、Motion Control）、安全回路以及复杂机械的电气设计 — 从塑料挤出生产线到现代纤维准备机械。",
     "about.usp":"「我将深入的机械理解、结构化的电气设计与丰富的国际现场经验结合在一起。不仅做规划 — 而是真正解决问题。」",
     "about.travelTitle":"可全球出差","about.travelText":"全球范围的调试、现场支持与改造项目 — 按差旅成本（机票、餐饮、住宿）计费。具有中国和印度等地的现场经验。",
@@ -2518,12 +2807,19 @@ const i18n = {
     "srv.label":"// 服务","srv.title":"我能为您的项目交付什么。",
     "srv.subtitle":"从电路图、Pro Panel、驱动技术到国际现场调试 — 可按小时、固定价或冲刺方式合作，按项目个性化报价。",
     "srv.priceOnRequest":"条款面议",
-    "srv.s1Title":"EPLAN P8 电路图设计与优化","srv.s1Desc":"结构化、符合规范的电路图。模板、宏、报表 — 维护清晰，便于版本管理。",
-    "srv.s2Title":"EPLAN Pro Panel 与 Smartwiring","srv.s2Desc":"3D 电控柜搭建、Smartwiring 数据、生产文档 — 直接对接生产与布线机器人。",
-    "srv.s3Title":"驱动技术与 Motion Control","srv.s3Desc":"B&R ACOPOS P3、轴同步、伺服选型。从规格书到正常运行的轴系。",
-    "srv.s4Title":"故障排查与远程支持","srv.s4Desc":"针对驱动器、传感器、温升与安全回路的快速故障分析 — 远程或现场。",
-    "srv.s5Title":"技术文档与 BOM 管理","srv.s5Desc":"SAP/ECTR 中的物料清单维护、测试报告、RCA 报告，符合 CE/UL 标准的文档。",
-    "srv.s6Title":"改造与国际项目","srv.s6Desc":"机器升级、改造套件、全球范围调试。具备中国与印度项目经验。",
+    "trust.industriesLabel":"// 行业","trust.industries":"专用机械 · 纤维准备 · 塑料挤出 · 驱动技术",
+    "trust.locationsLabel":"// 现场","trust.locations":"德国 · 瑞士 · 中国 · 印度",
+    "trust.standardsLabel":"// 标准","trust.standards":"CE · UL · EMC 测量 · 安全回路 · DGUV 培训",
+    "trust.toolsLabel":"// 工具","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
+    "res.label":"// 成果","res.title":"客户能真正获得什么。",
+    "res.r1Title":"更快的现场调试","res.r1Desc":"结构化的工程设计可缩短启动时间，避免调试阶段的延误。",
+    "res.r2Title":"更少的错误","res.r2Desc":"规范的 EPLAN 结构可最大程度减少接线错误与生产问题。",
+    "res.r3Title":"更高的可靠性","res.r3Desc":"经过优化的系统能减少故障并提升长期稳定性。",
+    "res.r4Title":"更佳的可扩展性","res.r4Desc":"标准化文档便于规模化部署与全球落地。",
+    "srv.s1Title":"EPLAN Design & Documentation","srv.s1Desc":"通过结构化、可追溯的 EPLAN 设计减少工程错误并加快生产。整洁的电路图、BOM 集成以及符合 CE/UL 的文档。",
+    "srv.s2Title":"Machine Electrical Design","srv.s2Desc":"工业机械的整机电气设计 — 包含驱动系统、Motion Control 与符合 EMC 的电控柜设计。",
+    "srv.s3Title":"Troubleshooting & Support","srv.s3Desc":"针对驱动、传感与控制系统的快速问题解决。可远程或现场进行，并提供根本原因分析。",
+    "srv.s4Title":"Retrofit & Optimization","srv.s4Desc":"升级现有机器、提升性能，并通过优化的电气系统确保长期可靠性。",
     "exp.label":"// 工作经验","exp.title":"工业机械领域十余年的深耕。",
     "exp.e1Period":"2023 — 至今","exp.e1Title":"电气工程师 — 研发","exp.e1Company":"瑞士 Rieter AG · 纤维准备机械",
     "exp.e1L1":"使用 EPLAN P8 进行电气电路图的开发与维护",
@@ -2545,6 +2841,8 @@ const i18n = {
     "skl.m1":"Motion Control","skl.m2":"轴同步","skl.m3":"安全回路","skl.m4":"CE / UL 标准","skl.m5":"电缆选型","skl.m6":"BOM 管理","skl.m7":"机器改造","skl.m8":"现场调试","skl.m9":"故障排查","skl.mEMV":"EMC 测量","skl.mRisk":"风险评估","skl.mClimate":"电控柜散热计算","skl.mPower":"变压器与电源","skl.mSpecs":"规格说明书",
     "bk.label":"// 在线预约与付款","bk.title":"选套餐，描述项目，立即开始。",
     "bk.subtitle":"选择合适的套餐，简要描述您的项目 — 我会在 24 小时内回复具体方案。",
+    "bk.introLine":"在首次沟通中，我们会一起讨论您的项目、识别关键难点并明确下一步行动。",
+    "bk.freeNote":"20 分钟免费咨询 — 无任何承诺。",
     "bk.p1Desc":"短时咨询 — 快速评估您的议题。","bk.p2Desc":"紧凑的电路图项目 — 范围可控，交付物明确。","bk.p3Desc":"数日至数周的远程项目，适合较复杂任务。","bk.p4Name":"定制项目","bk.p4Desc":"按需定制 — 固定价或日费，逐案商定。","bk.onRequest":"面议",
     "bk.fFirst":"名 *","bk.fLast":"姓 *","bk.fEmail":"电子邮箱 *","bk.fCompany":"公司（可选）",
     "bk.fProject":"项目描述 *","bk.fProjectPh":"您希望实现什么？涉及哪些机器、哪些专业领域、什么时间范围？",
