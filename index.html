@@ -1098,11 +1098,18 @@ section {
   margin: 0;
   line-height: 1.55;
 }
-.calendly-inline-widget {
+.gcal-embed {
   border-radius: 4px;
   overflow: hidden;
   background: var(--bg-2);
   border: 1px solid var(--border);
+  width: 100%;
+  min-width: 320px;
+  height: 680px;
+  display: block;
+}
+@media (max-width: 580px) {
+  .gcal-embed { height: 760px; }
 }
 .consult-fallback {
   color: var(--text-mute);
@@ -2799,11 +2806,15 @@ section {
           <p data-i18n="bk.consultIntro">Wähle einen freien Slot in den nächsten Tagen. 20 Minuten — kostenlos, unverbindlich. Wir besprechen dein Projekt, identifizieren Knackpunkte und definieren die nächsten Schritte.</p>
         </div>
       </div>
-      <!-- TODO morgen: REPLACE_WITH_YOUR_CALENDLY_PATH durch deinen Calendly-Slug ersetzen, z.B. "patrick-dietz/20min-erstgespraech" -->
-      <div class="calendly-inline-widget" data-url="https://calendly.com/REPLACE_WITH_YOUR_CALENDLY_PATH?embed_domain=dietz-engineering.com&amp;embed_type=Inline&amp;hide_gdpr_banner=1&amp;background_color=ffffff&amp;text_color=1e2c47&amp;primary_color=1e2c47" style="min-width:320px;height:680px;"></div>
-      <noscript>
-        <p class="consult-fallback" data-i18n="bk.consultFallback">Bitte JavaScript aktivieren, um den Buchungskalender zu sehen — oder schreibe direkt eine Mail an <a href="mailto:patrick@dietz-engineering.com">patrick@dietz-engineering.com</a>.</p>
-      </noscript>
+      <iframe
+        class="gcal-embed"
+        src="https://calendar.app.google/mddFjrVaZpfkJBnh9"
+        title="Termin buchen — Google Kalender"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+        frameborder="0"></iframe>
+      <p class="consult-fallback" data-i18n="bk.consultFallback" style="margin-top:0.8rem;">Falls der Kalender nicht lädt: <a href="https://calendar.app.google/mddFjrVaZpfkJBnh9" target="_blank" rel="noopener">direkt zur Buchungsseite</a> oder Mail an <a href="mailto:patrick@dietz-engineering.com">patrick@dietz-engineering.com</a>.</p>
     </div>
 
     <div class="bk-divider fade">
@@ -3005,16 +3016,13 @@ section {
   </div>
 </footer>
 
-<!-- ============================ CALENDLY EMBED SCRIPT ============================ -->
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
 <!-- ============================ PRIVACY MODAL ============================ -->
 <div class="privacy-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
   <div class="privacy-backdrop"></div>
   <div class="privacy-dialog">
     <h2 id="privacyTitle" data-i18n="pv.title">Privatsphäre-Einstellungen</h2>
     <div class="privacy-content">
-      <p data-i18n="pv.intro" data-i18n-html>Diese Website lädt Schriftarten von <strong>Google Fonts (USA)</strong>, übermittelt Buchungsanfragen über <strong>Web3Forms</strong> und speichert deine Theme- und Sprachpräferenz lokal in deinem Browser. Beim Laden externer Schriftarten kann deine IP-Adresse an Google übertragen werden. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p data-i18n="pv.intro" data-i18n-html>Diese Website lädt Schriftarten von <strong>Google Fonts</strong>, bettet einen <strong>Google-Kalender</strong> für die Terminbuchung ein, übermittelt Anfrageformulare über <strong>Web3Forms</strong> und speichert deine Theme- und Sprachpräferenz lokal in deinem Browser. Beim Laden externer Inhalte kann deine IP-Adresse an Google bzw. Web3Forms übertragen werden. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
       <p data-i18n="pv.rights">Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.</p>
     </div>
 
@@ -3034,8 +3042,8 @@ section {
           <span data-i18n="pv.cat3Desc">Beim Absenden des Buchungsformulars werden deine Eingaben an Web3Forms übermittelt, um eine Mail an mich auszulösen. Auftragsverarbeitung gemäß Art. 28 DSGVO.</span>
         </li>
         <li>
-          <strong data-i18n="pv.cat4Name">Terminbuchung · Calendly</strong>
-          <span data-i18n="pv.cat4Desc">Der eingebettete Buchungskalender lädt Inhalte von Calendly (USA). Beim Aufruf des Buchungs-Bereichs kann deine IP-Adresse an Calendly übertragen werden. EU-DPF-zertifiziert plus Standardvertragsklauseln.</span>
+          <strong data-i18n="pv.cat4Name">Terminbuchung · Google Kalender</strong>
+          <span data-i18n="pv.cat4Desc">Der eingebettete Buchungskalender lädt Inhalte aus meinem Google-Workspace-Konto (Google Ireland Limited). Beim Aufruf des Buchungs-Bereichs kann deine IP-Adresse an Google übertragen werden. Auftragsverarbeitung mit Standard-AVV gemäß Art. 28 DSGVO, ggf. Drittlandtransfer in die USA mit Standardvertragsklauseln und EU-DPF-Framework.</span>
         </li>
       </ul>
     </div>
@@ -3180,7 +3188,7 @@ const i18n = {
     "ct.p1":"Direkter Draht — keine Hotline, keine Tickets. Schreiben Sie mir, ich melde mich persönlich zurück.","ct.remote":"Remote & Vor-Ort weltweit",
     "ft.rights":"Alle Rechte vorbehalten","ft.imprint":"Impressum","ft.privacy":"Datenschutz","ft.terms":"AGB",
     "pv.title":"Privatsphäre-Einstellungen",
-    "pv.intro":"Diese Website lädt Schriftarten von <strong>Google Fonts (USA)</strong>, übermittelt Buchungsanfragen über <strong>Web3Forms</strong> und speichert deine Theme- und Sprachpräferenz lokal in deinem Browser. Beim Laden externer Schriftarten kann deine IP-Adresse an Google übertragen werden. Details findest du in der <a href=\"datenschutz.html\">Datenschutzerklärung</a>.",
+    "pv.intro":"Diese Website lädt Schriftarten von <strong>Google Fonts</strong>, bettet einen <strong>Google-Kalender</strong> für die Terminbuchung ein, übermittelt Anfrageformulare über <strong>Web3Forms</strong> und speichert deine Theme- und Sprachpräferenz lokal in deinem Browser. Beim Laden externer Inhalte kann deine IP-Adresse an Google bzw. Web3Forms übertragen werden. Details findest du in der <a href=\"datenschutz.html\">Datenschutzerklärung</a>.",
     "pv.rights":"Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.",
     "pv.detailsTitle":"Was gespeichert wird",
     "pv.cat1Name":"Technisch notwendig",
@@ -3189,8 +3197,8 @@ const i18n = {
     "pv.cat2Desc":"Lädt Typografie vom Google-CDN (Google Ireland Limited). IP-Adresse wird übertragen, ggf. Drittlandtransfer in die USA. Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, EU-DPF-Framework.",
     "pv.cat3Name":"Formular-Backend · Web3Forms",
     "pv.cat3Desc":"Beim Absenden des Buchungsformulars werden deine Eingaben an Web3Forms übermittelt, um eine Mail an mich auszulösen. Auftragsverarbeitung gemäß Art. 28 DSGVO.",
-    "pv.cat4Name":"Terminbuchung · Calendly",
-    "pv.cat4Desc":"Der eingebettete Buchungskalender lädt Inhalte von Calendly (USA). Beim Aufruf des Buchungs-Bereichs kann deine IP-Adresse an Calendly übertragen werden. EU-DPF-zertifiziert plus Standardvertragsklauseln.",
+    "pv.cat4Name":"Terminbuchung · Google Kalender",
+    "pv.cat4Desc":"Der eingebettete Buchungskalender lädt Inhalte aus meinem Google-Workspace-Konto (Google Ireland Limited). Beim Aufruf des Buchungs-Bereichs kann deine IP-Adresse an Google übertragen werden. Auftragsverarbeitung mit Standard-AVV gemäß Art. 28 DSGVO, ggf. Drittlandtransfer in die USA mit Standardvertragsklauseln und EU-DPF-Framework.",
     "pv.acceptAll":"Alle akzeptieren",
     "pv.continue":"Weiter ohne Einwilligung",
     "pv.customize":"Privatsphäre-Einstellungen individuell festlegen",
@@ -3316,7 +3324,7 @@ const i18n = {
     "ct.p1":"A direct line — no hotline, no tickets. Drop me a message and I'll get back to you personally.","ct.remote":"Remote & on-site worldwide",
     "ft.rights":"All rights reserved","ft.imprint":"Imprint","ft.privacy":"Privacy","ft.terms":"Terms",
     "pv.title":"Privacy settings",
-    "pv.intro":"This website loads fonts from <strong>Google Fonts (USA)</strong>, sends booking inquiries via <strong>Web3Forms</strong> and stores your theme and language preference locally in your browser. When external fonts load, your IP address may be transmitted to Google. Details in the <a href=\"datenschutz.html\">privacy policy</a>.",
+    "pv.intro":"This website loads fonts from <strong>Google Fonts</strong>, embeds a <strong>Google Calendar</strong> for appointment booking, sends inquiry forms via <strong>Web3Forms</strong> and stores your theme and language preference locally in your browser. When external content loads, your IP address may be transmitted to Google or Web3Forms. Details in the <a href=\"datenschutz.html\">privacy policy</a>.",
     "pv.rights":"You have the right not to consent and to withdraw your consent at any time.",
     "pv.detailsTitle":"What is stored",
     "pv.cat1Name":"Strictly necessary",
@@ -3325,8 +3333,8 @@ const i18n = {
     "pv.cat2Desc":"Loads typography from the Google CDN (Google Ireland Limited). IP address is transmitted; possible third-country transfer to the USA. Legal basis Art. 6(1)(f) GDPR, EU-DPF framework.",
     "pv.cat3Name":"Form backend · Web3Forms",
     "pv.cat3Desc":"When submitting the booking form, your input is transmitted to Web3Forms in order to trigger an email to me. Data processing per Art. 28 GDPR.",
-    "pv.cat4Name":"Appointment booking · Calendly",
-    "pv.cat4Desc":"The embedded booking calendar loads content from Calendly (USA). When you open the booking section, your IP address may be transmitted to Calendly. EU-DPF-certified plus standard contractual clauses.",
+    "pv.cat4Name":"Appointment booking · Google Calendar",
+    "pv.cat4Desc":"The embedded booking calendar loads content from my Google Workspace account (Google Ireland Limited). When you open the booking section, your IP address may be transmitted to Google. Data processing agreement under Art. 28 GDPR; potential third-country transfer to the USA covered by standard contractual clauses and the EU-DPF framework.",
     "pv.acceptAll":"Accept all",
     "pv.continue":"Continue without consent",
     "pv.customize":"Configure privacy settings individually",
@@ -3452,7 +3460,7 @@ const i18n = {
     "ct.p1":"Línea directa — sin centralita ni tickets. Escríbeme y te respondo personalmente.","ct.remote":"Remoto y presencial en todo el mundo",
     "ft.rights":"Todos los derechos reservados","ft.imprint":"Aviso legal","ft.privacy":"Privacidad","ft.terms":"Condiciones",
     "pv.title":"Configuración de privacidad",
-    "pv.intro":"Este sitio web carga fuentes de <strong>Google Fonts (EE. UU.)</strong>, envía solicitudes de reserva mediante <strong>Web3Forms</strong> y guarda tu preferencia de tema e idioma localmente en tu navegador. Al cargar fuentes externas, tu dirección IP puede transmitirse a Google. Más detalles en la <a href=\"datenschutz.html\">política de privacidad</a>.",
+    "pv.intro":"Este sitio web carga fuentes de <strong>Google Fonts</strong>, integra un <strong>Calendario de Google</strong> para la reserva de citas, envía formularios de consulta mediante <strong>Web3Forms</strong> y guarda tu preferencia de tema e idioma localmente en tu navegador. Al cargar contenido externo, tu dirección IP puede transmitirse a Google o Web3Forms. Más detalles en la <a href=\"datenschutz.html\">política de privacidad</a>.",
     "pv.rights":"Tienes derecho a no dar tu consentimiento y a retirarlo en cualquier momento.",
     "pv.detailsTitle":"Qué se almacena",
     "pv.cat1Name":"Estrictamente necesario",
@@ -3461,8 +3469,8 @@ const i18n = {
     "pv.cat2Desc":"Carga la tipografía desde el CDN de Google (Google Ireland Limited). Se transmite la dirección IP; posible transferencia a los EE. UU. Base jurídica art. 6(1)(f) RGPD, marco EU-DPF.",
     "pv.cat3Name":"Backend del formulario · Web3Forms",
     "pv.cat3Desc":"Al enviar el formulario de reserva, tus datos se transmiten a Web3Forms para enviarme un correo. Tratamiento de datos según art. 28 RGPD.",
-    "pv.cat4Name":"Reserva de citas · Calendly",
-    "pv.cat4Desc":"El calendario integrado carga contenido de Calendly (EE. UU.). Al abrir la sección de reserva, tu dirección IP puede transmitirse a Calendly. Certificado EU-DPF más cláusulas contractuales tipo.",
+    "pv.cat4Name":"Reserva de citas · Google Calendar",
+    "pv.cat4Desc":"El calendario integrado carga contenido desde mi cuenta de Google Workspace (Google Ireland Limited). Al abrir la sección de reserva, tu dirección IP puede transmitirse a Google. Tratamiento de datos por encargo conforme al art. 28 RGPD; posible transferencia a EE. UU. con cláusulas contractuales tipo y marco EU-DPF.",
     "pv.acceptAll":"Aceptar todo",
     "pv.continue":"Continuar sin consentimiento",
     "pv.customize":"Configurar la privacidad de forma individual",
@@ -3588,7 +3596,7 @@ const i18n = {
     "ct.p1":"直接联系 — 没有热线，没有工单。给我留言，我会亲自回复。","ct.remote":"远程与全球现场",
     "ft.rights":"保留所有权利","ft.imprint":"法律声明","ft.privacy":"隐私","ft.terms":"服务条款",
     "pv.title":"隐私设置",
-    "pv.intro":"本网站从 <strong>Google Fonts（美国）</strong>加载字体，通过 <strong>Web3Forms</strong> 转发预约咨询，并在您的浏览器中本地保存主题与语言偏好。加载外部字体时，您的 IP 地址可能会被传输至 Google。详见<a href=\"datenschutz.html\">隐私声明</a>。",
+    "pv.intro":"本网站从 <strong>Google Fonts</strong> 加载字体，嵌入 <strong>Google 日历</strong> 用于预约，通过 <strong>Web3Forms</strong> 转发咨询表单，并在您的浏览器中本地保存主题与语言偏好。加载外部内容时，您的 IP 地址可能会被传输至 Google 或 Web3Forms。详见<a href=\"datenschutz.html\">隐私声明</a>。",
     "pv.rights":"您有权不予同意，并可随时撤回您的同意。",
     "pv.detailsTitle":"存储内容",
     "pv.cat1Name":"必需项",
@@ -3597,8 +3605,8 @@ const i18n = {
     "pv.cat2Desc":"从 Google CDN（Google Ireland Limited）加载字体。会传输 IP 地址，可能涉及向美国的第三国传输。法律依据 GDPR 第 6 条第 1 款 f 项，EU-DPF 框架。",
     "pv.cat3Name":"表单后端 · Web3Forms",
     "pv.cat3Desc":"提交预约表单时，您的输入会被转发至 Web3Forms，以便向我发送邮件通知。依据 GDPR 第 28 条进行数据委托处理。",
-    "pv.cat4Name":"在线预约 · Calendly",
-    "pv.cat4Desc":"嵌入的预约日历会从 Calendly（美国）加载内容。当您打开预约区域时，您的 IP 地址可能会传输至 Calendly。已通过 EU-DPF 认证并签署标准合同条款。",
+    "pv.cat4Name":"在线预约 · Google 日历",
+    "pv.cat4Desc":"嵌入的预约日历会从我的 Google Workspace 账户（Google Ireland Limited）加载内容。当您打开预约区域时，您的 IP 地址可能会传输至 Google。依据《通用数据保护条例》第 28 条进行委托数据处理；如涉及向美国的第三国传输，将通过标准合同条款及 EU-DPF 框架予以保障。",
     "pv.acceptAll":"全部接受",
     "pv.continue":"不同意继续",
     "pv.customize":"自定义隐私设置",
