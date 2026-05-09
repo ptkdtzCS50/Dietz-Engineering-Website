@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark">
+<html lang="de" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,12 +11,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --gold: #C8A96E;
-  --gold-soft: #d8bd86;
-  --gold-dim: rgba(200, 169, 110, 0.15);
-  --gold-line: rgba(200, 169, 110, 0.35);
+  --accent: #1e2c47;
+  --accent-soft: #2d4068;
+  --accent-dim: rgba(30, 44, 71, 0.10);
+  --accent-line: rgba(30, 44, 71, 0.28);
+  --accent-2: #8b8e92;
 }
 [data-theme="dark"] {
+  --accent: #7da3d4;
+  --accent-soft: #a3bee0;
+  --accent-dim: rgba(125, 163, 212, 0.12);
+  --accent-line: rgba(125, 163, 212, 0.32);
+  --accent-2: #9ca0a5;
   --bg: #0b0d10;
   --bg-2: #111418;
   --bg-card: rgba(22, 26, 31, 0.8);
@@ -27,13 +33,13 @@
   --text-mute: #7a7a7a;
 }
 [data-theme="light"] {
-  --bg: #f7f5f0;
-  --bg-2: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --border: rgba(0, 0, 0, 0.08);
-  --border-strong: rgba(0, 0, 0, 0.14);
-  --text: #14181d;
-  --text-soft: #3c4350;
+  --bg: #ffffff;
+  --bg-2: #f6f7f9;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --border: rgba(30, 44, 71, 0.08);
+  --border-strong: rgba(30, 44, 71, 0.16);
+  --text: #1e2c47;
+  --text-soft: #4a5365;
   --text-mute: #6b7280;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,8 +59,8 @@ h1, h2, h3 {
   color: var(--text);
 }
 .mono { font-family: 'JetBrains Mono', 'Courier New', monospace; }
-a { color: var(--gold); text-decoration: none; transition: color 0.2s ease; }
-a:hover { color: var(--gold-soft); text-decoration: underline; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--accent-soft); text-decoration: underline; }
 
 /* NAV */
 .nav {
@@ -78,14 +84,14 @@ a:hover { color: var(--gold-soft); text-decoration: underline; }
 .logo {
   display: flex;
   align-items: center;
-  color: var(--gold);
+  color: var(--accent);
   text-decoration: none;
   flex-shrink: 0;
 }
 .logo:hover { text-decoration: none; }
-.logo-horizontal { height: 26px; width: auto; color: var(--gold); display: block; flex-shrink: 0; }
-.logo-mark-only { height: 24px; width: auto; color: var(--gold); display: none; flex-shrink: 0; }
-.footer-lockup { height: 100px; width: auto; color: var(--gold); display: block; flex-shrink: 0; }
+.logo-horizontal { height: 26px; width: auto; color: var(--accent); display: block; flex-shrink: 0; }
+.logo-mark-only { height: 24px; width: auto; color: var(--accent); display: none; flex-shrink: 0; }
+.footer-lockup { height: 100px; width: auto; color: var(--accent); display: block; flex-shrink: 0; }
 @media (max-width: 600px) {
   .logo-horizontal { display: none; }
   .logo-mark-only { display: block; }
@@ -105,8 +111,8 @@ a:hover { color: var(--gold-soft); text-decoration: underline; }
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 .back-link:hover {
-  color: var(--gold);
-  border-color: var(--gold);
+  color: var(--accent);
+  border-color: var(--accent);
   text-decoration: none;
 }
 .icon-btn {
@@ -119,7 +125,7 @@ a:hover { color: var(--gold-soft); text-decoration: underline; }
   cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
-.icon-btn:hover { color: var(--gold); border-color: var(--gold); }
+.icon-btn:hover { color: var(--accent); border-color: var(--accent); }
 
 /* CONTENT */
 main {
@@ -132,7 +138,7 @@ main {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   margin-bottom: 1rem;
   display: inline-flex;
   align-items: center;
@@ -141,7 +147,7 @@ main {
 .section-label::before {
   content: '';
   width: 28px; height: 1px;
-  background: var(--gold);
+  background: var(--accent);
 }
 h1 {
   font-size: clamp(1.8rem, 4vw, 2.4rem);
@@ -151,7 +157,7 @@ h2 {
   font-size: 1.15rem;
   margin: 2.4rem 0 0.8rem;
   letter-spacing: 0;
-  color: var(--gold);
+  color: var(--accent);
 }
 p {
   color: var(--text-soft);
@@ -186,7 +192,7 @@ ul li::before {
   content: '▸';
   position: absolute;
   left: 0;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 /* FOOTER */
@@ -220,10 +226,10 @@ ul li::before {
   color: var(--text-soft);
 }
 .footer-links a:hover {
-  color: var(--gold);
+  color: var(--accent);
   text-decoration: none;
 }
-.footer-links a.active { color: var(--gold); }
+.footer-links a.active { color: var(--accent); }
 
 @media (max-width: 600px) {
   .nav-inner { padding: 0.8rem 1rem; }
@@ -247,7 +253,7 @@ ul li::before {
 .privacy-dialog {
   position: relative;
   background: var(--bg-2);
-  border: 1px solid var(--gold-line);
+  border: 1px solid var(--accent-line);
   border-radius: 16px;
   max-width: 540px; width: 100%;
   padding: 1.8rem 1.6rem 1.4rem;
@@ -264,7 +270,7 @@ ul li::before {
   line-height: 1.6; margin: 0 0 0.7rem;
 }
 .privacy-content p:last-child { margin-bottom: 0; }
-.privacy-content a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 .privacy-details {
   margin: 1rem 0 0; padding: 1rem 1.1rem;
   background: var(--bg-2); border: 1px solid var(--border);
@@ -273,7 +279,7 @@ ul li::before {
 .privacy-details h3 {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--gold); margin: 0 0 0.7rem; font-weight: 500;
+  color: var(--accent); margin: 0 0 0.7rem; font-weight: 500;
 }
 .privacy-details ul { margin: 0; padding-left: 1.1rem; list-style: none; }
 .privacy-details li {
@@ -282,7 +288,7 @@ ul li::before {
   position: relative; padding-left: 0.4rem;
 }
 .privacy-details li:last-child { margin-bottom: 0; }
-.privacy-details li::before { content: '▸'; position: absolute; left: -0.9rem; color: var(--gold); }
+.privacy-details li::before { content: '▸'; position: absolute; left: -0.9rem; color: var(--accent); }
 .privacy-details strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
 .privacy-actions { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1.3rem; }
 .privacy-btn {
@@ -291,24 +297,24 @@ ul li::before {
   cursor: pointer; text-align: center;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
-.privacy-btn.primary { background: var(--gold); color: #15110a; }
-.privacy-btn.primary:hover { background: var(--gold-soft); transform: translateY(-1px); }
+.privacy-btn.primary { background: var(--accent); color: #15110a; }
+.privacy-btn.primary:hover { background: var(--accent-soft); transform: translateY(-1px); }
 .privacy-btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
-.privacy-btn.secondary:hover { border-color: var(--gold); color: var(--gold); }
+.privacy-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
 .privacy-btn.link {
   background: transparent; color: var(--text-soft);
   font-size: 0.85rem; font-weight: 500;
   text-decoration: underline; text-underline-offset: 3px;
   padding: 0.5rem 0.8rem;
 }
-.privacy-btn.link:hover { color: var(--gold); }
+.privacy-btn.link:hover { color: var(--accent); }
 .privacy-footer {
   display: flex; justify-content: center; gap: 1.4rem;
   margin-top: 1.1rem; padding-top: 1rem;
   border-top: 1px solid var(--border); font-size: 0.8rem;
 }
 .privacy-footer a { color: var(--text-mute); text-decoration: underline; text-underline-offset: 2px; }
-.privacy-footer a:hover { color: var(--gold); }
+.privacy-footer a:hover { color: var(--accent); }
 @media (max-width: 580px) {
   .privacy-dialog { padding: 1.4rem 1.2rem 1.1rem; }
   .privacy-dialog h2 { font-size: 1.2rem; }
@@ -320,33 +326,13 @@ ul li::before {
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">
-      <svg class="logo-horizontal" viewBox="0 0 1100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g transform="translate(0, 10)">
-          <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
-          <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
-          <g transform="translate(95, 0)" fill="currentColor">
-            <rect x="0" y="0" width="22" height="80"/>
-            <rect x="0" y="0" width="65" height="22"/>
-            <rect x="0" y="29" width="48" height="22"/>
-            <rect x="0" y="58" width="65" height="22"/>
-          </g>
-        </g>
-        <g fill="currentColor" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter">
-          <circle cx="190" cy="50" r="4"/>
-          <path d="M 190 50 L 205 50 L 215 42 L 240 42 L 250 50 L 265 50" fill="none" stroke-width="2.5"/>
-          <circle cx="265" cy="50" r="4"/>
-        </g>
-        <text x="290" y="68" font-family="Syne, system-ui, sans-serif" font-weight="800" font-size="42" letter-spacing="2" fill="currentColor">DIETZ &#8212; ENGINEERING</text>
+      <svg class="logo-horizontal" viewBox="0 0 720 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="72" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="68" letter-spacing="1" fill="#1e2c47">DIETZ</text>
+        <line x1="245" y1="20" x2="245" y2="80" stroke="#8b8e92" stroke-width="3"/>
+        <text x="265" y="72" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="58" letter-spacing="1" fill="#8b8e92">ENGINEERING</text>
       </svg>
-      <svg class="logo-mark-only" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
-        <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
-        <g transform="translate(95, 0)" fill="currentColor">
-          <rect x="0" y="0" width="22" height="80"/>
-          <rect x="0" y="0" width="65" height="22"/>
-          <rect x="0" y="29" width="48" height="22"/>
-          <rect x="0" y="58" width="65" height="22"/>
-        </g>
+      <svg class="logo-mark-only" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="72" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="68" letter-spacing="1" fill="#1e2c47">DIETZ</text>
       </svg>
     </a>
     <div class="nav-actions">
@@ -489,20 +475,9 @@ ul li::before {
   <div class="footer-inner">
     <a href="index.html" aria-label="Dietz Engineering Home">
       <svg class="footer-lockup" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g transform="translate(120, 25)">
-          <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
-          <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
-          <g transform="translate(95, 0)" fill="currentColor">
-            <rect x="0" y="0" width="22" height="80"/>
-            <rect x="0" y="0" width="65" height="22"/>
-            <rect x="0" y="29" width="48" height="22"/>
-            <rect x="0" y="58" width="65" height="22"/>
-          </g>
-        </g>
-        <path d="M 100 130 L 145 130 L 165 115 L 235 115 L 255 130 L 300 130" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
-        <circle cx="100" cy="130" r="4" fill="currentColor"/>
-        <circle cx="300" cy="130" r="4" fill="currentColor"/>
-        <text x="200" y="172" font-family="Syne, system-ui, sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="currentColor" text-anchor="middle">DIETZ &#183; ENGINEERING</text>
+        <text x="200" y="110" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="64" letter-spacing="1" fill="#1e2c47" text-anchor="middle">DIETZ</text>
+        <line x1="80" y1="125" x2="320" y2="125" stroke="#8b8e92" stroke-width="2"/>
+        <text x="200" y="160" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="6" fill="#8b8e92" text-anchor="middle">ENGINEERING</text>
       </svg>
     </a>
     <div class="footer-meta">© <span id="year"></span> Patrick Dietz</div>
@@ -554,8 +529,8 @@ function applyTheme(t) {
   iconSun.style.display  = t === 'dark' ? 'none'  : 'block';
   try { localStorage.setItem('de_theme', t); } catch(e) {}
 }
-let stored = 'dark';
-try { stored = localStorage.getItem('de_theme') || 'dark'; } catch(e) {}
+let stored = 'light';
+try { stored = localStorage.getItem('de_theme') || 'light'; } catch(e) {}
 applyTheme(stored);
 themeToggle.addEventListener('click', () => {
   const cur = document.documentElement.getAttribute('data-theme');

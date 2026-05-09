@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" data-theme="dark">
+<html lang="de" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,19 +8,25 @@
 <link rel="icon" type="image/svg+xml" href="logo-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
    THEME VARIABLES
    ========================================================= */
 :root {
-  --gold: #C8A96E;
-  --gold-soft: #d8bd86;
-  --gold-dim: rgba(200, 169, 110, 0.15);
-  --gold-line: rgba(200, 169, 110, 0.35);
+  --accent: #1e2c47;
+  --accent-soft: #2d4068;
+  --accent-dim: rgba(30, 44, 71, 0.10);
+  --accent-line: rgba(30, 44, 71, 0.28);
+  --accent-2: #8b8e92;
 }
 
 [data-theme="dark"] {
+  --accent: #7da3d4;
+  --accent-soft: #a3bee0;
+  --accent-dim: rgba(125, 163, 212, 0.12);
+  --accent-line: rgba(125, 163, 212, 0.32);
+  --accent-2: #9ca0a5;
   --bg: #0b0d10;
   --bg-2: #111418;
   --bg-3: #161a1f;
@@ -30,22 +36,22 @@
   --text: #ececec;
   --text-soft: #b8b8b8;
   --text-mute: #7a7a7a;
-  --grid: rgba(200, 169, 110, 0.05);
+  --grid: rgba(125, 163, 212, 0.05);
   --shadow: 0 20px 60px rgba(0,0,0,0.45);
 }
 
 [data-theme="light"] {
-  --bg: #f7f5f0;
-  --bg-2: #ffffff;
+  --bg: #ffffff;
+  --bg-2: #f6f7f9;
   --bg-3: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --border: rgba(0, 0, 0, 0.08);
-  --border-strong: rgba(0, 0, 0, 0.14);
-  --text: #14181d;
-  --text-soft: #3c4350;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --border: rgba(30, 44, 71, 0.08);
+  --border-strong: rgba(30, 44, 71, 0.16);
+  --text: #1e2c47;
+  --text-soft: #4a5365;
   --text-mute: #6b7280;
-  --grid: rgba(180, 145, 80, 0.07);
-  --shadow: 0 18px 50px rgba(20, 20, 25, 0.08);
+  --grid: rgba(30, 44, 71, 0.05);
+  --shadow: 0 18px 50px rgba(30, 44, 71, 0.08);
 }
 
 /* =========================================================
@@ -63,28 +69,19 @@ body {
   font-weight: 400;
   overflow-x: hidden;
   transition: background 0.3s ease, color 0.3s ease;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 64px 64px;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Syne', 'Inter', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
   color: var(--text);
-  line-height: 1.15;
+  line-height: 1.1;
 }
+
+h1 { font-weight: 900; letter-spacing: -0.035em; }
 
 .mono { font-family: 'JetBrains Mono', 'Courier New', monospace; }
 
@@ -98,7 +95,7 @@ input, textarea, select {
   background: var(--bg-2);
   color: var(--text);
   border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 0.85rem 1rem;
   width: 100%;
   transition: border-color 0.2s ease, background 0.2s ease;
@@ -106,7 +103,7 @@ input, textarea, select {
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: var(--gold);
+  border-color: var(--accent);
   background: var(--bg-3);
 }
 
@@ -114,7 +111,7 @@ textarea { min-height: 130px; resize: vertical; }
 
 img, svg { display: block; max-width: 100%; }
 
-::selection { background: var(--gold); color: #000; }
+::selection { background: var(--accent); color: #000; }
 
 /* =========================================================
    LAYOUT HELPERS
@@ -128,40 +125,44 @@ img, svg { display: block; max-width: 100%; }
 }
 
 section {
-  padding: 6rem 0;
+  padding: 7rem 0;
   position: relative;
   z-index: 1;
 }
 
 .section-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  margin-bottom: 1.2rem;
+  gap: 0.85rem;
+  margin-bottom: 1.4rem;
 }
 .section-label::before {
   content: '';
-  width: 28px; height: 1px;
-  background: var(--gold);
+  width: 32px; height: 2px;
+  background: var(--accent);
 }
 
 .section-title {
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  margin-bottom: 1rem;
-  max-width: 720px;
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  max-width: 820px;
 }
 
 .section-subtitle {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text-soft);
-  max-width: 680px;
-  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-bottom: 3.5rem;
+  line-height: 1.6;
 }
 .bk-intro-line {
   text-align: center;
@@ -184,17 +185,17 @@ section {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
   border-bottom: 1px solid var(--border);
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-inner {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 1.1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -206,19 +207,19 @@ section {
   align-items: center;
   flex-shrink: 0;
   text-decoration: none;
-  color: var(--gold);
+  color: var(--accent);
 }
 .logo-horizontal {
   height: 28px;
   width: auto;
-  color: var(--gold);
+  color: var(--accent);
   display: block;
   flex-shrink: 0;
 }
 .logo-mark-only {
   height: 26px;
   width: auto;
-  color: var(--gold);
+  color: var(--accent);
   display: none;
   flex-shrink: 0;
 }
@@ -229,17 +230,27 @@ section {
 
 .nav-links {
   display: flex;
-  gap: 1.8rem;
+  gap: 2.4rem;
   list-style: none;
-  font-size: 0.92rem;
-  color: var(--text-soft);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
 }
 .nav-links a {
   position: relative;
   transition: color 0.2s ease;
-  padding: 0.3rem 0;
+  padding: 0.4rem 0;
 }
-.nav-links a:hover { color: var(--gold); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 0; height: 2px;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { width: 100%; }
 
 .nav-actions {
   display: flex;
@@ -250,15 +261,15 @@ section {
 .icon-btn {
   width: 38px; height: 38px;
   border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border-radius: 2px;
   display: grid; place-items: center;
   color: var(--text-soft);
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 .icon-btn:hover {
-  color: var(--gold);
-  border-color: var(--gold);
-  background: var(--gold-dim);
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-dim);
 }
 
 .lang-select {
@@ -266,24 +277,24 @@ section {
   font-size: 0.85rem;
   background: var(--bg-2);
   border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border-radius: 2px;
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
   color: var(--text);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C8A96E' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231e2c47' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");
   background-repeat: no-repeat;
   background-position: right 0.7rem center;
   width: auto;
   transition: border-color 0.2s ease;
 }
-.lang-select:hover { border-color: var(--gold); }
+.lang-select:hover { border-color: var(--accent); }
 
 .nav-toggle {
   display: none;
   width: 38px; height: 38px;
   border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border-radius: 2px;
   align-items: center; justify-content: center;
   color: var(--text-soft);
 }
@@ -292,95 +303,81 @@ section {
    HERO
    ========================================================= */
 .hero {
-  padding: 11rem 0 7rem;
+  padding: 8rem 0 7rem;
   position: relative;
   overflow: hidden;
+  background: var(--bg);
 }
 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.55;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
-}
-
-.hero-bg svg { width: 100%; height: 100%; }
-
-.hero-glow {
-  position: absolute;
-  width: 720px; height: 720px;
-  background: radial-gradient(circle, rgba(200,169,110,0.18) 0%, transparent 65%);
-  border-radius: 50%;
-  top: -200px; right: -200px;
-  z-index: 0;
-  pointer-events: none;
-}
+.hero-bg { display: none; }
+.hero-glow { display: none; }
 
 .hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 880px;
+  max-width: 980px;
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold);
-  background: var(--gold-dim);
-  border: 1px solid var(--gold-line);
-  border-radius: 999px;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1.8rem;
+  color: var(--accent);
+  padding: 0;
+  margin-bottom: 1.6rem;
 }
-.hero-badge .dot {
-  width: 7px; height: 7px;
-  background: var(--gold);
-  border-radius: 50%;
-  box-shadow: 0 0 12px var(--gold);
-  animation: pulse 2s infinite;
+.hero-badge::before {
+  content: '';
+  width: 32px; height: 2px;
+  background: var(--accent);
 }
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.5; transform: scale(1.15); }
-}
+.hero-badge .dot { display: none; }
 
 .hero h1 {
-  font-size: clamp(2.4rem, 6vw, 4.6rem);
-  font-weight: 800;
+  font-size: clamp(2.6rem, 6.4vw, 5.2rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
   line-height: 1.02;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.6rem;
 }
 .hero h1 .accent {
-  color: var(--gold);
-  font-style: italic;
-  font-weight: 600;
+  color: var(--accent);
+  font-weight: 900;
+  font-style: normal;
 }
 
 .hero-tagline {
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
   color: var(--text-soft);
-  max-width: 640px;
-  margin-bottom: 2.5rem;
+  max-width: 720px;
+  margin-bottom: 2.6rem;
+  line-height: 1.55;
 }
 
 .hero-meta {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
+  font-weight: 500;
   color: var(--text-mute);
-  margin-bottom: 2.2rem;
+  margin-bottom: 2.4rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.4rem;
+  gap: 0.4rem 2rem;
+  letter-spacing: 0.02em;
 }
-.hero-meta span::before { content: '// '; color: var(--gold); }
+.hero-meta span::before {
+  content: '';
+  display: inline-block;
+  width: 14px; height: 1px;
+  background: var(--accent);
+  vertical-align: middle;
+  margin-right: 0.6rem;
+}
 
 .cta-row {
   display: flex;
@@ -392,36 +389,36 @@ section {
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.95rem 1.6rem;
-  border-radius: 10px;
+  gap: 0.7rem;
+  padding: 1.05rem 1.8rem;
+  border-radius: 0;
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.01em;
-  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
-  border: 1px solid transparent;
+  transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+  border: 1.5px solid transparent;
   cursor: pointer;
 }
 .btn-primary {
-  background: var(--gold);
-  color: #15110a;
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
 }
 .btn-primary:hover {
-  background: var(--gold-soft);
-  transform: translateY(-2px);
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
 }
 .btn-secondary {
   background: transparent;
-  border-color: var(--border-strong);
-  color: var(--text);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .btn-secondary:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  transform: translateY(-2px);
+  background: var(--accent);
+  color: #ffffff;
 }
-.btn .arrow { transition: transform 0.2s ease; }
-.btn:hover .arrow { transform: translateX(4px); }
+.btn .arrow { transition: transform 0.22s ease; }
+.btn:hover .arrow { transform: translateX(6px); }
 
 .lang-badges {
   display: flex;
@@ -429,7 +426,7 @@ section {
   flex-wrap: wrap;
 }
 .lang-badge {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
   padding: 0.35rem 0.8rem;
   border: 1px solid var(--border-strong);
@@ -437,7 +434,7 @@ section {
   color: var(--text-soft);
   letter-spacing: 0.06em;
 }
-.lang-badge strong { color: var(--gold); margin-right: 0.4rem; }
+.lang-badge strong { color: var(--accent); margin-right: 0.4rem; }
 
 .hero-subnote {
   margin-top: 1.2rem;
@@ -450,26 +447,36 @@ section {
    TRUST BAND
    ========================================================= */
 .trust-section {
-  padding: 2.5rem 0;
-  border-top: 1px solid var(--border);
+  padding: 4rem 0;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, transparent 0%, var(--bg-2) 50%, transparent 100%);
+  background: var(--bg);
 }
 .trust-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.6rem 2rem;
+  gap: 2rem 2.5rem;
 }
-.trust-block { display: flex; flex-direction: column; gap: 0.4rem; }
+.trust-block { display: flex; flex-direction: column; gap: 0.7rem; }
 .trust-label {
-  font-size: 0.72rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.trust-label::before {
+  content: '';
+  width: 18px; height: 2px;
+  background: var(--accent);
 }
 .trust-text {
-  font-size: 0.93rem;
-  color: var(--text-soft);
+  font-size: 0.98rem;
+  color: var(--text);
+  font-weight: 500;
   line-height: 1.5;
 }
 @media (max-width: 960px) {
@@ -496,10 +503,10 @@ section {
 }
 
 .usp-quote {
-  border-left: 2px solid var(--gold);
+  border-left: 2px solid var(--accent);
   padding: 0.5rem 0 0.5rem 1.4rem;
   margin: 2rem 0;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-style: italic;
   font-size: 1.15rem;
   color: var(--text);
@@ -513,12 +520,12 @@ section {
   align-items: flex-start;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1.1rem 1.3rem;
   margin-top: 2rem;
 }
 .travel-note .icon {
-  color: var(--gold);
+  color: var(--accent);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -533,14 +540,14 @@ section {
 .stat {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 4px;
   padding: 1.5rem 1.3rem;
   position: relative;
   overflow: hidden;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 .stat:hover {
-  border-color: var(--gold-line);
+  border-color: var(--accent-line);
   transform: translateY(-3px);
 }
 .stat::before {
@@ -548,20 +555,20 @@ section {
   position: absolute;
   top: 0; left: 0;
   width: 24px; height: 24px;
-  border-top: 1px solid var(--gold);
-  border-left: 1px solid var(--gold);
-  border-radius: 14px 0 0 0;
+  border-top: 1px solid var(--accent);
+  border-left: 1px solid var(--accent);
+  border-radius: 4px 0 0 0;
 }
 .stat-num {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 2.1rem;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--accent);
   line-height: 1;
   margin-bottom: 0.5rem;
 }
 .stat-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -579,18 +586,18 @@ section {
 .edu-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 2rem;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 .edu-card:hover {
-  border-color: var(--gold-line);
+  border-color: var(--accent-line);
   transform: translateY(-3px);
 }
 .edu-period {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.82rem;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: 0.06em;
   margin-bottom: 0.8rem;
 }
@@ -615,45 +622,252 @@ section {
   .services-grid-4 { grid-template-columns: repeat(2, 1fr); }
 }
 .service-card {
-  background: var(--bg-card);
+  background: var(--bg-2);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.8rem;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  border-radius: 0;
+  padding: 2rem 1.8rem 1.8rem;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 3px;
+  background: var(--accent);
+  transition: width 0.35s ease;
 }
 .service-card:hover {
-  border-color: var(--gold-line);
-  transform: translateY(-4px);
+  border-color: var(--accent-line);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(30, 44, 71, 0.10);
 }
+.service-card:hover::before { width: 100%; }
 .service-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.82rem;
-  color: var(--gold);
-  margin-bottom: 1.1rem;
-  letter-spacing: 0.1em;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 1.4rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 .service-card h3 {
-  font-size: 1.15rem;
-  margin-bottom: 0.7rem;
-  letter-spacing: -0.01em;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.9rem;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 .service-card p {
   color: var(--text-soft);
-  font-size: 0.93rem;
-  margin-bottom: 1.3rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.6rem;
   flex-grow: 1;
 }
 .service-price {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.88rem;
-  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
   padding-top: 1rem;
-  border-top: 1px dashed var(--border-strong);
+  border-top: 1px solid var(--border);
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.service-price::after {
+  content: '→';
+  transition: transform 0.25s ease;
+  font-weight: 700;
+}
+.service-card:hover .service-price::after { transform: translateX(6px); }
+
+/* =========================================================
+   STATS BAND (ABB-style metrics)
+   ========================================================= */
+.stats-band {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-2);
+  padding: 4rem 0;
+}
+.stats-band .container { max-width: 1400px; padding: 0 2rem; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+@media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .stats-grid { grid-template-columns: 1fr; } }
+.stat-cell {
+  padding: 0.5rem 2rem;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.stat-cell:first-child { border-left: none; padding-left: 0; }
+@media (max-width: 900px) {
+  .stat-cell:nth-child(3) { border-left: none; padding-left: 0; }
+  .stat-cell { padding: 0.5rem 1.5rem; margin-bottom: 1.5rem; }
+  .stat-cell:first-child { padding-left: 0; }
+}
+@media (max-width: 520px) {
+  .stat-cell { border-left: none; padding-left: 0; padding-right: 0; }
+}
+.stat-value {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--accent);
+}
+.stat-value sup {
+  font-size: 0.55em;
+  font-weight: 700;
+  vertical-align: super;
+  margin-left: 0.1em;
+  color: var(--accent);
+}
+.stat-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+/* =========================================================
+   HERO BANNER (Title image)
+   ========================================================= */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  margin-top: 70px;
+  background: linear-gradient(180deg, #f6f7f9 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.hero-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 1.2s cubic-bezier(.2, .8, .2, 1);
+}
+.hero-banner:hover img { transform: scale(1.02); }
+@media (max-width: 760px) {
+  .hero-banner img { max-height: 280px; }
+}
+[data-theme="dark"] .hero-banner {
+  background: linear-gradient(180deg, #111418 0%, var(--bg) 100%);
+  filter: brightness(0.85);
+}
+
+/* =========================================================
+   SHOWCASE / EINBLICKE
+   ========================================================= */
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+}
+@media (max-width: 1100px) {
+  .showcase-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 580px) {
+  .showcase-grid { grid-template-columns: 1fr; }
+}
+.show-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+.show-card:hover {
+  border-color: var(--accent-line);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(30, 44, 71, 0.10);
+}
+.show-visual {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #f6f7f9 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.show-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(30, 44, 71, 0.03) 100%);
+  pointer-events: none;
+}
+.show-visual svg {
+  width: 84%;
+  height: 84%;
+  display: block;
+  transition: transform 0.5s cubic-bezier(.2, .8, .2, 1);
+}
+.show-card:hover .show-visual svg { transform: scale(1.06); }
+.show-body {
+  padding: 1.6rem 1.6rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.show-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.show-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.show-card p {
+  font-size: 0.94rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  flex-grow: 1;
+}
+.show-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   letter-spacing: 0.02em;
 }
+.show-link::after {
+  content: '→';
+  transition: transform 0.25s ease;
+  font-weight: 700;
+}
+.show-card:hover .show-link::after { transform: translateX(6px); }
 
 /* =========================================================
    EXPERIENCE TIMELINE
@@ -669,7 +883,7 @@ section {
   position: absolute;
   left: 7px; top: 8px; bottom: 8px;
   width: 1px;
-  background: linear-gradient(to bottom, var(--gold) 0%, var(--border) 100%);
+  background: linear-gradient(to bottom, var(--accent) 0%, var(--border) 100%);
 }
 .tl-item {
   position: relative;
@@ -683,13 +897,13 @@ section {
   width: 15px; height: 15px;
   border-radius: 50%;
   background: var(--bg);
-  border: 2px solid var(--gold);
+  border: 2px solid var(--accent);
   box-shadow: 0 0 0 4px var(--bg);
 }
 .tl-period {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.82rem;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: 0.08em;
   margin-bottom: 0.4rem;
 }
@@ -717,7 +931,7 @@ section {
   content: '▸';
   position: absolute;
   left: 0;
-  color: var(--gold);
+  color: var(--accent);
 }
 .tags {
   display: flex;
@@ -726,12 +940,12 @@ section {
   margin-top: 0.8rem;
 }
 .tag {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.72rem;
   padding: 0.3rem 0.7rem;
-  background: var(--gold-dim);
-  border: 1px solid var(--gold-line);
-  color: var(--gold);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-line);
+  color: var(--accent);
   border-radius: 6px;
   letter-spacing: 0.04em;
 }
@@ -753,8 +967,8 @@ section {
   font-size: 0.92rem;
 }
 .skill-bar-item .label-row .lvl {
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  color: var(--accent);
   font-size: 0.8rem;
 }
 .bar-track {
@@ -766,7 +980,7 @@ section {
 }
 .bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-soft) 100%);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-soft) 100%);
   border-radius: 4px;
   width: 0;
   transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -774,11 +988,11 @@ section {
 
 .tools-block { display: flex; flex-direction: column; gap: 2rem; }
 .tools-group h4 {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -797,8 +1011,8 @@ section {
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 .pill:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* =========================================================
@@ -812,20 +1026,20 @@ section {
 .result-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 2rem 1.8rem;
   transition: border-color 0.25s ease, transform 0.25s ease;
   position: relative;
 }
 .result-card:hover {
-  border-color: var(--gold-line);
+  border-color: var(--accent-line);
   transform: translateY(-3px);
 }
 .result-card h3 {
   font-size: 1.18rem;
   margin-bottom: 0.7rem;
   letter-spacing: -0.01em;
-  color: var(--gold);
+  color: var(--accent);
 }
 .result-card p {
   color: var(--text-soft);
@@ -839,6 +1053,87 @@ section {
 /* =========================================================
    BOOKING
    ========================================================= */
+/* Free Consultation block (Calendly) */
+.consult-block {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
+  padding: 1.6rem 1.6rem 1.2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.consult-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 32px; height: 32px;
+  border-top: 1.5px solid var(--accent);
+  border-left: 1.5px solid var(--accent);
+  border-radius: 4px 0 0 0;
+}
+.consult-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.consult-icon {
+  width: 44px; height: 44px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-line);
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+}
+.consult-header h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+.consult-header p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.55;
+}
+.calendly-inline-widget {
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+}
+.consult-fallback {
+  color: var(--text-mute);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem;
+}
+.consult-fallback a { color: var(--accent); }
+
+/* OR divider between Calendly and inquiry form */
+.bk-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.5rem 0 2rem;
+}
+.bk-divider::before, .bk-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.bk-divider span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  flex-shrink: 0;
+}
+
 .packages {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -848,27 +1143,27 @@ section {
 .pkg-card {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
-  border-radius: 14px;
+  border-radius: 4px;
   padding: 1.6rem 1.3rem;
   cursor: pointer;
   position: relative;
   transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
 }
 .pkg-card:hover {
-  border-color: var(--gold-line);
+  border-color: var(--accent-line);
   transform: translateY(-3px);
 }
 .pkg-card.selected {
-  border-color: var(--gold);
-  background: linear-gradient(180deg, var(--gold-dim) 0%, var(--bg-card) 100%);
+  border-color: var(--accent);
+  background: linear-gradient(180deg, var(--accent-dim) 0%, var(--bg-card) 100%);
 }
 .pkg-card.popular::after {
   content: attr(data-popular);
   position: absolute;
   top: -10px; right: 12px;
-  background: var(--gold);
+  background: var(--accent);
   color: #15110a;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -876,7 +1171,7 @@ section {
   border-radius: 999px;
 }
 .pkg-name {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 1.1rem;
   margin-bottom: 0.4rem;
@@ -888,9 +1183,9 @@ section {
   min-height: 38px;
 }
 .pkg-price {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 1.15rem;
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -905,7 +1200,7 @@ section {
 }
 .booking-form .full { grid-column: 1 / -1; }
 .field-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -929,18 +1224,18 @@ section {
   line-height: 1.55;
 }
 .form-disclaimer a {
-  color: var(--gold);
+  color: var(--accent);
   text-decoration: underline;
-  text-decoration-color: var(--gold-line);
+  text-decoration-color: var(--accent-line);
   text-underline-offset: 3px;
 }
-.form-disclaimer a:hover { color: var(--gold-soft); }
+.form-disclaimer a:hover { color: var(--accent-soft); }
 
 .success-msg {
   display: none;
-  background: linear-gradient(135deg, var(--gold-dim), transparent);
-  border: 1px solid var(--gold);
-  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent-dim), transparent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
   padding: 1.5rem;
   margin-top: 1.5rem;
   align-items: center;
@@ -950,13 +1245,13 @@ section {
 .success-msg .check {
   width: 42px; height: 42px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--accent);
   color: #15110a;
   display: grid; place-items: center;
   flex-shrink: 0;
   font-weight: 700;
 }
-.success-msg h4 { color: var(--gold); margin-bottom: 0.3rem; font-size: 1.05rem; }
+.success-msg h4 { color: var(--accent); margin-bottom: 0.3rem; font-size: 1.05rem; }
 .success-msg p { color: var(--text-soft); font-size: 0.9rem; margin: 0; }
 
 /* =========================================================
@@ -978,7 +1273,7 @@ section {
   position: absolute;
   top: -100px; left: 50%;
   width: 400px; height: 400px;
-  background: radial-gradient(circle, var(--gold-dim) 0%, transparent 60%);
+  background: radial-gradient(circle, var(--accent-dim) 0%, transparent 60%);
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -986,28 +1281,29 @@ section {
 
 .contact-mail {
   display: inline-block;
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.4rem, 3.4vw, 2.1rem);
-  font-weight: 700;
-  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3.4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--accent);
   margin: 1rem 0 1.5rem;
   border-bottom: 2px solid transparent;
   transition: border-color 0.2s ease;
 }
-.contact-mail:hover { border-bottom-color: var(--gold); }
+.contact-mail:hover { border-bottom-color: var(--accent); }
 
 .contact-meta {
   display: flex;
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
   color: var(--text-soft);
   margin-top: 1.5rem;
 }
 .contact-meta span { display: flex; align-items: center; gap: 0.5rem; }
-.contact-meta .ic { color: var(--gold); }
+.contact-meta .ic { color: var(--accent); }
 
 /* =========================================================
    FOOTER
@@ -1027,7 +1323,7 @@ section {
 .footer-lockup {
   height: 110px;
   width: auto;
-  color: var(--gold);
+  color: var(--accent);
   display: block;
   flex-shrink: 0;
 }
@@ -1037,7 +1333,7 @@ section {
 }
 .footer .logo { font-size: 0.95rem; }
 .footer-copy {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
   color: var(--text-mute);
   letter-spacing: 0.04em;
@@ -1051,7 +1347,7 @@ section {
   color: var(--text-soft);
   transition: color 0.2s ease;
 }
-.footer-legal a:hover { color: var(--gold); }
+.footer-legal a:hover { color: var(--accent); }
 
 /* =========================================================
    RESPONSIVE
@@ -1114,37 +1410,38 @@ section {
   gap: 1.4rem;
 }
 .proj-card {
-  background: var(--bg-card);
+  background: var(--bg-2);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.7rem;
+  border-radius: 0;
+  padding: 2rem 1.8rem;
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
 }
-.proj-card:hover {
-  border-color: var(--gold-line);
-  transform: translateY(-4px);
-}
-.proj-card::after {
+.proj-card::before {
   content: '';
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
+  top: 0; left: 0;
+  width: 0; height: 3px;
+  background: var(--accent);
+  transition: width 0.35s ease;
 }
-.proj-card:hover::after { transform: scaleX(1); }
+.proj-card:hover {
+  border-color: var(--accent-line);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(30, 44, 71, 0.10);
+}
+.proj-card:hover::before { width: 100%; }
 .proj-meta {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  color: var(--gold);
-  letter-spacing: 0.08em;
-  margin-bottom: 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 0.8rem;
@@ -1155,9 +1452,10 @@ section {
   color: var(--text-mute);
 }
 .proj-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.7rem;
-  letter-spacing: -0.01em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.9rem;
+  letter-spacing: -0.02em;
   line-height: 1.3;
 }
 .proj-card p {
@@ -1181,11 +1479,11 @@ section {
   line-height: 1.5;
 }
 .proj-csr strong {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 500;
 }
 
@@ -1193,17 +1491,17 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   color: var(--text-mute);
   background: var(--bg-3);
   border: 1px dashed var(--border-strong);
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 0.5rem 0.9rem;
   margin-top: 1.5rem;
   letter-spacing: 0.04em;
 }
-.nda-banner svg { color: var(--gold); flex-shrink: 0; }
+.nda-banner svg { color: var(--accent); flex-shrink: 0; }
 
 /* =========================================================
    PROCESS / HOW WE WORK
@@ -1219,46 +1517,50 @@ section {
   position: absolute;
   top: 32px; left: 5%; right: 5%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-line), var(--gold-line), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-line), var(--accent-line), transparent);
   z-index: 0;
 }
 .proc-step {
-  background: var(--bg-card);
+  background: var(--bg-2);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 2rem 1.5rem 1.5rem;
+  border-radius: 0;
+  padding: 2.4rem 1.6rem 1.8rem;
   position: relative;
   z-index: 1;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 .proc-step:hover {
-  border-color: var(--gold-line);
-  transform: translateY(-3px);
+  border-color: var(--accent-line);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(30, 44, 71, 0.10);
 }
 .proc-num {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 1.5px solid var(--gold);
-  color: var(--gold);
+  width: 56px; height: 56px;
+  border-radius: 0;
+  background: var(--accent);
+  border: none;
+  color: #ffffff;
   display: grid; place-items: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 1.3rem;
-  margin: -3.3rem auto 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  margin: -3.6rem auto 1.4rem;
   position: relative;
-  box-shadow: 0 0 0 6px var(--bg);
+  box-shadow: 0 0 0 8px var(--bg);
+  letter-spacing: -0.02em;
 }
 .proc-step h3 {
   text-align: center;
-  font-size: 1.05rem;
-  margin-bottom: 0.6rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.02em;
 }
 .proc-step p {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-soft);
   text-align: center;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 /* =========================================================
@@ -1274,11 +1576,11 @@ section {
 .faq-item {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 4px;
   overflow: hidden;
   transition: border-color 0.2s ease;
 }
-.faq-item.open { border-color: var(--gold-line); }
+.faq-item.open { border-color: var(--accent-line); }
 .faq-q {
   width: 100%;
   text-align: left;
@@ -1294,11 +1596,11 @@ section {
   font-family: inherit;
   line-height: 1.4;
 }
-.faq-q:hover { color: var(--gold); }
+.faq-q:hover { color: var(--accent); }
 .faq-q .plus {
   flex-shrink: 0;
   width: 22px; height: 22px;
-  border: 1.5px solid var(--gold);
+  border: 1.5px solid var(--accent);
   border-radius: 50%;
   position: relative;
   transition: transform 0.25s ease, background 0.25s ease;
@@ -1306,13 +1608,13 @@ section {
 .faq-q .plus::before, .faq-q .plus::after {
   content: '';
   position: absolute;
-  background: var(--gold);
+  background: var(--accent);
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
 .faq-q .plus::before { width: 10px; height: 1.5px; }
 .faq-q .plus::after  { width: 1.5px; height: 10px; transition: transform 0.25s ease; }
-.faq-item.open .faq-q .plus { background: var(--gold); }
+.faq-item.open .faq-q .plus { background: var(--accent); }
 .faq-item.open .faq-q .plus::before, .faq-item.open .faq-q .plus::after { background: var(--bg); }
 .faq-item.open .faq-q .plus::after { transform: translate(-50%, -50%) scaleY(0); }
 .faq-a {
@@ -1370,8 +1672,8 @@ section {
 .privacy-dialog {
   position: relative;
   background: var(--bg-2);
-  border: 1px solid var(--gold-line);
-  border-radius: 16px;
+  border: 1px solid var(--accent-line);
+  border-radius: 4px;
   max-width: 540px;
   width: 100%;
   padding: 1.8rem 1.6rem 1.4rem;
@@ -1380,7 +1682,7 @@ section {
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
 }
 .privacy-dialog h2 {
-  font-family: 'Syne', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 1.35rem;
   color: var(--text);
   margin: 0 0 1.1rem;
@@ -1394,20 +1696,20 @@ section {
   margin: 0 0 0.7rem;
 }
 .privacy-content p:last-child { margin-bottom: 0; }
-.privacy-content a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 .privacy-details {
   margin: 1rem 0 0;
   padding: 1rem 1.1rem;
   background: var(--bg-3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 2px;
 }
 .privacy-details h3 {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   margin: 0 0 0.7rem;
   font-weight: 500;
 }
@@ -1425,7 +1727,7 @@ section {
   content: '▸';
   position: absolute;
   left: -0.9rem;
-  color: var(--gold);
+  color: var(--accent);
 }
 .privacy-details strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
 .privacy-actions {
@@ -1437,7 +1739,7 @@ section {
 .privacy-btn {
   padding: 0.85rem 1.2rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 2px;
   font-family: inherit;
   font-size: 0.92rem;
   font-weight: 600;
@@ -1446,11 +1748,11 @@ section {
   text-align: center;
 }
 .privacy-btn.primary {
-  background: var(--gold);
+  background: var(--accent);
   color: #15110a;
 }
 .privacy-btn.primary:hover {
-  background: var(--gold-soft);
+  background: var(--accent-soft);
   transform: translateY(-1px);
 }
 .privacy-btn.secondary {
@@ -1459,8 +1761,8 @@ section {
   border: 1px solid var(--border-strong);
 }
 .privacy-btn.secondary:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .privacy-btn.link {
   background: transparent;
@@ -1471,7 +1773,7 @@ section {
   text-underline-offset: 3px;
   padding: 0.5rem 0.8rem;
 }
-.privacy-btn.link:hover { color: var(--gold); }
+.privacy-btn.link:hover { color: var(--accent); }
 .privacy-footer {
   display: flex;
   justify-content: center;
@@ -1486,7 +1788,7 @@ section {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-.privacy-footer a:hover { color: var(--gold); }
+.privacy-footer a:hover { color: var(--accent); }
 
 @media (max-width: 580px) {
   .privacy-dialog { padding: 1.4rem 1.2rem 1.1rem; }
@@ -1497,8 +1799,11 @@ section {
    FADE-IN  (only hidden once JS is ready — so content stays
    visible if scripting fails or is blocked)
    ========================================================= */
-.js-ready .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.js-ready .fade { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(.2, .8, .2, 1), transform 0.85s cubic-bezier(.2, .8, .2, 1); }
 .js-ready .fade.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js-ready .fade { opacity: 1; transform: none; transition: none; }
+}
 </style>
 </head>
 <body>
@@ -1507,33 +1812,13 @@ section {
 <nav class="nav">
   <div class="nav-inner">
     <a href="#top" class="logo" aria-label="Dietz Engineering Home">
-      <svg class="logo-horizontal" viewBox="0 0 1100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g transform="translate(0, 10)">
-          <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
-          <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
-          <g transform="translate(95, 0)" fill="currentColor">
-            <rect x="0" y="0" width="22" height="80"/>
-            <rect x="0" y="0" width="65" height="22"/>
-            <rect x="0" y="29" width="48" height="22"/>
-            <rect x="0" y="58" width="65" height="22"/>
-          </g>
-        </g>
-        <g fill="currentColor" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter">
-          <circle cx="190" cy="50" r="4"/>
-          <path d="M 190 50 L 205 50 L 215 42 L 240 42 L 250 50 L 265 50" fill="none" stroke-width="2.5"/>
-          <circle cx="265" cy="50" r="4"/>
-        </g>
-        <text x="290" y="68" font-family="Syne, system-ui, sans-serif" font-weight="800" font-size="42" letter-spacing="2" fill="currentColor">DIETZ &#8212; ENGINEERING</text>
+      <svg class="logo-horizontal" viewBox="0 0 720 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="72" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="68" letter-spacing="1" fill="#1e2c47">DIETZ</text>
+        <line x1="245" y1="20" x2="245" y2="80" stroke="#8b8e92" stroke-width="3"/>
+        <text x="265" y="72" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="58" letter-spacing="1" fill="#8b8e92">ENGINEERING</text>
       </svg>
-      <svg class="logo-mark-only" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
-        <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
-        <g transform="translate(95, 0)" fill="currentColor">
-          <rect x="0" y="0" width="22" height="80"/>
-          <rect x="0" y="0" width="65" height="22"/>
-          <rect x="0" y="29" width="48" height="22"/>
-          <rect x="0" y="58" width="65" height="22"/>
-        </g>
+      <svg class="logo-mark-only" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="72" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="68" letter-spacing="1" fill="#1e2c47">DIETZ</text>
       </svg>
     </a>
     <ul class="nav-links" id="navLinks">
@@ -1564,6 +1849,11 @@ section {
   </div>
 </nav>
 
+<!-- ============================ HERO BANNER (Title image) ============================ -->
+<div class="hero-banner" id="heroBanner">
+  <img src="hero-banner.png" alt="Dietz Engineering — Electrical Engineering, Automation, Technical Consulting" onerror="this.parentElement.style.display='none'">
+</div>
+
 <!-- ============================ HERO ============================ -->
 <section class="hero" id="top">
   <div class="hero-glow"></div>
@@ -1571,25 +1861,25 @@ section {
     <svg viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="circuit" x="0" y="0" width="160" height="160" patternUnits="userSpaceOnUse">
-          <path d="M0 80 L60 80 L60 30 L120 30 L120 100 L160 100" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.55"/>
-          <path d="M0 130 L40 130 L40 160" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.4"/>
-          <path d="M80 0 L80 50 L130 50" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.45"/>
-          <circle cx="60" cy="80" r="2.5" fill="#C8A96E" opacity="0.85"/>
-          <circle cx="120" cy="30" r="2.5" fill="#C8A96E" opacity="0.85"/>
-          <circle cx="120" cy="100" r="2.5" fill="#C8A96E" opacity="0.85"/>
-          <circle cx="40" cy="130" r="2.5" fill="#C8A96E" opacity="0.6"/>
-          <circle cx="80" cy="50" r="2.5" fill="#C8A96E" opacity="0.6"/>
-          <rect x="55" y="75" width="10" height="10" fill="none" stroke="#C8A96E" stroke-width="0.6" opacity="0.5"/>
+          <path d="M0 80 L60 80 L60 30 L120 30 L120 100 L160 100" fill="none" stroke="#1e2c47" stroke-width="0.8" opacity="0.55"/>
+          <path d="M0 130 L40 130 L40 160" fill="none" stroke="#1e2c47" stroke-width="0.8" opacity="0.4"/>
+          <path d="M80 0 L80 50 L130 50" fill="none" stroke="#1e2c47" stroke-width="0.8" opacity="0.45"/>
+          <circle cx="60" cy="80" r="2.5" fill="#1e2c47" opacity="0.85"/>
+          <circle cx="120" cy="30" r="2.5" fill="#1e2c47" opacity="0.85"/>
+          <circle cx="120" cy="100" r="2.5" fill="#1e2c47" opacity="0.85"/>
+          <circle cx="40" cy="130" r="2.5" fill="#1e2c47" opacity="0.6"/>
+          <circle cx="80" cy="50" r="2.5" fill="#1e2c47" opacity="0.6"/>
+          <rect x="55" y="75" width="10" height="10" fill="none" stroke="#1e2c47" stroke-width="0.6" opacity="0.5"/>
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#circuit)"/>
       <g opacity="0.7">
-        <path d="M50 350 Q400 200 750 380 T1350 320" stroke="#C8A96E" stroke-width="1" fill="none" opacity="0.4"/>
-        <path d="M50 450 Q500 600 950 420 T1350 460" stroke="#C8A96E" stroke-width="1" fill="none" opacity="0.3"/>
+        <path d="M50 350 Q400 200 750 380 T1350 320" stroke="#1e2c47" stroke-width="1" fill="none" opacity="0.4"/>
+        <path d="M50 450 Q500 600 950 420 T1350 460" stroke="#1e2c47" stroke-width="1" fill="none" opacity="0.3"/>
       </g>
       <g opacity="0.9">
-        <path class="flow-line" d="M0 220 L320 220 L360 260 L640 260 L680 220 L1000 220 L1040 280 L1400 280" stroke="#C8A96E" stroke-width="1.4" fill="none"/>
-        <path class="flow-line" d="M1400 540 L1080 540 L1040 500 L780 500 L740 540 L420 540 L380 480 L0 480" stroke="#C8A96E" stroke-width="1.2" fill="none" style="animation-duration: 11s;"/>
+        <path class="flow-line" d="M0 220 L320 220 L360 260 L640 260 L680 220 L1000 220 L1040 280 L1400 280" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
+        <path class="flow-line" d="M1400 540 L1080 540 L1040 500 L780 500 L740 540 L420 540 L380 480 L0 480" stroke="#1e2c47" stroke-width="1.2" fill="none" style="animation-duration: 11s;"/>
       </g>
     </svg>
   </div>
@@ -1628,24 +1918,48 @@ section {
   </div>
 </section>
 
+<!-- ============================ STATS BAND ============================ -->
+<section class="stats-band" aria-label="Kennzahlen">
+  <div class="container">
+    <div class="stats-grid fade">
+      <div class="stat-cell">
+        <div class="stat-value">10<sup>+</sup></div>
+        <div class="stat-label" data-i18n="stats.years">Jahre Engineering-Erfahrung im industriellen Maschinenbau</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-value">4</div>
+        <div class="stat-label" data-i18n="stats.countries">Länder mit Vor-Ort-Inbetriebnahme: DE · CH · CN · IN</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-value">50<sup>+</sup></div>
+        <div class="stat-label" data-i18n="stats.projects">Realisierte Projekte — von Schaltplan bis Serienreife</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-value">100<sup>%</sup></div>
+        <div class="stat-label" data-i18n="stats.standards">CE / UL / EMV-konforme Konstruktion und Dokumentation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ TRUST BAND ============================ -->
 <section id="trust" class="trust-section">
   <div class="container">
     <div class="trust-grid fade">
       <div class="trust-block">
-        <div class="trust-label mono" data-i18n="trust.industriesLabel">// Branchen</div>
+        <div class="trust-label" data-i18n="trust.industriesLabel">Branchen</div>
         <div class="trust-text" data-i18n="trust.industries">Sondermaschinenbau · Faseraufbereitung · Kunststoff-Extrusion · Antriebstechnik</div>
       </div>
       <div class="trust-block">
-        <div class="trust-label mono" data-i18n="trust.locationsLabel">// Vor-Ort</div>
+        <div class="trust-label" data-i18n="trust.locationsLabel">Vor-Ort</div>
         <div class="trust-text" data-i18n="trust.locations">Deutschland · Schweiz · China · Indien</div>
       </div>
       <div class="trust-block">
-        <div class="trust-label mono" data-i18n="trust.standardsLabel">// Standards</div>
+        <div class="trust-label" data-i18n="trust.standardsLabel">Standards</div>
         <div class="trust-text" data-i18n="trust.standards">CE · UL · EMV-Messung · Safety Circuits · DGUV-Schulung</div>
       </div>
       <div class="trust-block">
-        <div class="trust-label mono" data-i18n="trust.toolsLabel">// Tools</div>
+        <div class="trust-label" data-i18n="trust.toolsLabel">Tools</div>
         <div class="trust-text" data-i18n="trust.tools">EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3</div>
       </div>
     </div>
@@ -1656,7 +1970,7 @@ section {
 <section id="about">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="about.label">// Über mich</span>
+      <span class="section-label" data-i18n="about.label">Über mich</span>
       <h2 class="section-title" data-i18n="about.title">Tiefes Maschinenverständnis trifft strukturierte Elektrokonstruktion.</h2>
     </div>
 
@@ -1709,7 +2023,7 @@ section {
 <section id="education">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="edu.label">// Ausbildung</span>
+      <span class="section-label" data-i18n="edu.label">Ausbildung</span>
       <h2 class="section-title" data-i18n="edu.title">Solide Grundlagen, kontinuierlich aufgebaut.</h2>
     </div>
     <div class="edu-grid">
@@ -1736,7 +2050,7 @@ section {
 <section id="services">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="srv.label">// Leistungen</span>
+      <span class="section-label" data-i18n="srv.label">Leistungen</span>
       <h2 class="section-title" data-i18n="srv.title">Was ich für Ihr Projekt liefere.</h2>
       <p class="section-subtitle" data-i18n="srv.subtitle">
         Vom Schaltplan über Pro Panel, Antriebstechnik bis hin zu internationalen Inbetriebnahmen —
@@ -1772,11 +2086,390 @@ section {
   </div>
 </section>
 
+<!-- ============================ SHOWCASE / EINBLICKE ============================ -->
+<section id="showcase">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="show.label">Einblicke</span>
+      <h2 class="section-title" data-i18n="show.title">Aus der Werkstatt — Schaltschrank, EPLAN, 3D, Projektplanung.</h2>
+      <p class="section-subtitle" data-i18n="show.subtitle">
+        Vier Disziplinen, die in jedem Projekt zusammenspielen — vom ersten Schaltplan bis zur dokumentierten Inbetriebnahme.
+      </p>
+    </div>
+    <div class="showcase-grid">
+      <!-- Schaltschrank -->
+      <div class="show-card fade">
+        <div class="show-visual">
+          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Cabinet frame -->
+            <rect x="20" y="20" width="280" height="200" rx="4" fill="none" stroke="#1e2c47" stroke-width="2"/>
+            <rect x="28" y="28" width="264" height="184" rx="2" fill="none" stroke="#1e2c47" stroke-width="0.6" opacity="0.5"/>
+            <!-- Hinges -->
+            <circle cx="20" cy="50" r="2.5" fill="#1e2c47"/>
+            <circle cx="20" cy="190" r="2.5" fill="#1e2c47"/>
+            <!-- DIN rails -->
+            <g stroke="#1e2c47" stroke-width="1.4" fill="none">
+              <line x1="40" y1="55" x2="280" y2="55"/>
+              <line x1="40" y1="105" x2="280" y2="105"/>
+              <line x1="40" y1="155" x2="280" y2="155"/>
+              <line x1="40" y1="200" x2="280" y2="200"/>
+            </g>
+            <!-- Row 1: Main breakers -->
+            <g fill="#1e2c47">
+              <rect x="46" y="40" width="12" height="18" rx="1"/>
+              <rect x="60" y="40" width="12" height="18" rx="1"/>
+              <rect x="74" y="40" width="12" height="18" rx="1"/>
+            </g>
+            <!-- Row 1: MCBs -->
+            <g fill="#8b8e92">
+              <rect x="100" y="42" width="6" height="16"/><rect x="108" y="42" width="6" height="16"/>
+              <rect x="116" y="42" width="6" height="16"/><rect x="124" y="42" width="6" height="16"/>
+              <rect x="132" y="42" width="6" height="16"/><rect x="140" y="42" width="6" height="16"/>
+              <rect x="148" y="42" width="6" height="16"/><rect x="156" y="42" width="6" height="16"/>
+              <rect x="164" y="42" width="6" height="16"/><rect x="172" y="42" width="6" height="16"/>
+              <rect x="180" y="42" width="6" height="16"/><rect x="188" y="42" width="6" height="16"/>
+            </g>
+            <!-- Row 1: PLC -->
+            <rect x="210" y="36" width="60" height="24" rx="1.5" fill="#1e2c47"/>
+            <g fill="#8b8e92"><circle cx="218" cy="44" r="1"/><circle cx="222" cy="44" r="1"/><circle cx="226" cy="44" r="1"/><circle cx="218" cy="52" r="1"/><circle cx="222" cy="52" r="1"/><circle cx="226" cy="52" r="1"/></g>
+            <!-- Row 2: Contactors -->
+            <g fill="#1e2c47">
+              <rect x="46" y="86" width="22" height="22" rx="1.5"/>
+              <rect x="72" y="86" width="22" height="22" rx="1.5"/>
+              <rect x="98" y="86" width="22" height="22" rx="1.5"/>
+              <rect x="124" y="86" width="22" height="22" rx="1.5"/>
+            </g>
+            <!-- Row 2: Frequency converters -->
+            <g fill="#8b8e92">
+              <rect x="160" y="84" width="36" height="26" rx="1.5"/>
+              <rect x="200" y="84" width="36" height="26" rx="1.5"/>
+              <rect x="240" y="84" width="36" height="26" rx="1.5"/>
+            </g>
+            <!-- Row 3: Terminal blocks -->
+            <g fill="#1e2c47" opacity="0.85">
+              <rect x="46" y="140" width="3" height="18"/><rect x="51" y="140" width="3" height="18"/>
+              <rect x="56" y="140" width="3" height="18"/><rect x="61" y="140" width="3" height="18"/>
+              <rect x="66" y="140" width="3" height="18"/><rect x="71" y="140" width="3" height="18"/>
+              <rect x="76" y="140" width="3" height="18"/><rect x="81" y="140" width="3" height="18"/>
+              <rect x="86" y="140" width="3" height="18"/><rect x="91" y="140" width="3" height="18"/>
+              <rect x="96" y="140" width="3" height="18"/><rect x="101" y="140" width="3" height="18"/>
+              <rect x="106" y="140" width="3" height="18"/><rect x="111" y="140" width="3" height="18"/>
+              <rect x="116" y="140" width="3" height="18"/><rect x="121" y="140" width="3" height="18"/>
+              <rect x="126" y="140" width="3" height="18"/><rect x="131" y="140" width="3" height="18"/>
+              <rect x="136" y="140" width="3" height="18"/><rect x="141" y="140" width="3" height="18"/>
+              <rect x="146" y="140" width="3" height="18"/><rect x="151" y="140" width="3" height="18"/>
+              <rect x="156" y="140" width="3" height="18"/><rect x="161" y="140" width="3" height="18"/>
+              <rect x="166" y="140" width="3" height="18"/><rect x="171" y="140" width="3" height="18"/>
+              <rect x="176" y="140" width="3" height="18"/><rect x="181" y="140" width="3" height="18"/>
+              <rect x="186" y="140" width="3" height="18"/><rect x="191" y="140" width="3" height="18"/>
+              <rect x="196" y="140" width="3" height="18"/><rect x="201" y="140" width="3" height="18"/>
+              <rect x="206" y="140" width="3" height="18"/><rect x="211" y="140" width="3" height="18"/>
+              <rect x="216" y="140" width="3" height="18"/><rect x="221" y="140" width="3" height="18"/>
+              <rect x="226" y="140" width="3" height="18"/><rect x="231" y="140" width="3" height="18"/>
+              <rect x="236" y="140" width="3" height="18"/><rect x="241" y="140" width="3" height="18"/>
+              <rect x="246" y="140" width="3" height="18"/><rect x="251" y="140" width="3" height="18"/>
+              <rect x="256" y="140" width="3" height="18"/><rect x="261" y="140" width="3" height="18"/>
+              <rect x="266" y="140" width="3" height="18"/><rect x="271" y="140" width="3" height="18"/>
+            </g>
+            <!-- Cable channel bottom -->
+            <rect x="40" y="178" width="240" height="18" fill="none" stroke="#8b8e92" stroke-width="1" stroke-dasharray="3 2"/>
+            <!-- Wires -->
+            <g stroke="#1e2c47" stroke-width="0.6" fill="none" opacity="0.4">
+              <path d="M 60 110 L 60 138"/>
+              <path d="M 84 110 L 84 138"/>
+              <path d="M 108 110 L 108 138"/>
+              <path d="M 178 112 L 178 138"/>
+              <path d="M 218 112 L 218 138"/>
+              <path d="M 258 112 L 258 138"/>
+            </g>
+          </svg>
+        </div>
+        <div class="show-body">
+          <div class="show-tag">01 / Schaltschrank</div>
+          <h3 data-i18n="show.s1Title">Schaltschrankbau</h3>
+          <p data-i18n="show.s1Desc">Mechanische Auslegung, Bestückung mit Antrieben, FUs, Sicherungstechnik und Klemmplänen — EMV-gerecht und produktionsreif.</p>
+          <a href="#services" class="show-link" data-i18n="show.more">Mehr erfahren</a>
+        </div>
+      </div>
+
+      <!-- EPLAN -->
+      <div class="show-card fade">
+        <div class="show-visual">
+          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Sheet frame -->
+            <rect x="14" y="14" width="292" height="212" fill="#ffffff" stroke="#1e2c47" stroke-width="1.4"/>
+            <rect x="20" y="20" width="280" height="200" fill="none" stroke="#1e2c47" stroke-width="0.5" opacity="0.6"/>
+            <!-- Title block -->
+            <g stroke="#1e2c47" stroke-width="0.7" fill="none">
+              <rect x="200" y="190" width="100" height="30"/>
+              <line x1="200" y1="200" x2="300" y2="200"/>
+              <line x1="200" y1="210" x2="300" y2="210"/>
+              <line x1="240" y1="190" x2="240" y2="220"/>
+            </g>
+            <text x="204" y="198" font-family="Inter" font-size="5" fill="#1e2c47">PROJ</text>
+            <text x="244" y="198" font-family="Inter" font-size="5" fill="#1e2c47">DOC</text>
+            <text x="204" y="208" font-family="Inter" font-size="5" fill="#1e2c47">=A1</text>
+            <text x="244" y="208" font-family="Inter" font-size="5" fill="#1e2c47">+S2</text>
+            <!-- Power rails L1 L2 L3 -->
+            <g stroke="#1e2c47" stroke-width="1" fill="none">
+              <line x1="34" y1="36" x2="190" y2="36"/>
+              <line x1="34" y1="44" x2="190" y2="44"/>
+              <line x1="34" y1="52" x2="190" y2="52"/>
+            </g>
+            <text x="22" y="38" font-family="Inter" font-size="6" fill="#1e2c47">L1</text>
+            <text x="22" y="46" font-family="Inter" font-size="6" fill="#1e2c47">L2</text>
+            <text x="22" y="54" font-family="Inter" font-size="6" fill="#1e2c47">L3</text>
+            <!-- Circuit breaker Q1 -->
+            <g stroke="#1e2c47" stroke-width="1" fill="none">
+              <line x1="60" y1="36" x2="60" y2="60"/>
+              <line x1="68" y1="44" x2="68" y2="68"/>
+              <line x1="76" y1="52" x2="76" y2="76"/>
+              <rect x="56" y="60" width="24" height="22"/>
+            </g>
+            <text x="84" y="74" font-family="Inter" font-size="6" fill="#8b8e92">-Q1</text>
+            <!-- Contactor K1 -->
+            <g stroke="#1e2c47" stroke-width="1" fill="none">
+              <line x1="60" y1="82" x2="60" y2="100"/>
+              <line x1="68" y1="82" x2="68" y2="100"/>
+              <line x1="76" y1="82" x2="76" y2="100"/>
+              <path d="M 56 100 L 64 108"/>
+              <path d="M 64 100 L 72 108"/>
+              <path d="M 72 100 L 80 108"/>
+              <line x1="60" y1="108" x2="60" y2="130"/>
+              <line x1="68" y1="108" x2="68" y2="130"/>
+              <line x1="76" y1="108" x2="76" y2="130"/>
+              <rect x="84" y="100" width="14" height="8"/>
+            </g>
+            <text x="100" y="106" font-family="Inter" font-size="6" fill="#8b8e92">-K1</text>
+            <!-- Motor M1 -->
+            <circle cx="68" cy="150" r="14" stroke="#1e2c47" stroke-width="1.2" fill="none"/>
+            <text x="64" y="153" font-family="Inter" font-size="8" fill="#1e2c47" font-weight="600">M</text>
+            <line x1="60" y1="130" x2="60" y2="138"/>
+            <line x1="68" y1="130" x2="68" y2="136"/>
+            <line x1="76" y1="130" x2="76" y2="138"/>
+            <text x="86" y="152" font-family="Inter" font-size="6" fill="#8b8e92">-M1</text>
+            <!-- Right side: Control circuit -->
+            <g stroke="#1e2c47" stroke-width="0.9" fill="none">
+              <line x1="140" y1="60" x2="140" y2="170"/>
+              <line x1="190" y1="60" x2="190" y2="170"/>
+            </g>
+            <text x="132" y="58" font-family="Inter" font-size="6" fill="#1e2c47">+24V</text>
+            <text x="184" y="58" font-family="Inter" font-size="6" fill="#1e2c47">0V</text>
+            <!-- Buttons & contacts -->
+            <g stroke="#1e2c47" stroke-width="0.9" fill="none">
+              <line x1="140" y1="78" x2="140" y2="86"/>
+              <circle cx="140" cy="92" r="3"/>
+              <line x1="140" y1="98" x2="140" y2="110"/>
+              <rect x="135" y="110" width="10" height="14"/>
+              <line x1="140" y1="124" x2="140" y2="170"/>
+            </g>
+            <text x="148" y="96" font-family="Inter" font-size="5" fill="#8b8e92">-S1</text>
+            <text x="148" y="120" font-family="Inter" font-size="5" fill="#8b8e92">-K1</text>
+            <!-- Wire numbers -->
+            <text x="62" y="32" font-family="Inter" font-size="4" fill="#8b8e92">1</text>
+            <text x="70" y="32" font-family="Inter" font-size="4" fill="#8b8e92">3</text>
+            <text x="78" y="32" font-family="Inter" font-size="4" fill="#8b8e92">5</text>
+            <text x="62" y="146" font-family="Inter" font-size="4" fill="#8b8e92">U</text>
+            <text x="70" y="146" font-family="Inter" font-size="4" fill="#8b8e92">V</text>
+            <text x="78" y="146" font-family="Inter" font-size="4" fill="#8b8e92">W</text>
+            <!-- Cross reference -->
+            <g stroke="#8b8e92" stroke-width="0.5" stroke-dasharray="2 2" fill="none">
+              <line x1="98" y1="104" x2="135" y2="117"/>
+            </g>
+          </svg>
+        </div>
+        <div class="show-body">
+          <div class="show-tag">02 / EPLAN P8</div>
+          <h3 data-i18n="show.s2Title">Schaltplan-Konstruktion</h3>
+          <p data-i18n="show.s2Desc">Strukturierte Pläne nach IEC 81346, Makrobibliotheken, BMK-Logik, Klemmenpläne und automatisierte Auswertungen — revisionssicher.</p>
+          <a href="#services" class="show-link" data-i18n="show.more">Mehr erfahren</a>
+        </div>
+      </div>
+
+      <!-- 3D Modeling -->
+      <div class="show-card fade">
+        <div class="show-visual">
+          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Iso grid -->
+            <g stroke="#1e2c47" stroke-width="0.4" opacity="0.18">
+              <line x1="20" y1="120" x2="160" y2="40"/>
+              <line x1="20" y1="160" x2="200" y2="60"/>
+              <line x1="20" y1="200" x2="240" y2="80"/>
+              <line x1="60" y1="220" x2="280" y2="100"/>
+              <line x1="100" y1="220" x2="300" y2="120"/>
+              <line x1="160" y1="40" x2="300" y2="120"/>
+              <line x1="200" y1="60" x2="300" y2="160"/>
+              <line x1="240" y1="80" x2="300" y2="180"/>
+              <line x1="280" y1="100" x2="300" y2="200"/>
+            </g>
+            <!-- Main isometric box (Schaltschrank-like) -->
+            <g stroke="#1e2c47" stroke-width="1.6" fill="none">
+              <!-- Front face -->
+              <path d="M 100 100 L 180 100 L 180 200 L 100 200 Z"/>
+              <!-- Top face -->
+              <path d="M 100 100 L 140 70 L 220 70 L 180 100"/>
+              <!-- Right face -->
+              <path d="M 180 100 L 220 70 L 220 170 L 180 200"/>
+            </g>
+            <!-- Door split line -->
+            <line x1="140" y1="100" x2="140" y2="200" stroke="#1e2c47" stroke-width="0.7" stroke-dasharray="3 2"/>
+            <!-- Door handle -->
+            <rect x="135" y="145" width="3" height="14" fill="#1e2c47"/>
+            <!-- Internal components (visible through wireframe) -->
+            <g stroke="#8b8e92" stroke-width="0.7" fill="none" opacity="0.7">
+              <rect x="108" y="115" width="64" height="10"/>
+              <rect x="108" y="132" width="64" height="10"/>
+              <rect x="108" y="149" width="64" height="10"/>
+              <rect x="108" y="166" width="64" height="10"/>
+              <rect x="108" y="183" width="64" height="10"/>
+            </g>
+            <!-- Hidden edges (back) -->
+            <g stroke="#1e2c47" stroke-width="0.6" stroke-dasharray="2 2" fill="none" opacity="0.5">
+              <line x1="140" y1="70" x2="140" y2="170"/>
+              <line x1="140" y1="170" x2="220" y2="170"/>
+              <line x1="140" y1="170" x2="100" y2="200"/>
+            </g>
+            <!-- Dimension lines -->
+            <g stroke="#1e2c47" stroke-width="0.6" fill="none">
+              <line x1="100" y1="215" x2="180" y2="215"/>
+              <line x1="100" y1="212" x2="100" y2="218"/>
+              <line x1="180" y1="212" x2="180" y2="218"/>
+              <line x1="190" y1="100" x2="190" y2="200"/>
+              <line x1="187" y1="100" x2="193" y2="100"/>
+              <line x1="187" y1="200" x2="193" y2="200"/>
+            </g>
+            <text x="135" y="227" font-family="Inter" font-size="7" fill="#1e2c47" font-weight="500">800</text>
+            <text x="195" y="153" font-family="Inter" font-size="7" fill="#1e2c47" font-weight="500">2000</text>
+            <!-- Origin marker -->
+            <g stroke="#1e2c47" stroke-width="1.2" fill="none">
+              <line x1="50" y1="200" x2="78" y2="200"/>
+              <line x1="50" y1="200" x2="50" y2="172"/>
+              <line x1="50" y1="200" x2="35" y2="215"/>
+            </g>
+            <text x="80" y="203" font-family="Inter" font-size="6" fill="#1e2c47">X</text>
+            <text x="46" y="168" font-family="Inter" font-size="6" fill="#1e2c47">Z</text>
+            <text x="28" y="222" font-family="Inter" font-size="6" fill="#1e2c47">Y</text>
+          </svg>
+        </div>
+        <div class="show-body">
+          <div class="show-tag">03 / 3D-Modellierung</div>
+          <h3 data-i18n="show.s3Title">3D-Konstruktion &amp; Pro Panel</h3>
+          <p data-i18n="show.s3Desc">Dreidimensionale Schaltschrank-Modelle mit Pro Panel, Einbauprüfung, Bohrbildern und CNC-Daten für die Fertigung.</p>
+          <a href="#services" class="show-link" data-i18n="show.more">Mehr erfahren</a>
+        </div>
+      </div>
+
+      <!-- Project Management -->
+      <div class="show-card fade">
+        <div class="show-visual">
+          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Board background -->
+            <rect x="14" y="14" width="292" height="212" rx="3" fill="#ffffff" stroke="#1e2c47" stroke-width="1"/>
+            <!-- Column headers -->
+            <g font-family="Inter" font-size="7" font-weight="700" fill="#1e2c47" letter-spacing="1">
+              <text x="32" y="36">BACKLOG</text>
+              <text x="120" y="36">IN PROGRESS</text>
+              <text x="220" y="36">DONE</text>
+            </g>
+            <!-- Column dividers -->
+            <g stroke="#1e2c47" stroke-width="0.5" opacity="0.3">
+              <line x1="108" y1="44" x2="108" y2="220"/>
+              <line x1="208" y1="44" x2="208" y2="220"/>
+            </g>
+            <!-- Underline header -->
+            <line x1="20" y1="44" x2="300" y2="44" stroke="#1e2c47" stroke-width="0.6" opacity="0.4"/>
+            <!-- BACKLOG cards -->
+            <g>
+              <rect x="24" y="52" width="78" height="32" rx="3" fill="#f6f7f9" stroke="#1e2c47" stroke-width="0.7"/>
+              <rect x="24" y="52" width="3" height="32" fill="#8b8e92"/>
+              <rect x="32" y="58" width="46" height="3" rx="1" fill="#1e2c47"/>
+              <rect x="32" y="64" width="60" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <rect x="32" y="68" width="50" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <rect x="32" y="76" width="14" height="4" rx="1" fill="#1e2c47" opacity="0.15"/>
+              <rect x="48" y="76" width="18" height="4" rx="1" fill="#1e2c47" opacity="0.15"/>
+            </g>
+            <g>
+              <rect x="24" y="92" width="78" height="32" rx="3" fill="#f6f7f9" stroke="#1e2c47" stroke-width="0.7"/>
+              <rect x="24" y="92" width="3" height="32" fill="#8b8e92"/>
+              <rect x="32" y="98" width="56" height="3" rx="1" fill="#1e2c47"/>
+              <rect x="32" y="104" width="62" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <rect x="32" y="116" width="20" height="4" rx="1" fill="#1e2c47" opacity="0.15"/>
+            </g>
+            <g>
+              <rect x="24" y="132" width="78" height="32" rx="3" fill="#f6f7f9" stroke="#1e2c47" stroke-width="0.7"/>
+              <rect x="24" y="132" width="3" height="32" fill="#8b8e92"/>
+              <rect x="32" y="138" width="40" height="3" rx="1" fill="#1e2c47"/>
+              <rect x="32" y="144" width="58" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <rect x="32" y="156" width="16" height="4" rx="1" fill="#1e2c47" opacity="0.15"/>
+            </g>
+            <!-- IN PROGRESS cards -->
+            <g>
+              <rect x="116" y="52" width="86" height="40" rx="3" fill="#ffffff" stroke="#1e2c47" stroke-width="1"/>
+              <rect x="116" y="52" width="3" height="40" fill="#1e2c47"/>
+              <rect x="124" y="58" width="60" height="3" rx="1" fill="#1e2c47"/>
+              <rect x="124" y="64" width="70" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <rect x="124" y="68" width="64" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <rect x="124" y="72" width="40" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <!-- Progress bar -->
+              <rect x="124" y="82" width="64" height="3" rx="1.5" fill="#1e2c47" opacity="0.15"/>
+              <rect x="124" y="82" width="42" height="3" rx="1.5" fill="#1e2c47"/>
+            </g>
+            <g>
+              <rect x="116" y="100" width="86" height="40" rx="3" fill="#ffffff" stroke="#1e2c47" stroke-width="1"/>
+              <rect x="116" y="100" width="3" height="40" fill="#1e2c47"/>
+              <rect x="124" y="106" width="50" height="3" rx="1" fill="#1e2c47"/>
+              <rect x="124" y="112" width="68" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <rect x="124" y="116" width="58" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
+              <rect x="124" y="130" width="64" height="3" rx="1.5" fill="#1e2c47" opacity="0.15"/>
+              <rect x="124" y="130" width="20" height="3" rx="1.5" fill="#1e2c47"/>
+            </g>
+            <!-- DONE cards -->
+            <g opacity="0.7">
+              <rect x="216" y="52" width="78" height="28" rx="3" fill="#f6f7f9" stroke="#8b8e92" stroke-width="0.7"/>
+              <rect x="216" y="52" width="3" height="28" fill="#8b8e92"/>
+              <rect x="224" y="58" width="44" height="3" rx="1" fill="#8b8e92"/>
+              <rect x="224" y="64" width="58" height="2" rx="1" fill="#8b8e92" opacity="0.5"/>
+              <path d="M 280 70 L 284 74 L 290 66" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
+            </g>
+            <g opacity="0.7">
+              <rect x="216" y="88" width="78" height="28" rx="3" fill="#f6f7f9" stroke="#8b8e92" stroke-width="0.7"/>
+              <rect x="216" y="88" width="3" height="28" fill="#8b8e92"/>
+              <rect x="224" y="94" width="48" height="3" rx="1" fill="#8b8e92"/>
+              <rect x="224" y="100" width="56" height="2" rx="1" fill="#8b8e92" opacity="0.5"/>
+              <path d="M 280 106 L 284 110 L 290 102" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
+            </g>
+            <g opacity="0.7">
+              <rect x="216" y="124" width="78" height="28" rx="3" fill="#f6f7f9" stroke="#8b8e92" stroke-width="0.7"/>
+              <rect x="216" y="124" width="3" height="28" fill="#8b8e92"/>
+              <rect x="224" y="130" width="40" height="3" rx="1" fill="#8b8e92"/>
+              <rect x="224" y="136" width="52" height="2" rx="1" fill="#8b8e92" opacity="0.5"/>
+              <path d="M 280 142 L 284 146 L 290 138" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
+            </g>
+            <g opacity="0.7">
+              <rect x="216" y="160" width="78" height="28" rx="3" fill="#f6f7f9" stroke="#8b8e92" stroke-width="0.7"/>
+              <rect x="216" y="160" width="3" height="28" fill="#8b8e92"/>
+              <rect x="224" y="166" width="46" height="3" rx="1" fill="#8b8e92"/>
+              <rect x="224" y="172" width="50" height="2" rx="1" fill="#8b8e92" opacity="0.5"/>
+              <path d="M 280 178 L 284 182 L 290 174" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
+            </g>
+          </svg>
+        </div>
+        <div class="show-body">
+          <div class="show-tag">04 / Projektmanagement</div>
+          <h3 data-i18n="show.s4Title">Projektsteuerung</h3>
+          <p data-i18n="show.s4Desc">Strukturierte Steuerung von Engineering-Sprints, Schnittstellen-Koordination, Meilensteinen und Inbetriebnahme — transparent über alle Phasen.</p>
+          <a href="#booking" class="show-link" data-i18n="show.more">Mehr erfahren</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ PROJECT PROFILES ============================ -->
 <section id="projects">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="prj.label">// Projekte</span>
+      <span class="section-label" data-i18n="prj.label">Projekte</span>
       <h2 class="section-title" data-i18n="prj.title">Eine Auswahl aus über einem Jahrzehnt Praxis.</h2>
       <p class="section-subtitle" data-i18n="prj.subtitle">
         Sechs typische Engagements aus meiner bisherigen Karriere im industriellen Maschinenbau — Schaltplankonstruktion, Inbetriebnahme, R&amp;D und internationale Vor-Ort-Einsätze.
@@ -1886,7 +2579,7 @@ section {
 <section id="experience">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="exp.label">// Berufserfahrung</span>
+      <span class="section-label" data-i18n="exp.label">Berufserfahrung</span>
       <h2 class="section-title" data-i18n="exp.title">Über ein Jahrzehnt im industriellen Maschinenbau.</h2>
     </div>
     <div class="timeline">
@@ -1941,7 +2634,7 @@ section {
 <section id="skills">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="skl.label">// Technische Skills</span>
+      <span class="section-label" data-i18n="skl.label">Technische Skills</span>
       <h2 class="section-title" data-i18n="skl.title">Tools, Methoden, Erfahrungen.</h2>
     </div>
     <div class="skills-wrapper">
@@ -2023,7 +2716,7 @@ section {
 <section id="process">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="prc.label">// Wie ich arbeite</span>
+      <span class="section-label" data-i18n="prc.label">Wie ich arbeite</span>
       <h2 class="section-title" data-i18n="prc.title">Vom Briefing bis zur Übergabe — vier klare Schritte.</h2>
       <p class="section-subtitle" data-i18n="prc.subtitle">
         Strukturiert, transparent, ohne Überraschungen. Sie wissen jederzeit, wo Ihr Projekt steht.
@@ -2059,7 +2752,7 @@ section {
 <section id="results">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="res.label">// Ergebnisse</span>
+      <span class="section-label" data-i18n="res.label">Ergebnisse</span>
       <h2 class="section-title" data-i18n="res.title">Was Kunden konkret gewinnen.</h2>
     </div>
     <div class="results-grid">
@@ -2087,13 +2780,34 @@ section {
 <section id="booking">
   <div class="container">
     <div class="fade">
-      <span class="section-label" data-i18n="bk.label">// Online Buchung &amp; Bezahlung</span>
+      <span class="section-label" data-i18n="bk.label">Online Buchung &amp; Bezahlung</span>
       <h2 class="section-title" data-i18n="bk.title">Paket wählen, Projekt beschreiben, loslegen.</h2>
       <p class="section-subtitle" data-i18n="bk.subtitle">
         Wählen Sie ein passendes Paket, beschreiben Sie kurz Ihr Vorhaben — ich melde mich innerhalb von 24 Stunden mit einem konkreten Vorschlag.
       </p>
       <p class="bk-intro-line" data-i18n="bk.introLine">Im Erstgespräch besprechen wir Ihr Projekt, identifizieren Knackpunkte und definieren die nächsten Schritte.</p>
       <p class="bk-free-note" data-i18n="bk.freeNote">20-Minuten-Erstgespräch — kostenlos und unverbindlich.</p>
+    </div>
+
+    <div class="consult-block fade">
+      <div class="consult-header">
+        <span class="consult-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </span>
+        <div>
+          <h3 data-i18n="bk.consultTitle">Direkt einen Termin buchen</h3>
+          <p data-i18n="bk.consultIntro">Wähle einen freien Slot in den nächsten Tagen. 20 Minuten — kostenlos, unverbindlich. Wir besprechen dein Projekt, identifizieren Knackpunkte und definieren die nächsten Schritte.</p>
+        </div>
+      </div>
+      <!-- TODO morgen: REPLACE_WITH_YOUR_CALENDLY_PATH durch deinen Calendly-Slug ersetzen, z.B. "patrick-dietz/20min-erstgespraech" -->
+      <div class="calendly-inline-widget" data-url="https://calendly.com/REPLACE_WITH_YOUR_CALENDLY_PATH?embed_domain=dietz-engineering.com&amp;embed_type=Inline&amp;hide_gdpr_banner=1&amp;background_color=ffffff&amp;text_color=1e2c47&amp;primary_color=1e2c47" style="min-width:320px;height:680px;"></div>
+      <noscript>
+        <p class="consult-fallback" data-i18n="bk.consultFallback">Bitte JavaScript aktivieren, um den Buchungskalender zu sehen — oder schreibe direkt eine Mail an <a href="mailto:patrick@dietz-engineering.com">patrick@dietz-engineering.com</a>.</p>
+      </noscript>
+    </div>
+
+    <div class="bk-divider fade">
+      <span data-i18n="bk.divider">oder konkrete Projektanfrage stellen</span>
     </div>
 
     <div class="packages fade">
@@ -2182,7 +2896,7 @@ section {
 <section id="faq">
   <div class="container">
     <div class="fade" style="text-align:center;">
-      <span class="section-label" style="justify-content:center;" data-i18n="faq.label">// Häufige Fragen</span>
+      <span class="section-label" style="justify-content:center;" data-i18n="faq.label">Häufige Fragen</span>
       <h2 class="section-title" style="margin-left:auto; margin-right:auto;" data-i18n="faq.title">Was Kunden vor dem ersten Gespräch wissen wollen.</h2>
     </div>
 
@@ -2254,7 +2968,7 @@ section {
 <section id="contact">
   <div class="container">
     <div class="fade" style="text-align:center;">
-      <span class="section-label" style="justify-content:center;" data-i18n="ct.label">// Kontakt</span>
+      <span class="section-label" style="justify-content:center;" data-i18n="ct.label">Kontakt</span>
       <h2 class="section-title" style="margin-left:auto; margin-right:auto;" data-i18n="ct.title">Lassen Sie uns über Ihr Projekt sprechen.</h2>
     </div>
     <div class="contact-card fade">
@@ -2276,20 +2990,9 @@ section {
     <div class="footer-inner">
       <a href="#top" aria-label="Dietz Engineering Home">
         <svg class="footer-lockup" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <g transform="translate(120, 25)">
-            <rect x="0" y="0" width="22" height="80" fill="currentColor"/>
-            <path d="M 22 0 A 40 40 0 0 1 22 80" fill="none" stroke="currentColor" stroke-width="22"/>
-            <g transform="translate(95, 0)" fill="currentColor">
-              <rect x="0" y="0" width="22" height="80"/>
-              <rect x="0" y="0" width="65" height="22"/>
-              <rect x="0" y="29" width="48" height="22"/>
-              <rect x="0" y="58" width="65" height="22"/>
-            </g>
-          </g>
-          <path d="M 100 130 L 145 130 L 165 115 L 235 115 L 255 130 L 300 130" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
-          <circle cx="100" cy="130" r="4" fill="currentColor"/>
-          <circle cx="300" cy="130" r="4" fill="currentColor"/>
-          <text x="200" y="170" font-family="Syne, system-ui, sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="currentColor" text-anchor="middle">DIETZ &#183; ENGINEERING</text>
+          <text x="200" y="110" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="64" letter-spacing="1" fill="#1e2c47" text-anchor="middle">DIETZ</text>
+          <line x1="80" y1="125" x2="320" y2="125" stroke="#8b8e92" stroke-width="2"/>
+          <text x="200" y="160" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="6" fill="#8b8e92" text-anchor="middle">ENGINEERING</text>
         </svg>
       </a>
       <div class="footer-copy">© <span id="year"></span> Patrick Dietz · <span data-i18n="ft.rights">Alle Rechte vorbehalten</span></div>
@@ -2301,6 +3004,9 @@ section {
     </div>
   </div>
 </footer>
+
+<!-- ============================ CALENDLY EMBED SCRIPT ============================ -->
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 <!-- ============================ PRIVACY MODAL ============================ -->
 <div class="privacy-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
@@ -2326,6 +3032,10 @@ section {
         <li>
           <strong data-i18n="pv.cat3Name">Formular-Backend · Web3Forms</strong>
           <span data-i18n="pv.cat3Desc">Beim Absenden des Buchungsformulars werden deine Eingaben an Web3Forms übermittelt, um eine Mail an mich auszulösen. Auftragsverarbeitung gemäß Art. 28 DSGVO.</span>
+        </li>
+        <li>
+          <strong data-i18n="pv.cat4Name">Terminbuchung · Calendly</strong>
+          <span data-i18n="pv.cat4Desc">Der eingebettete Buchungskalender lädt Inhalte von Calendly (USA). Beim Aufruf des Buchungs-Bereichs kann deine IP-Adresse an Calendly übertragen werden. EU-DPF-zertifiziert plus Standardvertragsklauseln.</span>
         </li>
       </ul>
     </div>
@@ -2354,7 +3064,7 @@ document.documentElement.classList.add('js-ready');
 const i18n = {
   de: {
     "nav.about":"Über mich","nav.education":"Ausbildung","nav.services":"Leistungen","nav.projects":"Projekte","nav.experience":"Erfahrung","nav.process":"Prozess","nav.skills":"Skills","nav.booking":"Buchung","nav.faq":"FAQ","nav.contact":"Kontakt",
-    "prj.label":"// Projekte","prj.title":"Eine Auswahl aus über einem Jahrzehnt Praxis.",
+    "prj.label":"Projekte","prj.title":"Eine Auswahl aus über einem Jahrzehnt Praxis.",
     "prj.subtitle":"Sechs typische Engagements aus meiner bisherigen Karriere im industriellen Maschinenbau — Schaltplankonstruktion, Inbetriebnahme, R&D und internationale Vor-Ort-Einsätze.",
     "prj.lblChallenge":"Herausforderung:","prj.lblSolution":"Lösung:","prj.lblResult":"Ergebnis:",
     "prj.p1Region":"DE · Multiple Projekte","prj.p1Title":"Plattenfolien-Extrusionslinien mit Co-Extrudern",
@@ -2383,12 +3093,12 @@ const i18n = {
     "prj.p6Res":"Lieferantenseitige Probleme nachhaltig gelöst, dokumentierter QS-Prozess für vergleichbare künftige Fälle.",
     "prj.tagCalender":"Glättwerk","prj.tagCommissioning":"Inbetriebnahme","prj.tagTroubleshoot":"Troubleshooting","prj.tagIntl":"International","prj.tagPilot":"0-Serie","prj.tagPilotCustomers":"Pilotkunden","prj.tagTraining":"Schulung","prj.tagRetrofit":"Umbau-Instruktionen",
     "prj.ndaNote":"Konkrete technische Details und Projekt-Insights gerne im persönlichen Gespräch.",
-    "prc.label":"// Wie ich arbeite","prc.title":"Vom Briefing bis zur Übergabe — vier klare Schritte.","prc.subtitle":"Strukturiert, transparent, ohne Überraschungen. Sie wissen jederzeit, wo Ihr Projekt steht.",
+    "prc.label":"Wie ich arbeite","prc.title":"Vom Briefing bis zur Übergabe — vier klare Schritte.","prc.subtitle":"Strukturiert, transparent, ohne Überraschungen. Sie wissen jederzeit, wo Ihr Projekt steht.",
     "prc.s1Title":"Briefing & Scope","prc.s1Desc":"Wir klären Umfang, Schnittstellen und Zeitrahmen — auf Wunsch unter NDA. Output: ein einseitiges Auftragsblatt mit klaren Liefergegenständen.",
     "prc.s2Title":"Konstruktion & Engineering","prc.s2Desc":"EPLAN-Schaltpläne, Pro-Panel-Aufbau, Komponentenauswahl. Wöchentlicher Stand inklusive Zwischenversionen — keine Black-Box-Phasen.",
     "prc.s3Title":"Review & Test","prc.s3Desc":"Prüfprotokolle, gemeinsamer Walkthrough, RCA falls nötig. Korrekturen werden direkt eingearbeitet, bevor abgenommen wird.",
     "prc.s4Title":"Übergabe & Support","prc.s4Desc":"Vollständige Dokumentation, CE/UL-konform, Übergabe in Ihr System (SAP / ECTR / Teamcenter). Optional zwei Wochen kostenloser Folge-Support.",
-    "faq.label":"// Häufige Fragen","faq.title":"Was Kunden vor dem ersten Gespräch wissen wollen.",
+    "faq.label":"Häufige Fragen","faq.title":"Was Kunden vor dem ersten Gespräch wissen wollen.",
     "faq.q1":"Wie läuft eine Erstanfrage ab?","faq.a1":"Anfrage über das Buchungsformular oder per Mail. Innerhalb von 24 Stunden erhalten Sie einen konkreten Vorschlag mit Zeit- und Preisrahmen. Das Erstgespräch ist immer unverbindlich.",
     "faq.q2":"Arbeitest du mit NDAs?","faq.a2":"Ja, selbstverständlich. NDAs sind in meinem Geschäft Standard — auf Wunsch unterschreibe ich vor dem Erstgespräch. Auch kunden- und projektspezifische Verschwiegenheitsregelungen sind kein Problem.",
     "faq.q3":"Was passiert bei Reisetätigkeit ins Ausland?","faq.a3":"Internationale Vor-Ort-Einsätze sind möglich. Reisekosten (Flug, Verpflegung, Übernachtung) werden 1:1 weitergegeben. Der Tagessatz vor Ort wird projektspezifisch vereinbart. Erfahrung u.a. mit längeren Aufenthalten in China und Indien.",
@@ -2402,26 +3112,26 @@ const i18n = {
     "hero.cta1":"Kostenloses Erstgespräch","hero.cta2":"Projekt-Cases ansehen",
     "hero.langDE":"Muttersprache","hero.langEN":"Professionell",
     "hero.subnote":"20-Minuten-Erstgespräch — kostenlos und unverbindlich.",
-    "about.label":"// Über mich","about.title":"Tiefes Maschinenverständnis trifft strukturierte Elektrokonstruktion.",
+    "about.label":"Über mich","about.title":"Tiefes Maschinenverständnis trifft strukturierte Elektrokonstruktion.",
     "about.p1":"Ich bin Patrick Dietz — angefangen 2012 als Elektroniker-Lehrling, heute mit 13+ Jahren im Sondermaschinenbau und über 5 Monaten reiner Vor-Ort-Inbetriebnahme in China während Corona auf dem Buckel. Was mich antreibt: Maschinen, die elektrotechnisch sauber durchdacht sind, in Betrieb gehen ohne Workarounds — und Kunden, die nach der Übergabe ohne mich auskommen, weil die Doku stimmt.",
     "about.p2":"Mein Fokus liegt auf EPLAN P8, Antriebstechnik (B&R ACOPOS P3, Motion Control), Safety Circuits und der elektrischen Konstruktion komplexer Maschinen — von Kunststoff-Extrusionsanlagen bis zu modernen Faseraufbereitungsmaschinen.",
     "about.usp":"„Ich verbinde tiefes Maschinenverständnis mit strukturierter Elektrokonstruktion und internationaler Praxiserfahrung. Nicht nur planen — sondern Probleme wirklich lösen.\"",
     "about.travelTitle":"International buchbar","about.travelText":"Inbetriebnahmen, Vor-Ort-Einsätze und Retrofit-Projekte weltweit — gegen Aufwandsentschädigung (Flug, Verpflegung, Übernachtung). Erfahrung u.a. China & Indien.",
     "about.stat1":"Jahre Berufserfahrung","about.stat2":"P8 Expertenlevel","about.stat3":"International tätig","about.stat4":"Forschung & Entwicklung",
-    "edu.label":"// Ausbildung","edu.title":"Solide Grundlagen, kontinuierlich aufgebaut.",
+    "edu.label":"Ausbildung","edu.title":"Solide Grundlagen, kontinuierlich aufgebaut.",
     "edu.card1Title":"Elektroniker für Betriebstechnik",
     "edu.card1Desc":"3,5-jährige Lehre mit Fokus auf industrielle Anlagentechnik, Schaltschrankbau, Steuerungstechnik und elektrische Inbetriebnahme. Grundstein für strukturierte und normgerechte Elektrokonstruktion.",
     "edu.card2Period":"Mai 2020 · DAA Technikum",
     "edu.card2Title":"Staatlich geprüfter Techniker — Elektrotechnik",
     "edu.card2Desc":"Fachrichtung Energietechnik & Prozessautomatisierung. Vertiefte Ausbildung in Antriebstechnik, Automatisierung, Messtechnik und Projektmanagement — Schwerpunkt industrielle Steuerungssysteme, Motion Control, Safety-Konzepte. Der Abschluss entspricht dem Bachelor-Niveau (DQR Level 6 / Bachelor Professional in Technik gemäß BBiG-Novelle 2020).",
-    "srv.label":"// Leistungen","srv.title":"Was ich für Ihr Projekt liefere.",
+    "srv.label":"Leistungen","srv.title":"Was ich für Ihr Projekt liefere.",
     "srv.subtitle":"Vom Schaltplan über Pro Panel, Antriebstechnik bis hin zu internationalen Inbetriebnahmen — flexibel als Stundensatz, Festpreis oder Sprint-Engagement, individuell nach Projekt.",
     "srv.priceOnRequest":"Konditionen auf Anfrage",
-    "trust.industriesLabel":"// Branchen","trust.industries":"Sondermaschinenbau · Faseraufbereitung · Kunststoff-Extrusion · Antriebstechnik",
-    "trust.locationsLabel":"// Vor-Ort","trust.locations":"Deutschland · Schweiz · China · Indien",
-    "trust.standardsLabel":"// Standards","trust.standards":"CE · UL · EMV-Messung · Safety Circuits · DGUV-Schulung",
-    "trust.toolsLabel":"// Tools","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
-    "res.label":"// Ergebnisse","res.title":"Was Kunden konkret gewinnen.",
+    "trust.industriesLabel":"Branchen","trust.industries":"Sondermaschinenbau · Faseraufbereitung · Kunststoff-Extrusion · Antriebstechnik",
+    "trust.locationsLabel":"Vor-Ort","trust.locations":"Deutschland · Schweiz · China · Indien",
+    "trust.standardsLabel":"Standards","trust.standards":"CE · UL · EMV-Messung · Safety Circuits · DGUV-Schulung",
+    "trust.toolsLabel":"Tools","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
+    "res.label":"Ergebnisse","res.title":"Was Kunden konkret gewinnen.",
     "res.r1Title":"Schnellere Inbetriebnahme","res.r1Desc":"Strukturierte Konstruktion verkürzt die Anlaufzeit und vermeidet Verzögerungen bei der Inbetriebnahme.",
     "res.r2Title":"Weniger Fehler","res.r2Desc":"Saubere EPLAN-Struktur minimiert Verdrahtungsfehler und Probleme in der Produktion.",
     "res.r3Title":"Höhere Zuverlässigkeit","res.r3Desc":"Optimierte Systeme reduzieren Ausfälle und verbessern die langfristige Stabilität.",
@@ -2430,7 +3140,7 @@ const i18n = {
     "srv.s2Title":"Machine Electrical Design","srv.s2Desc":"Komplette Elektrokonstruktion für industrielle Maschinen — inklusive Antriebstechnik, Motion Control und EMV-konformer Schaltschrankauslegung.",
     "srv.s3Title":"Troubleshooting & Support","srv.s3Desc":"Schnelle Problemlösung bei Antrieben, Sensorik und Steuerungen. Remote oder vor Ort, mit Root-Cause-Analyse.",
     "srv.s4Title":"Retrofit & Optimization","srv.s4Desc":"Bestehende Maschinen aufrüsten, Performance verbessern und langfristige Zuverlässigkeit durch optimierte elektrische Systeme sichern.",
-    "exp.label":"// Berufserfahrung","exp.title":"Über ein Jahrzehnt im industriellen Maschinenbau.",
+    "exp.label":"Berufserfahrung","exp.title":"Über ein Jahrzehnt im industriellen Maschinenbau.",
     "exp.e1Period":"2023 — heute","exp.e1Title":"Electrical Engineer — R&D","exp.e1Company":"Rieter AG, Schweiz · Faseraufbereitungsmaschinen",
     "exp.e1L1":"Entwicklung und Pflege elektrischer Schaltpläne mit EPLAN P8",
     "exp.e1L2":"R&D für textile Maschinen — Strecke, Kämmerei, E40, E86",
@@ -2445,14 +3155,18 @@ const i18n = {
     "exp.e2L4":"Absprache mit Produktion, Produktabkündigungen, Lieferantenkommunikation",
     "exp.e2L5":"Inbetriebnahmen und Kundensupport — u.a. 5 Monate am Stück in China während Corona",
     "exp.e2L6":"EPLAN Pro Panel, Smartwiring, EPLAN Fluid (Pneumatik)",
-    "skl.label":"// Technische Skills","skl.title":"Tools, Methoden, Erfahrungen.",
+    "skl.label":"Technische Skills","skl.title":"Tools, Methoden, Erfahrungen.",
     "skl.b2":"Antriebstechnik & Motion Control (B&R ACOPOS P3)","skl.b3":"Schaltschrankbau & Verdrahtung","skl.b4":"Safety Circuits & CE / UL Normen","skl.b5":"Inbetriebnahme & Troubleshooting","skl.b6":"Technische Dokumentation & BOM","skl.b7":"Python & Excel — Datenanalyse",
     "skl.toolsSW":"Software & Systeme","skl.toolsMethods":"Methoden & Domänen",
     "skl.m1":"Motion Control","skl.m2":"Achsensynchronisation","skl.m3":"Safety Circuits","skl.m4":"CE / UL Normen","skl.m5":"Kabelauslegung","skl.m6":"BOM-Management","skl.m7":"Retrofit","skl.m8":"Inbetriebnahme","skl.m9":"Troubleshooting","skl.mEMV":"EMV-Messungen","skl.mRisk":"Risikobeurteilungen","skl.mClimate":"Klimaberechnung Schaltschrank","skl.mPower":"Transformatoren & Spannungsversorgung","skl.mSpecs":"Lastenhefte",
-    "bk.label":"// Online Buchung & Bezahlung","bk.title":"Paket wählen, Projekt beschreiben, loslegen.",
+    "bk.label":"Online Buchung & Bezahlung","bk.title":"Paket wählen, Projekt beschreiben, loslegen.",
     "bk.subtitle":"Wählen Sie ein passendes Paket, beschreiben Sie kurz Ihr Vorhaben — ich melde mich innerhalb von 24 Stunden mit einem konkreten Vorschlag.",
     "bk.introLine":"Im Erstgespräch besprechen wir Ihr Projekt, identifizieren Knackpunkte und definieren die nächsten Schritte.",
     "bk.freeNote":"20-Minuten-Erstgespräch — kostenlos und unverbindlich.",
+    "bk.consultTitle":"Direkt einen Termin buchen",
+    "bk.consultIntro":"Wähle einen freien Slot in den nächsten Tagen. 20 Minuten — kostenlos, unverbindlich. Wir besprechen dein Projekt, identifizieren Knackpunkte und definieren die nächsten Schritte.",
+    "bk.consultFallback":"Bitte JavaScript aktivieren, um den Buchungskalender zu sehen — oder schreibe direkt eine Mail an patrick@dietz-engineering.com.",
+    "bk.divider":"oder konkrete Projektanfrage stellen",
     "bk.p1Desc":"Kurzes Consulting — schnelle Einschätzung Ihres Themas.","bk.p2Desc":"Kompaktes Schaltplan-Paket — planbarer Umfang, klar definierter Liefergegenstand.","bk.p3Desc":"Mehrtägiges bis -wöchiges Remote-Engagement für komplexere Aufgaben.","bk.p4Name":"Custom Projekt","bk.p4Desc":"Maßgeschneidert — Festpreis oder Tagessatz nach individueller Absprache.","bk.onRequest":"Auf Anfrage",
     "bk.fFirst":"Vorname *","bk.fLast":"Nachname *","bk.fEmail":"E-Mail *","bk.fCompany":"Firma (optional)",
     "bk.fProject":"Projektbeschreibung *","bk.fProjectPh":"Was möchten Sie umsetzen? Welche Maschinen, welche Disziplinen, welcher Zeitrahmen?",
@@ -2462,19 +3176,21 @@ const i18n = {
     "bk.disclaimer":"Mit Absenden des Formulars erklären Sie sich mit der Verarbeitung Ihrer Daten gemäß <a href=\"datenschutz.html\">Datenschutzerklärung</a> einverstanden. Es gelten meine <a href=\"agb.html\">Allgemeinen Geschäftsbedingungen</a>.",
     "bk.successTitle":"Anfrage erfolgreich übermittelt","bk.successText":"Vielen Dank — ich melde mich innerhalb von 24 Stunden persönlich mit einem konkreten Vorschlag, Konditionen und Vertragsentwurf.",
     "bk.errorMsg":"Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt eine E-Mail an patrick@dietz-engineering.com.",
-    "ct.label":"// Kontakt","ct.title":"Lassen Sie uns über Ihr Projekt sprechen.",
+    "ct.label":"Kontakt","ct.title":"Lassen Sie uns über Ihr Projekt sprechen.",
     "ct.p1":"Direkter Draht — keine Hotline, keine Tickets. Schreiben Sie mir, ich melde mich persönlich zurück.","ct.remote":"Remote & Vor-Ort weltweit",
     "ft.rights":"Alle Rechte vorbehalten","ft.imprint":"Impressum","ft.privacy":"Datenschutz","ft.terms":"AGB",
     "pv.title":"Privatsphäre-Einstellungen",
     "pv.intro":"Diese Website lädt Schriftarten von <strong>Google Fonts (USA)</strong>, übermittelt Buchungsanfragen über <strong>Web3Forms</strong> und speichert deine Theme- und Sprachpräferenz lokal in deinem Browser. Beim Laden externer Schriftarten kann deine IP-Adresse an Google übertragen werden. Details findest du in der <a href=\"datenschutz.html\">Datenschutzerklärung</a>.",
     "pv.rights":"Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.",
-    "pv.detailsTitle":"// Was gespeichert wird",
+    "pv.detailsTitle":"Was gespeichert wird",
     "pv.cat1Name":"Technisch notwendig",
     "pv.cat1Desc":"Theme- und Sprachpräferenz im Local Storage deines Browsers. Einwilligungsfrei nach §25 Abs. 2 Nr. 2 TTDSG, da unbedingt erforderlich für die Bereitstellung des Dienstes.",
     "pv.cat2Name":"Externe Schriftarten · Google Fonts",
     "pv.cat2Desc":"Lädt Typografie vom Google-CDN (Google Ireland Limited). IP-Adresse wird übertragen, ggf. Drittlandtransfer in die USA. Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, EU-DPF-Framework.",
     "pv.cat3Name":"Formular-Backend · Web3Forms",
     "pv.cat3Desc":"Beim Absenden des Buchungsformulars werden deine Eingaben an Web3Forms übermittelt, um eine Mail an mich auszulösen. Auftragsverarbeitung gemäß Art. 28 DSGVO.",
+    "pv.cat4Name":"Terminbuchung · Calendly",
+    "pv.cat4Desc":"Der eingebettete Buchungskalender lädt Inhalte von Calendly (USA). Beim Aufruf des Buchungs-Bereichs kann deine IP-Adresse an Calendly übertragen werden. EU-DPF-zertifiziert plus Standardvertragsklauseln.",
     "pv.acceptAll":"Alle akzeptieren",
     "pv.continue":"Weiter ohne Einwilligung",
     "pv.customize":"Privatsphäre-Einstellungen individuell festlegen",
@@ -2484,7 +3200,7 @@ const i18n = {
 
   en: {
     "nav.about":"About","nav.education":"Education","nav.services":"Services","nav.projects":"Projects","nav.experience":"Experience","nav.process":"Process","nav.skills":"Skills","nav.booking":"Booking","nav.faq":"FAQ","nav.contact":"Contact",
-    "prj.label":"// Projects","prj.title":"A selection from more than a decade in the field.",
+    "prj.label":"Projects","prj.title":"A selection from more than a decade in the field.",
     "prj.subtitle":"Six typical engagements from my career in industrial machinery — schematic design, commissioning, R&D and international on-site work.",
     "prj.lblChallenge":"Challenge:","prj.lblSolution":"Solution:","prj.lblResult":"Result:",
     "prj.p1Region":"DE · Multiple projects","prj.p1Title":"Sheet-film extrusion lines with co-extruders",
@@ -2513,12 +3229,12 @@ const i18n = {
     "prj.p6Res":"Supplier-side issues resolved sustainably, documented QA process for similar future cases.",
     "prj.tagCalender":"Calender","prj.tagCommissioning":"Commissioning","prj.tagTroubleshoot":"Troubleshooting","prj.tagIntl":"International","prj.tagPilot":"0-series","prj.tagPilotCustomers":"Pilot customers","prj.tagTraining":"Training","prj.tagRetrofit":"Conversion docs",
     "prj.ndaNote":"Concrete technical details and project insights happily shared in person.",
-    "prc.label":"// How I work","prc.title":"From briefing to handover — four clear steps.","prc.subtitle":"Structured, transparent, no surprises. You always know where your project stands.",
+    "prc.label":"How I work","prc.title":"From briefing to handover — four clear steps.","prc.subtitle":"Structured, transparent, no surprises. You always know where your project stands.",
     "prc.s1Title":"Briefing & Scope","prc.s1Desc":"We clarify scope, interfaces and timeline — under NDA if needed. Output: a one-page work order with clear deliverables.",
     "prc.s2Title":"Design & Engineering","prc.s2Desc":"EPLAN schematics, Pro Panel build, component selection. Weekly status including intermediate versions — no black-box phases.",
     "prc.s3Title":"Review & Test","prc.s3Desc":"Test reports, joint walkthrough, RCA if needed. Corrections are integrated immediately before sign-off.",
     "prc.s4Title":"Handover & Support","prc.s4Desc":"Complete documentation, CE/UL-compliant, handover into your system (SAP / ECTR / Teamcenter). Optional two weeks of free follow-up support.",
-    "faq.label":"// Frequently Asked","faq.title":"What clients want to know before the first call.",
+    "faq.label":"Frequently Asked","faq.title":"What clients want to know before the first call.",
     "faq.q1":"How does an initial inquiry work?","faq.a1":"Inquire via the booking form or by email. Within 24 hours you'll receive a concrete proposal with timeframe and pricing. The first call is always non-binding.",
     "faq.q2":"Do you work under NDAs?","faq.a2":"Yes, of course. NDAs are standard in my line of work — I'm happy to sign one before the first call. Customer- and project-specific confidentiality clauses are no problem either.",
     "faq.q3":"What about international travel?","faq.a3":"International on-site work is possible. Travel costs (flight, meals, accommodation) are passed through 1:1. The on-site day rate is agreed per project. Field experience includes longer stays in China and India.",
@@ -2532,26 +3248,26 @@ const i18n = {
     "hero.cta1":"Book a Free Consultation","hero.cta2":"View Project Cases",
     "hero.langDE":"Native","hero.langEN":"Professional",
     "hero.subnote":"Free 20-minute consultation — no commitment.",
-    "about.label":"// About","about.title":"Deep machine understanding meets structured electrical design.",
+    "about.label":"About","about.title":"Deep machine understanding meets structured electrical design.",
     "about.p1":"I'm Patrick Dietz — started as an electronics apprentice in 2012, today with 13+ years in special-purpose machinery, including 5+ months of continuous on-site commissioning in China during Covid. What drives me: machinery that's thought through electrically clean, goes into operation without workarounds — and clients who run without me after handover because the documentation actually holds up.",
     "about.p2":"My focus is EPLAN P8, drive technology (B&R ACOPOS P3, motion control), safety circuits and the electrical design of complex machines — from plastic extrusion lines to modern fiber-preparation systems.",
     "about.usp":"\"I combine deep machine understanding with structured electrical design and international hands-on experience. Not just planning — actually solving problems.\"",
     "about.travelTitle":"Available internationally","about.travelText":"Commissioning, on-site work and retrofit projects worldwide — billed against expenses (flights, meals, accommodation). Field experience includes China and India.",
     "about.stat1":"Years in the field","about.stat2":"P8 expert level","about.stat3":"International work","about.stat4":"Research & Development",
-    "edu.label":"// Education","edu.title":"Solid foundations, built up step by step.",
+    "edu.label":"Education","edu.title":"Solid foundations, built up step by step.",
     "edu.card1Title":"Industrial Electronics Technician",
     "edu.card1Desc":"3.5-year apprenticeship focused on industrial plant engineering, control cabinet construction, control technology and electrical commissioning. The foundation for clean, standards-compliant electrical design.",
     "edu.card2Period":"May 2020 · DAA Technikum",
     "edu.card2Title":"Bachelor Professional in Technik — Electrical Engineering",
     "edu.card2Desc":"Specialization in Energy Technology & Process Automation. Advanced training in drive technology, automation, measurement and project management — focus on industrial control systems, motion control and safety concepts. Equivalent to a bachelor's degree under the German Qualifications Framework (DQR / EQF level 6, official designation introduced via the 2020 BBiG amendment; the underlying qualification is the German »Staatlich geprüfter Techniker«).",
-    "srv.label":"// Services","srv.title":"What I deliver for your project.",
+    "srv.label":"Services","srv.title":"What I deliver for your project.",
     "srv.subtitle":"From schematics to Pro Panel, drives and international commissioning — flexible as hourly, fixed-price or sprint engagement, individually scoped per project.",
     "srv.priceOnRequest":"Terms on request",
-    "trust.industriesLabel":"// Industries","trust.industries":"Special-purpose machinery · Fiber preparation · Plastic extrusion · Drive systems",
-    "trust.locationsLabel":"// On-site","trust.locations":"Germany · Switzerland · China · India",
-    "trust.standardsLabel":"// Standards","trust.standards":"CE · UL · EMC measurement · Safety circuits · DGUV training",
-    "trust.toolsLabel":"// Tools","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
-    "res.label":"// Results","res.title":"What Clients Actually Gain.",
+    "trust.industriesLabel":"Industries","trust.industries":"Special-purpose machinery · Fiber preparation · Plastic extrusion · Drive systems",
+    "trust.locationsLabel":"On-site","trust.locations":"Germany · Switzerland · China · India",
+    "trust.standardsLabel":"Standards","trust.standards":"CE · UL · EMC measurement · Safety circuits · DGUV training",
+    "trust.toolsLabel":"Tools","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
+    "res.label":"Results","res.title":"What Clients Actually Gain.",
     "res.r1Title":"Faster Commissioning","res.r1Desc":"Structured engineering reduces startup time and avoids delays during commissioning.",
     "res.r2Title":"Fewer Errors","res.r2Desc":"Clean EPLAN structure minimizes wiring errors and production issues.",
     "res.r3Title":"Higher Reliability","res.r3Desc":"Optimized systems reduce failures and improve long-term stability.",
@@ -2560,7 +3276,7 @@ const i18n = {
     "srv.s2Title":"Machine Electrical Design","srv.s2Desc":"Complete electrical design for industrial machinery — including drive systems, motion control and EMC-compliant cabinet design.",
     "srv.s3Title":"Troubleshooting & Support","srv.s3Desc":"Fast problem solving for drives, sensors and control systems. Remote or on-site with Root Cause Analysis.",
     "srv.s4Title":"Retrofit & Optimization","srv.s4Desc":"Upgrade existing machines, improve performance and ensure long-term reliability through optimized electrical systems.",
-    "exp.label":"// Experience","exp.title":"More than a decade in industrial machinery.",
+    "exp.label":"Experience","exp.title":"More than a decade in industrial machinery.",
     "exp.e1Period":"2023 — present","exp.e1Title":"Electrical Engineer — R&D","exp.e1Company":"Rieter AG, Switzerland · Fiber-preparation machinery",
     "exp.e1L1":"Development and maintenance of electrical schematics with EPLAN P8",
     "exp.e1L2":"R&D for textile machines — draw frame, comber, E40, E86",
@@ -2575,14 +3291,18 @@ const i18n = {
     "exp.e2L4":"Coordination with production, product phase-outs, supplier communication",
     "exp.e2L5":"Commissioning and customer support — incl. 5 months continuous on-site in China during Covid",
     "exp.e2L6":"EPLAN Pro Panel, Smartwiring, EPLAN Fluid (pneumatics)",
-    "skl.label":"// Technical Skills","skl.title":"Tools, methods, experience.",
+    "skl.label":"Technical Skills","skl.title":"Tools, methods, experience.",
     "skl.b2":"Drive Technology & Motion Control (B&R ACOPOS P3)","skl.b3":"Cabinet Build & Wiring","skl.b4":"Safety Circuits & CE / UL Standards","skl.b5":"Commissioning & Troubleshooting","skl.b6":"Technical Documentation & BOM","skl.b7":"Python & Excel — Data Analysis",
     "skl.toolsSW":"Software & Systems","skl.toolsMethods":"Methods & Domains",
     "skl.m1":"Motion Control","skl.m2":"Axis Synchronization","skl.m3":"Safety Circuits","skl.m4":"CE / UL Standards","skl.m5":"Cable Sizing","skl.m6":"BOM Management","skl.m7":"Retrofit","skl.m8":"Commissioning","skl.m9":"Troubleshooting","skl.mEMV":"EMC Measurements","skl.mRisk":"Risk Assessments","skl.mClimate":"Cabinet Climate Calculation","skl.mPower":"Transformers & Power Supply","skl.mSpecs":"Specification Documents",
-    "bk.label":"// Online Booking & Payment","bk.title":"Pick a package, describe your project, get started.",
+    "bk.label":"Online Booking & Payment","bk.title":"Pick a package, describe your project, get started.",
     "bk.subtitle":"Choose a suitable package, briefly describe your scope — I'll get back to you within 24 hours with a concrete proposal.",
     "bk.introLine":"We will discuss your project, identify challenges and define next steps.",
     "bk.freeNote":"Free 20-minute consultation — no commitment.",
+    "bk.consultTitle":"Book a Time Slot Directly",
+    "bk.consultIntro":"Pick a free slot in the next few days. 20 minutes — free, no commitment. We'll discuss your project, identify the key challenges and define next steps.",
+    "bk.consultFallback":"Please enable JavaScript to see the booking calendar — or send an email directly to patrick@dietz-engineering.com.",
+    "bk.divider":"or send a written project inquiry",
     "bk.p1Desc":"Short consulting block — quick assessment of your topic.","bk.p2Desc":"Compact schematic engagement — predictable scope, clearly defined deliverable.","bk.p3Desc":"Multi-day to multi-week remote engagement for more complex tasks.","bk.p4Name":"Custom Project","bk.p4Desc":"Tailored — fixed price or day rate, agreed individually.","bk.onRequest":"On request",
     "bk.fFirst":"First name *","bk.fLast":"Last name *","bk.fEmail":"Email *","bk.fCompany":"Company (optional)",
     "bk.fProject":"Project description *","bk.fProjectPh":"What do you want to build? Which machines, which disciplines, what timeframe?",
@@ -2592,19 +3312,21 @@ const i18n = {
     "bk.disclaimer":"By submitting this form you consent to your data being processed in accordance with the <a href=\"datenschutz.html\">privacy policy</a>. My <a href=\"agb.html\">Terms &amp; Conditions</a> apply.",
     "bk.successTitle":"Inquiry submitted successfully","bk.successText":"Thank you — I'll personally get back to you within 24 hours with a concrete proposal, terms and a draft contract.",
     "bk.errorMsg":"There was an error sending your request. Please try again or email patrick@dietz-engineering.com directly.",
-    "ct.label":"// Contact","ct.title":"Let's talk about your project.",
+    "ct.label":"Contact","ct.title":"Let's talk about your project.",
     "ct.p1":"A direct line — no hotline, no tickets. Drop me a message and I'll get back to you personally.","ct.remote":"Remote & on-site worldwide",
     "ft.rights":"All rights reserved","ft.imprint":"Imprint","ft.privacy":"Privacy","ft.terms":"Terms",
     "pv.title":"Privacy settings",
     "pv.intro":"This website loads fonts from <strong>Google Fonts (USA)</strong>, sends booking inquiries via <strong>Web3Forms</strong> and stores your theme and language preference locally in your browser. When external fonts load, your IP address may be transmitted to Google. Details in the <a href=\"datenschutz.html\">privacy policy</a>.",
     "pv.rights":"You have the right not to consent and to withdraw your consent at any time.",
-    "pv.detailsTitle":"// What is stored",
+    "pv.detailsTitle":"What is stored",
     "pv.cat1Name":"Strictly necessary",
     "pv.cat1Desc":"Theme and language preference in your browser's Local Storage. Consent-free under §25 (2) No. 2 TTDSG, as strictly necessary to provide the service.",
     "pv.cat2Name":"External fonts · Google Fonts",
     "pv.cat2Desc":"Loads typography from the Google CDN (Google Ireland Limited). IP address is transmitted; possible third-country transfer to the USA. Legal basis Art. 6(1)(f) GDPR, EU-DPF framework.",
     "pv.cat3Name":"Form backend · Web3Forms",
     "pv.cat3Desc":"When submitting the booking form, your input is transmitted to Web3Forms in order to trigger an email to me. Data processing per Art. 28 GDPR.",
+    "pv.cat4Name":"Appointment booking · Calendly",
+    "pv.cat4Desc":"The embedded booking calendar loads content from Calendly (USA). When you open the booking section, your IP address may be transmitted to Calendly. EU-DPF-certified plus standard contractual clauses.",
     "pv.acceptAll":"Accept all",
     "pv.continue":"Continue without consent",
     "pv.customize":"Configure privacy settings individually",
@@ -2614,7 +3336,7 @@ const i18n = {
 
   es: {
     "nav.about":"Sobre mí","nav.education":"Formación","nav.services":"Servicios","nav.projects":"Proyectos","nav.experience":"Experiencia","nav.process":"Proceso","nav.skills":"Skills","nav.booking":"Reserva","nav.faq":"FAQ","nav.contact":"Contacto",
-    "prj.label":"// Proyectos","prj.title":"Una selección de más de una década de práctica.",
+    "prj.label":"Proyectos","prj.title":"Una selección de más de una década de práctica.",
     "prj.subtitle":"Seis encargos típicos de mi trayectoria en maquinaria industrial — diseño de esquemas, puesta en marcha, I+D y trabajo internacional in situ.",
     "prj.lblChallenge":"Desafío:","prj.lblSolution":"Solución:","prj.lblResult":"Resultado:",
     "prj.p1Region":"DE · Múltiples proyectos","prj.p1Title":"Líneas de extrusión de láminas con co-extrusores",
@@ -2643,12 +3365,12 @@ const i18n = {
     "prj.p6Res":"Problemas del lado del proveedor resueltos de forma sostenible, proceso de QA documentado para casos similares futuros.",
     "prj.tagCalender":"Calandra","prj.tagCommissioning":"Puesta en marcha","prj.tagTroubleshoot":"Diagnóstico","prj.tagIntl":"Internacional","prj.tagPilot":"Serie 0","prj.tagPilotCustomers":"Clientes piloto","prj.tagTraining":"Formación","prj.tagRetrofit":"Modificaciones",
     "prj.ndaNote":"Detalles técnicos concretos e insights del proyecto, encantado de comentarlos en conversación personal.",
-    "prc.label":"// Cómo trabajo","prc.title":"Del briefing a la entrega — cuatro pasos claros.","prc.subtitle":"Estructurado, transparente, sin sorpresas. En todo momento sabes en qué punto está tu proyecto.",
+    "prc.label":"Cómo trabajo","prc.title":"Del briefing a la entrega — cuatro pasos claros.","prc.subtitle":"Estructurado, transparente, sin sorpresas. En todo momento sabes en qué punto está tu proyecto.",
     "prc.s1Title":"Briefing y alcance","prc.s1Desc":"Definimos alcance, interfaces y plazos — bajo NDA si hace falta. Resultado: una hoja de pedido de una página con entregables claros.",
     "prc.s2Title":"Diseño e ingeniería","prc.s2Desc":"Esquemas EPLAN, montaje en Pro Panel, selección de componentes. Estado semanal incluyendo versiones intermedias — sin fases de caja negra.",
     "prc.s3Title":"Revisión y prueba","prc.s3Desc":"Protocolos de prueba, walkthrough conjunto, RCA si es necesario. Las correcciones se integran de inmediato antes de la aceptación.",
     "prc.s4Title":"Entrega y soporte","prc.s4Desc":"Documentación completa, conforme a CE/UL, entrega en tu sistema (SAP / ECTR / Teamcenter). Opcional: dos semanas gratuitas de soporte posterior.",
-    "faq.label":"// Preguntas frecuentes","faq.title":"Lo que los clientes quieren saber antes de la primera llamada.",
+    "faq.label":"Preguntas frecuentes","faq.title":"Lo que los clientes quieren saber antes de la primera llamada.",
     "faq.q1":"¿Cómo es una primera consulta?","faq.a1":"Solicítalo por el formulario de reserva o por correo. En 24 horas recibirás una propuesta concreta con plazo y precio. La primera llamada siempre es sin compromiso.",
     "faq.q2":"¿Trabajas bajo NDA?","faq.a2":"Sí, por supuesto. Los NDA son estándar en mi sector — los firmo encantado antes de la primera llamada. Cláusulas específicas de cliente o proyecto tampoco son problema.",
     "faq.q3":"¿Qué pasa con los desplazamientos internacionales?","faq.a3":"Los trabajos internacionales in situ son posibles. Los costes de viaje (vuelo, dietas, alojamiento) se repercuten 1:1. La tarifa diaria in situ se acuerda por proyecto. Experiencia con estancias largas en China e India.",
@@ -2662,26 +3384,26 @@ const i18n = {
     "hero.cta1":"Reservar consulta gratuita","hero.cta2":"Ver casos de proyecto",
     "hero.langDE":"Nativo","hero.langEN":"Profesional",
     "hero.subnote":"Consulta gratuita de 20 minutos — sin compromiso.",
-    "about.label":"// Sobre mí","about.title":"Profundo conocimiento de máquinas y diseño eléctrico estructurado.",
+    "about.label":"Sobre mí","about.title":"Profundo conocimiento de máquinas y diseño eléctrico estructurado.",
     "about.p1":"Soy Patrick Dietz — empecé como aprendiz de electrónico en 2012 y hoy llevo más de 13 años en maquinaria especial, incluidos 5 meses seguidos de puesta en marcha in situ en China durante la pandemia. Lo que me mueve: máquinas eléctricamente bien pensadas que entran en producción sin parches — y clientes que tras la entrega siguen sin mí porque la documentación realmente aguanta.",
     "about.p2":"Me especializo en EPLAN P8, accionamientos (B&R ACOPOS P3, motion control), circuitos de seguridad y el diseño eléctrico de máquinas complejas — desde líneas de extrusión de plástico hasta modernas máquinas de preparación de fibra.",
     "about.usp":"«Combino un conocimiento profundo de la máquina con un diseño eléctrico estructurado y experiencia internacional sobre el terreno. No solo planificar — sino resolver problemas de verdad.»",
     "about.travelTitle":"Disponible internacionalmente","about.travelText":"Puestas en marcha, intervenciones in situ y proyectos retrofit en todo el mundo — con compensación de gastos (vuelo, dietas, alojamiento). Experiencia en China e India, entre otros.",
     "about.stat1":"Años de experiencia","about.stat2":"Nivel experto P8","about.stat3":"Trabajo internacional","about.stat4":"I+D",
-    "edu.label":"// Formación","edu.title":"Bases sólidas, construidas paso a paso.",
+    "edu.label":"Formación","edu.title":"Bases sólidas, construidas paso a paso.",
     "edu.card1Title":"Técnico Electrónico Industrial",
     "edu.card1Desc":"Formación profesional de 3,5 años centrada en instalaciones industriales, construcción de armarios eléctricos, técnica de control y puesta en marcha. La base de un diseño eléctrico limpio y normativo.",
     "edu.card2Period":"Mayo 2020 · DAA Technikum",
     "edu.card2Title":"Bachelor Professional in Technik — Electrotecnia",
     "edu.card2Desc":"Especialidad en Energética y Automatización de Procesos. Formación avanzada en accionamientos, automatización, metrología y gestión de proyectos — énfasis en sistemas de control industrial, motion control y conceptos de seguridad. Título equivalente a un grado universitario según el Marco Alemán de Cualificaciones (DQR / EQF nivel 6 — denominación oficial introducida por la reforma del BBiG en 2020; cualificación de base »Staatlich geprüfter Techniker«).",
-    "srv.label":"// Servicios","srv.title":"Lo que aporto a tu proyecto.",
+    "srv.label":"Servicios","srv.title":"Lo que aporto a tu proyecto.",
     "srv.subtitle":"Del esquema a Pro Panel, accionamientos y puestas en marcha internacionales — flexible por hora, precio fijo o sprint, ajustado individualmente al proyecto.",
     "srv.priceOnRequest":"Condiciones a consultar",
-    "trust.industriesLabel":"// Sectores","trust.industries":"Maquinaria especial · Preparación de fibra · Extrusión de plástico · Accionamientos",
-    "trust.locationsLabel":"// In situ","trust.locations":"Alemania · Suiza · China · India",
-    "trust.standardsLabel":"// Normas","trust.standards":"CE · UL · medición CEM · Circuitos de seguridad · Formación DGUV",
-    "trust.toolsLabel":"// Herramientas","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
-    "res.label":"// Resultados","res.title":"Lo que los clientes ganan realmente.",
+    "trust.industriesLabel":"Sectores","trust.industries":"Maquinaria especial · Preparación de fibra · Extrusión de plástico · Accionamientos",
+    "trust.locationsLabel":"In situ","trust.locations":"Alemania · Suiza · China · India",
+    "trust.standardsLabel":"Normas","trust.standards":"CE · UL · medición CEM · Circuitos de seguridad · Formación DGUV",
+    "trust.toolsLabel":"Herramientas","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
+    "res.label":"Resultados","res.title":"Lo que los clientes ganan realmente.",
     "res.r1Title":"Puesta en marcha más rápida","res.r1Desc":"La ingeniería estructurada reduce el tiempo de arranque y evita retrasos durante la puesta en marcha.",
     "res.r2Title":"Menos errores","res.r2Desc":"Una estructura EPLAN limpia minimiza errores de cableado y problemas en producción.",
     "res.r3Title":"Mayor fiabilidad","res.r3Desc":"Los sistemas optimizados reducen fallos y mejoran la estabilidad a largo plazo.",
@@ -2690,7 +3412,7 @@ const i18n = {
     "srv.s2Title":"Machine Electrical Design","srv.s2Desc":"Diseño eléctrico completo para maquinaria industrial — incluyendo accionamientos, motion control y diseño de armarios conforme a CEM.",
     "srv.s3Title":"Troubleshooting & Support","srv.s3Desc":"Resolución rápida de problemas en accionamientos, sensores y sistemas de control. En remoto o in situ, con análisis de causa raíz.",
     "srv.s4Title":"Retrofit & Optimization","srv.s4Desc":"Moderniza máquinas existentes, mejora el rendimiento y asegura fiabilidad a largo plazo mediante sistemas eléctricos optimizados.",
-    "exp.label":"// Experiencia","exp.title":"Más de una década en maquinaria industrial.",
+    "exp.label":"Experiencia","exp.title":"Más de una década en maquinaria industrial.",
     "exp.e1Period":"2023 — actualidad","exp.e1Title":"Electrical Engineer — I+D","exp.e1Company":"Rieter AG, Suiza · Maquinaria de preparación de fibra",
     "exp.e1L1":"Desarrollo y mantenimiento de esquemas eléctricos con EPLAN P8",
     "exp.e1L2":"I+D para máquinas textiles — manuar, peinadora, E40, E86",
@@ -2705,14 +3427,18 @@ const i18n = {
     "exp.e2L4":"Coordinación con producción, gestión de obsolescencias, comunicación con proveedores",
     "exp.e2L5":"Puestas en marcha y soporte al cliente — incl. 5 meses seguidos en China durante el Covid",
     "exp.e2L6":"EPLAN Pro Panel, Smartwiring, EPLAN Fluid (neumática)",
-    "skl.label":"// Skills técnicos","skl.title":"Herramientas, métodos y experiencia.",
+    "skl.label":"Skills técnicos","skl.title":"Herramientas, métodos y experiencia.",
     "skl.b2":"Accionamientos y Motion Control (B&R ACOPOS P3)","skl.b3":"Armarios eléctricos y cableado","skl.b4":"Circuitos de seguridad y normas CE / UL","skl.b5":"Puesta en marcha y diagnóstico","skl.b6":"Documentación técnica y BOM","skl.b7":"Python y Excel — análisis de datos",
     "skl.toolsSW":"Software y sistemas","skl.toolsMethods":"Métodos y dominios",
     "skl.m1":"Motion Control","skl.m2":"Sincronización de ejes","skl.m3":"Circuitos de seguridad","skl.m4":"Normas CE / UL","skl.m5":"Dimensionado de cables","skl.m6":"Gestión BOM","skl.m7":"Retrofit","skl.m8":"Puesta en marcha","skl.m9":"Diagnóstico","skl.mEMV":"Mediciones CEM","skl.mRisk":"Evaluación de riesgos","skl.mClimate":"Cálculo de climatización del armario","skl.mPower":"Transformadores y alimentación","skl.mSpecs":"Pliegos de condiciones",
-    "bk.label":"// Reserva online y pago","bk.title":"Elige un paquete, describe tu proyecto y empezamos.",
+    "bk.label":"Reserva online y pago","bk.title":"Elige un paquete, describe tu proyecto y empezamos.",
     "bk.subtitle":"Elige un paquete adecuado, describe brevemente tu proyecto — te respondo en menos de 24 horas con una propuesta concreta.",
     "bk.introLine":"En la primera consulta hablaremos de tu proyecto, identificaremos los puntos críticos y definiremos los próximos pasos.",
     "bk.freeNote":"Consulta gratuita de 20 minutos — sin compromiso.",
+    "bk.consultTitle":"Reserva un horario directamente",
+    "bk.consultIntro":"Elige un hueco libre en los próximos días. 20 minutos — gratis, sin compromiso. Hablaremos de tu proyecto, identificaremos los puntos críticos y definiremos los próximos pasos.",
+    "bk.consultFallback":"Activa JavaScript para ver el calendario — o escríbeme directamente a patrick@dietz-engineering.com.",
+    "bk.divider":"o envía una solicitud de proyecto concreta",
     "bk.p1Desc":"Bloque corto de consultoría — valoración rápida de tu tema.","bk.p2Desc":"Paquete compacto de esquemas — alcance previsible y entregable claramente definido.","bk.p3Desc":"Encargo remoto de varios días o semanas para tareas más complejas.","bk.p4Name":"Proyecto a medida","bk.p4Desc":"Personalizado — precio fijo o tarifa diaria, acordados individualmente.","bk.onRequest":"A consultar",
     "bk.fFirst":"Nombre *","bk.fLast":"Apellidos *","bk.fEmail":"Correo electrónico *","bk.fCompany":"Empresa (opcional)",
     "bk.fProject":"Descripción del proyecto *","bk.fProjectPh":"¿Qué quieres realizar? ¿Qué máquinas, qué disciplinas, qué plazo?",
@@ -2722,19 +3448,21 @@ const i18n = {
     "bk.disclaimer":"Al enviar el formulario consientes el tratamiento de tus datos conforme a la <a href=\"datenschutz.html\">política de privacidad</a>. Se aplican mis <a href=\"agb.html\">Condiciones Generales</a>.",
     "bk.successTitle":"Solicitud enviada correctamente","bk.successText":"Gracias — te responderé personalmente en menos de 24 horas con una propuesta concreta, condiciones y un borrador de contrato.",
     "bk.errorMsg":"Hubo un error al enviar tu solicitud. Inténtalo de nuevo o escríbeme directamente a patrick@dietz-engineering.com.",
-    "ct.label":"// Contacto","ct.title":"Hablemos de tu proyecto.",
+    "ct.label":"Contacto","ct.title":"Hablemos de tu proyecto.",
     "ct.p1":"Línea directa — sin centralita ni tickets. Escríbeme y te respondo personalmente.","ct.remote":"Remoto y presencial en todo el mundo",
     "ft.rights":"Todos los derechos reservados","ft.imprint":"Aviso legal","ft.privacy":"Privacidad","ft.terms":"Condiciones",
     "pv.title":"Configuración de privacidad",
     "pv.intro":"Este sitio web carga fuentes de <strong>Google Fonts (EE. UU.)</strong>, envía solicitudes de reserva mediante <strong>Web3Forms</strong> y guarda tu preferencia de tema e idioma localmente en tu navegador. Al cargar fuentes externas, tu dirección IP puede transmitirse a Google. Más detalles en la <a href=\"datenschutz.html\">política de privacidad</a>.",
     "pv.rights":"Tienes derecho a no dar tu consentimiento y a retirarlo en cualquier momento.",
-    "pv.detailsTitle":"// Qué se almacena",
+    "pv.detailsTitle":"Qué se almacena",
     "pv.cat1Name":"Estrictamente necesario",
     "pv.cat1Desc":"Preferencia de tema e idioma en el Local Storage de tu navegador. Sin consentimiento según §25 (2) Nº 2 TTDSG, ya que es estrictamente necesario para prestar el servicio.",
     "pv.cat2Name":"Fuentes externas · Google Fonts",
     "pv.cat2Desc":"Carga la tipografía desde el CDN de Google (Google Ireland Limited). Se transmite la dirección IP; posible transferencia a los EE. UU. Base jurídica art. 6(1)(f) RGPD, marco EU-DPF.",
     "pv.cat3Name":"Backend del formulario · Web3Forms",
     "pv.cat3Desc":"Al enviar el formulario de reserva, tus datos se transmiten a Web3Forms para enviarme un correo. Tratamiento de datos según art. 28 RGPD.",
+    "pv.cat4Name":"Reserva de citas · Calendly",
+    "pv.cat4Desc":"El calendario integrado carga contenido de Calendly (EE. UU.). Al abrir la sección de reserva, tu dirección IP puede transmitirse a Calendly. Certificado EU-DPF más cláusulas contractuales tipo.",
     "pv.acceptAll":"Aceptar todo",
     "pv.continue":"Continuar sin consentimiento",
     "pv.customize":"Configurar la privacidad de forma individual",
@@ -2744,7 +3472,7 @@ const i18n = {
 
   zh: {
     "nav.about":"关于我","nav.education":"教育背景","nav.services":"服务","nav.projects":"项目","nav.experience":"工作经验","nav.process":"流程","nav.skills":"技能","nav.booking":"预约","nav.faq":"常见问题","nav.contact":"联系",
-    "prj.label":"// 项目","prj.title":"十余年实战经验中的代表性项目。",
+    "prj.label":"项目","prj.title":"十余年实战经验中的代表性项目。",
     "prj.subtitle":"我在工业机械领域的六个典型项目 — 涵盖电路图设计、现场调试、研发以及国际驻场工作。",
     "prj.lblChallenge":"挑战：","prj.lblSolution":"解决方案：","prj.lblResult":"成果：",
     "prj.p1Region":"德国 · 多个项目","prj.p1Title":"带共挤出机的板材薄膜挤出生产线",
@@ -2773,12 +3501,12 @@ const i18n = {
     "prj.p6Res":"供应商侧问题得以彻底解决，并形成可复用于类似情形的质量保证流程。",
     "prj.tagCalender":"压光机","prj.tagCommissioning":"现场调试","prj.tagTroubleshoot":"故障排查","prj.tagIntl":"国际项目","prj.tagPilot":"0 系列","prj.tagPilotCustomers":"试点客户","prj.tagTraining":"培训","prj.tagRetrofit":"改造说明",
     "prj.ndaNote":"具体技术细节与项目内容，欢迎当面深聊。",
-    "prc.label":"// 我的工作方式","prc.title":"从需求到交付 — 四个清晰步骤。","prc.subtitle":"结构化、透明、无意外。您随时清楚项目所处阶段。",
+    "prc.label":"我的工作方式","prc.title":"从需求到交付 — 四个清晰步骤。","prc.subtitle":"结构化、透明、无意外。您随时清楚项目所处阶段。",
     "prc.s1Title":"需求与范围","prc.s1Desc":"我们一起界定范围、接口与时间表 — 必要时签署 NDA。交付物：一页式工单，明确写明可交付内容。",
     "prc.s2Title":"设计与工程","prc.s2Desc":"EPLAN 电路图、Pro Panel 搭建、零部件选型。每周状态汇报并交付中间版本 — 没有黑盒阶段。",
     "prc.s3Title":"评审与测试","prc.s3Desc":"测试报告、共同走查、必要时执行 RCA。修正在验收前直接落实到位。",
     "prc.s4Title":"交付与支持","prc.s4Desc":"完整文档，符合 CE/UL 要求，交付到您的系统（SAP / ECTR / Teamcenter）。可选两周免费的后续支持。",
-    "faq.label":"// 常见问题","faq.title":"客户在首次沟通前最关心的问题。",
+    "faq.label":"常见问题","faq.title":"客户在首次沟通前最关心的问题。",
     "faq.q1":"首次咨询的流程是怎样的？","faq.a1":"通过预约表单或邮件提出咨询。24 小时内您将收到包含时间和价格框架的具体方案。首次沟通始终不收费、不绑定。",
     "faq.q2":"您接受 NDA（保密协议）吗？","faq.a2":"当然可以。NDA 在我的工作中是常态 — 可在首次沟通前签署。客户或项目特定的保密条款也完全没有问题。",
     "faq.q3":"国际出差怎么处理？","faq.a3":"可以承接国际现场项目。差旅成本（机票、餐饮、住宿）按实报销。现场日费按项目协商。在中国和印度均有较长时间的现场经验。",
@@ -2792,26 +3520,26 @@ const i18n = {
     "hero.cta1":"预约免费咨询","hero.cta2":"查看项目案例",
     "hero.langDE":"母语","hero.langEN":"专业",
     "hero.subnote":"20 分钟免费咨询 — 无任何承诺。",
-    "about.label":"// 关于我","about.title":"深入的机械理解 + 结构化电气设计。",
+    "about.label":"关于我","about.title":"深入的机械理解 + 结构化电气设计。",
     "about.p1":"我是 Patrick Dietz — 2012 年从电子学学徒起步，至今在专用机械领域积累了 13 年以上经验，其中疫情期间在中国连续驻场调试逾 5 个月。我所追求的：电气设计严谨清晰、机器投产无须临时补救；客户在交付后凭借扎实的文档可独立运行，不再依赖我。",
     "about.p2":"我专注于 EPLAN P8、驱动技术（B&R ACOPOS P3、Motion Control）、安全回路以及复杂机械的电气设计 — 从塑料挤出生产线到现代纤维准备机械。",
     "about.usp":"「我将深入的机械理解、结构化的电气设计与丰富的国际现场经验结合在一起。不仅做规划 — 而是真正解决问题。」",
     "about.travelTitle":"可全球出差","about.travelText":"全球范围的调试、现场支持与改造项目 — 按差旅成本（机票、餐饮、住宿）计费。具有中国和印度等地的现场经验。",
     "about.stat1":"年从业经验","about.stat2":"P8 专家级别","about.stat3":"国际项目经验","about.stat4":"研究与开发",
-    "edu.label":"// 教育背景","edu.title":"扎实的基础，逐步构建。",
+    "edu.label":"教育背景","edu.title":"扎实的基础，逐步构建。",
     "edu.card1Title":"工业电子技术员（学徒）",
     "edu.card1Desc":"3.5 年学徒制培训，专注于工业设备技术、电控柜制造、控制技术与电气调试。这是规范、合规电气设计的根基。",
     "edu.card2Period":"2020 年 5 月 · DAA Technikum",
     "edu.card2Title":"Bachelor Professional in Technik — 电气工程",
     "edu.card2Desc":"主修方向：能源技术与过程自动化。在驱动技术、自动化、测量技术与项目管理方面的进阶培训，重点方向为工业控制系统、Motion Control 与安全方案。该资历等同于学士学位（依据德国资历框架 DQR / EQF 第 6 级；该正式称谓由 2020 年 BBiG 修订引入；底层资格名称为德语 »Staatlich geprüfter Techniker«）。",
-    "srv.label":"// 服务","srv.title":"我能为您的项目交付什么。",
+    "srv.label":"服务","srv.title":"我能为您的项目交付什么。",
     "srv.subtitle":"从电路图、Pro Panel、驱动技术到国际现场调试 — 可按小时、固定价或冲刺方式合作，按项目个性化报价。",
     "srv.priceOnRequest":"条款面议",
-    "trust.industriesLabel":"// 行业","trust.industries":"专用机械 · 纤维准备 · 塑料挤出 · 驱动技术",
-    "trust.locationsLabel":"// 现场","trust.locations":"德国 · 瑞士 · 中国 · 印度",
-    "trust.standardsLabel":"// 标准","trust.standards":"CE · UL · EMC 测量 · 安全回路 · DGUV 培训",
-    "trust.toolsLabel":"// 工具","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
-    "res.label":"// 成果","res.title":"客户能真正获得什么。",
+    "trust.industriesLabel":"行业","trust.industries":"专用机械 · 纤维准备 · 塑料挤出 · 驱动技术",
+    "trust.locationsLabel":"现场","trust.locations":"德国 · 瑞士 · 中国 · 印度",
+    "trust.standardsLabel":"标准","trust.standards":"CE · UL · EMC 测量 · 安全回路 · DGUV 培训",
+    "trust.toolsLabel":"工具","trust.tools":"EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3",
+    "res.label":"成果","res.title":"客户能真正获得什么。",
     "res.r1Title":"更快的现场调试","res.r1Desc":"结构化的工程设计可缩短启动时间，避免调试阶段的延误。",
     "res.r2Title":"更少的错误","res.r2Desc":"规范的 EPLAN 结构可最大程度减少接线错误与生产问题。",
     "res.r3Title":"更高的可靠性","res.r3Desc":"经过优化的系统能减少故障并提升长期稳定性。",
@@ -2820,7 +3548,7 @@ const i18n = {
     "srv.s2Title":"Machine Electrical Design","srv.s2Desc":"工业机械的整机电气设计 — 包含驱动系统、Motion Control 与符合 EMC 的电控柜设计。",
     "srv.s3Title":"Troubleshooting & Support","srv.s3Desc":"针对驱动、传感与控制系统的快速问题解决。可远程或现场进行，并提供根本原因分析。",
     "srv.s4Title":"Retrofit & Optimization","srv.s4Desc":"升级现有机器、提升性能，并通过优化的电气系统确保长期可靠性。",
-    "exp.label":"// 工作经验","exp.title":"工业机械领域十余年的深耕。",
+    "exp.label":"工作经验","exp.title":"工业机械领域十余年的深耕。",
     "exp.e1Period":"2023 — 至今","exp.e1Title":"电气工程师 — 研发","exp.e1Company":"瑞士 Rieter AG · 纤维准备机械",
     "exp.e1L1":"使用 EPLAN P8 进行电气电路图的开发与维护",
     "exp.e1L2":"纺织机械研发 — 并条机、精梳机、E40、E86",
@@ -2835,14 +3563,18 @@ const i18n = {
     "exp.e2L4":"与生产部门沟通、产品停产管理、供应商沟通",
     "exp.e2L5":"现场调试与客户支持 — 包括疫情期间在中国连续 5 个月驻场",
     "exp.e2L6":"EPLAN Pro Panel、Smartwiring、EPLAN Fluid（气动）",
-    "skl.label":"// 技术能力","skl.title":"工具、方法与经验。",
+    "skl.label":"技术能力","skl.title":"工具、方法与经验。",
     "skl.b2":"驱动技术与 Motion Control（B&R ACOPOS P3）","skl.b3":"电控柜搭建与布线","skl.b4":"安全回路与 CE / UL 标准","skl.b5":"调试与故障排查","skl.b6":"技术文档与 BOM","skl.b7":"Python 与 Excel — 数据分析",
     "skl.toolsSW":"软件与系统","skl.toolsMethods":"方法与领域",
     "skl.m1":"Motion Control","skl.m2":"轴同步","skl.m3":"安全回路","skl.m4":"CE / UL 标准","skl.m5":"电缆选型","skl.m6":"BOM 管理","skl.m7":"机器改造","skl.m8":"现场调试","skl.m9":"故障排查","skl.mEMV":"EMC 测量","skl.mRisk":"风险评估","skl.mClimate":"电控柜散热计算","skl.mPower":"变压器与电源","skl.mSpecs":"规格说明书",
-    "bk.label":"// 在线预约与付款","bk.title":"选套餐，描述项目，立即开始。",
+    "bk.label":"在线预约与付款","bk.title":"选套餐，描述项目，立即开始。",
     "bk.subtitle":"选择合适的套餐，简要描述您的项目 — 我会在 24 小时内回复具体方案。",
     "bk.introLine":"在首次沟通中，我们会一起讨论您的项目、识别关键难点并明确下一步行动。",
     "bk.freeNote":"20 分钟免费咨询 — 无任何承诺。",
+    "bk.consultTitle":"直接预约时间",
+    "bk.consultIntro":"在未来几天选择一个空闲时段。20 分钟 — 免费、无任何承诺。我们会讨论您的项目、识别关键难点并明确下一步行动。",
+    "bk.consultFallback":"请启用 JavaScript 以查看预约日历 — 或直接发送邮件至 patrick@dietz-engineering.com。",
+    "bk.divider":"或发送具体项目咨询",
     "bk.p1Desc":"短时咨询 — 快速评估您的议题。","bk.p2Desc":"紧凑的电路图项目 — 范围可控，交付物明确。","bk.p3Desc":"数日至数周的远程项目，适合较复杂任务。","bk.p4Name":"定制项目","bk.p4Desc":"按需定制 — 固定价或日费，逐案商定。","bk.onRequest":"面议",
     "bk.fFirst":"名 *","bk.fLast":"姓 *","bk.fEmail":"电子邮箱 *","bk.fCompany":"公司（可选）",
     "bk.fProject":"项目描述 *","bk.fProjectPh":"您希望实现什么？涉及哪些机器、哪些专业领域、什么时间范围？",
@@ -2852,19 +3584,21 @@ const i18n = {
     "bk.disclaimer":"提交本表单即表示您同意按<a href=\"datenschutz.html\">隐私声明</a>处理您的数据。我的<a href=\"agb.html\">服务条款</a>同时适用。",
     "bk.successTitle":"咨询已成功提交","bk.successText":"感谢您 — 我会在 24 小时内亲自回复您具体方案、条款与合同草案。",
     "bk.errorMsg":"发送时出现错误。请重试，或直接发送邮件至 patrick@dietz-engineering.com。",
-    "ct.label":"// 联系","ct.title":"让我们聊聊您的项目。",
+    "ct.label":"联系","ct.title":"让我们聊聊您的项目。",
     "ct.p1":"直接联系 — 没有热线，没有工单。给我留言，我会亲自回复。","ct.remote":"远程与全球现场",
     "ft.rights":"保留所有权利","ft.imprint":"法律声明","ft.privacy":"隐私","ft.terms":"服务条款",
     "pv.title":"隐私设置",
     "pv.intro":"本网站从 <strong>Google Fonts（美国）</strong>加载字体，通过 <strong>Web3Forms</strong> 转发预约咨询，并在您的浏览器中本地保存主题与语言偏好。加载外部字体时，您的 IP 地址可能会被传输至 Google。详见<a href=\"datenschutz.html\">隐私声明</a>。",
     "pv.rights":"您有权不予同意，并可随时撤回您的同意。",
-    "pv.detailsTitle":"// 存储内容",
+    "pv.detailsTitle":"存储内容",
     "pv.cat1Name":"必需项",
     "pv.cat1Desc":"主题与语言偏好保存在您浏览器的 Local Storage 中。依据 §25 Abs. 2 Nr. 2 TTDSG 属于绝对必要，无需同意。",
     "pv.cat2Name":"外部字体 · Google Fonts",
     "pv.cat2Desc":"从 Google CDN（Google Ireland Limited）加载字体。会传输 IP 地址，可能涉及向美国的第三国传输。法律依据 GDPR 第 6 条第 1 款 f 项，EU-DPF 框架。",
     "pv.cat3Name":"表单后端 · Web3Forms",
     "pv.cat3Desc":"提交预约表单时，您的输入会被转发至 Web3Forms，以便向我发送邮件通知。依据 GDPR 第 28 条进行数据委托处理。",
+    "pv.cat4Name":"在线预约 · Calendly",
+    "pv.cat4Desc":"嵌入的预约日历会从 Calendly（美国）加载内容。当您打开预约区域时，您的 IP 地址可能会传输至 Calendly。已通过 EU-DPF 认证并签署标准合同条款。",
     "pv.acceptAll":"全部接受",
     "pv.continue":"不同意继续",
     "pv.customize":"自定义隐私设置",
@@ -2938,8 +3672,8 @@ function applyTheme(theme) {
   iconSun.style.display  = theme === 'dark' ? 'none'  : 'block';
   try { localStorage.setItem('de_theme', theme); } catch(e){}
 }
-let storedTheme = 'dark';
-try { storedTheme = localStorage.getItem('de_theme') || 'dark'; } catch(e){}
+let storedTheme = 'light';
+try { storedTheme = localStorage.getItem('de_theme') || 'light'; } catch(e){}
 applyTheme(storedTheme);
 themeToggle.addEventListener('click', () => {
   const cur = document.documentElement.getAttribute('data-theme');
