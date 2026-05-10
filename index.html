@@ -200,7 +200,11 @@ section {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  position: relative;
 }
+
+/* Mobile-only language picker (sits inside burger menu) */
+.nav-mobile-controls { display: none; }
 
 .logo {
   display: flex;
@@ -1485,9 +1489,35 @@ section {
     top: 100%; left: 0; right: 0;
     flex-direction: column;
     background: var(--bg-2);
-    padding: 1rem 1.5rem;
+    padding: 1.1rem 1.1rem 1.4rem;
     border-bottom: 1px solid var(--border);
-    gap: 1rem;
+    box-shadow: 0 18px 36px rgba(30, 44, 71, 0.08);
+    gap: 0.4rem;
+    list-style: none;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  .nav-links.open li { width: 100%; }
+  .nav-links.open a {
+    display: block;
+    padding: 0.85rem 0.4rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .nav-links.open a::after { display: none; }
+  .nav-links.open .nav-mobile-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 0.4rem 0;
+    margin-top: 0.4rem;
+  }
+  .nav-links.open .nav-mobile-controls .lang-select {
+    flex: 1;
+    max-width: none;
+    font-size: 0.95rem;
+    padding: 0.7rem 2.2rem 0.7rem 0.9rem;
   }
   .about-grid, .skills-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
   .services-grid, .proj-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1593,12 +1623,8 @@ section {
   .nav-inner { padding: 0.7rem 1rem; gap: 0.5rem; }
   .logo .logo-text { display: none; }
   .nav-actions { gap: 0.4rem; }
-  .lang-select {
-    max-width: 88px;
-    padding: 0.45rem 1.6rem 0.45rem 0.6rem;
-    font-size: 0.78rem;
-    background-position: right 0.55rem center;
-  }
+  /* Sprach-Auswahl wandert in das Burger-Menü, nicht mehr in der Top-Bar */
+  .nav-actions .lang-select { display: none; }
   .icon-btn, .nav-toggle { width: 36px; height: 36px; }
 }
 
@@ -2042,6 +2068,14 @@ section {
       <li><a href="#booking" data-i18n="nav.booking">Buchung</a></li>
       <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+      <li class="nav-mobile-controls">
+        <select class="lang-select" id="langSelectMobile" aria-label="Sprache wählen">
+          <option value="de">DE — Deutsch</option>
+          <option value="en">EN — English</option>
+          <option value="es">ES — Español</option>
+          <option value="zh">ZH — 中文</option>
+        </select>
+      </li>
     </ul>
     <div class="nav-actions">
       <select class="lang-select" id="langSelect" aria-label="Sprache wählen">
@@ -3888,7 +3922,20 @@ let storedLang = 'de';
 try { storedLang = localStorage.getItem('de_lang') || 'de'; } catch(e){}
 langSelect.value = storedLang;
 applyLang(storedLang);
-langSelect.addEventListener('change', e => applyLang(e.target.value));
+langSelect.addEventListener('change', e => {
+  applyLang(e.target.value);
+  if (langSelectMobile) langSelectMobile.value = e.target.value;
+});
+
+/* Mobile-Sprachauswahl (in Burger-Menü): mit Desktop-Select synchronisieren */
+const langSelectMobile = document.getElementById('langSelectMobile');
+if (langSelectMobile) {
+  langSelectMobile.value = storedLang;
+  langSelectMobile.addEventListener('change', e => {
+    langSelect.value = e.target.value;
+    applyLang(e.target.value);
+  });
+}
 
 /* =========================================================
    THEME TOGGLE
@@ -3916,8 +3963,21 @@ themeToggle.addEventListener('click', () => {
    ========================================================= */
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
-navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  navLinks.classList.toggle('open');
+});
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+/* Klick außerhalb schließt das Menü */
+document.addEventListener('click', (e) => {
+  if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+    navLinks.classList.remove('open');
+  }
+});
+/* ESC schließt das Menü */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') navLinks.classList.remove('open');
+});
 
 /* =========================================================
    PACKAGES + PAYMENT — click handlers (state already declared above)
