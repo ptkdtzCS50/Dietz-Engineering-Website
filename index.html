@@ -111,7 +111,7 @@ textarea { min-height: 130px; resize: vertical; }
 
 img, svg { display: block; max-width: 100%; }
 
-::selection { background: var(--accent); color: #000; }
+::selection { background: var(--accent); color: #ffffff; }
 
 /* =========================================================
    LAYOUT HELPERS
@@ -492,7 +492,7 @@ section {
    ========================================================= */
 .about-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.2fr 0.8fr;
   gap: 4rem;
   align-items: start;
 }
@@ -500,6 +500,60 @@ section {
   color: var(--text-soft);
   margin-bottom: 1.2rem;
   font-size: 1.02rem;
+}
+
+.about-portrait {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.about-portrait-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #f6f7f9 0%, #ffffff 100%);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.about-portrait-frame::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 60px; height: 4px;
+  background: var(--accent);
+  z-index: 2;
+}
+.about-portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.6s cubic-bezier(.2, .8, .2, 1);
+}
+.about-portrait-frame:hover img { transform: scale(1.03); }
+.about-portrait-caption {
+  margin-top: 1.4rem;
+  padding-left: 1.4rem;
+  border-left: 3px solid var(--accent);
+}
+.about-portrait-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+.about-portrait-role {
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+@media (max-width: 760px) {
+  .about-portrait-frame { aspect-ratio: 4 / 5; max-width: 420px; margin: 0 auto; }
+  .about-portrait-caption { max-width: 420px; margin-left: auto; margin-right: auto; }
 }
 
 .usp-quote {
@@ -1232,7 +1286,7 @@ section {
   position: absolute;
   top: -10px; right: 12px;
   background: var(--accent);
-  color: #15110a;
+  color: #ffffff;
   font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
@@ -1316,7 +1370,7 @@ section {
   width: 42px; height: 42px;
   border-radius: 50%;
   background: var(--accent);
-  color: #15110a;
+  color: #ffffff;
   display: grid; place-items: center;
   flex-shrink: 0;
   font-weight: 700;
@@ -1444,22 +1498,99 @@ section {
   section { padding: 4.5rem 0; }
   .hero { padding: 9rem 0 5rem; }
 }
+@media (max-width: 760px) {
+  /* Stats Band kompakter, Trust-Band nicht zu hoch */
+  .stats-band { padding: 3rem 0; }
+  .stats-band .container { padding: 0 1.5rem; }
+  .trust-section { padding: 2.8rem 0; }
+  /* Booking-CTA-Headline kleiner */
+  .consult-cta-text h3 { font-size: 1.3rem; }
+  /* Hero-Banner unterhalb der mobilen Nav */
+  .hero-banner { margin-top: 60px; }
+}
+
 @media (max-width: 580px) {
+  /* Container & Section spacing */
+  .container { padding: 0 1.1rem; }
+  section { padding: 3.5rem 0; }
+  .hero { padding: 6.5rem 0 3.5rem; }
+
+  /* Hero Typo */
+  .hero h1 { font-size: 2.15rem; line-height: 1.06; letter-spacing: -0.025em; }
+  .hero-tagline { font-size: 1rem; margin-bottom: 1.8rem; }
+  .hero-meta { gap: 0.35rem 1.4rem; font-size: 0.82rem; margin-bottom: 1.8rem; }
+  .hero-meta span::before { width: 10px; margin-right: 0.45rem; }
+  .hero-badge { font-size: 0.72rem; margin-bottom: 1.2rem; }
+
+  /* CTA-Buttons full-width auf Telefon */
+  .cta-row { flex-direction: column; align-items: stretch; gap: 0.7rem; }
+  .cta-row .btn { width: 100%; justify-content: center; padding: 1rem 1.4rem; }
+
+  /* Section labels & titles */
+  .section-title { font-size: 1.7rem; margin-bottom: 1rem; }
+  .section-subtitle { font-size: 0.96rem; margin-bottom: 2.2rem; }
+  .section-label { font-size: 0.72rem; margin-bottom: 1rem; }
+
+  /* Stats Band — gestapelt mit Top-Border statt Left-Border */
+  .stats-band { padding: 2.4rem 0; }
+  .stats-band .container { padding: 0 1.1rem; }
+  .stat-cell {
+    padding: 1.4rem 0 0;
+    margin-bottom: 0;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+  .stat-cell:first-child { border-top: none; padding-top: 0; }
+  .stat-value { font-size: 2.4rem; }
+  .stat-label { font-size: 0.92rem; }
+
+  /* Trust Band */
+  .trust-section { padding: 2.2rem 0; }
+  .trust-grid { gap: 1.4rem; }
+  .trust-text { font-size: 0.94rem; }
+
+  /* Karten kompakter */
   .services-grid, .edu-grid, .packages, .stats, .proj-grid, .process-grid { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 2.4rem; }
-  .booking-form { padding: 1.5rem; }
-  /* Projekt-Karten: vertikale Meta-Zeile, keine Trenndots am Zeilenende */
+  .service-card { padding: 1.7rem 1.4rem 1.4rem; }
+  .service-card h3 { font-size: 1.15rem; }
+  .show-body { padding: 1.3rem 1.3rem 1.5rem; }
+  .show-card h3 { font-size: 1.1rem; }
+  .proc-step { padding: 2.2rem 1.3rem 1.5rem; }
+  .proc-num { width: 50px; height: 50px; font-size: 1.2rem; margin: -3.4rem auto 1.1rem; }
+
+  /* Projektkarten */
   .proj-meta {
     flex-direction: column;
     gap: 0.15rem;
     line-height: 1.4;
   }
   .proj-meta span:not(:last-child)::after { display: none; }
-  .proj-card { padding: 1.4rem; }
+  .proj-card { padding: 1.6rem 1.4rem; }
   .nda-banner { font-size: 0.72rem; padding: 0.6rem 0.85rem; }
-  /* Top-Navigation kompakt halten — Logo-Text raus, Aktionen kompakter,
-     damit Sprach-Dropdown + Theme-Toggle + Burger auf 375px-iPhones reinpassen */
-  .nav-inner { padding: 0.8rem 1rem; gap: 0.5rem; }
+
+  /* Booking CTA */
+  .consult-block-cta { padding: 1.7rem 1.3rem; }
+  .consult-cta-grid { gap: 1.5rem; }
+  .consult-cta-text h3 { font-size: 1.2rem; }
+  .consult-cta-text p { font-size: 0.94rem; }
+  .consult-cta-text .consult-icon { margin-bottom: 0.8rem; }
+  .consult-cta-btn { padding: 1rem 1.4rem; font-size: 0.95rem; }
+  .consult-features li { font-size: 0.88rem; }
+  .booking-form { padding: 1.5rem; }
+
+  /* About-Portrait passt sich an Phone-Höhe an */
+  .about-portrait-frame { aspect-ratio: 4 / 5; max-width: none; }
+
+  /* Hero-Banner Image: kompaktere Höhe */
+  .hero-banner img { max-height: 220px; }
+  .hero-banner { margin-top: 56px; }
+
+  /* Footer kompakter */
+  .footer { padding: 2.5rem 0 1.8rem; }
+  .footer-lockup { height: 70px; }
+
+  /* Top-Navigation kompakt halten */
+  .nav-inner { padding: 0.7rem 1rem; gap: 0.5rem; }
   .logo .logo-text { display: none; }
   .nav-actions { gap: 0.4rem; }
   .lang-select {
@@ -1469,6 +1600,17 @@ section {
     background-position: right 0.55rem center;
   }
   .icon-btn, .nav-toggle { width: 36px; height: 36px; }
+}
+
+/* Sehr kleine Phones (iPhone SE 1st gen, kleine Android-Geräte) */
+@media (max-width: 380px) {
+  .container { padding: 0 0.9rem; }
+  .hero h1 { font-size: 1.95rem; letter-spacing: -0.02em; }
+  .section-title { font-size: 1.55rem; }
+  .stat-value { font-size: 2.1rem; }
+  .consult-cta-text h3 { font-size: 1.1rem; }
+  .service-card h3, .show-card h3, .proc-step h3 { font-size: 1.05rem; }
+  .hero-banner img { max-height: 180px; }
 }
 
 /* =========================================================
@@ -1819,7 +1961,7 @@ section {
 }
 .privacy-btn.primary {
   background: var(--accent);
-  color: #15110a;
+  color: #ffffff;
 }
 .privacy-btn.primary:hover {
   background: var(--accent-soft);
@@ -2067,22 +2209,13 @@ section {
         </div>
       </div>
 
-      <div class="stats fade">
-        <div class="stat">
-          <div class="stat-num">13+</div>
-          <div class="stat-label" data-i18n="about.stat1">Jahre Berufserfahrung</div>
+      <div class="about-portrait fade">
+        <div class="about-portrait-frame">
+          <img src="patrick-dietz.jpg" alt="Patrick Dietz — Gründer & Inhaber von Dietz Engineering" loading="lazy" onerror="this.parentElement.parentElement.style.display='none'">
         </div>
-        <div class="stat">
-          <div class="stat-num">EPLAN</div>
-          <div class="stat-label" data-i18n="about.stat2">P8 Expertenlevel</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">CN · IN</div>
-          <div class="stat-label" data-i18n="about.stat3">International tätig</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">R&amp;D</div>
-          <div class="stat-label" data-i18n="about.stat4">Forschung &amp; Entwicklung</div>
+        <div class="about-portrait-caption">
+          <div class="about-portrait-name">Patrick Dietz</div>
+          <div class="about-portrait-role" data-i18n="about.role">Gründer &amp; Inhaber</div>
         </div>
       </div>
     </div>
@@ -3192,6 +3325,7 @@ const i18n = {
     "about.usp":"„Ich verbinde tiefes Maschinenverständnis mit strukturierter Elektrokonstruktion und internationaler Praxiserfahrung. Nicht nur planen — sondern Probleme wirklich lösen.\"",
     "about.travelTitle":"International buchbar","about.travelText":"Inbetriebnahmen, Vor-Ort-Einsätze und Retrofit-Projekte weltweit — gegen Aufwandsentschädigung (Flug, Verpflegung, Übernachtung). Erfahrung u.a. China & Indien.",
     "about.stat1":"Jahre Berufserfahrung","about.stat2":"P8 Expertenlevel","about.stat3":"International tätig","about.stat4":"Forschung & Entwicklung",
+    "about.role":"Gründer & Inhaber",
     "edu.label":"Ausbildung","edu.title":"Solide Grundlagen, kontinuierlich aufgebaut.",
     "edu.card1Title":"Elektroniker für Betriebstechnik",
     "edu.card1Desc":"3,5-jährige Lehre mit Fokus auf industrielle Anlagentechnik, Schaltschrankbau, Steuerungstechnik und elektrische Inbetriebnahme. Grundstein für strukturierte und normgerechte Elektrokonstruktion.",
@@ -3333,6 +3467,7 @@ const i18n = {
     "about.usp":"\"I combine deep machine understanding with structured electrical design and international hands-on experience. Not just planning — actually solving problems.\"",
     "about.travelTitle":"Available internationally","about.travelText":"Commissioning, on-site work and retrofit projects worldwide — billed against expenses (flights, meals, accommodation). Field experience includes China and India.",
     "about.stat1":"Years in the field","about.stat2":"P8 expert level","about.stat3":"International work","about.stat4":"Research & Development",
+    "about.role":"Founder & Owner",
     "edu.label":"Education","edu.title":"Solid foundations, built up step by step.",
     "edu.card1Title":"Industrial Electronics Technician",
     "edu.card1Desc":"3.5-year apprenticeship focused on industrial plant engineering, control cabinet construction, control technology and electrical commissioning. The foundation for clean, standards-compliant electrical design.",
@@ -3474,6 +3609,7 @@ const i18n = {
     "about.usp":"«Combino un conocimiento profundo de la máquina con un diseño eléctrico estructurado y experiencia internacional sobre el terreno. No solo planificar — sino resolver problemas de verdad.»",
     "about.travelTitle":"Disponible internacionalmente","about.travelText":"Puestas en marcha, intervenciones in situ y proyectos retrofit en todo el mundo — con compensación de gastos (vuelo, dietas, alojamiento). Experiencia en China e India, entre otros.",
     "about.stat1":"Años de experiencia","about.stat2":"Nivel experto P8","about.stat3":"Trabajo internacional","about.stat4":"I+D",
+    "about.role":"Fundador y Propietario",
     "edu.label":"Formación","edu.title":"Bases sólidas, construidas paso a paso.",
     "edu.card1Title":"Técnico Electrónico Industrial",
     "edu.card1Desc":"Formación profesional de 3,5 años centrada en instalaciones industriales, construcción de armarios eléctricos, técnica de control y puesta en marcha. La base de un diseño eléctrico limpio y normativo.",
@@ -3615,6 +3751,7 @@ const i18n = {
     "about.usp":"「我将深入的机械理解、结构化的电气设计与丰富的国际现场经验结合在一起。不仅做规划 — 而是真正解决问题。」",
     "about.travelTitle":"可全球出差","about.travelText":"全球范围的调试、现场支持与改造项目 — 按差旅成本（机票、餐饮、住宿）计费。具有中国和印度等地的现场经验。",
     "about.stat1":"年从业经验","about.stat2":"P8 专家级别","about.stat3":"国际项目经验","about.stat4":"研究与开发",
+    "about.role":"创始人兼所有者",
     "edu.label":"教育背景","edu.title":"扎实的基础，逐步构建。",
     "edu.card1Title":"工业电子技术员（学徒）",
     "edu.card1Desc":"3.5 年学徒制培训，专注于工业设备技术、电控柜制造、控制技术与电气调试。这是规范、合规电气设计的根基。",
