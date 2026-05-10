@@ -193,9 +193,9 @@ section {
 }
 
 .nav-inner {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 1.1rem 2rem;
+  padding: 1.1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1620,8 +1620,8 @@ section {
   .footer { padding: 2.5rem 0 1.8rem; }
   .footer-lockup { height: 70px; }
 
-  /* Top-Navigation kompakt halten */
-  .nav-inner { padding: 0.7rem 1rem; gap: 0.5rem; }
+  /* Top-Navigation kompakt halten — Padding fluchtet mit .container */
+  .nav-inner { padding: 0.7rem 1.1rem; gap: 0.5rem; }
   .logo .logo-text { display: none; }
   .nav-actions { gap: 0.4rem; }
   /* Sprach-Auswahl wandert in das Burger-Menü, nicht mehr in der Top-Bar */
@@ -1632,6 +1632,7 @@ section {
 /* Sehr kleine Phones (iPhone SE 1st gen, kleine Android-Geräte) */
 @media (max-width: 380px) {
   .container { padding: 0 0.9rem; }
+  .nav-inner { padding: 0.65rem 0.9rem; }
   .hero h1 { font-size: 1.95rem; letter-spacing: -0.02em; }
   .section-title { font-size: 1.55rem; }
   .stat-value { font-size: 2.1rem; }
