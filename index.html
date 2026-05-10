@@ -59,7 +59,12 @@
    ========================================================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100vw;
+}
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -67,11 +72,16 @@ body {
   color: var(--text);
   line-height: 1.6;
   font-weight: 400;
-  overflow-x: hidden;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
   transition: background 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+img, svg, video, iframe { max-width: 100%; }
 
 h1, h2, h3, h4 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -823,7 +833,8 @@ section {
 }
 .hero-banner:hover img { transform: scale(1.02); }
 @media (max-width: 760px) {
-  .hero-banner img { max-height: 280px; }
+  /* Auf Mobile das volle Banner zeigen, nicht beschneiden */
+  .hero-banner img { max-height: none; height: auto; object-fit: contain; }
 }
 [data-theme="dark"] .hero-banner {
   background: linear-gradient(180deg, #111418 0%, var(--bg) 100%);
@@ -1612,8 +1623,7 @@ section {
   /* About-Portrait passt sich an Phone-Höhe an */
   .about-portrait-frame { aspect-ratio: 4 / 5; max-width: none; }
 
-  /* Hero-Banner Image: kompaktere Höhe */
-  .hero-banner img { max-height: 220px; }
+  /* Hero-Banner: volles Bild auf Mobile (nicht beschnitten) */
   .hero-banner { margin-top: 56px; }
 
   /* Footer kompakter */
@@ -1638,7 +1648,6 @@ section {
   .stat-value { font-size: 2.1rem; }
   .consult-cta-text h3 { font-size: 1.1rem; }
   .service-card h3, .show-card h3, .proc-step h3 { font-size: 1.05rem; }
-  .hero-banner img { max-height: 180px; }
 }
 
 /* =========================================================
@@ -1894,12 +1903,19 @@ section {
    ========================================================= */
 .privacy-modal {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   z-index: 1000;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  box-sizing: border-box;
 }
 .privacy-modal.show { display: flex; }
 .privacy-backdrop {
@@ -2171,7 +2187,7 @@ section {
   <div class="container">
     <div class="stats-grid fade">
       <div class="stat-cell">
-        <div class="stat-value">10<sup>+</sup></div>
+        <div class="stat-value">13<sup>+</sup></div>
         <div class="stat-label" data-i18n="stats.years">Jahre Engineering-Erfahrung im industriellen Maschinenbau</div>
       </div>
       <div class="stat-cell">
