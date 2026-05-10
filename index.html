@@ -214,22 +214,23 @@ section {
   color: var(--accent);
 }
 .logo-horizontal {
-  height: 28px;
+  height: 30px;
   width: auto;
   color: var(--accent);
   display: block;
   flex-shrink: 0;
 }
 .logo-mark-only {
-  height: 26px;
-  width: auto;
-  color: var(--accent);
-  display: none;
-  flex-shrink: 0;
+  display: none; /* horizontal version handles all viewports */
 }
 @media (max-width: 820px) {
-  .logo-horizontal { display: none; }
-  .logo-mark-only { display: block; }
+  .logo-horizontal { height: 24px; }
+}
+@media (max-width: 480px) {
+  .logo-horizontal { height: 20px; }
+}
+@media (max-width: 360px) {
+  .logo-horizontal { height: 18px; }
 }
 
 .nav-links {
