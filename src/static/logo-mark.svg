@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">Dietz Engineering</title>
+  <rect x="20" y="60" width="160" height="80" rx="6" fill="#1e2c47"/>
+  <text x="100" y="118" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="48" letter-spacing="1" fill="#ffffff" text-anchor="middle">DIETZ</text>
+</svg>

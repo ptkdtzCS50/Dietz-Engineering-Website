@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, follow" />
+<title>Allgemeine Geschäftsbedingungen — Dietz Engineering</title>
+<link rel="icon" type="image/svg+xml" href="logo-mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #1e2c47;
+  --accent-soft: #2d4068;
+  --accent-dim: rgba(30, 44, 71, 0.10);
+  --accent-line: rgba(30, 44, 71, 0.28);
+  --accent-2: #8b8e92;
+}
+[data-theme="dark"] {
+  --accent: #7da3d4;
+  --accent-soft: #a3bee0;
+  --accent-dim: rgba(125, 163, 212, 0.12);
+  --accent-line: rgba(125, 163, 212, 0.32);
+  --accent-2: #9ca0a5;
+  --bg: #0b0d10;
+  --bg-2: #111418;
+  --bg-card: rgba(22, 26, 31, 0.8);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text: #ececec;
+  --text-soft: #b8b8b8;
+  --text-mute: #7a7a7a;
+}
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-2: #f6f7f9;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --border: rgba(30, 44, 71, 0.08);
+  --border-strong: rgba(30, 44, 71, 0.16);
+  --text: #1e2c47;
+  --text-soft: #4a5365;
+  --text-mute: #6b7280;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-weight: 400;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+h1, h2, h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.mono { font-family: 'JetBrains Mono', 'Courier New', monospace; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--accent-soft); text-decoration: underline; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo:hover { text-decoration: none; }
+.logo-horizontal { height: 26px; width: auto; color: var(--accent); display: block; flex-shrink: 0; }
+.logo-mark-only { height: 24px; width: auto; color: var(--accent); display: none; flex-shrink: 0; }
+.footer-lockup { height: 100px; width: auto; color: var(--accent); display: block; flex-shrink: 0; }
+@media (max-width: 600px) {
+  .logo-horizontal { display: none; }
+  .logo-mark-only { display: block; }
+  .footer-lockup { height: 84px; }
+  .footer-inner { justify-content: center; text-align: center; }
+}
+.nav-actions { display: flex; gap: 0.6rem; align-items: center; }
+.back-link {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.back-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+.icon-btn {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  color: var(--text-soft);
+  background: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.icon-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+main {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.section-label::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--accent);
+}
+h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin-bottom: 0.6rem;
+}
+.lead {
+  color: var(--text-soft);
+  margin-bottom: 2.5rem;
+  font-size: 1.02rem;
+}
+h2 {
+  font-size: 1.2rem;
+  margin: 2.8rem 0 0.6rem;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+h2 .num {
+  display: inline-block;
+  color: var(--text-mute);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 0.7rem;
+}
+h3 {
+  font-size: 0.98rem;
+  margin: 1.2rem 0 0.5rem;
+  color: var(--text);
+}
+p {
+  color: var(--text-soft);
+  margin-bottom: 0.9rem;
+}
+.legal-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  margin: 1rem 0 1.5rem;
+}
+.legal-block p:last-child { margin-bottom: 0; }
+.legal-block strong { color: var(--text); }
+ul, ol {
+  margin: 0.6rem 0 1rem 0;
+  padding-left: 1.6rem;
+  color: var(--text-soft);
+}
+ul li, ol li {
+  margin-bottom: 0.35rem;
+}
+ul li::marker { color: var(--accent); }
+ol li::marker { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.muted {
+  color: var(--text-mute);
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.toc {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 2.5rem;
+}
+.toc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+.toc ol {
+  list-style: none;
+  counter-reset: t;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+  font-size: 0.92rem;
+  margin: 0;
+  padding: 0;
+}
+.toc ol li {
+  counter-increment: t;
+  position: relative;
+  padding-left: 2rem;
+  margin: 0;
+}
+.toc ol li::before {
+  content: counter(t, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+.toc ol li::marker { content: ''; }
+.toc a { color: var(--text-soft); }
+.toc a:hover { color: var(--accent); text-decoration: none; }
+
+.notice {
+  background: linear-gradient(135deg, var(--accent-dim), transparent);
+  border: 1px solid var(--accent-line);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+.notice svg { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-mute);
+  letter-spacing: 0.04em;
+}
+.footer-links { display: flex; gap: 1.2rem; font-size: 0.85rem; }
+.footer-links a { color: var(--text-soft); }
+.footer-links a:hover { color: var(--accent); text-decoration: none; }
+.footer-links a.active { color: var(--accent); }
+
+/* Privacy modal */
+.privacy-modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+.privacy-modal.show { display: flex; }
+.privacy-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.privacy-dialog { position: relative; background: var(--bg-2); border: 1px solid var(--accent-line); border-radius: 16px; max-width: 540px; width: 100%; padding: 1.8rem 1.6rem 1.4rem; max-height: 88vh; overflow-y: auto; box-shadow: 0 24px 70px rgba(0,0,0,0.6); }
+.privacy-dialog h2 { font-family: 'Syne', system-ui, sans-serif; font-size: 1.35rem; color: var(--text); margin: 0 0 1.1rem; letter-spacing: -0.01em; text-align: center; }
+.privacy-content p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.6; margin: 0 0 0.7rem; }
+.privacy-content p:last-child { margin-bottom: 0; }
+.privacy-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-details { margin: 1rem 0 0; padding: 1rem 1.1rem; background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; }
+.privacy-details h3 { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.7rem; font-weight: 500; }
+.privacy-details ul { margin: 0; padding-left: 1.1rem; list-style: none; }
+.privacy-details li { font-size: 0.83rem; color: var(--text-soft); line-height: 1.55; margin-bottom: 0.6rem; position: relative; padding-left: 0.4rem; }
+.privacy-details li:last-child { margin-bottom: 0; }
+.privacy-details li::before { content: '▸'; position: absolute; left: -0.9rem; color: var(--accent); }
+.privacy-details strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
+.privacy-actions { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1.3rem; }
+.privacy-btn { padding: 0.85rem 1.2rem; border: none; border-radius: 10px; font-family: inherit; font-size: 0.92rem; font-weight: 600; cursor: pointer; text-align: center; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease; }
+.privacy-btn.primary { background: var(--accent); color: #ffffff; }
+.privacy-btn.primary:hover { background: var(--accent-soft); transform: translateY(-1px); }
+.privacy-btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
+.privacy-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
+.privacy-btn.link { background: transparent; color: var(--text-soft); font-size: 0.85rem; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; padding: 0.5rem 0.8rem; }
+.privacy-btn.link:hover { color: var(--accent); }
+.privacy-footer { display: flex; justify-content: center; gap: 1.4rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; }
+.privacy-footer a { color: var(--text-mute); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-footer a:hover { color: var(--accent); }
+
+@media (max-width: 600px) {
+  .nav-inner { padding: 0.8rem 1rem; }
+  main { padding: 2.5rem 1rem 4rem; }
+  .legal-block, .toc { padding: 1.2rem; }
+  .toc ol { grid-template-columns: 1fr; }
+  .back-link span { display: none; }
+}
+@media (max-width: 580px) {
+  .privacy-dialog { padding: 1.4rem 1.2rem 1.1rem; }
+  .privacy-dialog h2 { font-size: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-horizontal" viewBox="0 0 720 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="72" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="68" letter-spacing="1" fill="#1e2c47">DIETZ</text>
+        <line x1="245" y1="20" x2="245" y2="80" stroke="#8b8e92" stroke-width="3"/>
+        <text x="265" y="72" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="58" letter-spacing="1" fill="#8b8e92">ENGINEERING</text>
+      </svg>
+      <svg class="logo-mark-only" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="72" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="68" letter-spacing="1" fill="#1e2c47">DIETZ</text>
+      </svg>
+    </a>
+    <div class="nav-actions">
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Startseite</span>
+      </a>
+      <button class="icon-btn" id="themeToggle" aria-label="Theme umschalten">
+        <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <span class="section-label">// AGB · Stand <span id="dateStamp"></span></span>
+  <h1>Allgemeine Geschäftsbedingungen</h1>
+  <p class="lead">
+    Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB") gelten für alle
+    Verträge zwischen Patrick Dietz, Schlesische Straße 8, 78224 Singen
+    (nachfolgend „Auftragnehmer") und seinen Auftraggebern (nachfolgend „Kunde")
+    über Engineering-, Beratungs- und Inbetriebnahme-Leistungen im Bereich
+    Elektrotechnik und industrieller Maschinenbau.
+  </p>
+
+  <div class="notice">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    <span>
+      Diese AGB richten sich ausschließlich an Unternehmer im Sinne des § 14 BGB,
+      juristische Personen des öffentlichen Rechts und öffentlich-rechtliche
+      Sondervermögen. Verträge mit Verbrauchern (§ 13 BGB) werden nicht geschlossen.
+    </span>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">// Inhalt</div>
+    <ol>
+      <li><a href="#a1">Geltungsbereich</a></li>
+      <li><a href="#a2">Vertragsabschluss</a></li>
+      <li><a href="#a3">Leistungsumfang</a></li>
+      <li><a href="#a4">Mitwirkungspflichten</a></li>
+      <li><a href="#a5">Vergütung &amp; Zahlung</a></li>
+      <li><a href="#a6">Reisekosten &amp; Spesen</a></li>
+      <li><a href="#a7">Termine &amp; Verzug</a></li>
+      <li><a href="#a8">Mängelrechte</a></li>
+      <li><a href="#a9">Haftung</a></li>
+      <li><a href="#a10">Geheimhaltung &amp; NDA</a></li>
+      <li><a href="#a11">Nutzungsrechte</a></li>
+      <li><a href="#a12">Höhere Gewalt</a></li>
+      <li><a href="#a13">Schlussbestimmungen</a></li>
+    </ol>
+  </div>
+
+  <h2 id="a1"><span class="num">01</span>Geltungsbereich</h2>
+  <div class="legal-block">
+    <p>
+      Diese AGB gelten für sämtliche gegenwärtigen und zukünftigen Geschäftsbeziehungen
+      zwischen dem Auftragnehmer und dem Kunden. Abweichende, entgegenstehende oder
+      ergänzende Allgemeine Geschäftsbedingungen des Kunden werden nur dann und nur
+      insoweit Vertragsbestandteil, als der Auftragnehmer ihrer Geltung ausdrücklich
+      und schriftlich zugestimmt hat.
+    </p>
+    <p>
+      Maßgeblich ist die zum Zeitpunkt des Vertragsabschlusses gültige Fassung der AGB.
+    </p>
+  </div>
+
+  <h2 id="a2"><span class="num">02</span>Vertragsabschluss</h2>
+  <div class="legal-block">
+    <p>
+      Angebote des Auftragnehmers sind freibleibend und unverbindlich, sofern nicht
+      ausdrücklich als verbindlich gekennzeichnet. Ein Vertrag kommt erst durch
+      schriftliche Auftragsbestätigung des Auftragnehmers oder durch tatsächliche
+      Aufnahme der Leistung zustande.
+    </p>
+    <p>
+      Anfragen über das Buchungs- bzw. Kontaktformular auf
+      <strong>dietz-engineering.com</strong> sowie der Versand von Buchungspaketen
+      stellen kein verbindliches Angebot dar, sondern dienen der Vertragsanbahnung
+      (invitatio ad offerendum).
+    </p>
+  </div>
+
+  <h2 id="a3"><span class="num">03</span>Leistungsumfang</h2>
+  <div class="legal-block">
+    <p>
+      Der konkrete Leistungsumfang ergibt sich aus dem jeweiligen Einzelvertrag bzw.
+      der Auftragsbestätigung. Typische Leistungen sind:
+    </p>
+    <ul>
+      <li>Elektrokonstruktion mit EPLAN P8, Pro Panel, Smartwiring, EPLAN Fluid</li>
+      <li>Antriebstechnik &amp; Motion-Control-Konzepte (insb. B&amp;R ACOPOS-Systeme)</li>
+      <li>Inbetriebnahme, Troubleshooting und Field-Support</li>
+      <li>Technische Dokumentation, Stücklisten- und BOM-Pflege</li>
+      <li>Beratung zu Safety-Konzepten, CE/UL-konformer Auslegung</li>
+      <li>Retrofit-Engineering und Maschinen-Upgrades</li>
+    </ul>
+    <p>
+      Soweit nicht ausdrücklich anders vereinbart, schuldet der Auftragnehmer
+      <strong>Dienstleistungen im Sinne der §§ 611 ff. BGB</strong> und keinen Erfolg
+      im werkvertraglichen Sinne. Bei werkvertraglichen Leistungen wird dies im
+      Einzelvertrag ausdrücklich vereinbart.
+    </p>
+  </div>
+
+  <h2 id="a4"><span class="num">04</span>Mitwirkungspflichten des Kunden</h2>
+  <div class="legal-block">
+    <p>
+      Der Kunde stellt rechtzeitig und vollständig alle für die Leistungserbringung
+      erforderlichen Informationen, Unterlagen, Zugänge und Hilfsmittel bereit,
+      insbesondere:
+    </p>
+    <ul>
+      <li>Maschinenpläne, vorhandene Schaltpläne, technische Spezifikationen</li>
+      <li>Zugang zu erforderlicher Software inkl. gültiger Lizenzen (z.B. EPLAN, SAP, Teamcenter, NX) sofern in der Tool-Umgebung des Kunden gearbeitet wird</li>
+      <li>Bei Vor-Ort-Einsätzen: Zugang zur Anlage, persönliche Schutzausrüstung wo erforderlich, sicherheitsrelevante Einweisung</li>
+      <li>Benennung eines verantwortlichen Ansprechpartners</li>
+    </ul>
+    <p>
+      Verzögerungen aufgrund verspäteter oder unvollständiger Mitwirkung des Kunden
+      gehen nicht zu Lasten des Auftragnehmers. Vereinbarte Termine verschieben sich
+      um die Dauer der Verzögerung; entstehender Mehraufwand wird zum vereinbarten
+      Stundensatz vergütet.
+    </p>
+  </div>
+
+  <h2 id="a5"><span class="num">05</span>Vergütung &amp; Zahlung</h2>
+  <div class="legal-block">
+    <p>
+      Die Vergütung richtet sich nach den im jeweiligen Einzelvertrag vereinbarten
+      Sätzen (Stundensatz, Festpreis oder Paketpreis). Konkrete Konditionen werden
+      nach Eingang der Anfrage individuell pro Projekt schriftlich vereinbart und
+      sind erst mit beidseitiger Bestätigung verbindlich.
+    </p>
+    <p>
+      Alle Preise verstehen sich, sofern nicht anders ausgewiesen, in Euro und
+      gegebenenfalls zuzüglich der gesetzlichen Umsatzsteuer. Der Auftragnehmer ist
+      derzeit ohne Umsatzsteuer-ID tätig; die Rechnungsstellung erfolgt gemäß
+      §19 UStG (Kleinunternehmerregelung) bzw. nach den jeweils geltenden
+      steuerlichen Vorschriften.
+    </p>
+    <p>
+      Rechnungen sind, sofern nicht anders vereinbart, innerhalb von <strong>14 Tagen
+      netto</strong> nach Rechnungseingang ohne Abzug zur Zahlung fällig. Bei
+      Zahlungsverzug gelten die gesetzlichen Verzugszinsen gemäß § 288 BGB. Der
+      Auftragnehmer ist berechtigt, die Leistung bei Zahlungsverzug bis zur
+      vollständigen Begleichung offener Rechnungen zurückzuhalten.
+    </p>
+    <p>
+      Bei Engagements von mehr als zwei Wochen Dauer ist der Auftragnehmer
+      berechtigt, monatliche Abschlagsrechnungen zu stellen.
+    </p>
+  </div>
+
+  <h2 id="a6"><span class="num">06</span>Reisekosten &amp; Spesen</h2>
+  <div class="legal-block">
+    <p>
+      Reise-, Übernachtungs- und Verpflegungskosten werden dem Kunden in
+      tatsächlich angefallener Höhe in Rechnung gestellt. Reisezeiten gelten
+      grundsätzlich als Arbeitszeit und werden zum vereinbarten Stundensatz vergütet,
+      sofern im Einzelvertrag nichts Abweichendes geregelt ist.
+    </p>
+    <p>
+      Bei internationalen Einsätzen wird vor Reiseantritt ein vereinbarter Tagessatz
+      bzw. eine pauschalierte Vergütung im Einzelvertrag festgelegt. Erforderliche
+      Visa, Impfungen und Versicherungen liegen, soweit nicht anders vereinbart,
+      in der Verantwortung des Kunden bzw. werden zu Lasten des Kunden organisiert.
+    </p>
+  </div>
+
+  <h2 id="a7"><span class="num">07</span>Termine &amp; Verzug</h2>
+  <div class="legal-block">
+    <p>
+      Termine und Lieferfristen sind nur dann verbindlich, wenn sie ausdrücklich
+      schriftlich als verbindlich vereinbart wurden. Andernfalls handelt es sich um
+      unverbindliche Zielzeitpunkte.
+    </p>
+    <p>
+      Bei verbindlich vereinbarten Terminen kommt der Auftragnehmer erst nach
+      Mahnung in Verzug, sofern sich nicht aus dem Einzelvertrag oder dem Gesetz
+      etwas anderes ergibt. Höhere Gewalt, Streiks, behördliche Anordnungen oder
+      vergleichbare unvorhersehbare Ereignisse verlängern Lieferfristen
+      angemessen — siehe Ziffer 12.
+    </p>
+  </div>
+
+  <h2 id="a8"><span class="num">08</span>Mängelrechte &amp; Gewährleistung</h2>
+  <div class="legal-block">
+    <p>
+      Bei Vorliegen eines Mangels hat der Auftragnehmer das Recht zur Nachbesserung.
+      Die Nachbesserung gilt als gescheitert, wenn zwei Nachbesserungsversuche
+      erfolglos bleiben.
+    </p>
+    <p>
+      Bei dienstvertraglichen Leistungen besteht kein Gewährleistungsanspruch im
+      werkvertraglichen Sinne. Bei werkvertraglichen Einzelleistungen gilt die
+      gesetzliche Gewährleistungsfrist von <strong>12 Monaten</strong> ab Abnahme
+      bzw. Übergabe; § 438 Abs. 1 Nr. 2 BGB und § 634a Abs. 1 Nr. 2 BGB bleiben
+      hiervon unberührt.
+    </p>
+    <p>
+      Offensichtliche Mängel sind innerhalb von zwei Wochen nach Übergabe schriftlich
+      anzuzeigen, verdeckte Mängel innerhalb von zwei Wochen nach Entdeckung.
+    </p>
+  </div>
+
+  <h2 id="a9"><span class="num">09</span>Haftung</h2>
+  <div class="legal-block">
+    <p>
+      Der Auftragnehmer haftet uneingeschränkt für Schäden aus der Verletzung des
+      Lebens, des Körpers oder der Gesundheit, sowie für Schäden, die auf vorsätzlichem
+      oder grob fahrlässigem Verhalten beruhen.
+    </p>
+    <p>
+      Bei leicht fahrlässiger Verletzung wesentlicher Vertragspflichten (Kardinalpflichten)
+      ist die Haftung auf den vertragstypischen, vorhersehbaren Schaden begrenzt;
+      die Haftung pro Schadensfall ist der Höhe nach beschränkt auf den im
+      Einzelvertrag vereinbarten Auftragswert, höchstens jedoch <strong>50.000 €</strong>.
+    </p>
+    <p>
+      Eine Haftung für leichte Fahrlässigkeit bei Verletzung nicht-wesentlicher
+      Vertragspflichten ist ausgeschlossen.
+    </p>
+    <p>
+      Die Haftung nach dem Produkthaftungsgesetz bleibt unberührt.
+    </p>
+    <p>
+      Vorstehende Haftungsbeschränkungen gelten auch für Pflichtverletzungen durch
+      Erfüllungsgehilfen und gesetzliche Vertreter des Auftragnehmers.
+    </p>
+  </div>
+
+  <h2 id="a10"><span class="num">10</span>Geheimhaltung &amp; NDA</h2>
+  <div class="legal-block">
+    <p>
+      Beide Vertragsparteien verpflichten sich, alle ihnen im Rahmen der
+      Vertragsbeziehung bekannt werdenden vertraulichen Informationen der jeweils
+      anderen Partei (insbesondere technische Spezifikationen, Konstruktionsunterlagen,
+      Geschäfts- und Betriebsgeheimnisse, Kundendaten) streng vertraulich zu behandeln,
+      nicht an Dritte weiterzugeben und ausschließlich für Zwecke des Vertrags zu
+      verwenden.
+    </p>
+    <p>
+      Diese Verpflichtung besteht auch nach Beendigung des Vertragsverhältnisses
+      für die Dauer von <strong>5 Jahren</strong> fort, sofern sich nicht aus
+      dem Einzelvertrag oder einer separaten NDA eine längere Frist ergibt.
+    </p>
+    <p>
+      Ausgenommen sind Informationen, die nachweislich bereits öffentlich bekannt
+      sind, der empfangenden Partei vor Vertragsbeginn bekannt waren oder ihr von
+      Dritten ohne Geheimhaltungspflicht zugänglich gemacht wurden.
+    </p>
+    <p>
+      Auf Wunsch des Kunden unterzeichnet der Auftragnehmer projektspezifische
+      NDAs. Vom Kunden vorgelegte NDAs werden vor Annahme geprüft; bei
+      unangemessenen Klauseln behält sich der Auftragnehmer Verhandlungen vor.
+    </p>
+  </div>
+
+  <h2 id="a11"><span class="num">11</span>Nutzungsrechte &amp; Urheberrecht</h2>
+  <div class="legal-block">
+    <p>
+      An den im Rahmen des Auftrags vom Auftragnehmer erstellten Werken
+      (Schaltpläne, Stücklisten, Dokumentationen, Software-Konfigurationen)
+      erhält der Kunde mit vollständiger Bezahlung der vereinbarten Vergütung
+      ein <strong>nicht-ausschließliches, zeitlich unbegrenztes, nicht
+      übertragbares Nutzungsrecht</strong> zum vereinbarten Vertragszweck.
+    </p>
+    <p>
+      Eine Weiterveräußerung, Unterlizenzierung oder Veröffentlichung der erstellten
+      Werke an Dritte bedarf der vorherigen schriftlichen Zustimmung des
+      Auftragnehmers.
+    </p>
+    <p>
+      An vorbestehenden Werken, Templates, Bibliotheken, Standardmakros und
+      allgemeinem Know-how des Auftragnehmers werden keine Rechte übertragen; der
+      Auftragnehmer bleibt berechtigt, dieses Material auch in anderen Projekten
+      zu verwenden, sofern dadurch keine Geheimhaltungspflichten verletzt werden.
+    </p>
+  </div>
+
+  <h2 id="a12"><span class="num">12</span>Höhere Gewalt</h2>
+  <div class="legal-block">
+    <p>
+      Ereignisse höherer Gewalt — insbesondere Naturkatastrophen, Krieg, Terror,
+      Pandemien, behördliche Anordnungen, Streik, Stromausfälle, Ausfälle der
+      Telekommunikationsinfrastruktur — entbinden die Vertragsparteien für die
+      Dauer und im Umfang ihrer Auswirkung von der Erfüllung ihrer vertraglichen
+      Pflichten.
+    </p>
+    <p>
+      Die betroffene Partei wird die andere Partei unverzüglich über das Ereignis
+      und dessen voraussichtliche Dauer informieren. Dauert das Ereignis länger
+      als <strong>3 Monate</strong>, sind beide Parteien berechtigt, den Vertrag
+      ohne Einhaltung einer Frist zu kündigen. Bereits erbrachte Teilleistungen
+      sind anteilig zu vergüten.
+    </p>
+  </div>
+
+  <h2 id="a13"><span class="num">13</span>Schlussbestimmungen</h2>
+  <div class="legal-block">
+    <h3>Anwendbares Recht</h3>
+    <p>
+      Es gilt ausschließlich das Recht der Bundesrepublik Deutschland unter
+      Ausschluss des UN-Kaufrechts (CISG).
+    </p>
+
+    <h3>Erfüllungsort &amp; Gerichtsstand</h3>
+    <p>
+      Erfüllungsort und ausschließlicher Gerichtsstand für alle Streitigkeiten aus
+      und im Zusammenhang mit diesen AGB und den auf ihrer Grundlage geschlossenen
+      Verträgen ist <strong>Singen (Hohentwiel), Deutschland</strong>, sofern es
+      sich beim Kunden um einen Kaufmann, eine juristische Person des öffentlichen
+      Rechts oder ein öffentlich-rechtliches Sondervermögen handelt.
+    </p>
+
+    <h3>Schriftform</h3>
+    <p>
+      Änderungen oder Ergänzungen dieser AGB sowie der auf ihrer Grundlage
+      geschlossenen Verträge bedürfen der Schriftform. Dies gilt auch für die
+      Aufhebung des Schriftformerfordernisses selbst. Textform (z.B. E-Mail)
+      ist ausreichend.
+    </p>
+
+    <h3>Salvatorische Klausel</h3>
+    <p>
+      Sollten einzelne Bestimmungen dieser AGB ganz oder teilweise unwirksam oder
+      undurchführbar sein oder werden, so bleibt die Wirksamkeit der übrigen
+      Bestimmungen davon unberührt. An die Stelle der unwirksamen oder
+      undurchführbaren Bestimmung tritt diejenige wirksame und durchführbare
+      Regelung, die dem wirtschaftlichen Zweck der ursprünglichen Bestimmung am
+      nächsten kommt.
+    </p>
+  </div>
+
+  <p class="muted" style="margin-top: 3rem;">
+    // Stand: <span id="dateStamp2"></span> · Diese AGB werden bei Bedarf aktualisiert; maßgeblich ist die zum Zeitpunkt des Vertragsabschlusses geltende Fassung.
+  </p>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="index.html" aria-label="Dietz Engineering Home">
+      <svg class="footer-lockup" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="200" y="110" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="64" letter-spacing="1" fill="#1e2c47" text-anchor="middle">DIETZ</text>
+        <line x1="80" y1="125" x2="320" y2="125" stroke="#8b8e92" stroke-width="2"/>
+        <text x="200" y="160" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="6" fill="#8b8e92" text-anchor="middle">ENGINEERING</text>
+      </svg>
+    </a>
+    <div class="footer-meta">© <span id="year"></span> Patrick Dietz</div>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="agb.html" class="active">AGB</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Privacy modal -->
+<div class="privacy-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="privacy-backdrop"></div>
+  <div class="privacy-dialog">
+    <h2 id="privacyTitle">Privatsphäre-Einstellungen</h2>
+    <div class="privacy-content">
+      <p>Diese Website lädt Schriftarten von <strong>Google Fonts (USA)</strong>, übermittelt Buchungsanfragen über <strong>Web3Forms</strong> und speichert deine Theme-Präferenz lokal in deinem Browser. Beim Laden externer Schriftarten kann deine IP-Adresse an Google übertragen werden. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p>Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.</p>
+    </div>
+    <div class="privacy-details" id="privacyDetails" hidden>
+      <h3>// Was gespeichert wird</h3>
+      <ul>
+        <li><strong>Technisch notwendig</strong><span>Theme-Präferenz im Local Storage deines Browsers. Einwilligungsfrei nach §25 Abs. 2 Nr. 2 TTDSG, da unbedingt erforderlich für die Bereitstellung des Dienstes.</span></li>
+        <li><strong>Externe Schriftarten · Google Fonts</strong><span>Lädt Typografie vom Google-CDN (Google Ireland Limited). IP-Adresse wird übertragen, ggf. Drittlandtransfer in die USA. Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, EU-DPF-Framework.</span></li>
+        <li><strong>Formular-Backend · Web3Forms</strong><span>Bei Absenden des Buchungsformulars auf der Hauptseite werden Eingaben an Web3Forms übermittelt. Auftragsverarbeitung gemäß Art. 28 DSGVO.</span></li>
+      </ul>
+    </div>
+    <div class="privacy-actions">
+      <button class="privacy-btn primary" id="privacyAcceptAll" type="button">Alle akzeptieren</button>
+      <button class="privacy-btn secondary" id="privacyContinue" type="button">Weiter ohne Einwilligung</button>
+      <button class="privacy-btn link" id="privacyCustomize" type="button">Privatsphäre-Einstellungen individuell festlegen</button>
+    </div>
+    <div class="privacy-footer">
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const iconMoon = document.getElementById('iconMoon');
+const iconSun = document.getElementById('iconSun');
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  iconMoon.style.display = t === 'dark' ? 'block' : 'none';
+  iconSun.style.display  = t === 'dark' ? 'none'  : 'block';
+  try { localStorage.setItem('de_theme', t); } catch(e) {}
+}
+let stored = 'light';
+try { stored = localStorage.getItem('de_theme') || 'light'; } catch(e) {}
+applyTheme(stored);
+themeToggle.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+});
+
+const d = new Date();
+document.getElementById('year').textContent = d.getFullYear();
+const dateStr = d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long' });
+document.getElementById('dateStamp').textContent = dateStr;
+document.getElementById('dateStamp2').textContent = dateStr;
+
+/* Privacy modal */
+(function() {
+  const modal = document.getElementById('privacyModal');
+  if (!modal) return;
+  const acceptBtn   = document.getElementById('privacyAcceptAll');
+  const continueBtn = document.getElementById('privacyContinue');
+  const customizeBtn= document.getElementById('privacyCustomize');
+  const detailsEl   = document.getElementById('privacyDetails');
+  let consent = null;
+  try { consent = localStorage.getItem('de_privacy_v2'); } catch(e){}
+  if (!consent) setTimeout(() => modal.classList.add('show'), 700);
+  function close(choice) {
+    try { localStorage.setItem('de_privacy_v2', choice); } catch(e){}
+    modal.classList.remove('show');
+  }
+  acceptBtn.addEventListener('click', () => close('accept'));
+  continueBtn.addEventListener('click', () => close('reject'));
+  customizeBtn.addEventListener('click', () => {
+    detailsEl.hidden = !detailsEl.hidden;
+    customizeBtn.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+})();
+</script>
+</body>
+</html>
