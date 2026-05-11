@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, follow" />
+<title>Datenschutzerklärung — Dietz Engineering</title>
+<link rel="icon" type="image/svg+xml" href="logo-mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #1e2c47;
+  --accent-soft: #2d4068;
+  --accent-dim: rgba(30, 44, 71, 0.10);
+  --accent-line: rgba(30, 44, 71, 0.28);
+  --accent-2: #8b8e92;
+}
+[data-theme="dark"] {
+  --accent: #7da3d4;
+  --accent-soft: #a3bee0;
+  --accent-dim: rgba(125, 163, 212, 0.12);
+  --accent-line: rgba(125, 163, 212, 0.32);
+  --accent-2: #9ca0a5;
+  --bg: #0b0d10;
+  --bg-2: #111418;
+  --bg-card: rgba(22, 26, 31, 0.8);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text: #ececec;
+  --text-soft: #b8b8b8;
+  --text-mute: #7a7a7a;
+}
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-2: #f6f7f9;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --border: rgba(30, 44, 71, 0.08);
+  --border-strong: rgba(30, 44, 71, 0.16);
+  --text: #1e2c47;
+  --text-soft: #4a5365;
+  --text-mute: #6b7280;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-weight: 400;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+h1, h2, h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.mono { font-family: 'JetBrains Mono', 'Courier New', monospace; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--accent-soft); text-decoration: underline; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo:hover { text-decoration: none; }
+.logo-horizontal { height: 26px; width: auto; color: var(--accent); display: block; flex-shrink: 0; }
+.logo-mark-only { height: 24px; width: auto; color: var(--accent); display: none; flex-shrink: 0; }
+.footer-lockup { height: 100px; width: auto; color: var(--accent); display: block; flex-shrink: 0; }
+@media (max-width: 600px) {
+  .logo-horizontal { display: none; }
+  .logo-mark-only { display: block; }
+  .footer-lockup { height: 84px; }
+  .footer-inner { justify-content: center; text-align: center; }
+}
+.nav-actions { display: flex; gap: 0.6rem; align-items: center; }
+.back-link {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.back-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+.icon-btn {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  color: var(--text-soft);
+  background: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.icon-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+main {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.section-label::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--accent);
+}
+h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin-bottom: 0.6rem;
+}
+.lead {
+  color: var(--text-soft);
+  margin-bottom: 2.5rem;
+  font-size: 1.02rem;
+}
+h2 {
+  font-size: 1.2rem;
+  margin: 2.8rem 0 0.6rem;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+h2 .num {
+  display: inline-block;
+  color: var(--text-mute);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 0.7rem;
+}
+h3 {
+  font-size: 0.98rem;
+  margin: 1.2rem 0 0.5rem;
+  color: var(--text);
+}
+p {
+  color: var(--text-soft);
+  margin-bottom: 0.9rem;
+}
+.legal-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  margin: 1rem 0 1.5rem;
+}
+.legal-block p:last-child { margin-bottom: 0; }
+.legal-block strong { color: var(--text); }
+ul {
+  list-style: none;
+  margin: 0.6rem 0 1rem;
+}
+ul li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-soft);
+}
+ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.muted {
+  color: var(--text-mute);
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.toc {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 2.5rem;
+}
+.toc-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+.toc ol {
+  list-style: none;
+  counter-reset: t;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+  font-size: 0.92rem;
+}
+.toc ol li {
+  counter-increment: t;
+  position: relative;
+  padding-left: 2rem;
+}
+.toc ol li::before {
+  content: counter(t, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+.toc a { color: var(--text-soft); }
+.toc a:hover { color: var(--accent); text-decoration: none; }
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-mute);
+  letter-spacing: 0.04em;
+}
+.footer-links { display: flex; gap: 1.2rem; font-size: 0.85rem; }
+.footer-links a { color: var(--text-soft); }
+.footer-links a:hover { color: var(--accent); text-decoration: none; }
+.footer-links a.active { color: var(--accent); }
+
+@media (max-width: 600px) {
+  .nav-inner { padding: 0.8rem 1rem; }
+  main { padding: 2.5rem 1rem 4rem; }
+  .legal-block, .toc { padding: 1.2rem; }
+  .toc ol { grid-template-columns: 1fr; }
+  .back-link span { display: none; }
+}
+
+/* Privacy modal */
+.privacy-modal { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+.privacy-modal.show { display: flex; }
+.privacy-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.privacy-dialog { position: relative; background: var(--bg-2); border: 1px solid var(--accent-line); border-radius: 16px; max-width: 540px; width: 100%; padding: 1.8rem 1.6rem 1.4rem; max-height: 88vh; overflow-y: auto; box-shadow: 0 24px 70px rgba(0,0,0,0.6); }
+.privacy-dialog h2 { font-family: 'Syne', system-ui, sans-serif; font-size: 1.35rem; color: var(--text); margin: 0 0 1.1rem; letter-spacing: -0.01em; text-align: center; }
+.privacy-content p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.6; margin: 0 0 0.7rem; }
+.privacy-content p:last-child { margin-bottom: 0; }
+.privacy-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-details { margin: 1rem 0 0; padding: 1rem 1.1rem; background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; }
+.privacy-details h3 { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.7rem; font-weight: 500; }
+.privacy-details ul { margin: 0; padding-left: 1.1rem; list-style: none; }
+.privacy-details li { font-size: 0.83rem; color: var(--text-soft); line-height: 1.55; margin-bottom: 0.6rem; position: relative; padding-left: 0.4rem; }
+.privacy-details li:last-child { margin-bottom: 0; }
+.privacy-details li::before { content: '▸'; position: absolute; left: -0.9rem; color: var(--accent); }
+.privacy-details strong { color: var(--text); display: block; margin-bottom: 0.15rem; }
+.privacy-actions { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1.3rem; }
+.privacy-btn { padding: 0.85rem 1.2rem; border: none; border-radius: 10px; font-family: inherit; font-size: 0.92rem; font-weight: 600; cursor: pointer; text-align: center; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease; }
+.privacy-btn.primary { background: var(--accent); color: #ffffff; }
+.privacy-btn.primary:hover { background: var(--accent-soft); transform: translateY(-1px); }
+.privacy-btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
+.privacy-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
+.privacy-btn.link { background: transparent; color: var(--text-soft); font-size: 0.85rem; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; padding: 0.5rem 0.8rem; }
+.privacy-btn.link:hover { color: var(--accent); }
+.privacy-footer { display: flex; justify-content: center; gap: 1.4rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; }
+.privacy-footer a { color: var(--text-mute); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-footer a:hover { color: var(--accent); }
+@media (max-width: 580px) { .privacy-dialog { padding: 1.4rem 1.2rem 1.1rem; } .privacy-dialog h2 { font-size: 1.2rem; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-horizontal" viewBox="0 0 720 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="72" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="68" letter-spacing="1" fill="#1e2c47">DIETZ</text>
+        <line x1="245" y1="20" x2="245" y2="80" stroke="#8b8e92" stroke-width="3"/>
+        <text x="265" y="72" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="58" letter-spacing="1" fill="#8b8e92">ENGINEERING</text>
+      </svg>
+      <svg class="logo-mark-only" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="0" y="72" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="68" letter-spacing="1" fill="#1e2c47">DIETZ</text>
+      </svg>
+    </a>
+    <div class="nav-actions">
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Startseite</span>
+      </a>
+      <button class="icon-btn" id="themeToggle" aria-label="Theme umschalten">
+        <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <span class="section-label">// Art. 13 / 14 DSGVO</span>
+  <h1>Datenschutzerklärung</h1>
+  <p class="lead">
+    Der Schutz Ihrer personenbezogenen Daten ist mir ein wichtiges Anliegen. Im Folgenden
+    informiere ich Sie nach Art. 13 und 14 der Europäischen Datenschutz-Grundverordnung
+    (DSGVO) sowie nach dem Bundesdatenschutzgesetz (BDSG) über Art, Umfang und Zweck
+    der Verarbeitung personenbezogener Daten beim Besuch und bei der Nutzung von
+    dietz-engineering.com.
+  </p>
+
+  <div class="toc">
+    <div class="toc-title">// Inhalt</div>
+    <ol>
+      <li><a href="#v1">Verantwortlicher</a></li>
+      <li><a href="#v2">Allgemeine Hinweise</a></li>
+      <li><a href="#v3">Server-Logfiles</a></li>
+      <li><a href="#v4">Hosting</a></li>
+      <li><a href="#v5">Kontaktformular &amp; E-Mail</a></li>
+      <li><a href="#v6">Lokaler Speicher</a></li>
+      <li><a href="#v7">Schriftarten (Google Fonts)</a></li>
+      <li><a href="#v8">Ihre Rechte</a></li>
+      <li><a href="#v9">Beschwerderecht</a></li>
+      <li><a href="#v10">Aktualität</a></li>
+    </ol>
+  </div>
+
+  <h2 id="v1"><span class="num">01</span>Verantwortlicher</h2>
+  <div class="legal-block">
+    <p>
+      Verantwortlich für die Datenverarbeitung im Sinne von Art. 4 Nr. 7 DSGVO ist:
+    </p>
+    <p>
+      <strong>Patrick Dietz</strong><br>
+      Schlesische Straße 8<br>
+      78224 Singen, Deutschland<br>
+      E-Mail: <a href="mailto:patrick@dietz-engineering.com">patrick@dietz-engineering.com</a>
+    </p>
+  </div>
+
+  <h2 id="v2"><span class="num">02</span>Allgemeine Hinweise</h2>
+  <div class="legal-block">
+    <p>
+      Personenbezogene Daten werden auf dieser Website nur erhoben, wenn Sie sie mir
+      aktiv zur Verfügung stellen — insbesondere über das Buchungs- bzw. Kontaktformular
+      oder durch direkte E-Mail-Korrespondenz.
+    </p>
+    <p>
+      Der Datenverkehr zwischen Ihrem Browser und dieser Website ist durchgängig per
+      TLS (HTTPS) verschlüsselt. Erkennbar ist dies an dem Schloss-Symbol in der
+      Adresszeile Ihres Browsers.
+    </p>
+  </div>
+
+  <h2 id="v3"><span class="num">03</span>Server-Logfiles</h2>
+  <div class="legal-block">
+    <p>
+      Beim Aufruf dieser Website erfasst der Hosting-Provider in sogenannten
+      Server-Logfiles automatisch Informationen, die Ihr Browser übermittelt. Dies sind:
+    </p>
+    <ul>
+      <li>IP-Adresse (gekürzt, sofern technisch möglich)</li>
+      <li>Datum und Uhrzeit der Anfrage</li>
+      <li>Inhalt der Anforderung (besuchte Seite)</li>
+      <li>Übertragenes Datenvolumen</li>
+      <li>Referrer-URL</li>
+      <li>Browser-Typ und Betriebssystem</li>
+    </ul>
+    <p>
+      Diese Daten werden ausschließlich zur Sicherstellung des fehlerfreien Betriebs
+      und zur Abwehr von Angriffen verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1
+      lit. f DSGVO (berechtigtes Interesse). Die Logs werden nach maximal 14 Tagen
+      gelöscht oder anonymisiert; im Falle eines sicherheitsrelevanten Vorfalls bis
+      zu dessen Aufklärung.
+    </p>
+  </div>
+
+  <h2 id="v4"><span class="num">04</span>Hosting</h2>
+  <div class="legal-block">
+    <p>
+      Diese Website wird über den Dienst <strong>GitHub Pages</strong> ausgeliefert,
+      betrieben von der GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107,
+      USA (Tochtergesellschaft der Microsoft Corporation). Beim Aufruf der Website
+      stellt Ihr Browser eine Verbindung zu Servern von GitHub her, die Inhalte werden
+      über das globale GitHub-Netzwerk ausgeliefert.
+    </p>
+    <p>
+      Im Rahmen dieser Auslieferung kann Ihre IP-Adresse an Server von GitHub
+      übermittelt werden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO
+      (berechtigtes Interesse an der zuverlässigen Auslieferung der Website).
+    </p>
+    <p>
+      <strong>Hinweis zur Drittlandübermittlung:</strong> GitHub ist ein US-Unternehmen.
+      Eine Übermittlung personenbezogener Daten in die USA ist daher nicht
+      ausgeschlossen. GitHub ist nach dem EU-US Data Privacy Framework zertifiziert
+      (Microsoft Corporation und Tochtergesellschaften). Ergänzend kommen
+      EU-Standardvertragsklauseln gemäß Art. 46 Abs. 2 lit. c DSGVO zur Anwendung.
+    </p>
+    <p>
+      Weitere Informationen zur Datenverarbeitung durch GitHub finden Sie in der
+      <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Datenschutzerklärung von GitHub</a>.
+    </p>
+  </div>
+
+  <h2 id="v5"><span class="num">05</span>Kontaktformular &amp; E-Mail-Kontakt</h2>
+  <div class="legal-block">
+    <p>
+      Wenn Sie mir eine Anfrage über das Buchungs- bzw. Kontaktformular oder per
+      E-Mail zukommen lassen, verarbeite ich folgende Daten:
+    </p>
+    <ul>
+      <li>Vor- und Nachname</li>
+      <li>E-Mail-Adresse</li>
+      <li>Firma (sofern angegeben)</li>
+      <li>Inhalt Ihrer Projektbeschreibung</li>
+      <li>Wunschtermin (sofern angegeben)</li>
+      <li>Gewähltes Buchungspaket</li>
+    </ul>
+    <p>
+      Diese Angaben verwende ich ausschließlich zur Bearbeitung Ihrer Anfrage und für
+      die anschließende Korrespondenz. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO
+      (Anbahnung bzw. Erfüllung eines Vertrags) sowie Art. 6 Abs. 1 lit. f DSGVO
+      (berechtigtes Interesse an der Beantwortung Ihrer Anfrage).
+    </p>
+    <p>
+      <strong>Hinweis:</strong> Über das Buchungsformular wird zu keinem Zeitpunkt eine
+      automatisierte Zahlung ausgelöst. Eine Zahlung erfolgt erst nach individueller
+      Absprache und auf separat zugesendete Zahlungsdetails.
+    </p>
+    <p>
+      Ihre Daten werden bis zur abschließenden Bearbeitung Ihres Anliegens gespeichert
+      und danach unter Beachtung etwaiger gesetzlicher Aufbewahrungsfristen (insb.
+      §147 AO, §257 HGB für Geschäftsbriefe — i.d.R. 6 Jahre) gelöscht.
+    </p>
+    <h3>Auftragsverarbeiter Formular-Versand: Web3Forms</h3>
+    <p>
+      Zur technischen Übermittlung Ihrer Formular-Eingaben an meine E-Mail-Adresse
+      nutze ich den Dienst <strong>Web3Forms</strong> (betrieben von The Web Forms,
+      <a href="https://web3forms.com/privacy-policy" target="_blank" rel="noopener">Datenschutzerklärung</a>).
+      Bei Absenden des Formulars werden die von Ihnen eingegebenen Daten an einen Server
+      von Web3Forms übermittelt und dort kurzzeitig zwischengespeichert, um eine
+      Benachrichtigung an mich auszulösen. Web3Forms speichert die Form-Inhalte
+      grundsätzlich nicht dauerhaft.
+    </p>
+    <p>
+      Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) sowie
+      Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der zuverlässigen
+      Übermittlung von Anfragen). Mit Web3Forms besteht ein Auftragsverarbeitungsvertrag
+      gemäß Art. 28 DSGVO.
+    </p>
+    <h3>Online-Terminbuchung: Google Kalender (Google Workspace)</h3>
+    <p>
+      Im Buchungs-Bereich der Website ist ein eingebetteter Buchungskalender aus meinem
+      <strong>Google-Workspace-Konto</strong> integriert (Anbieter: Google Ireland Limited,
+      Gordon House, Barrow Street, Dublin 4, Irland — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung</a>).
+      Beim Aufruf des Buchungs-Bereichs werden Inhalte und Skripte von Google-Servern
+      geladen; dabei kann Ihre IP-Adresse an Google übermittelt werden. Wenn Sie aktiv
+      einen Termin buchen, übermitteln Sie weitere personenbezogene Daten (insb. Name
+      und E-Mail) direkt an Google.
+    </p>
+    <p>
+      Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Vertrags) sowie
+      Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer effizienten
+      Termin­vereinbarung). Mit Google besteht eine Auftragsverarbeitungsvereinbarung
+      gemäß Art. 28 DSGVO (Google Workspace Data Processing Amendment). Soweit
+      Daten an Server in den USA übermittelt werden, ist Google nach dem
+      EU-US Data Privacy Framework zertifiziert; ergänzend kommen EU-Standardvertragsklauseln
+      nach Art. 46 Abs. 2 lit. c DSGVO zur Anwendung.
+    </p>
+  </div>
+
+  <h2 id="v6"><span class="num">06</span>Lokaler Speicher (localStorage)</h2>
+  <div class="legal-block">
+    <p>
+      Diese Website nutzt den lokalen Speicher Ihres Browsers (localStorage), um zwei
+      kleine technische Einstellungen zu sichern:
+    </p>
+    <ul>
+      <li>Ihre gewählte Anzeige-Variante (Dark- oder Light-Mode)</li>
+      <li>Ihre gewählte Anzeige-Sprache (Deutsch, Englisch, Spanisch, Chinesisch)</li>
+    </ul>
+    <p>
+      Diese Daten verbleiben ausschließlich auf Ihrem Endgerät und werden zu keinem
+      Zeitpunkt an mich oder Dritte übermittelt. Da es sich um unbedingt erforderliche
+      Funktionen zur Bereitstellung des von Ihnen ausdrücklich gewünschten Dienstes
+      handelt, ist eine Einwilligung nach §25 Abs. 2 Nr. 2 TTDSG nicht erforderlich.
+      Sie können diese Daten jederzeit über die Einstellungen Ihres Browsers löschen.
+    </p>
+  </div>
+
+  <h2 id="v7"><span class="num">07</span>Schriftarten (Google Fonts)</h2>
+  <div class="legal-block">
+    <p>
+      Diese Website lädt zur einheitlichen Darstellung der Typografie Schriftarten der
+      Anbieter <strong>Google Fonts</strong>, betrieben von Google Ireland Limited,
+      Gordon House, Barrow Street, Dublin 4, Irland („Google"). Beim Aufruf der Seite
+      lädt Ihr Browser die benötigten Schriftarten von einem Server von Google. Hierbei
+      kann Ihre IP-Adresse an Google übertragen werden.
+    </p>
+    <p>
+      Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
+      einheitlichen und ansprechenden Darstellung der Inhalte).
+    </p>
+    <p>
+      Sofern Ihr Browser die Nutzung von Google Fonts nicht unterstützt oder den Zugriff
+      blockiert, werden die Texte in einer Standard-Schrift angezeigt. Eine Umstellung
+      auf selbst-gehostete Schriftarten ist in Vorbereitung.
+    </p>
+    <p>
+      Weitere Informationen zum Umgang mit Nutzerdaten finden Sie in der
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>.
+    </p>
+  </div>
+
+  <h2 id="v8"><span class="num">08</span>Ihre Rechte als betroffene Person</h2>
+  <div class="legal-block">
+    <p>
+      Sofern Ihre personenbezogenen Daten verarbeitet werden, sind Sie betroffene
+      Person im Sinne der DSGVO. Ihnen stehen folgende Rechte zu:
+    </p>
+    <ul>
+      <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+      <li>Recht auf Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
+      <li>Recht auf Löschung („Recht auf Vergessenwerden", Art. 17 DSGVO)</li>
+      <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+      <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+      <li>Widerspruchsrecht gegen die Verarbeitung (Art. 21 DSGVO)</li>
+      <li>Recht auf Widerruf einer erteilten Einwilligung (Art. 7 Abs. 3 DSGVO)</li>
+    </ul>
+    <p>
+      Zur Wahrnehmung dieser Rechte genügt eine formlose E-Mail an
+      <a href="mailto:patrick@dietz-engineering.com">patrick@dietz-engineering.com</a>.
+    </p>
+  </div>
+
+  <h2 id="v9"><span class="num">09</span>Beschwerderecht bei der Aufsichtsbehörde</h2>
+  <div class="legal-block">
+    <p>
+      Unbeschadet eines anderweitigen Rechtsbehelfs steht Ihnen das Recht auf Beschwerde
+      bei einer Datenschutz-Aufsichtsbehörde zu (Art. 77 DSGVO). Die für mich zuständige
+      Aufsichtsbehörde ist:
+    </p>
+    <p>
+      <strong>Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit
+      Baden-Württemberg</strong><br>
+      Königstraße 10a<br>
+      70173 Stuttgart<br>
+      <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel="noopener">www.baden-wuerttemberg.datenschutz.de</a>
+    </p>
+  </div>
+
+  <h2 id="v10"><span class="num">10</span>Aktualität dieser Erklärung</h2>
+  <div class="legal-block">
+    <p>
+      Aufgrund veränderter gesetzlicher Vorgaben oder Anpassungen meiner Dienste kann
+      eine Anpassung dieser Datenschutzerklärung notwendig werden. Die jeweils aktuelle
+      Fassung finden Sie stets unter dieser Adresse.
+    </p>
+    <p class="muted">// Stand: <span id="dateStamp"></span></p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="index.html" aria-label="Dietz Engineering Home">
+      <svg class="footer-lockup" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text x="200" y="110" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="64" letter-spacing="1" fill="#1e2c47" text-anchor="middle">DIETZ</text>
+        <line x1="80" y1="125" x2="320" y2="125" stroke="#8b8e92" stroke-width="2"/>
+        <text x="200" y="160" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="6" fill="#8b8e92" text-anchor="middle">ENGINEERING</text>
+      </svg>
+    </a>
+    <div class="footer-meta">© <span id="year"></span> Patrick Dietz</div>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="agb.html">AGB</a>
+      <a href="datenschutz.html" class="active">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Privacy modal -->
+<div class="privacy-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="privacy-backdrop"></div>
+  <div class="privacy-dialog">
+    <h2 id="privacyTitle">Privatsphäre-Einstellungen</h2>
+    <div class="privacy-content">
+      <p>Diese Website lädt Schriftarten von <strong>Google Fonts (USA)</strong>, übermittelt Buchungsanfragen über <strong>Web3Forms</strong> und speichert deine Theme-Präferenz lokal in deinem Browser. Beim Laden externer Schriftarten kann deine IP-Adresse an Google übertragen werden. Details findest du unten in dieser Erklärung.</p>
+      <p>Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.</p>
+    </div>
+    <div class="privacy-details" id="privacyDetails" hidden>
+      <h3>// Was gespeichert wird</h3>
+      <ul>
+        <li><strong>Technisch notwendig</strong><span>Theme-Präferenz im Local Storage deines Browsers. Einwilligungsfrei nach §25 Abs. 2 Nr. 2 TTDSG, da unbedingt erforderlich für die Bereitstellung des Dienstes.</span></li>
+        <li><strong>Externe Schriftarten · Google Fonts</strong><span>Lädt Typografie vom Google-CDN (Google Ireland Limited). IP-Adresse wird übertragen, ggf. Drittlandtransfer in die USA. Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, EU-DPF-Framework.</span></li>
+        <li><strong>Formular-Backend · Web3Forms</strong><span>Bei Absenden des Buchungsformulars auf der Hauptseite werden Eingaben an Web3Forms übermittelt. Auftragsverarbeitung gemäß Art. 28 DSGVO.</span></li>
+      </ul>
+    </div>
+    <div class="privacy-actions">
+      <button class="privacy-btn primary" id="privacyAcceptAll" type="button">Alle akzeptieren</button>
+      <button class="privacy-btn secondary" id="privacyContinue" type="button">Weiter ohne Einwilligung</button>
+      <button class="privacy-btn link" id="privacyCustomize" type="button">Privatsphäre-Einstellungen individuell festlegen</button>
+    </div>
+    <div class="privacy-footer">
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const iconMoon = document.getElementById('iconMoon');
+const iconSun = document.getElementById('iconSun');
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  iconMoon.style.display = t === 'dark' ? 'block' : 'none';
+  iconSun.style.display  = t === 'dark' ? 'none'  : 'block';
+  try { localStorage.setItem('de_theme', t); } catch(e) {}
+}
+let stored = 'light';
+try { stored = localStorage.getItem('de_theme') || 'light'; } catch(e) {}
+applyTheme(stored);
+themeToggle.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+});
+
+const d = new Date();
+document.getElementById('year').textContent = d.getFullYear();
+document.getElementById('dateStamp').textContent =
+  d.toLocaleDateString('de-DE', { year: 'numeric', month: 'long' });
+
+/* Privacy modal */
+(function() {
+  const modal = document.getElementById('privacyModal');
+  if (!modal) return;
+  const acceptBtn   = document.getElementById('privacyAcceptAll');
+  const continueBtn = document.getElementById('privacyContinue');
+  const customizeBtn= document.getElementById('privacyCustomize');
+  const detailsEl   = document.getElementById('privacyDetails');
+  let consent = null;
+  try { consent = localStorage.getItem('de_privacy_v2'); } catch(e){}
+  if (!consent) setTimeout(() => modal.classList.add('show'), 700);
+  function close(choice) {
+    try { localStorage.setItem('de_privacy_v2', choice); } catch(e){}
+    modal.classList.remove('show');
+  }
+  acceptBtn.addEventListener('click', () => close('accept'));
+  continueBtn.addEventListener('click', () => close('reject'));
+  customizeBtn.addEventListener('click', () => {
+    detailsEl.hidden = !detailsEl.hidden;
+    customizeBtn.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+})();
+</script>
+</body>
+</html>

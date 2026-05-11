@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "title": {
+        "de": "Schnellere Inbetriebnahme",
+        "en": "Faster Commissioning",
+        "es": "Puesta en marcha más rápida",
+        "zh": "更快的现场调试"
+      },
+      "description": {
+        "de": "Strukturierte Konstruktion verkürzt die Anlaufzeit und vermeidet Verzögerungen bei der Inbetriebnahme.",
+        "en": "Structured engineering reduces startup time and avoids delays during commissioning.",
+        "es": "La ingeniería estructurada reduce el tiempo de arranque y evita retrasos durante la puesta en marcha.",
+        "zh": "结构化的工程设计可缩短启动时间，避免调试阶段的延误。"
+      }
+    },
+    {
+      "title": {
+        "de": "Weniger Fehler",
+        "en": "Fewer Errors",
+        "es": "Menos errores",
+        "zh": "更少的错误"
+      },
+      "description": {
+        "de": "Saubere EPLAN-Struktur minimiert Verdrahtungsfehler und Probleme in der Produktion.",
+        "en": "Clean EPLAN structure minimizes wiring errors and production issues.",
+        "es": "Una estructura EPLAN limpia minimiza errores de cableado y problemas en producción.",
+        "zh": "规范的 EPLAN 结构可最大程度减少接线错误与生产问题。"
+      }
+    },
+    {
+      "title": {
+        "de": "Höhere Zuverlässigkeit",
+        "en": "Higher Reliability",
+        "es": "Mayor fiabilidad",
+        "zh": "更高的可靠性"
+      },
+      "description": {
+        "de": "Optimierte Systeme reduzieren Ausfälle und verbessern die langfristige Stabilität.",
+        "en": "Optimized systems reduce failures and improve long-term stability.",
+        "es": "Los sistemas optimizados reducen fallos y mejoran la estabilidad a largo plazo.",
+        "zh": "经过优化的系统能减少故障并提升长期稳定性。"
+      }
+    },
+    {
+      "title": {
+        "de": "Bessere Skalierbarkeit",
+        "en": "Better Scalability",
+        "es": "Mejor escalabilidad",
+        "zh": "更佳的可扩展性"
+      },
+      "description": {
+        "de": "Standardisierte Dokumentation ermöglicht einfacheres Skalieren und globale Auslieferung.",
+        "en": "Standardized documentation enables easier scaling and global deployment.",
+        "es": "La documentación estandarizada facilita el escalado y el despliegue global.",
+        "zh": "标准化文档便于规模化部署与全球落地。"
+      }
+    }
+  ]
+}

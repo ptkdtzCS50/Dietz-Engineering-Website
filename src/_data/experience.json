@@ -1,0 +1,195 @@
+{
+  "items": [
+    {
+      "id": "e1",
+      "period_literal": null,
+      "period": {
+        "de": "2023 — heute",
+        "en": "2023 — present",
+        "es": "2023 — actualidad",
+        "zh": "2023 — 至今"
+      },
+      "title": {
+        "de": "Electrical Engineer — R&D",
+        "en": "Electrical Engineer — R&D",
+        "es": "Electrical Engineer — I+D",
+        "zh": "电气工程师 — 研发"
+      },
+      "company": {
+        "de": "Rieter AG, Schweiz · Faseraufbereitungsmaschinen",
+        "en": "Rieter AG, Switzerland · Fiber-preparation machinery",
+        "es": "Rieter AG, Suiza · Maquinaria de preparación de fibra",
+        "zh": "瑞士 Rieter AG · 纤维准备机械"
+      },
+      "bullets": [
+        {
+          "de": "Entwicklung und Pflege elektrischer Schaltpläne mit EPLAN P8",
+          "en": "Development and maintenance of electrical schematics with EPLAN P8",
+          "es": "Desarrollo y mantenimiento de esquemas eléctricos con EPLAN P8",
+          "zh": "使用 EPLAN P8 进行电气电路图的开发与维护"
+        },
+        {
+          "de": "R&D für textile Maschinen — Strecke, Kämmerei, E40, E86",
+          "en": "R&D for textile machines — draw frame, comber, E40, E86",
+          "es": "I+D para máquinas textiles — manuar, peinadora, E40, E86",
+          "zh": "纺织机械研发 — 并条机、精梳机、E40、E86"
+        },
+        {
+          "de": "Unterstützung internationaler Projekte (China, Indien)",
+          "en": "Support for international projects (China, India)",
+          "es": "Apoyo a proyectos internacionales (China, India)",
+          "zh": "支持中国、印度等国际项目"
+        },
+        {
+          "de": "Technischer Kundensupport und Inbetriebnahmen (ACHA, Intercot)",
+          "en": "Technical customer support and commissioning (ACHA, Intercot)",
+          "es": "Soporte técnico al cliente y puestas en marcha (ACHA, Intercot)",
+          "zh": "客户技术支持与现场调试（ACHA、Intercot）"
+        },
+        {
+          "de": "Analyse komplexer Maschinenprobleme — Drives, Sensorik, Temperaturverhalten, Safety",
+          "en": "Analysis of complex machine problems — drives, sensors, thermal behavior, safety",
+          "es": "Análisis de problemas complejos de máquina — accionamientos, sensórica, térmica, seguridad",
+          "zh": "复杂机器问题分析 — 驱动、传感、温升表现、安全回路"
+        },
+        {
+          "de": "Stücklistenpflege in SAP / ECTR",
+          "en": "BOM maintenance in SAP / ECTR",
+          "es": "Mantenimiento de BOM en SAP / ECTR",
+          "zh": "在 SAP / ECTR 中维护 BOM"
+        }
+      ],
+      "tags": [
+        {
+          "de": "ACOPOS P3",
+          "en": "ACOPOS P3",
+          "es": "ACOPOS P3",
+          "zh": "ACOPOS P3"
+        },
+        {
+          "de": "Motion Control",
+          "en": "Motion Control",
+          "es": "Motion Control",
+          "zh": "Motion Control"
+        },
+        {
+          "de": "Safety Circuits",
+          "en": "Safety Circuits",
+          "es": "Safety Circuits",
+          "zh": "Safety Circuits"
+        },
+        {
+          "de": "Retrofit-Kits",
+          "en": "Retrofit-Kits",
+          "es": "Retrofit-Kits",
+          "zh": "Retrofit-Kits"
+        },
+        {
+          "de": "CE / UL",
+          "en": "CE / UL",
+          "es": "CE / UL",
+          "zh": "CE / UL"
+        },
+        {
+          "de": "EPLAN P8",
+          "en": "EPLAN P8",
+          "es": "EPLAN P8",
+          "zh": "EPLAN P8"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "period_literal": "2012 — 2023",
+      "period": null,
+      "title": {
+        "de": "Elektrotechniker — Konstruktion",
+        "en": "Electrical Technician — Design",
+        "es": "Técnico eléctrico — Diseño",
+        "zh": "电气技术员 — 设计"
+      },
+      "company": {
+        "de": "Breyer Maschinenfabrik GmbH · Kunststoff-Extrusionsanlagen",
+        "en": "Breyer Maschinenfabrik GmbH · Plastic extrusion lines",
+        "es": "Breyer Maschinenfabrik GmbH · Líneas de extrusión de plástico",
+        "zh": "Breyer Maschinenfabrik GmbH · 塑料挤出生产线"
+      },
+      "bullets": [
+        {
+          "de": "Elektrische Konstruktion von Extrusionsanlagen — Plattenfolien, Tubenschlauch, Batteriefolien, Glättwerke",
+          "en": "Electrical design of extrusion lines — sheet film, tube hose, battery film, calenders",
+          "es": "Diseño eléctrico de líneas de extrusión — láminas, tubos, films de batería, calandras",
+          "zh": "挤出生产线电气设计 — 板材薄膜、管材、电池薄膜、压光机"
+        },
+        {
+          "de": "Kabelauslegung und Definition von Kabellängen",
+          "en": "Cable sizing and definition of cable lengths",
+          "es": "Dimensionado y definición de longitudes de cable",
+          "zh": "电缆选型与电缆长度定义"
+        },
+        {
+          "de": "EPLAN Systemadministration — Artikeldaten, Auswertungen, Vorlagen, Prüfprotokolle, RCA",
+          "en": "EPLAN system administration — article data, evaluations, templates, test reports, RCA",
+          "es": "Administración de EPLAN — datos de artículos, listados, plantillas, protocolos, RCA",
+          "zh": "EPLAN 系统管理 — 物料数据、报表、模板、测试协议、RCA"
+        },
+        {
+          "de": "Absprache mit Produktion, Produktabkündigungen, Lieferantenkommunikation",
+          "en": "Coordination with production, product phase-outs, supplier communication",
+          "es": "Coordinación con producción, gestión de obsolescencias, comunicación con proveedores",
+          "zh": "与生产部门沟通、产品停产管理、供应商沟通"
+        },
+        {
+          "de": "Inbetriebnahmen und Kundensupport — u.a. 5 Monate am Stück in China während Corona",
+          "en": "Commissioning and customer support — incl. 5 months continuous on-site in China during Covid",
+          "es": "Puestas en marcha y soporte al cliente — incl. 5 meses seguidos en China durante el Covid",
+          "zh": "现场调试与客户支持 — 包括疫情期间在中国连续 5 个月驻场"
+        },
+        {
+          "de": "EPLAN Pro Panel, Smartwiring, EPLAN Fluid (Pneumatik)",
+          "en": "EPLAN Pro Panel, Smartwiring, EPLAN Fluid (pneumatics)",
+          "es": "EPLAN Pro Panel, Smartwiring, EPLAN Fluid (neumática)",
+          "zh": "EPLAN Pro Panel、Smartwiring、EPLAN Fluid（气动）"
+        }
+      ],
+      "tags": [
+        {
+          "de": "EPLAN Pro Panel",
+          "en": "EPLAN Pro Panel",
+          "es": "EPLAN Pro Panel",
+          "zh": "EPLAN Pro Panel"
+        },
+        {
+          "de": "Smartwiring",
+          "en": "Smartwiring",
+          "es": "Smartwiring",
+          "zh": "Smartwiring"
+        },
+        {
+          "de": "EPLAN Fluid",
+          "en": "EPLAN Fluid",
+          "es": "EPLAN Fluid",
+          "zh": "EPLAN Fluid"
+        },
+        {
+          "de": "RCA",
+          "en": "RCA",
+          "es": "RCA",
+          "zh": "RCA"
+        },
+        {
+          "de": "BOM",
+          "en": "BOM",
+          "es": "BOM",
+          "zh": "BOM"
+        },
+        {
+          "de": "Inbetriebnahme",
+          "en": "Inbetriebnahme",
+          "es": "Inbetriebnahme",
+          "zh": "Inbetriebnahme"
+        }
+      ]
+    }
+  ]
+}

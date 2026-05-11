@@ -1,0 +1,28 @@
+# Eleventy Build-Output (wird von GitHub Actions neu gebaut)
+_site/
+
+# Node.js Dependencies (werden in GitHub Actions installiert, nicht committed)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# macOS Systemdateien
+.DS_Store
+
+# Editor-Dateien
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Lokale Environment-Dateien (z.B. API-Keys für lokale Tests)
+.env
+.env.local
+.env.*.local
+
+# Claude lokale Settings
+.claude/
+
+# Screenshots Ordner (lokal, nicht für Production)
+Screen-Shots/

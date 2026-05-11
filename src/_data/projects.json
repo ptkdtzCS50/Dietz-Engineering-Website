@@ -1,0 +1,360 @@
+{
+  "items": [
+    {
+      "id": "p1",
+      "company": "Breyer Maschinenfabrik",
+      "region": {
+        "de": "DE · Multiple Projekte",
+        "en": "DE · Multiple projects",
+        "es": "DE · Múltiples proyectos",
+        "zh": "德国 · 多个项目"
+      },
+      "title": {
+        "de": "Plattenfolien-Extrusionslinien mit Co-Extrudern",
+        "en": "Sheet-film extrusion lines with co-extruders",
+        "es": "Líneas de extrusión de láminas con co-extrusores",
+        "zh": "带共挤出机的板材薄膜挤出生产线"
+      },
+      "challenge": {
+        "de": "Komplexe Extrusionslinie mit Co-Extrudern, Vakuumsystem, Glättwerk und langen Lieferzeiten der Hauptkomponenten.",
+        "en": "Complex extrusion line with co-extruders, vacuum system, calender and long lead times for major components.",
+        "es": "Línea de extrusión compleja con co-extrusores, sistema de vacío, calandra y plazos de entrega largos para los componentes principales.",
+        "zh": "复杂的挤出生产线，包含共挤出机、真空系统、压光机及主要部件长交付周期。"
+      },
+      "solution": {
+        "de": "Projektdefinition, frühe Beschaffung der Langläufer und vollständige EPLAN-P8-Konstruktion über alle Linienkomponenten hinweg.",
+        "en": "Project scoping, early procurement of long-lead items and full EPLAN P8 design across all line components.",
+        "es": "Definición del proyecto, aprovisionamiento temprano de componentes críticos y diseño EPLAN P8 completo de toda la línea.",
+        "zh": "项目范围界定、提前采购长交付物料，完整的 EPLAN P8 设计覆盖整条产线的所有部件。"
+      },
+      "result": {
+        "de": "Termintreue Auslieferung mehrerer Linien mit konsistenter Doku — eine Anlaufstelle für die gesamte Elektrokonstruktion.",
+        "en": "On-time delivery of multiple lines with consistent documentation — single point of accountability for the entire electrical engineering.",
+        "es": "Entrega puntual de varias líneas con documentación coherente — un único punto de responsabilidad para toda la ingeniería eléctrica.",
+        "zh": "按时交付多条生产线，文档保持一致 — 整条电气工程的单一负责人。"
+      },
+      "tags": [
+        {
+          "de": "EPLAN P8",
+          "en": "EPLAN P8",
+          "es": "EPLAN P8",
+          "zh": "EPLAN P8"
+        },
+        {
+          "de": "Co-Extrusion",
+          "en": "Co-Extrusion",
+          "es": "Co-Extrusion",
+          "zh": "Co-Extrusion"
+        },
+        {
+          "de": "Glättwerk",
+          "en": "Calender",
+          "es": "Calandra",
+          "zh": "压光机"
+        }
+      ],
+      "period_literal": "2015 — 2022",
+      "period": null
+    },
+    {
+      "id": "p2",
+      "company": "Breyer Maschinenfabrik",
+      "region": {
+        "de": "DE · Multiple Projekte",
+        "en": "DE · Multiple projects",
+        "es": "DE · Múltiples proyectos",
+        "zh": "德国 · 多个项目"
+      },
+      "title": {
+        "de": "Wickler-, Schneid- und Stapelanlagen",
+        "en": "Winders, slitters and stacker units",
+        "es": "Bobinadoras, cortadoras y apiladoras",
+        "zh": "卷绕机、分切机与堆垛设备"
+      },
+      "challenge": {
+        "de": "Komplexe Linienverbünde mit Wicklern, Längs- und Querschneideinrichtungen sowie Stapelanlagen — koordinierte Verdrahtung über mehrere Komponenten.",
+        "en": "Complex line composites with winders, longitudinal/cross-cutters and stackers — coordinated wiring across multiple components.",
+        "es": "Conjuntos de línea complejos con bobinadoras, cortadoras y apiladoras — cableado coordinado entre múltiples componentes.",
+        "zh": "复杂的联动生产线，包含卷绕机、纵/横切机和堆垛机 — 多部件协调布线。"
+      },
+      "solution": {
+        "de": "Pro-Panel-3D-Aufbau, Smartwiring-Daten und EPLAN Fluid für die Pneumatik in einem konsistenten Gesamtprojekt.",
+        "en": "Pro Panel 3D build, Smartwiring data and EPLAN Fluid for pneumatics — all in a coherent overall project.",
+        "es": "Construcción Pro Panel 3D, datos Smartwiring y EPLAN Fluid para neumática — todo en un proyecto coherente.",
+        "zh": "Pro Panel 3D 搭建、Smartwiring 数据，以及用于气动的 EPLAN Fluid — 全部整合在一个一致的项目里。"
+      },
+      "result": {
+        "de": "Fertigungsfähige Schaltschrank-Pakete mit sauberer Verdrahtungsdaten-Basis für die Produktion.",
+        "en": "Production-ready cabinet packages with clean wiring data foundation for manufacturing.",
+        "es": "Paquetes de armarios listos para producción con base de datos de cableado limpia.",
+        "zh": "具备生产可行性的电控柜方案，配套整洁的接线数据基础。"
+      },
+      "tags": [
+        {
+          "de": "EPLAN Pro Panel",
+          "en": "EPLAN Pro Panel",
+          "es": "EPLAN Pro Panel",
+          "zh": "EPLAN Pro Panel"
+        },
+        {
+          "de": "Smartwiring",
+          "en": "Smartwiring",
+          "es": "Smartwiring",
+          "zh": "Smartwiring"
+        },
+        {
+          "de": "EPLAN Fluid",
+          "en": "EPLAN Fluid",
+          "es": "EPLAN Fluid",
+          "zh": "EPLAN Fluid"
+        }
+      ],
+      "period_literal": "2018 — 2022",
+      "period": null
+    },
+    {
+      "id": "p3",
+      "company": "Breyer Maschinenfabrik",
+      "region": {
+        "de": "Asien · Vor-Ort",
+        "en": "Asia · On-site",
+        "es": "Asia · In situ",
+        "zh": "亚洲 · 现场"
+      },
+      "title": {
+        "de": "Inbetriebnahme während Corona-Lockdown",
+        "en": "Commissioning during the Covid lockdown",
+        "es": "Puesta en marcha durante el confinamiento",
+        "zh": "疫情封控期间的现场调试"
+      },
+      "challenge": {
+        "de": "Vollständige elektrische Inbetriebnahme einer Extrusionslinie unter Lockdown-Bedingungen, ohne reguläre Heimat-Unterstützung aus Deutschland.",
+        "en": "Full electrical commissioning of an extrusion line under lockdown conditions, without regular home-office support from Germany.",
+        "es": "Puesta en marcha eléctrica completa de una línea de extrusión bajo confinamiento, sin soporte habitual desde Alemania.",
+        "zh": "在封控条件下完成挤出生产线的全部电气调试，缺乏来自德国的常规后台支援。"
+      },
+      "solution": {
+        "de": "5 Monate durchgehende Vor-Ort-Präsenz, eigenständiges Troubleshooting an Drives und Sensorik, parallele Schulung des Kundenpersonals.",
+        "en": "5 months of continuous on-site presence, independent troubleshooting on drives and sensors, parallel training of customer staff.",
+        "es": "5 meses de presencia continua in situ, diagnóstico autónomo de accionamientos y sensórica, formación paralela del personal del cliente.",
+        "zh": "连续 5 个月驻场，独立排查驱动与传感问题，并同时培训客户人员。"
+      },
+      "result": {
+        "de": "Termingerechte Inbetriebnahme trotz Reise-Restriktionen, übergebenes Kunden-Team mit operativem Know-how.",
+        "en": "On-time commissioning despite travel restrictions, customer team handed over with operational know-how.",
+        "es": "Puesta en marcha puntual a pesar de las restricciones de viaje, equipo del cliente entregado con know-how operativo.",
+        "zh": "在差旅限制下仍按期完成调试，并成功向客户团队移交了运行所需的实操能力。"
+      },
+      "tags": [
+        {
+          "de": "Inbetriebnahme",
+          "en": "Commissioning",
+          "es": "Puesta en marcha",
+          "zh": "现场调试"
+        },
+        {
+          "de": "Troubleshooting",
+          "en": "Troubleshooting",
+          "es": "Diagnóstico",
+          "zh": "故障排查"
+        },
+        {
+          "de": "International",
+          "en": "International",
+          "es": "Internacional",
+          "zh": "国际项目"
+        }
+      ],
+      "period": {
+        "de": "2020 / 21 · 5 Monate",
+        "en": "2020 / 21 · 5 months",
+        "es": "2020 / 21 · 5 meses",
+        "zh": "2020 / 21 · 5 个月"
+      },
+      "period_literal": null
+    },
+    {
+      "id": "p4",
+      "company": "Rieter AG",
+      "region": {
+        "de": "CH · R&D",
+        "en": "CH · R&D",
+        "es": "CH · I+D",
+        "zh": "瑞士 · 研发"
+      },
+      "title": {
+        "de": "CGC, E40 & Mikrowellen-Elektronik",
+        "en": "CGC, E40 & microwave electronics",
+        "es": "CGC, E40 y electrónica de microondas",
+        "zh": "CGC、E40 与微波电子模块"
+      },
+      "challenge": {
+        "de": "Mehrere Maschinenfunktionen von der Konzeptphase bis zur 0-Serien-Reife — inklusive EMV-Anforderungen für CE-Zertifizierung.",
+        "en": "Multiple machine functions from concept phase through 0-series readiness — including EMC requirements for CE certification.",
+        "es": "Múltiples funciones de máquina desde la fase conceptual hasta la madurez serie 0 — incluidos requisitos CEM para la certificación CE.",
+        "zh": "多个机型功能模块从概念阶段推进至 0 系列状态 — 包含 CE 认证所需的 EMC 要求。"
+      },
+      "solution": {
+        "de": "Elektrische Konzeptarbeit, RCA-getriebene Iterationen, EMV-Messungen, Fertigungsunterlagen und Prototypen-Aufbau im interdisziplinären Team.",
+        "en": "Electrical concept work, RCA-driven iterations, EMC measurements, manufacturing documents and prototype builds with the cross-disciplinary team.",
+        "es": "Trabajo conceptual eléctrico, iteraciones impulsadas por RCA, mediciones CEM, documentación de fabricación y montaje de prototipos en equipo interdisciplinario.",
+        "zh": "电气概念设计、由 RCA 驱动的迭代优化、EMC 测量、生产文件与原型搭建，跨学科团队协作完成。"
+      },
+      "result": {
+        "de": "0-Serien-reife Funktionsmodule mit validierter Doku, eingespeist in Rieters internationale Produktion.",
+        "en": "0-series-ready function modules with validated documentation, fed into Rieter's international production.",
+        "es": "Módulos funcionales en estado serie 0 con documentación validada, integrados en la producción internacional de Rieter.",
+        "zh": "达到 0 系列水准的功能模块及验证过的文档，已纳入 Rieter 国际化生产体系。"
+      },
+      "tags": [
+        {
+          "de": "R&D",
+          "en": "R&D",
+          "es": "R&D",
+          "zh": "R&D"
+        },
+        {
+          "de": "ACOPOS P3",
+          "en": "ACOPOS P3",
+          "es": "ACOPOS P3",
+          "zh": "ACOPOS P3"
+        },
+        {
+          "de": "0-Serie",
+          "en": "0-series",
+          "es": "Serie 0",
+          "zh": "0 系列"
+        }
+      ],
+      "period": {
+        "de": "2023 — heute",
+        "en": "2023 — present",
+        "es": "2023 — actualidad",
+        "zh": "2023 — 至今"
+      },
+      "period_literal": null
+    },
+    {
+      "id": "p5",
+      "company": "Rieter AG",
+      "region": {
+        "de": "International",
+        "en": "International",
+        "es": "Internacional",
+        "zh": "国际"
+      },
+      "title": {
+        "de": "Prototyp-Feldtest & Customer Onboarding",
+        "en": "Prototype field-test & customer onboarding",
+        "es": "Pruebas de campo de prototipos y onboarding",
+        "zh": "原型现场测试与客户上线"
+      },
+      "challenge": {
+        "de": "Pilotkunden brauchten Installation, Inbetriebnahme und Schulung an neuen Prototypen — verteilt über mehrere Standorte.",
+        "en": "Pilot customers needed installation, commissioning and training on new prototypes — distributed across multiple sites.",
+        "es": "Los clientes piloto requerían instalación, puesta en marcha y formación en nuevos prototipos — distribuidos en varias localizaciones.",
+        "zh": "试点客户分布在多个站点，需要完成新原型的安装、调试与培训。"
+      },
+      "solution": {
+        "de": "Selbstorganisierte Logistik der Prototypenteile, Vor-Ort-Installation, Erstellung von Umbau-Instruktionen, Schulung der Bediener.",
+        "en": "Self-organized logistics for prototype parts, on-site installation, creation of conversion instructions, operator training.",
+        "es": "Logística autoorganizada de las piezas prototipo, instalación in situ, redacción de instrucciones de modificación, formación de operarios.",
+        "zh": "自主统筹原型零件物流、现场安装、改造说明的撰写与操作人员培训。"
+      },
+      "result": {
+        "de": "Pilotkunden produktiv und unabhängig, dokumentiertes Onboarding-Paket für Folge-Rollouts.",
+        "en": "Pilot customers operational and independent, documented onboarding package for follow-up rollouts.",
+        "es": "Clientes piloto operativos e independientes, paquete de onboarding documentado para despliegues posteriores.",
+        "zh": "试点客户独立投入运行，并形成可复用于后续推广的上线手册。"
+      },
+      "tags": [
+        {
+          "de": "Pilotkunden",
+          "en": "Pilot customers",
+          "es": "Clientes piloto",
+          "zh": "试点客户"
+        },
+        {
+          "de": "Schulung",
+          "en": "Training",
+          "es": "Formación",
+          "zh": "培训"
+        },
+        {
+          "de": "Umbau-Instruktionen",
+          "en": "Conversion docs",
+          "es": "Modificaciones",
+          "zh": "改造说明"
+        }
+      ],
+      "period": {
+        "de": "2023 — heute",
+        "en": "2023 — present",
+        "es": "2023 — actualidad",
+        "zh": "2023 — 至今"
+      },
+      "period_literal": null
+    },
+    {
+      "id": "p6",
+      "company": "Rieter AG · Automation Studio",
+      "region": {
+        "de": "",
+        "en": "",
+        "es": "",
+        "zh": ""
+      },
+      "title": {
+        "de": "Komponentenanalyse & Supplier-Quality",
+        "en": "Component analysis & supplier quality",
+        "es": "Análisis de componentes y calidad de proveedores",
+        "zh": "零部件分析与供应商质量"
+      },
+      "challenge": {
+        "de": "Wiederkehrende Komponenten-Issues bei mehreren Lieferanten — interdisziplinäre Probleme zwischen Elektrik, Software und Mechanik.",
+        "en": "Recurring component issues across multiple suppliers — cross-disciplinary problems between electrical, software and mechanical.",
+        "es": "Problemas recurrentes de componentes en varios proveedores — fallos interdisciplinarios entre eléctrica, software y mecánica.",
+        "zh": "多家供应商出现重复性零部件问题 — 涉及电气、软件与机械的跨领域故障。"
+      },
+      "solution": {
+        "de": "Programmierung in Automation Studio (B&R), Lieferantenkoordination, strukturierte 8D-Reports und Root-Cause-Analyse.",
+        "en": "Programming in Automation Studio (B&R), supplier coordination, structured 8D reports and root-cause analysis.",
+        "es": "Programación en Automation Studio (B&R), coordinación con proveedores, informes 8D estructurados y análisis de causa raíz.",
+        "zh": "在 Automation Studio（B&R）中进行编程、协调供应商，并基于 8D 报告进行根本原因分析。"
+      },
+      "result": {
+        "de": "Lieferantenseitige Probleme nachhaltig gelöst, dokumentierter QS-Prozess für vergleichbare künftige Fälle.",
+        "en": "Supplier-side issues resolved sustainably, documented QA process for similar future cases.",
+        "es": "Problemas del lado del proveedor resueltos de forma sostenible, proceso de QA documentado para casos similares futuros.",
+        "zh": "供应商侧问题得以彻底解决，并形成可复用于类似情形的质量保证流程。"
+      },
+      "tags": [
+        {
+          "de": "8D-Reports",
+          "en": "8D-Reports",
+          "es": "8D-Reports",
+          "zh": "8D-Reports"
+        },
+        {
+          "de": "Automation Studio",
+          "en": "Automation Studio",
+          "es": "Automation Studio",
+          "zh": "Automation Studio"
+        },
+        {
+          "de": "RCA",
+          "en": "RCA",
+          "es": "RCA",
+          "zh": "RCA"
+        }
+      ],
+      "period": {
+        "de": "2023 — heute",
+        "en": "2023 — present",
+        "es": "2023 — actualidad",
+        "zh": "2023 — 至今"
+      },
+      "period_literal": null
+    }
+  ]
+}

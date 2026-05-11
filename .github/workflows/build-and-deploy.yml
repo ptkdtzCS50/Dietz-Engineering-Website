@@ -1,0 +1,64 @@
+name: Build & Deploy
+
+# Wann läuft dieser Workflow?
+on:
+  push:
+    branches:
+      - main                # → deployt live nach dietz-engineering.com
+      - pre-release-test    # → baut zum Test (kein Deploy)
+  pull_request:
+    branches: [main]        # → baut zum Test bei PRs
+  workflow_dispatch:        # → manuell triggerbar über GitHub UI
+
+# Berechtigungen für den GitHub-Pages-Deploy
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Verhindert parallele Deploys (nur eines gleichzeitig)
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  # ─────────────────────────────────────────
+  # Job 1: Eleventy Build (läuft auf jedem Push)
+  # ─────────────────────────────────────────
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo auschecken
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+
+      - name: Dependencies installieren
+        run: npm install
+
+      - name: Eleventy Build ausführen
+        run: npx @11ty/eleventy
+
+      - name: Build-Output als Artifact hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site/
+
+  # ─────────────────────────────────────────
+  # Job 2: GitHub Pages Deploy (nur main-Branch)
+  # ─────────────────────────────────────────
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy auf GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

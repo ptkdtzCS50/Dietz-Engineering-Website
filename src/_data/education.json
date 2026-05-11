@@ -1,0 +1,41 @@
+{
+  "items": [
+    {
+      "period_literal": "2012 — 2016",
+      "period": null,
+      "title": {
+        "de": "Elektroniker für Betriebstechnik",
+        "en": "Industrial Electronics Technician",
+        "es": "Técnico Electrónico Industrial",
+        "zh": "工业电子技术员（学徒）"
+      },
+      "description": {
+        "de": "3,5-jährige Lehre mit Fokus auf industrielle Anlagentechnik, Schaltschrankbau, Steuerungstechnik und elektrische Inbetriebnahme. Grundstein für strukturierte und normgerechte Elektrokonstruktion.",
+        "en": "3.5-year apprenticeship focused on industrial plant engineering, control cabinet construction, control technology and electrical commissioning. The foundation for clean, standards-compliant electrical design.",
+        "es": "Formación profesional de 3,5 años centrada en instalaciones industriales, construcción de armarios eléctricos, técnica de control y puesta en marcha. La base de un diseño eléctrico limpio y normativo.",
+        "zh": "3.5 年学徒制培训，专注于工业设备技术、电控柜制造、控制技术与电气调试。这是规范、合规电气设计的根基。"
+      }
+    },
+    {
+      "period_literal": null,
+      "period": {
+        "de": "Mai 2020 · DAA Technikum",
+        "en": "May 2020 · DAA Technikum",
+        "es": "Mayo 2020 · DAA Technikum",
+        "zh": "2020 年 5 月 · DAA Technikum"
+      },
+      "title": {
+        "de": "Staatlich geprüfter Techniker — Elektrotechnik",
+        "en": "Bachelor Professional in Technik — Electrical Engineering",
+        "es": "Bachelor Professional in Technik — Electrotecnia",
+        "zh": "Bachelor Professional in Technik — 电气工程"
+      },
+      "description": {
+        "de": "Fachrichtung Energietechnik & Prozessautomatisierung. Vertiefte Ausbildung in Antriebstechnik, Automatisierung, Messtechnik und Projektmanagement — Schwerpunkt industrielle Steuerungssysteme, Motion Control, Safety-Konzepte. Der Abschluss entspricht dem Bachelor-Niveau (DQR Level 6 / Bachelor Professional in Technik gemäß BBiG-Novelle 2020).",
+        "en": "Specialization in Energy Technology & Process Automation. Advanced training in drive technology, automation, measurement and project management — focus on industrial control systems, motion control and safety concepts. Equivalent to a bachelor's degree under the German Qualifications Framework (DQR / EQF level 6, official designation introduced via the 2020 BBiG amendment; the underlying qualification is the German »Staatlich geprüfter Techniker«).",
+        "es": "Especialidad en Energética y Automatización de Procesos. Formación avanzada en accionamientos, automatización, metrología y gestión de proyectos — énfasis en sistemas de control industrial, motion control y conceptos de seguridad. Título equivalente a un grado universitario según el Marco Alemán de Cualificaciones (DQR / EQF nivel 6 — denominación oficial introducida por la reforma del BBiG en 2020; cualificación de base »Staatlich geprüfter Techniker«).",
+        "zh": "主修方向：能源技术与过程自动化。在驱动技术、自动化、测量技术与项目管理方面的进阶培训，重点方向为工业控制系统、Motion Control 与安全方案。该资历等同于学士学位（依据德国资历框架 DQR / EQF 第 6 级；该正式称谓由 2020 年 BBiG 修订引入；底层资格名称为德语 »Staatlich geprüfter Techniker«）。"
+      }
+    }
+  ]
+}

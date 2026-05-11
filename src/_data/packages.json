@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "id": "quick",
+      "name": {
+        "de": "Quick Check",
+        "en": "Quick Check",
+        "es": "Quick Check",
+        "zh": "Quick Check"
+      },
+      "description": {
+        "de": "Kurzes Consulting — schnelle Einschätzung Ihres Themas.",
+        "en": "Short consulting block — quick assessment of your topic.",
+        "es": "Bloque corto de consultoría — valoración rápida de tu tema.",
+        "zh": "短时咨询 — 快速评估您的议题。"
+      },
+      "popular": false,
+      "popular_label": null,
+      "selected_default": true
+    },
+    {
+      "id": "starter",
+      "name": {
+        "de": "EPLAN Starter",
+        "en": "EPLAN Starter",
+        "es": "EPLAN Starter",
+        "zh": "EPLAN Starter"
+      },
+      "description": {
+        "de": "Kompaktes Schaltplan-Paket — planbarer Umfang, klar definierter Liefergegenstand.",
+        "en": "Compact schematic engagement — predictable scope, clearly defined deliverable.",
+        "es": "Paquete compacto de esquemas — alcance previsible y entregable claramente definido.",
+        "zh": "紧凑的电路图项目 — 范围可控，交付物明确。"
+      },
+      "popular": true,
+      "popular_label": "POPULAR",
+      "selected_default": false
+    },
+    {
+      "id": "sprint",
+      "name": {
+        "de": "Engineering Sprint",
+        "en": "Engineering Sprint",
+        "es": "Engineering Sprint",
+        "zh": "Engineering Sprint"
+      },
+      "description": {
+        "de": "Mehrtägiges bis -wöchiges Remote-Engagement für komplexere Aufgaben.",
+        "en": "Multi-day to multi-week remote engagement for more complex tasks.",
+        "es": "Encargo remoto de varios días o semanas para tareas más complejas.",
+        "zh": "数日至数周的远程项目，适合较复杂任务。"
+      },
+      "popular": false,
+      "popular_label": null,
+      "selected_default": false
+    },
+    {
+      "id": "custom",
+      "name": {
+        "de": "Custom Projekt",
+        "en": "Custom Project",
+        "es": "Proyecto a medida",
+        "zh": "定制项目"
+      },
+      "description": {
+        "de": "Maßgeschneidert — Festpreis oder Tagessatz nach individueller Absprache.",
+        "en": "Tailored — fixed price or day rate, agreed individually.",
+        "es": "Personalizado — precio fijo o tarifa diaria, acordados individualmente.",
+        "zh": "按需定制 — 固定价或日费，逐案商定。"
+      },
+      "popular": false,
+      "popular_label": null,
+      "selected_default": false
+    }
+  ]
+}

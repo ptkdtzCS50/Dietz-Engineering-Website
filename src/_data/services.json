@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "number": "01 / DESIGN",
+      "title": {
+        "de": "EPLAN Design & Documentation",
+        "en": "EPLAN Design & Documentation",
+        "es": "EPLAN Design & Documentation",
+        "zh": "EPLAN Design & Documentation"
+      },
+      "description": {
+        "de": "Reduzieren Sie Engineering-Fehler und beschleunigen Sie die Produktion durch strukturierte, revisionssichere EPLAN-Konstruktion. Saubere Schaltpläne, BOM-Integration und CE/UL-konforme Dokumentation.",
+        "en": "Reduce engineering errors and speed up production with structured, revision-safe EPLAN design. Clean schematics, BOM integration and CE/UL compliant documentation.",
+        "es": "Reduce errores de ingeniería y acelera la producción con un diseño EPLAN estructurado y a prueba de revisiones. Esquemas limpios, integración BOM y documentación conforme a CE/UL.",
+        "zh": "通过结构化、可追溯的 EPLAN 设计减少工程错误并加快生产。整洁的电路图、BOM 集成以及符合 CE/UL 的文档。"
+      }
+    },
+    {
+      "number": "02 / ENGINEERING",
+      "title": {
+        "de": "Machine Electrical Design",
+        "en": "Machine Electrical Design",
+        "es": "Machine Electrical Design",
+        "zh": "Machine Electrical Design"
+      },
+      "description": {
+        "de": "Komplette Elektrokonstruktion für industrielle Maschinen — inklusive Antriebstechnik, Motion Control und EMV-konformer Schaltschrankauslegung.",
+        "en": "Complete electrical design for industrial machinery — including drive systems, motion control and EMC-compliant cabinet design.",
+        "es": "Diseño eléctrico completo para maquinaria industrial — incluyendo accionamientos, motion control y diseño de armarios conforme a CEM.",
+        "zh": "工业机械的整机电气设计 — 包含驱动系统、Motion Control 与符合 EMC 的电控柜设计。"
+      }
+    },
+    {
+      "number": "03 / SUPPORT",
+      "title": {
+        "de": "Troubleshooting & Support",
+        "en": "Troubleshooting & Support",
+        "es": "Troubleshooting & Support",
+        "zh": "Troubleshooting & Support"
+      },
+      "description": {
+        "de": "Schnelle Problemlösung bei Antrieben, Sensorik und Steuerungen. Remote oder vor Ort, mit Root-Cause-Analyse.",
+        "en": "Fast problem solving for drives, sensors and control systems. Remote or on-site with Root Cause Analysis.",
+        "es": "Resolución rápida de problemas en accionamientos, sensores y sistemas de control. En remoto o in situ, con análisis de causa raíz.",
+        "zh": "针对驱动、传感与控制系统的快速问题解决。可远程或现场进行，并提供根本原因分析。"
+      }
+    },
+    {
+      "number": "04 / RETROFIT",
+      "title": {
+        "de": "Retrofit & Optimization",
+        "en": "Retrofit & Optimization",
+        "es": "Retrofit & Optimization",
+        "zh": "Retrofit & Optimization"
+      },
+      "description": {
+        "de": "Bestehende Maschinen aufrüsten, Performance verbessern und langfristige Zuverlässigkeit durch optimierte elektrische Systeme sichern.",
+        "en": "Upgrade existing machines, improve performance and ensure long-term reliability through optimized electrical systems.",
+        "es": "Moderniza máquinas existentes, mejora el rendimiento y asegura fiabilidad a largo plazo mediante sistemas eléctricos optimizados.",
+        "zh": "升级现有机器、提升性能，并通过优化的电气系统确保长期可靠性。"
+      }
+    }
+  ]
+}

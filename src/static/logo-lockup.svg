@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-labelledby="lockupTitle">
+  <title id="lockupTitle">Dietz Engineering</title>
+  <text x="200" y="110" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="64" letter-spacing="1" fill="#1e2c47" text-anchor="middle">DIETZ</text>
+  <line x1="80" y1="125" x2="320" y2="125" stroke="#8b8e92" stroke-width="2"/>
+  <text x="200" y="160" font-family="Inter, system-ui, sans-serif" font-weight="600" font-size="26" letter-spacing="6" fill="#8b8e92" text-anchor="middle">ENGINEERING</text>
+</svg>
