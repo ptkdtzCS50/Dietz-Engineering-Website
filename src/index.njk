@@ -2282,21 +2282,17 @@ section {
       <h2 class="section-title" data-i18n="edu.title">Solide Grundlagen, kontinuierlich aufgebaut.</h2>
     </div>
     <div class="edu-grid">
+      {% for item in education.items %}
       <div class="edu-card fade">
-        <div class="edu-period mono">2012 — 2016</div>
-        <h3 data-i18n="edu.card1Title">Elektroniker für Betriebstechnik</h3>
-        <p data-i18n="edu.card1Desc">
-          3,5-jährige Lehre mit Fokus auf industrielle Anlagentechnik, Schaltschrankbau, Steuerungstechnik
-          und elektrische Inbetriebnahme. Grundstein für strukturierte und normgerechte Elektrokonstruktion.
-        </p>
+        {% if item.period_literal %}
+        <div class="edu-period mono">{{ item.period_literal }}</div>
+        {% else %}
+        <div class="edu-period mono" data-translations="{{ item.period | dump }}">{{ item.period.de }}</div>
+        {% endif %}
+        <h3 data-translations="{{ item.title | dump }}">{{ item.title.de }}</h3>
+        <p data-translations="{{ item.description | dump }}">{{ item.description.de }}</p>
       </div>
-      <div class="edu-card fade">
-        <div class="edu-period mono" data-i18n="edu.card2Period">Mai 2020 · DAA Technikum</div>
-        <h3 data-i18n="edu.card2Title">Staatlich geprüfter Techniker — Elektrotechnik</h3>
-        <p data-i18n="edu.card2Desc">
-          Fachrichtung Energietechnik &amp; Prozessautomatisierung. Vertiefte Ausbildung in Antriebstechnik, Automatisierung, Messtechnik und Projektmanagement — Schwerpunkt industrielle Steuerungssysteme, Motion Control, Safety-Konzepte. Der Abschluss entspricht dem Bachelor-Niveau (DQR Level 6 / Bachelor Professional in Technik gemäß BBiG-Novelle 2020).
-        </p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -2313,30 +2309,14 @@ section {
       </p>
     </div>
     <div class="services-grid services-grid-4">
+      {% for item in services.items %}
       <div class="service-card fade">
-        <div class="service-num mono">01 / DESIGN</div>
-        <h3 data-i18n="srv.s1Title">EPLAN Design &amp; Documentation</h3>
-        <p data-i18n="srv.s1Desc">Reduzieren Sie Engineering-Fehler und beschleunigen Sie die Produktion durch strukturierte, revisionssichere EPLAN-Konstruktion. Saubere Schaltpläne, BOM-Integration und CE/UL-konforme Dokumentation.</p>
+        <div class="service-num mono">{{ item.number }}</div>
+        <h3 data-translations="{{ item.title | dump }}">{{ item.title.de }}</h3>
+        <p data-translations="{{ item.description | dump }}">{{ item.description.de }}</p>
         <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
       </div>
-      <div class="service-card fade">
-        <div class="service-num mono">02 / ENGINEERING</div>
-        <h3 data-i18n="srv.s2Title">Machine Electrical Design</h3>
-        <p data-i18n="srv.s2Desc">Komplette Elektrokonstruktion für industrielle Maschinen — inklusive Antriebstechnik, Motion Control und EMV-konformer Schaltschrankauslegung.</p>
-        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
-      </div>
-      <div class="service-card fade">
-        <div class="service-num mono">03 / SUPPORT</div>
-        <h3 data-i18n="srv.s3Title">Troubleshooting &amp; Support</h3>
-        <p data-i18n="srv.s3Desc">Schnelle Problemlösung bei Antrieben, Sensorik und Steuerungen. Remote oder vor Ort, mit Root-Cause-Analyse.</p>
-        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
-      </div>
-      <div class="service-card fade">
-        <div class="service-num mono">04 / RETROFIT</div>
-        <h3 data-i18n="srv.s4Title">Retrofit &amp; Optimization</h3>
-        <p data-i18n="srv.s4Desc">Bestehende Maschinen aufrüsten, Performance verbessern und langfristige Zuverlässigkeit durch optimierte elektrische Systeme sichern.</p>
-        <div class="service-price" data-i18n="srv.priceOnRequest">Konditionen auf Anfrage</div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -2771,49 +2751,23 @@ section {
       <h2 class="section-title" data-i18n="exp.title">Über ein Jahrzehnt im industriellen Maschinenbau.</h2>
     </div>
     <div class="timeline">
+      {% for item in experience.items %}
       <div class="tl-item fade">
-        <div class="tl-period mono" data-i18n="exp.e1Period">2023 — heute</div>
-        <h3 data-i18n="exp.e1Title">Electrical Engineer — R&amp;D</h3>
-        <div class="tl-company" data-i18n="exp.e1Company">Rieter AG, Schweiz · Faseraufbereitungsmaschinen</div>
+        {% if item.period_literal %}
+        <div class="tl-period mono">{{ item.period_literal }}</div>
+        {% else %}
+        <div class="tl-period mono" data-translations="{{ item.period | dump }}">{{ item.period.de }}</div>
+        {% endif %}
+        <h3 data-translations="{{ item.title | dump }}">{{ item.title.de }}</h3>
+        <div class="tl-company" data-translations="{{ item.company | dump }}">{{ item.company.de }}</div>
         <ul>
-          <li data-i18n="exp.e1L1">Entwicklung und Pflege elektrischer Schaltpläne mit EPLAN P8</li>
-          <li data-i18n="exp.e1L2">R&amp;D für textile Maschinen — Strecke, Kämmerei, E40, E86</li>
-          <li data-i18n="exp.e1L3">Unterstützung internationaler Projekte (China, Indien)</li>
-          <li data-i18n="exp.e1L4">Technischer Kundensupport und Inbetriebnahmen (ACHA, Intercot)</li>
-          <li data-i18n="exp.e1L5">Analyse komplexer Maschinenprobleme — Drives, Sensorik, Temperaturverhalten, Safety</li>
-          <li data-i18n="exp.e1L6">Stücklistenpflege in SAP / ECTR</li>
+          {% for bullet in item.bullets %}<li data-translations="{{ bullet | dump }}">{{ bullet.de }}</li>{% endfor %}
         </ul>
         <div class="tags">
-          <span class="tag">ACOPOS P3</span>
-          <span class="tag">Motion Control</span>
-          <span class="tag">Safety Circuits</span>
-          <span class="tag">Retrofit-Kits</span>
-          <span class="tag">CE / UL</span>
-          <span class="tag">EPLAN P8</span>
+          {% for tag in item.tags %}<span class="tag" data-translations="{{ tag | dump }}">{{ tag.de }}</span>{% endfor %}
         </div>
       </div>
-
-      <div class="tl-item fade">
-        <div class="tl-period mono">2012 — 2023</div>
-        <h3 data-i18n="exp.e2Title">Elektrotechniker — Konstruktion</h3>
-        <div class="tl-company" data-i18n="exp.e2Company">Breyer Maschinenfabrik GmbH · Kunststoff-Extrusionsanlagen</div>
-        <ul>
-          <li data-i18n="exp.e2L1">Elektrische Konstruktion von Extrusionsanlagen — Plattenfolien, Tubenschlauch, Batteriefolien, Glättwerke</li>
-          <li data-i18n="exp.e2L2">Kabelauslegung und Definition von Kabellängen</li>
-          <li data-i18n="exp.e2L3">EPLAN Systemadministration — Artikeldaten, Auswertungen, Vorlagen, Prüfprotokolle, RCA</li>
-          <li data-i18n="exp.e2L4">Absprache mit Produktion, Produktabkündigungen, Lieferantenkommunikation</li>
-          <li data-i18n="exp.e2L5">Inbetriebnahmen und Kundensupport — u.a. 5 Monate am Stück in China während Corona</li>
-          <li data-i18n="exp.e2L6">EPLAN Pro Panel, Smartwiring, EPLAN Fluid (Pneumatik)</li>
-        </ul>
-        <div class="tags">
-          <span class="tag">EPLAN Pro Panel</span>
-          <span class="tag">Smartwiring</span>
-          <span class="tag">EPLAN Fluid</span>
-          <span class="tag">RCA</span>
-          <span class="tag">BOM</span>
-          <span class="tag">Inbetriebnahme</span>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -2912,26 +2866,13 @@ section {
     </div>
 
     <div class="process-grid">
+      {% for item in process.items %}
       <div class="proc-step fade">
-        <div class="proc-num mono">01</div>
-        <h3 data-i18n="prc.s1Title">Briefing &amp; Scope</h3>
-        <p data-i18n="prc.s1Desc">Wir klären Umfang, Schnittstellen und Zeitrahmen — auf Wunsch unter NDA. Output: ein einseitiges Auftragsblatt mit klaren Liefergegenständen.</p>
+        <div class="proc-num mono">{{ item.number }}</div>
+        <h3 data-translations="{{ item.title | dump }}">{{ item.title.de }}</h3>
+        <p data-translations="{{ item.description | dump }}">{{ item.description.de }}</p>
       </div>
-      <div class="proc-step fade">
-        <div class="proc-num mono">02</div>
-        <h3 data-i18n="prc.s2Title">Konstruktion &amp; Engineering</h3>
-        <p data-i18n="prc.s2Desc">EPLAN-Schaltpläne, Pro-Panel-Aufbau, Komponentenauswahl. Wöchentlicher Stand inklusive Zwischenversionen — keine Black-Box-Phasen.</p>
-      </div>
-      <div class="proc-step fade">
-        <div class="proc-num mono">03</div>
-        <h3 data-i18n="prc.s3Title">Review &amp; Test</h3>
-        <p data-i18n="prc.s3Desc">Prüfprotokolle, gemeinsamer Walkthrough, RCA falls nötig. Korrekturen werden direkt eingearbeitet, bevor abgenommen wird.</p>
-      </div>
-      <div class="proc-step fade">
-        <div class="proc-num mono">04</div>
-        <h3 data-i18n="prc.s4Title">Übergabe &amp; Support</h3>
-        <p data-i18n="prc.s4Desc">Vollständige Dokumentation, CE/UL-konform, Übergabe in Ihr System (SAP / ECTR / Teamcenter). Optional zwei Wochen kostenloser Folge-Support.</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -2944,22 +2885,12 @@ section {
       <h2 class="section-title" data-i18n="res.title">Was Kunden konkret gewinnen.</h2>
     </div>
     <div class="results-grid">
+      {% for item in results.items %}
       <div class="result-card fade">
-        <h3 data-i18n="res.r1Title">Schnellere Inbetriebnahme</h3>
-        <p data-i18n="res.r1Desc">Strukturierte Konstruktion verkürzt die Anlaufzeit und vermeidet Verzögerungen bei der Inbetriebnahme.</p>
+        <h3 data-translations="{{ item.title | dump }}">{{ item.title.de }}</h3>
+        <p data-translations="{{ item.description | dump }}">{{ item.description.de }}</p>
       </div>
-      <div class="result-card fade">
-        <h3 data-i18n="res.r2Title">Weniger Fehler</h3>
-        <p data-i18n="res.r2Desc">Saubere EPLAN-Struktur minimiert Verdrahtungsfehler und Probleme in der Produktion.</p>
-      </div>
-      <div class="result-card fade">
-        <h3 data-i18n="res.r3Title">Höhere Zuverlässigkeit</h3>
-        <p data-i18n="res.r3Desc">Optimierte Systeme reduzieren Ausfälle und verbessern die langfristige Stabilität.</p>
-      </div>
-      <div class="result-card fade">
-        <h3 data-i18n="res.r4Title">Bessere Skalierbarkeit</h3>
-        <p data-i18n="res.r4Desc">Standardisierte Dokumentation ermöglicht einfacheres Skalieren und globale Auslieferung.</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -3006,26 +2937,13 @@ section {
     </div>
 
     <div class="packages fade">
-      <div class="pkg-card selected" data-pkg="quick">
-        <div class="pkg-name">Quick Check</div>
-        <div class="pkg-desc" data-i18n="bk.p1Desc">Kurzes Consulting — schnelle Einschätzung Ihres Themas.</div>
+      {% for item in packages.items %}
+      <div class="pkg-card{% if item.selected_default %} selected{% endif %}{% if item.popular %} popular{% endif %}" data-pkg="{{ item.id }}"{% if item.popular_label %} data-popular="{{ item.popular_label }}"{% endif %}>
+        <div class="pkg-name" data-translations="{{ item.name | dump }}">{{ item.name.de }}</div>
+        <div class="pkg-desc" data-translations="{{ item.description | dump }}">{{ item.description.de }}</div>
         <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
       </div>
-      <div class="pkg-card popular" data-pkg="starter" data-popular="POPULAR">
-        <div class="pkg-name">EPLAN Starter</div>
-        <div class="pkg-desc" data-i18n="bk.p2Desc">Kompaktes Schaltplan-Paket — planbarer Umfang, klar definierter Liefergegenstand.</div>
-        <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
-      </div>
-      <div class="pkg-card" data-pkg="sprint">
-        <div class="pkg-name">Engineering Sprint</div>
-        <div class="pkg-desc" data-i18n="bk.p3Desc">Mehrtägiges bis -wöchiges Remote-Engagement für komplexere Aufgaben.</div>
-        <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
-      </div>
-      <div class="pkg-card" data-pkg="custom">
-        <div class="pkg-name" data-i18n="bk.p4Name">Custom Projekt</div>
-        <div class="pkg-desc" data-i18n="bk.p4Desc">Maßgeschneidert — Festpreis oder Tagessatz nach individueller Absprache.</div>
-        <div class="pkg-price" data-i18n="bk.onRequest">Auf Anfrage</div>
-      </div>
+      {% endfor %}
     </div>
 
     <form class="booking-form fade" id="bookingForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
@@ -3096,65 +3014,15 @@ section {
     </div>
 
     <div class="faq-list fade">
+      {% for item in faq.items %}
       <div class="faq-item">
         <button class="faq-q" type="button">
-          <span data-i18n="faq.q1">Wie läuft eine Erstanfrage ab?</span>
+          <span data-translations="{{ item.question | dump }}">{{ item.question.de }}</span>
           <span class="plus"></span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a1">
-          Anfrage über das Buchungsformular oder per Mail. Innerhalb von 24 Stunden erhalten Sie einen konkreten Vorschlag mit Zeit- und Preisrahmen. Das Erstgespräch ist immer unverbindlich.
-        </div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-translations="{{ item.answer | dump }}">{{ item.answer.de }}</div></div>
       </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button">
-          <span data-i18n="faq.q2">Arbeitest du mit NDAs?</span>
-          <span class="plus"></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a2">
-          Ja, selbstverständlich. NDAs sind in meinem Geschäft Standard — auf Wunsch unterschreibe ich vor dem Erstgespräch. Auch kunden- und projektspezifische Verschwiegenheitsregelungen sind kein Problem.
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button">
-          <span data-i18n="faq.q3">Was passiert bei Reisetätigkeit ins Ausland?</span>
-          <span class="plus"></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a3">
-          Internationale Vor-Ort-Einsätze sind möglich. Reisekosten (Flug, Verpflegung, Übernachtung) werden 1:1 weitergegeben. Der Tagessatz vor Ort wird projektspezifisch vereinbart. Erfahrung u.a. mit längeren Aufenthalten in China und Indien.
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button">
-          <span data-i18n="faq.q4">Mit welchen Tools und Systemen arbeitest du?</span>
-          <span class="plus"></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a4">
-          EPLAN P8 inklusive Pro Panel, Smartwiring und Fluid; SAP / ECTR / Teamcenter, Siemens NX, Automation Studio von B&amp;R. Auf Wunsch arbeite ich auch direkt in der Tool-Umgebung Ihres Unternehmens — Lizenzen und Zugänge stellen Sie bereit.
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button">
-          <span data-i18n="faq.q5">Wie sieht die Abrechnung aus?</span>
-          <span class="plus"></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a5">
-          Stundennachweis bei Stundensätzen, fester Betrag bei Paketen oder Festpreis-Projekten. Zahlung per Rechnung (14 Tage netto), PayPal, Kreditkarte oder Crypto (BTC, ETH, USDC). Geschäftskunden mit gültiger USt-ID erhalten Rechnung gemäß §13b UStG.
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button">
-          <span data-i18n="faq.q6">Bist du auch für längere Engagements verfügbar?</span>
-          <span class="plus"></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a6">
-          Ja — typische Engineering-Sprints sind 1–4 Wochen, längere Engagements bis zu 3 Monaten möglich. Bitte planen Sie Anfragen mit klarer Verfügbarkeit frühzeitig — meine Kapazitäten sind in der Regel 4–6 Wochen im Voraus belegt.
-        </div></div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>

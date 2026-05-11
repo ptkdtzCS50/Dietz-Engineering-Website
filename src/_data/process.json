@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "number": "01",
+      "title": {
+        "de": "Briefing & Scope",
+        "en": "Briefing & Scope",
+        "es": "Briefing y alcance",
+        "zh": "需求与范围"
+      },
+      "description": {
+        "de": "Wir klären Umfang, Schnittstellen und Zeitrahmen — auf Wunsch unter NDA. Output: ein einseitiges Auftragsblatt mit klaren Liefergegenständen.",
+        "en": "We clarify scope, interfaces and timeline — under NDA if needed. Output: a one-page work order with clear deliverables.",
+        "es": "Definimos alcance, interfaces y plazos — bajo NDA si hace falta. Resultado: una hoja de pedido de una página con entregables claros.",
+        "zh": "我们一起界定范围、接口与时间表 — 必要时签署 NDA。交付物：一页式工单，明确写明可交付内容。"
+      }
+    },
+    {
+      "number": "02",
+      "title": {
+        "de": "Konstruktion & Engineering",
+        "en": "Design & Engineering",
+        "es": "Diseño e ingeniería",
+        "zh": "设计与工程"
+      },
+      "description": {
+        "de": "EPLAN-Schaltpläne, Pro-Panel-Aufbau, Komponentenauswahl. Wöchentlicher Stand inklusive Zwischenversionen — keine Black-Box-Phasen.",
+        "en": "EPLAN schematics, Pro Panel build, component selection. Weekly status including intermediate versions — no black-box phases.",
+        "es": "Esquemas EPLAN, montaje en Pro Panel, selección de componentes. Estado semanal incluyendo versiones intermedias — sin fases de caja negra.",
+        "zh": "EPLAN 电路图、Pro Panel 搭建、零部件选型。每周状态汇报并交付中间版本 — 没有黑盒阶段。"
+      }
+    },
+    {
+      "number": "03",
+      "title": {
+        "de": "Review & Test",
+        "en": "Review & Test",
+        "es": "Revisión y prueba",
+        "zh": "评审与测试"
+      },
+      "description": {
+        "de": "Prüfprotokolle, gemeinsamer Walkthrough, RCA falls nötig. Korrekturen werden direkt eingearbeitet, bevor abgenommen wird.",
+        "en": "Test reports, joint walkthrough, RCA if needed. Corrections are integrated immediately before sign-off.",
+        "es": "Protocolos de prueba, walkthrough conjunto, RCA si es necesario. Las correcciones se integran de inmediato antes de la aceptación.",
+        "zh": "测试报告、共同走查、必要时执行 RCA。修正在验收前直接落实到位。"
+      }
+    },
+    {
+      "number": "04",
+      "title": {
+        "de": "Übergabe & Support",
+        "en": "Handover & Support",
+        "es": "Entrega y soporte",
+        "zh": "交付与支持"
+      },
+      "description": {
+        "de": "Vollständige Dokumentation, CE/UL-konform, Übergabe in Ihr System (SAP / ECTR / Teamcenter). Optional zwei Wochen kostenloser Folge-Support.",
+        "en": "Complete documentation, CE/UL-compliant, handover into your system (SAP / ECTR / Teamcenter). Optional two weeks of free follow-up support.",
+        "es": "Documentación completa, conforme a CE/UL, entrega en tu sistema (SAP / ECTR / Teamcenter). Opcional: dos semanas gratuitas de soporte posterior.",
+        "zh": "完整文档，符合 CE/UL 要求，交付到您的系统（SAP / ECTR / Teamcenter）。可选两周免费的后续支持。"
+      }
+    }
+  ]
+}
