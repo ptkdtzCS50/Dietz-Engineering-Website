@@ -1,0 +1,416 @@
+# ─────────────────────────────────────────────────────────────────
+#  Decap CMS — Konfiguration für dietz-engineering.com
+# ─────────────────────────────────────────────────────────────────
+#  Diese Datei definiert, was im Admin-Bereich editierbar ist und
+#  wie die Formularfelder aussehen. Änderungen hier wirken sofort
+#  beim nächsten Aufruf von /admin/.
+# ─────────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: ptkdtzCS50/Dietz-Engineering-Website
+  branch: main
+  # Cloudflare-Worker URL als OAuth-Proxy. Wird in Phase 5 gesetzt.
+  base_url: https://REPLACE_WITH_WORKER_URL.workers.dev
+  auth_endpoint: api/auth
+
+# Erlaubt lokale Tests via "npx decap-server" (optional, nicht notwendig)
+local_backend: false
+
+# Bilder werden hier abgelegt; im Frontend sind sie über den Root-Pfad
+# erreichbar (z.B. /hero-banner.png), weil Eleventy src/static → / kopiert.
+media_folder: "src/static"
+public_folder: "/"
+
+# Optisches Branding der Login-Seite
+logo_url: https://dietz-engineering.com/logo-lockup-horizontal.svg
+site_url: https://dietz-engineering.com
+display_url: https://dietz-engineering.com
+
+# Editor-Voreinstellungen — Live-Preview ist aus, weil Eleventy server-seitig
+# rendert und Decap die HTML-Vorschau nicht 1:1 nachbauen kann.
+editor:
+  preview: false
+
+# Veröffentlichungs-Modus: simple = Änderungen gehen direkt nach main.
+# (Alternativ: editorial_workflow = jede Änderung als Pull Request)
+publish_mode: simple
+
+# ─────────────────────────────────────────────────────────────────
+#  COLLECTIONS — Was im CMS editierbar ist
+# ─────────────────────────────────────────────────────────────────
+collections:
+
+  # ═════════════════════════════════════════════════════════════
+  #  PROJEKTE (6 Einträge)
+  # ═════════════════════════════════════════════════════════════
+  - name: "projects"
+    label: "Projekte"
+    label_singular: "Projekt"
+    description: "Referenzprojekte, die in der Sektion 'Projekte' der Website angezeigt werden. Reihenfolge bestimmt die Anzeige-Reihenfolge."
+    file: "src/_data/projects.json"
+    format: "json"
+    icon: "briefcase"
+    fields:
+      - label: "Projekt-Einträge"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.title.de}} ({{fields.company}})"
+        fields:
+          - { label: "Interne ID", name: "id", widget: "string", hint: "Eindeutig, z.B. p7 für neues Projekt" }
+          - { label: "Firma / Kunde", name: "company", widget: "string", hint: "Wird in allen Sprachen gleich angezeigt" }
+          - { label: "Zeitraum (alle Sprachen gleich, z.B. '2015 — 2022')", name: "period_literal", widget: "string", required: false, hint: "Leer lassen wenn der Zeitraum übersetzt werden soll." }
+          - label: "Zeitraum (übersetzt — nur wenn period_literal leer ist)"
+            name: "period"
+            widget: "object"
+            required: false
+            collapsed: true
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string", required: false }
+              - { label: "English", name: "en", widget: "string", required: false }
+              - { label: "Español", name: "es", widget: "string", required: false }
+              - { label: "中文", name: "zh", widget: "string", required: false }
+          - label: "Region"
+            name: "region"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Titel"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Herausforderung"
+            name: "challenge"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+          - label: "Lösung"
+            name: "solution"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+          - label: "Ergebnis"
+            name: "result"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+          - label: "Tags"
+            name: "tags"
+            widget: "list"
+            summary: "{{fields.de}}"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+
+  # ═════════════════════════════════════════════════════════════
+  #  SERVICES (4 Karten)
+  # ═════════════════════════════════════════════════════════════
+  - name: "services"
+    label: "Leistungen"
+    label_singular: "Leistung"
+    description: "Die 4 Service-Karten im Bereich 'Leistungen'."
+    file: "src/_data/services.json"
+    format: "json"
+    icon: "tools"
+    fields:
+      - label: "Service-Karten"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.number}} — {{fields.title.de}}"
+        fields:
+          - { label: "Nummer / Label", name: "number", widget: "string", hint: "Wie '01 / DESIGN'" }
+          - label: "Titel"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Beschreibung"
+            name: "description"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+
+  # ═════════════════════════════════════════════════════════════
+  #  FAQ (Häufige Fragen)
+  # ═════════════════════════════════════════════════════════════
+  - name: "faq"
+    label: "FAQ"
+    label_singular: "FAQ-Eintrag"
+    description: "Häufig gestellte Fragen, die im FAQ-Bereich angezeigt werden."
+    file: "src/_data/faq.json"
+    format: "json"
+    icon: "help-circle"
+    fields:
+      - label: "FAQ-Einträge"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.question.de}}"
+        fields:
+          - label: "Frage"
+            name: "question"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Antwort"
+            name: "answer"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+
+  # ═════════════════════════════════════════════════════════════
+  #  PROZESS-SCHRITTE (4 Schritte)
+  # ═════════════════════════════════════════════════════════════
+  - name: "process"
+    label: "Prozess-Schritte"
+    label_singular: "Schritt"
+    description: "Die 4 Schritte im Bereich 'Wie ich arbeite'."
+    file: "src/_data/process.json"
+    format: "json"
+    icon: "list-ordered"
+    fields:
+      - label: "Schritte"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.number}} — {{fields.title.de}}"
+        fields:
+          - { label: "Nummer", name: "number", widget: "string", hint: "z.B. '01', '02'" }
+          - label: "Titel"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Beschreibung"
+            name: "description"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+
+  # ═════════════════════════════════════════════════════════════
+  #  AUSBILDUNG
+  # ═════════════════════════════════════════════════════════════
+  - name: "education"
+    label: "Ausbildung"
+    label_singular: "Ausbildungs-Eintrag"
+    file: "src/_data/education.json"
+    format: "json"
+    icon: "school"
+    fields:
+      - label: "Einträge"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.title.de}}"
+        fields:
+          - { label: "Zeitraum (statisch)", name: "period_literal", widget: "string", required: false, hint: "z.B. '2012 — 2016'. Leer lassen wenn übersetzt." }
+          - label: "Zeitraum (übersetzt)"
+            name: "period"
+            widget: "object"
+            required: false
+            collapsed: true
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string", required: false }
+              - { label: "English", name: "en", widget: "string", required: false }
+              - { label: "Español", name: "es", widget: "string", required: false }
+              - { label: "中文", name: "zh", widget: "string", required: false }
+          - label: "Titel"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Beschreibung"
+            name: "description"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+
+  # ═════════════════════════════════════════════════════════════
+  #  BERUFSERFAHRUNG / TIMELINE
+  # ═════════════════════════════════════════════════════════════
+  - name: "experience"
+    label: "Berufserfahrung"
+    label_singular: "Station"
+    file: "src/_data/experience.json"
+    format: "json"
+    icon: "briefcase"
+    fields:
+      - label: "Stationen"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.title.de}}"
+        fields:
+          - { label: "Interne ID", name: "id", widget: "string" }
+          - { label: "Zeitraum (statisch)", name: "period_literal", widget: "string", required: false }
+          - label: "Zeitraum (übersetzt)"
+            name: "period"
+            widget: "object"
+            required: false
+            collapsed: true
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string", required: false }
+              - { label: "English", name: "en", widget: "string", required: false }
+              - { label: "Español", name: "es", widget: "string", required: false }
+              - { label: "中文", name: "zh", widget: "string", required: false }
+          - label: "Titel"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Unternehmen"
+            name: "company"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Aufgaben-Punkte"
+            name: "bullets"
+            widget: "list"
+            summary: "{{fields.de}}"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+          - label: "Tags"
+            name: "tags"
+            widget: "list"
+            summary: "{{fields.de}}"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+
+  # ═════════════════════════════════════════════════════════════
+  #  ERGEBNISSE / RESULTS
+  # ═════════════════════════════════════════════════════════════
+  - name: "results"
+    label: "Ergebnisse"
+    label_singular: "Ergebnis"
+    description: "Karten im Bereich 'Was Kunden konkret gewinnen'."
+    file: "src/_data/results.json"
+    format: "json"
+    icon: "trophy"
+    fields:
+      - label: "Karten"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.title.de}}"
+        fields:
+          - label: "Titel"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Beschreibung"
+            name: "description"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+
+  # ═════════════════════════════════════════════════════════════
+  #  BUCHUNGSPAKETE
+  # ═════════════════════════════════════════════════════════════
+  - name: "packages"
+    label: "Buchungspakete"
+    label_singular: "Paket"
+    description: "Pakete im Buchungs-Bereich (Quick Check, EPLAN Starter etc.)"
+    file: "src/_data/packages.json"
+    format: "json"
+    icon: "package"
+    fields:
+      - label: "Pakete"
+        name: "items"
+        widget: "list"
+        summary: "{{fields.name.de}}"
+        fields:
+          - { label: "Interne ID", name: "id", widget: "string", hint: "z.B. quick, starter, sprint, custom" }
+          - label: "Name"
+            name: "name"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "中文", name: "zh", widget: "string" }
+          - label: "Beschreibung"
+            name: "description"
+            widget: "object"
+            fields:
+              - { label: "Deutsch", name: "de", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "中文", name: "zh", widget: "text" }
+          - { label: "Als 'beliebt' markieren?", name: "popular", widget: "boolean", default: false }
+          - { label: "Popular-Badge-Text", name: "popular_label", widget: "string", required: false, hint: "Nur ausfüllen wenn 'beliebt' aktiv ist" }
+          - { label: "Standardmäßig vorausgewählt?", name: "selected_default", widget: "boolean", default: false }
+
+  # ═════════════════════════════════════════════════════════════
+  #  HINWEIS — i18n.json (Nav-Labels, Hero-Tagline, About-Texte,
+  #  Footer etc.) ist bewusst NICHT als Decap-Collection eingebunden,
+  #  weil eine flache 143-Schlüssel-Datei × 4 Sprachen kein gutes
+  #  Formular-Layout hergibt. Wenn du da etwas ändern willst:
+  #
+  #    https://github.com/ptkdtzCS50/Dietz-Engineering-Website/
+  #    blob/main/src/_data/i18n.json
+  #
+  #  Stift-Icon klicken, gewünschten Key + Sprache anpassen, commit.
+  #  Auf Wunsch können wir später strukturierte Sektion-Dateien
+  #  anlegen (hero.json, about.json, contact.json), die dann hier
+  #  als eigene Collections erscheinen würden.
+  # ═════════════════════════════════════════════════════════════
