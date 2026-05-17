@@ -183,7 +183,10 @@
     "sit.s4Signal": "Standardisierung",
     "sit.s4Title": "EPLAN-Projekte wachsen uneinheitlich.",
     "sit.s4Text": "Makros, Seitenstruktur, Geräte- und Funktionslogik werden so aufgeräumt, dass Folgeprojekte schneller und nachvollziehbarer werden.",
-    "sit.s4Result": "Ergebnis: mehr Wiederverwendung, weniger Projektrauschen."
+    "sit.s4Result": "Ergebnis: mehr Wiederverwendung, weniger Projektrauschen.",
+    "depth.label": "Technische Tiefe",
+    "depth.title": "Nicht mehr Fläche — mehr prüfbare Substanz.",
+    "depth.subtitle": "Die entscheidende Arbeit steckt in Konsistenz: BMK, Klemmen, Kabel, Stückliste, Safety und Übergabe müssen zusammenpassen, bevor Fertigung oder Inbetriebnahme Zeit verlieren."
   },
   "en": {
     "nav.about": "About",
@@ -369,7 +372,10 @@
     "sit.s4Signal": "Standardisation",
     "sit.s4Title": "EPLAN projects are growing inconsistently.",
     "sit.s4Text": "Macros, page structure, device logic and function logic are cleaned up so follow-up projects become faster and easier to understand.",
-    "sit.s4Result": "Result: more reuse, less project noise."
+    "sit.s4Result": "Result: more reuse, less project noise.",
+    "depth.label": "Technical depth",
+    "depth.title": "Not more surface — more verifiable substance.",
+    "depth.subtitle": "The decisive work is consistency: device tags, terminals, cables, BOM, safety and handover have to match before manufacturing or commissioning lose time."
   },
   "es": {
     "nav.about": "Sobre mí",
@@ -555,7 +561,10 @@
     "sit.s4Signal": "Estandarización",
     "sit.s4Title": "Los proyectos EPLAN crecen de forma desigual.",
     "sit.s4Text": "Macros, estructura de páginas, lógica de dispositivos y funciones se ordenan para que los proyectos siguientes sean más rápidos y comprensibles.",
-    "sit.s4Result": "Resultado: más reutilización, menos ruido de proyecto."
+    "sit.s4Result": "Resultado: más reutilización, menos ruido de proyecto.",
+    "depth.label": "Profundidad técnica",
+    "depth.title": "No más superficie — más sustancia verificable.",
+    "depth.subtitle": "El trabajo decisivo está en la coherencia: BMK, bornes, cables, BOM, safety y entrega deben encajar antes de que fabricación o puesta en marcha pierdan tiempo."
   },
   "zh": {
     "nav.about": "关于我",
@@ -741,6 +750,9 @@
     "sit.s4Signal": "标准化",
     "sit.s4Title": "EPLAN 项目越来越不统一。",
     "sit.s4Text": "宏、页面结构、设备逻辑和功能逻辑会被整理，让后续项目更快、更容易理解。",
-    "sit.s4Result": "结果：更多复用，更少项目噪音。"
+    "sit.s4Result": "结果：更多复用，更少项目噪音。",
+    "depth.label": "技术深度",
+    "depth.title": "不是更多表面效果，而是更多可验证的实质。",
+    "depth.subtitle": "关键在于一致性：设备标识、端子、电缆、BOM、安全和交付资料必须相互匹配，避免制造或调试阶段浪费时间。"
   }
 }

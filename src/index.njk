@@ -597,6 +597,300 @@ section {
 }
 
 /* =========================================================
+   TECHNICAL DEPTH VISUALS
+   ========================================================= */
+.hero {
+  background:
+    radial-gradient(circle at 82% 18%, var(--accent-dim), transparent 34rem),
+    linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg-2) 42%, var(--bg)) 100%);
+}
+.hero-bg {
+  display: block;
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] .hero-bg { opacity: 0.22; mix-blend-mode: screen; }
+.hero-bg svg { width: 100%; height: 100%; }
+.hero-proof {
+  isolation: isolate;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--bg-card) 92%, transparent), color-mix(in srgb, var(--bg-2) 96%, transparent)),
+    linear-gradient(90deg, transparent 0 31px, var(--grid) 31px 32px),
+    linear-gradient(0deg, transparent 0 31px, var(--grid) 31px 32px);
+  background-size: auto, 32px 32px, 32px 32px;
+}
+.hero-proof::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, var(--accent-line), transparent 34%, var(--border)) border-box;
+  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.75;
+  z-index: -1;
+}
+.engineering-visual {
+  position: relative;
+  min-height: 244px;
+  margin: -0.25rem -0.25rem 1.35rem;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 82%, var(--accent-dim));
+  overflow: hidden;
+}
+.engineering-visual::before {
+  content: 'PROJECT / DIETZ-E-042 · EPLAN QUALITY GATE';
+  position: absolute;
+  left: 1rem;
+  top: 0.85rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  color: var(--text-mute);
+  z-index: 2;
+}
+.engineering-visual svg { width: 100%; height: 244px; color: var(--accent); }
+.signal-path { stroke-dasharray: 8 14; animation: flow 9s linear infinite; }
+.signal-path.slow { animation-duration: 13s; animation-direction: reverse; }
+.signal-node { animation: node-pulse 3.8s ease-in-out infinite; transform-origin: center; }
+.signal-node:nth-of-type(2n) { animation-delay: 0.8s; }
+.scan-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 52px;
+  left: -60px;
+  background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+  animation: scan-panel 7s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes scan-panel {
+  0%, 16% { transform: translateX(0); opacity: 0; }
+  28%, 68% { opacity: 1; }
+  84%, 100% { transform: translateX(460px); opacity: 0; }
+}
+.visual-status-row {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+}
+.visual-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
+  background: color-mix(in srgb, var(--bg-card) 84%, var(--accent-dim));
+  padding: 0.42rem 0.45rem;
+  text-align: center;
+}
+.handover-section {
+  padding: 6rem 0;
+  background:
+    linear-gradient(90deg, transparent 0 39px, var(--grid) 39px 40px),
+    linear-gradient(0deg, transparent 0 39px, var(--grid) 39px 40px),
+    var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.handover-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.handover-text .section-subtitle { margin-bottom: 1.8rem; }
+.check-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.check-tags span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-line);
+  padding: 0.42rem 0.62rem;
+}
+.handover-board {
+  position: relative;
+  min-height: 470px;
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(135deg, var(--bg-2), var(--bg-card));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.handover-board::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0 23px, var(--grid) 23px 24px),
+    linear-gradient(0deg, transparent 0 23px, var(--grid) 23px 24px);
+  background-size: 24px 24px;
+  opacity: 0.8;
+}
+.doc-stack {
+  position: absolute;
+  inset: 1.4rem auto auto 1.4rem;
+  width: min(55%, 310px);
+  height: 330px;
+}
+.doc-card {
+  position: absolute;
+  width: 100%;
+  min-height: 150px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 18px 36px rgba(30, 44, 71, 0.12);
+  padding: 0.9rem;
+  transform: translate(var(--x), var(--y)) rotate(var(--r));
+}
+.doc-card:nth-child(1) { --x: 0px; --y: 0px; --r: -2deg; }
+.doc-card:nth-child(2) { --x: 22px; --y: 82px; --r: 1.4deg; }
+.doc-card:nth-child(3) { --x: 44px; --y: 164px; --r: -0.8deg; }
+.doc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-mute);
+}
+.doc-title { color: var(--accent); font-weight: 700; }
+.schematic-lines {
+  display: grid;
+  gap: 0.42rem;
+  margin-top: 0.6rem;
+}
+.schematic-lines i {
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-line), transparent);
+}
+.schematic-lines i:nth-child(2) { width: 82%; }
+.schematic-lines i:nth-child(3) { width: 62%; }
+.schematic-lines i:nth-child(4) { width: 74%; }
+.terminal-row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+  margin-top: 0.85rem;
+}
+.terminal-row i { height: 26px; border: 1px solid var(--accent-line); background: var(--accent-dim); }
+.bom-row {
+  display: grid;
+  grid-template-columns: 0.8fr 1.4fr 0.6fr;
+  gap: 0.45rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--border);
+  padding: 0.32rem 0;
+}
+.review-panel {
+  position: absolute;
+  right: 1.35rem;
+  top: 1.4rem;
+  bottom: 1.4rem;
+  width: min(42%, 270px);
+  border: 1px solid var(--border-strong);
+  background: color-mix(in srgb, var(--bg-card) 92%, transparent);
+  backdrop-filter: blur(14px);
+  padding: 1rem;
+}
+.review-panel h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.95rem;
+}
+.review-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  padding: 0.72rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+.review-item:first-of-type { border-top: 0; }
+.review-state {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
+  background: var(--accent-dim);
+  padding: 0.22rem 0.32rem;
+  text-align: center;
+}
+.review-state.warn { color: #9a6a16; border-color: rgba(154,106,22,.34); background: rgba(154,106,22,.08); }
+[data-theme="dark"] .review-state.warn { color: #f2b95d; border-color: rgba(242,185,93,.34); background: rgba(242,185,93,.10); }
+.handover-flow {
+  position: absolute;
+  left: 1.4rem;
+  right: 1.4rem;
+  bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+.handover-flow span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-align: center;
+  color: var(--text-mute);
+  border-top: 1px solid var(--accent-line);
+  padding-top: 0.45rem;
+}
+.situation-card::after {
+  content: '';
+  position: absolute;
+  left: 1.45rem;
+  right: 1.45rem;
+  bottom: 4.35rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
+  opacity: 0.7;
+}
+@media (max-width: 980px) {
+  .visual-status-row { grid-template-columns: repeat(2, 1fr); }
+  .handover-grid { grid-template-columns: 1fr; }
+  .handover-board { min-height: 520px; }
+}
+@media (max-width: 680px) {
+  .engineering-visual { min-height: 220px; }
+  .engineering-visual svg { height: 220px; }
+  .handover-board { min-height: 720px; }
+  .doc-stack { width: calc(100% - 2.8rem); }
+  .review-panel { left: 1.4rem; right: 1.4rem; top: 390px; bottom: auto; width: auto; }
+  .handover-flow { grid-template-columns: repeat(2, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signal-path,
+  .scan-line,
+  .hero-bg svg circle,
+  .signal-node,
+  .flow-line { animation: none !important; }
+}
+
+/* =========================================================
    TRUST BAND
    ========================================================= */
 .trust-section {
@@ -2390,6 +2684,56 @@ section {
         <p class="hero-subnote" data-i18n="hero.subnote">20 Minuten reichen meist, um Scope, Risiken und sinnvolle nächste Schritte zu klären.</p>
       </div>
       <aside class="hero-proof" aria-label="Engineering-Prüfpunkte">
+        <div class="engineering-visual" aria-hidden="true">
+          <div class="scan-line"></div>
+          <svg viewBox="0 0 420 244" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrowSignal" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M0 0 L8 4 L0 8 Z" fill="currentColor" opacity="0.72"/>
+              </marker>
+            </defs>
+            <g fill="none" stroke="currentColor" stroke-width="1" opacity="0.2">
+              <path d="M24 56 H396 M24 96 H396 M24 136 H396 M24 176 H396"/>
+              <path d="M72 34 V206 M142 34 V206 M212 34 V206 M282 34 V206 M352 34 V206"/>
+            </g>
+            <g fill="var(--bg-card)" stroke="currentColor" stroke-width="1.4">
+              <rect x="38" y="70" width="74" height="58"/>
+              <rect x="166" y="48" width="86" height="82"/>
+              <rect x="306" y="72" width="66" height="56"/>
+              <rect x="68" y="164" width="252" height="28"/>
+            </g>
+            <g font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor">
+              <text x="50" y="91">=A1+S1</text>
+              <text x="50" y="108">-Q1 / -K1</text>
+              <text x="180" y="72">PLC / IO</text>
+              <text x="180" y="90">DI 0.0-1.7</text>
+              <text x="180" y="108">Q 0.0-0.7</text>
+              <text x="319" y="94">MOTION</text>
+              <text x="319" y="111">STO OK</text>
+              <text x="80" y="183">X1 TERMINALS · CABLES · BOM SYNC</text>
+            </g>
+            <g fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#arrowSignal)">
+              <path class="signal-path" d="M112 96 H154 Q166 96 166 84"/>
+              <path class="signal-path slow" d="M252 88 H294 Q306 88 306 98"/>
+              <path class="signal-path" d="M202 130 V164"/>
+              <path class="signal-path slow" d="M320 128 V164"/>
+            </g>
+            <g fill="currentColor">
+              <circle class="signal-node" cx="112" cy="96" r="3"/>
+              <circle class="signal-node" cx="166" cy="84" r="3"/>
+              <circle class="signal-node" cx="252" cy="88" r="3"/>
+              <circle class="signal-node" cx="306" cy="98" r="3"/>
+              <circle class="signal-node" cx="202" cy="164" r="3"/>
+              <circle class="signal-node" cx="320" cy="164" r="3"/>
+            </g>
+          </svg>
+          <div class="visual-status-row">
+            <span class="visual-status">BMK OK</span>
+            <span class="visual-status">Klemmen</span>
+            <span class="visual-status">BOM Sync</span>
+            <span class="visual-status">Review</span>
+          </div>
+        </div>
         <div class="hero-proof-label" data-i18n="hero.proofLabel">Worauf ich achte</div>
         <h2 data-i18n="hero.proofTitle">Schaltpläne müssen baubar, prüfbar und wartbar sein.</h2>
         <ul class="proof-list">
@@ -2492,6 +2836,58 @@ section {
         </div>
         <div class="situation-result" data-i18n="sit.s4Result">Ergebnis: mehr Wiederverwendung, weniger Projektrauschen.</div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TECHNICAL HANDOVER DEPTH ============================ -->
+<section id="handover-depth" class="handover-section">
+  <div class="container">
+    <div class="handover-grid fade">
+      <div class="handover-text">
+        <span class="section-label" data-i18n="depth.label">Technische Tiefe</span>
+        <h2 class="section-title" data-i18n="depth.title">Nicht mehr Fläche — mehr prüfbare Substanz.</h2>
+        <p class="section-subtitle" data-i18n="depth.subtitle">Die entscheidende Arbeit steckt in Konsistenz: BMK, Klemmen, Kabel, Stückliste, Safety und Übergabe müssen zusammenpassen, bevor Fertigung oder Inbetriebnahme Zeit verlieren.</p>
+        <div class="check-tags" aria-label="Technische Prüfpunkte">
+          <span>BMK / IEC 81346</span>
+          <span>Klemmenplan</span>
+          <span>Kabelliste</span>
+          <span>BOM</span>
+          <span>Safety</span>
+          <span>Smartwiring</span>
+        </div>
+      </div>
+      <div class="handover-board" aria-hidden="true">
+        <div class="doc-stack">
+          <div class="doc-card">
+            <div class="doc-head"><span class="doc-title">SCHEMATIC</span><span>=A1+S1 / 42</span></div>
+            <div class="schematic-lines"><i></i><i></i><i></i><i></i></div>
+            <div class="terminal-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-head"><span class="doc-title">TERMINALS</span><span>X1 / X2</span></div>
+            <div class="terminal-row"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="schematic-lines"><i></i><i></i><i></i></div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-head"><span class="doc-title">BOM / CABLES</span><span>REV B</span></div>
+            <div class="bom-row"><span>-Q1</span><span>Motor protection</span><span>1x</span></div>
+            <div class="bom-row"><span>-K1</span><span>Contactor</span><span>1x</span></div>
+            <div class="bom-row"><span>-X1</span><span>Terminal block</span><span>24x</span></div>
+            <div class="bom-row"><span>-W12</span><span>Motor cable</span><span>1x</span></div>
+          </div>
+        </div>
+        <div class="review-panel">
+          <h3>QUALITY GATE</h3>
+          <div class="review-item"><span class="review-state">OK</span><span>BMK-Struktur passt zu Funktion und Einbauort.</span></div>
+          <div class="review-item"><span class="review-state">OK</span><span>Klemmen und Kabel sind gegen Plan und Stückliste geprüft.</span></div>
+          <div class="review-item"><span class="review-state warn">CHECK</span><span>Safety-Kreis und Reset-Konzept vor Freigabe final bestätigen.</span></div>
+          <div class="review-item"><span class="review-state">OK</span><span>Fertigungsdaten sind nicht nur PDF, sondern auswertbar.</span></div>
+        </div>
+        <div class="handover-flow">
+          <span>01 Scope</span><span>02 Struktur</span><span>03 Plan</span><span>04 Review</span><span>05 Übergabe</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
