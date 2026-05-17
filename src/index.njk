@@ -6,9 +6,8 @@
 <meta name="description" content="Patrick Dietz — Staatlich geprüfter Elektrotechniker. EPLAN P8, Motion Control, Maschinenbau. Freelance Engineering aus Singen, Deutschland." />
 <title>Dietz Engineering — Patrick Dietz | Electrical Engineer & EPLAN P8 Spezialist</title>
 <link rel="icon" type="image/svg+xml" href="logo-mark.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link href="/fonts.css" rel="stylesheet">
 <style>
 /* =========================================================
    THEME VARIABLES
@@ -3004,7 +3003,7 @@ section {
           </ul>
         </div>
         <div class="consult-cta-action">
-          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3732m9y67CejyNzLZkgh5HplY1GzIsdKMmHLvsTEGWsZHtl-VK7WZlGgY6Ut8cPokx-tAnwyi6" target="_blank" rel="noopener" class="btn btn-primary consult-cta-btn">
+          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3732m9y67CejyNzLZkgh5HplY1GzIsdKMmHLvsTEGWsZHtl-VK7WZlGgY6Ut8cPokx-tAnwyi6" target="_blank" rel="noopener noreferrer" class="btn btn-primary consult-cta-btn">
             <span data-i18n="bk.bookNow">Termin auswählen</span>
             <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
           </a>
@@ -3032,28 +3031,29 @@ section {
       <input type="hidden" name="access_key" id="w3f_access_key" value="27231522-ef31-4725-8741-cb9e8bfecf39">
       <input type="hidden" name="subject" value="Neue Anfrage über dietz-engineering.com">
       <input type="hidden" name="from_name" value="Dietz Engineering Website">
+      <input type="hidden" name="form_started_at" id="formStartedAt" value="">
       <!-- Honeypot-Feld gegen Bots — bleibt unsichtbar; falls ausgefüllt, ignoriert Web3Forms die Submission. -->
       <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
 
       <div>
         <label class="field-label" data-i18n="bk.fFirst">Vorname *</label>
-        <input type="text" name="firstname" required>
+        <input type="text" name="firstname" autocomplete="given-name" maxlength="80" required>
       </div>
       <div>
         <label class="field-label" data-i18n="bk.fLast">Nachname *</label>
-        <input type="text" name="lastname" required>
+        <input type="text" name="lastname" autocomplete="family-name" maxlength="80" required>
       </div>
       <div>
         <label class="field-label" data-i18n="bk.fEmail">E-Mail *</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email" autocomplete="email" maxlength="160" required>
       </div>
       <div>
         <label class="field-label" data-i18n="bk.fCompany">Firma (optional)</label>
-        <input type="text" name="company">
+        <input type="text" name="company" autocomplete="organization" maxlength="160">
       </div>
       <div class="full">
         <label class="field-label" data-i18n="bk.fProject">Projektbeschreibung *</label>
-        <textarea name="project" required data-i18n-placeholder="bk.fProjectPh" placeholder="Was möchten Sie umsetzen? Welche Maschinen, welche Disziplinen, welcher Zeitrahmen?"></textarea>
+        <textarea name="project" required maxlength="2500" data-i18n-placeholder="bk.fProjectPh" placeholder="Was möchten Sie umsetzen? Welche Maschinen, welche Disziplinen, welcher Zeitrahmen?"></textarea>
       </div>
       <div>
         <label class="field-label" data-i18n="bk.fDate">Wunschtermin</label>
@@ -3061,7 +3061,7 @@ section {
       </div>
       <div>
         <label class="field-label" data-i18n="bk.fPkg">Gewähltes Paket</label>
-        <input type="text" name="package" id="selectedPackage" value="Technischer Quick Check" readonly>
+        <input type="text" name="package" id="selectedPackage" value="Technischer Quick Check" maxlength="120" readonly>
       </div>
 
       <div class="full">
@@ -3348,11 +3348,19 @@ document.querySelectorAll('.pkg-card').forEach(card => {
 const bookingForm = document.getElementById('bookingForm');
 const successMsg  = document.getElementById('successMsg');
 const submitBtn   = bookingForm.querySelector('button[type="submit"]');
+const formStartedAt = document.getElementById('formStartedAt');
+if (formStartedAt) formStartedAt.value = String(Date.now());
 
 bookingForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   if (!bookingForm.checkValidity()) {
     bookingForm.reportValidity();
+    return;
+  }
+
+  const started = Number(formStartedAt?.value || 0);
+  if (started && Date.now() - started < 3500) {
+    console.warn('[bookingForm] Submission zu schnell — wahrscheinlich Bot.');
     return;
   }
 
