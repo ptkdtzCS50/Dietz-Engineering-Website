@@ -3,11 +3,83 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Patrick Dietz — Staatlich geprüfter Elektrotechniker. EPLAN P8, Motion Control, Maschinenbau. Freelance Engineering aus Singen, Deutschland." />
-<title>Dietz Engineering — Patrick Dietz | Electrical Engineer & EPLAN P8 Spezialist</title>
+<title>Dietz Engineering | EPLAN Elektrokonstruktion für Maschinenbau</title>
+<meta name="description" content="Dietz Engineering unterstützt Maschinenbauer und Automatisierungsteams bei EPLAN P8, Pro Panel, Smartwiring, Schaltschrank- und Antriebstechnik. Fertigungsgerechte Elektrokonstruktion aus Singen." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://dietz-engineering.com/" />
 <link rel="icon" type="image/svg+xml" href="logo-mark.svg">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:site_name" content="Dietz Engineering" />
+<meta property="og:title" content="Dietz Engineering | EPLAN Elektrokonstruktion für Maschinenbau" />
+<meta property="og:description" content="EPLAN P8, Pro Panel, Smartwiring und fertigungsgerechte Elektrodokumentation für Maschinenbau, Schaltschrankbau und Inbetriebnahme." />
+<meta property="og:url" content="https://dietz-engineering.com/" />
+<meta property="og:image" content="https://dietz-engineering.com/hero-banner.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Dietz Engineering | EPLAN Elektrokonstruktion für Maschinenbau" />
+<meta name="twitter:description" content="Saubere EPLAN-Dokumentation für Fertigung, Montage und Inbetriebnahme." />
+<meta name="twitter:image" content="https://dietz-engineering.com/hero-banner.png" />
 <link href="/fonts.css" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://dietz-engineering.com/#business",
+  "name": "Dietz Engineering",
+  "url": "https://dietz-engineering.com/",
+  "logo": "https://dietz-engineering.com/logo-mark.svg",
+  "image": "https://dietz-engineering.com/hero-banner.png",
+  "description": "EPLAN Elektrokonstruktion, Pro Panel, Smartwiring, Schaltschrank- und Antriebstechnik für Maschinenbau und Industrieautomation.",
+  "founder": {
+    "@type": "Person",
+    "name": "Patrick Dietz",
+    "jobTitle": "Staatlich geprüfter Elektrotechniker"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Singen",
+    "addressRegion": "Baden-Württemberg",
+    "addressCountry": "DE"
+  },
+  "areaServed": ["Deutschland", "Schweiz", "Europa", "International"],
+  "knowsAbout": [
+    "EPLAN P8",
+    "EPLAN Pro Panel",
+    "EPLAN Smart Wiring",
+    "Schaltschrankbau",
+    "Antriebstechnik",
+    "Motion Control",
+    "Maschinenbau",
+    "Industrieautomation",
+    "Inbetriebnahme"
+  ],
+  "serviceType": [
+    "EPLAN Elektrokonstruktion",
+    "Schaltschrank Engineering",
+    "Fertigungsdokumentation",
+    "Inbetriebnahmeunterstützung"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in faq.items %}
+    {
+      "@type": "Question",
+      "name": {{ item.question.de | dump | safe }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ item.answer.de | dump | safe }}
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
 <style>
 /* =========================================================
    THEME VARIABLES
@@ -566,6 +638,75 @@ section {
 @media (max-width: 580px) {
   .trust-grid { grid-template-columns: 1fr; gap: 1.2rem; }
   .trust-section { padding: 2rem 0; }
+}
+/* =========================================================
+   PROJECT SITUATIONS
+   ========================================================= */
+.situations-section {
+  padding: 5.5rem 0;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  border-bottom: 1px solid var(--border);
+}
+.situations-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2.4rem;
+}
+.situation-card {
+  position: relative;
+  min-height: 260px;
+  padding: 1.45rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.situation-card::before {
+  content: attr(data-index);
+  position: absolute;
+  right: 1rem;
+  top: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+  opacity: 0.65;
+}
+.situation-card h3 {
+  font-size: 1.08rem;
+  margin: 1.2rem 0 0.8rem;
+}
+.situation-card p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.situation-signal {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.situation-result {
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+@media (max-width: 1050px) {
+  .situations-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .situations-section { padding: 4rem 0; }
+  .situations-grid { grid-template-columns: 1fr; }
+  .situation-card { min-height: auto; }
 }
 
 /* =========================================================
@@ -2306,6 +2447,51 @@ section {
         <div class="trust-label" data-i18n="trust.toolsLabel">Tools</div>
         <div class="trust-text" data-i18n="trust.tools">EPLAN P8 · Pro Panel · Smartwiring · TIA Portal · Automation Studio · ACOPOS P3</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROJECT SITUATIONS ============================ -->
+<section id="situations" class="situations-section">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="sit.label">Typische Projektsituationen</span>
+      <h2 class="section-title" data-i18n="sit.title">Wenn Elektrokonstruktion praktisch liefern muss.</h2>
+      <p class="section-subtitle" data-i18n="sit.subtitle">Gute Unterstützung erkennt man nicht an schönen Schlagworten, sondern daran, ob Fertigung, Montage und Inbetriebnahme danach weniger Rückfragen haben.</p>
+    </div>
+    <div class="situations-grid fade">
+      <article class="situation-card" data-index="01">
+        <div>
+          <div class="situation-signal" data-i18n="sit.s1Signal">Kapazitätsengpass</div>
+          <h3 data-i18n="sit.s1Title">Interne E-Konstruktion ist voll.</h3>
+          <p data-i18n="sit.s1Text">Ich übernehme klar abgegrenzte EPLAN-Pakete oder arbeite direkt in Ihrer Projektstruktur mit, ohne das Team mit Abstimmungsaufwand zu blockieren.</p>
+        </div>
+        <div class="situation-result" data-i18n="sit.s1Result">Ergebnis: verwertbare Projektstände statt offener To-do-Listen.</div>
+      </article>
+      <article class="situation-card" data-index="02">
+        <div>
+          <div class="situation-signal" data-i18n="sit.s2Signal">Fertigungsrisiko</div>
+          <h3 data-i18n="sit.s2Title">Pläne sehen fertig aus, sind aber schwer baubar.</h3>
+          <p data-i18n="sit.s2Text">Klemmen, Kabel, BMK-Logik, Stücklisten und Schaltschrankdaten werden so geprüft, dass der Schaltschrankbau weniger interpretieren muss.</p>
+        </div>
+        <div class="situation-result" data-i18n="sit.s2Result">Ergebnis: weniger Rückfragen zwischen Engineering und Fertigung.</div>
+      </article>
+      <article class="situation-card" data-index="03">
+        <div>
+          <div class="situation-signal" data-i18n="sit.s3Signal">Terminrisiko</div>
+          <h3 data-i18n="sit.s3Title">Inbetriebnahme rückt näher.</h3>
+          <p data-i18n="sit.s3Text">Ich denke die Dokumentation aus Sicht der Maschine mit: Sensorik, Antriebe, Safety, Schnittstellen und die Punkte, die draußen beim Anlauf sonst Zeit kosten.</p>
+        </div>
+        <div class="situation-result" data-i18n="sit.s3Result">Ergebnis: sauberere Übergabe an Montage, SPS und Service.</div>
+      </article>
+      <article class="situation-card" data-index="04">
+        <div>
+          <div class="situation-signal" data-i18n="sit.s4Signal">Standardisierung</div>
+          <h3 data-i18n="sit.s4Title">EPLAN-Projekte wachsen uneinheitlich.</h3>
+          <p data-i18n="sit.s4Text">Makros, Seitenstruktur, Geräte- und Funktionslogik werden so aufgeräumt, dass Folgeprojekte schneller und nachvollziehbarer werden.</p>
+        </div>
+        <div class="situation-result" data-i18n="sit.s4Result">Ergebnis: mehr Wiederverwendung, weniger Projektrauschen.</div>
+      </article>
     </div>
   </div>
 </section>
