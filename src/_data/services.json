@@ -1,61 +1,61 @@
 {
   "items": [
     {
-      "number": "01 / DESIGN",
+      "number": "01 / EPLAN",
       "title": {
-        "de": "EPLAN Design & Documentation",
-        "en": "EPLAN Design & Documentation",
+        "de": "EPLAN P8 Engineering",
+        "en": "EPLAN P8 Engineering",
         "es": "EPLAN Design & Documentation",
         "zh": "EPLAN Design & Documentation"
       },
       "description": {
-        "de": "Reduzieren Sie Engineering-Fehler und beschleunigen Sie die Produktion durch strukturierte, revisionssichere EPLAN-Konstruktion. Saubere Schaltpläne, BOM-Integration und CE/UL-konforme Dokumentation.",
-        "en": "Reduce engineering errors and speed up production with structured, revision-safe EPLAN design. Clean schematics, BOM integration and CE/UL compliant documentation.",
+        "de": "Schaltpläne mit klarer Anlagenstruktur, BMK-Logik, Klemmen-, Kabel- und Stücklistendaten. Ziel ist eine Dokumentation, die Fertigung, Inbetriebnahme und Service ohne Ratespiel nutzen können.",
+        "en": "Schematics with clear plant structure, device-tag logic, terminal, cable and BOM data. The goal is documentation that panel builders, commissioning and service can use without guesswork.",
         "es": "Reduce errores de ingeniería y acelera la producción con un diseño EPLAN estructurado y a prueba de revisiones. Esquemas limpios, integración BOM y documentación conforme a CE/UL.",
         "zh": "通过结构化、可追溯的 EPLAN 设计减少工程错误并加快生产。整洁的电路图、BOM 集成以及符合 CE/UL 的文档。"
       }
     },
     {
-      "number": "02 / ENGINEERING",
+      "number": "02 / PANEL",
       "title": {
-        "de": "Machine Electrical Design",
-        "en": "Machine Electrical Design",
+        "de": "Schaltschrank & Pro Panel",
+        "en": "Schaltschrank & Pro Panel",
         "es": "Machine Electrical Design",
         "zh": "Machine Electrical Design"
       },
       "description": {
-        "de": "Komplette Elektrokonstruktion für industrielle Maschinen — inklusive Antriebstechnik, Motion Control und EMV-konformer Schaltschrankauslegung.",
-        "en": "Complete electrical design for industrial machinery — including drive systems, motion control and EMC-compliant cabinet design.",
+        "de": "Schaltschrankauslegung, Komponentenplatzierung, Pro-Panel-Aufbau, Smartwiring-Daten und Fertigungsunterlagen. Praktisch gedacht: Wärme, EMV, Zugänglichkeit und Verdrahtung müssen zusammenpassen.",
+        "en": "Cabinet layout, component placement, Pro Panel models, Smartwiring data and production documents. Practical by design: heat, EMC, access and wiring must fit together.",
         "es": "Diseño eléctrico completo para maquinaria industrial — incluyendo accionamientos, motion control y diseño de armarios conforme a CEM.",
         "zh": "工业机械的整机电气设计 — 包含驱动系统、Motion Control 与符合 EMC 的电控柜设计。"
       }
     },
     {
-      "number": "03 / SUPPORT",
+      "number": "03 / DRIVES",
       "title": {
-        "de": "Troubleshooting & Support",
-        "en": "Troubleshooting & Support",
+        "de": "Antriebe, Motion & Safety",
+        "en": "Antriebe, Motion & Safety",
         "es": "Troubleshooting & Support",
         "zh": "Troubleshooting & Support"
       },
       "description": {
-        "de": "Schnelle Problemlösung bei Antrieben, Sensorik und Steuerungen. Remote oder vor Ort, mit Root-Cause-Analyse.",
-        "en": "Fast problem solving for drives, sensors and control systems. Remote or on-site with Root Cause Analysis.",
+        "de": "Unterstützung bei Antriebstechnik, ACOPOS P3, Achsen, Sensorik, Safety Circuits und elektrischen Schnittstellen. Besonders dort, wo Mechanik, Steuerung und Elektrik sauber zusammenspielen müssen.",
+        "en": "Support for drive systems, ACOPOS P3, axes, sensors, safety circuits and electrical interfaces, especially where mechanics, controls and electrical design have to work together.",
         "es": "Resolución rápida de problemas en accionamientos, sensores y sistemas de control. En remoto o in situ, con análisis de causa raíz.",
         "zh": "针对驱动、传感与控制系统的快速问题解决。可远程或现场进行，并提供根本原因分析。"
       }
     },
     {
-      "number": "04 / RETROFIT",
+      "number": "04 / FIELD",
       "title": {
-        "de": "Retrofit & Optimization",
-        "en": "Retrofit & Optimization",
+        "de": "Review, Retrofit & Inbetriebnahme",
+        "en": "Review, Retrofit & Inbetriebnahme",
         "es": "Retrofit & Optimization",
         "zh": "Retrofit & Optimization"
       },
       "description": {
-        "de": "Bestehende Maschinen aufrüsten, Performance verbessern und langfristige Zuverlässigkeit durch optimierte elektrische Systeme sichern.",
-        "en": "Upgrade existing machines, improve performance and ensure long-term reliability through optimized electrical systems.",
+        "de": "Fehlersuche, technische Reviews, Retrofit-Vorbereitung und Vor-Ort-Unterstützung. Ich suche nicht nach Schuldigen, sondern nach Ursachen, Nebenwirkungen und einer Lösung, die dauerhaft hält.",
+        "en": "Troubleshooting, technical reviews, retrofit preparation and on-site support. I do not look for blame; I look for causes, side effects and a fix that holds up.",
         "es": "Moderniza máquinas existentes, mejora el rendimiento y asegura fiabilidad a largo plazo mediante sistemas eléctricos optimizados.",
         "zh": "升级现有机器、提升性能，并通过优化的电气系统确保长期可靠性。"
       }

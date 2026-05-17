@@ -330,7 +330,69 @@ section {
 .hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 980px;
+  max-width: 1200px;
+}
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: end;
+}
+.hero-copy { max-width: 820px; }
+.hero-proof {
+  background: var(--bg-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 0;
+  padding: 1.6rem;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+.hero-proof::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 72px;
+  height: 4px;
+  background: var(--accent);
+}
+.hero-proof-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+.hero-proof h2 {
+  font-size: 1.35rem;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.1rem;
+}
+.proof-list {
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+.proof-list li {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 0.75rem;
+  color: var(--text-soft);
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+.proof-list li::before {
+  content: '✓';
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-line);
+  color: var(--accent);
+  font-weight: 800;
 }
 
 .hero-badge {
@@ -456,6 +518,11 @@ section {
   font-size: 0.88rem;
   color: var(--text-mute);
   font-style: italic;
+}
+
+@media (max-width: 980px) {
+  .hero-layout { grid-template-columns: 1fr; align-items: start; }
+  .hero-proof { max-width: 720px; }
 }
 
 /* =========================================================
@@ -2148,37 +2215,51 @@ section {
     </svg>
   </div>
   <div class="container hero-inner fade">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      <span data-i18n="hero.badge">Verfügbar für Projekte · Remote &amp; Vor-Ort</span>
+    <div class="hero-layout">
+      <div class="hero-copy">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          <span data-i18n="hero.badge">Freie Kapazität für ausgewählte Engineering-Projekte</span>
+        </div>
+        <h1>
+          <span data-i18n="hero.h1a">Elektrokonstruktion, die in der Fertigung funktioniert</span><br>
+          <span class="accent" data-i18n="hero.h1b">nicht nur im PDF gut aussieht.</span>
+        </h1>
+        <p class="hero-tagline" data-i18n="hero.tagline">
+          Ich unterstütze Maschinenbauer bei EPLAN P8, Schaltschrank- und Antriebstechnik, Inbetriebnahme und sauberer Übergabe. Technisch belastbar, nachvollziehbar dokumentiert und ohne unnötiges Berater-Theater.
+        </p>
+        <div class="hero-meta mono">
+          <span data-i18n="hero.meta1">13+ Jahre Sondermaschinenbau</span>
+          <span data-i18n="hero.meta2">EPLAN P8 · Pro Panel · Smartwiring</span>
+          <span data-i18n="hero.meta3">Antriebstechnik · Motion Control · Safety</span>
+          <span data-i18n="hero.meta4">Praxis in DE · CH · CN · IN</span>
+        </div>
+        <div class="cta-row">
+          <a href="#booking" class="btn btn-primary">
+            <span data-i18n="hero.cta1">Projekt unverbindlich besprechen</span>
+            <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#projects" class="btn btn-secondary">
+            <span data-i18n="hero.cta2">Technische Beispiele ansehen</span>
+          </a>
+        </div>
+        <div class="lang-badges">
+          <span class="lang-badge"><strong>DE</strong><span data-i18n="hero.langDE">Muttersprache</span></span>
+          <span class="lang-badge"><strong>EN</strong><span data-i18n="hero.langEN">Professionell</span></span>
+        </div>
+        <p class="hero-subnote" data-i18n="hero.subnote">20 Minuten reichen meist, um Scope, Risiken und sinnvolle nächste Schritte zu klären.</p>
+      </div>
+      <aside class="hero-proof" aria-label="Engineering-Prüfpunkte">
+        <div class="hero-proof-label" data-i18n="hero.proofLabel">Worauf ich achte</div>
+        <h2 data-i18n="hero.proofTitle">Schaltpläne müssen baubar, prüfbar und wartbar sein.</h2>
+        <ul class="proof-list">
+          <li data-i18n="hero.proof1">klare BMK-Logik nach Funktion und Einbauort</li>
+          <li data-i18n="hero.proof2">saubere Klemmen-, Kabel- und Stücklistendaten</li>
+          <li data-i18n="hero.proof3">Pro Panel, Smartwiring und Fertigungsdaten statt reiner Zeichnung</li>
+          <li data-i18n="hero.proof4">Reviews vor der Übergabe, nicht erst beim Schaltschrankbau</li>
+        </ul>
+      </aside>
     </div>
-    <h1>
-      <span data-i18n="hero.h1a">Elektrokonstruktion &amp; EPLAN-Lösungen</span><br>
-      <span class="accent" data-i18n="hero.h1b">für den industriellen Maschinenbau.</span>
-    </h1>
-    <p class="hero-tagline" data-i18n="hero.tagline">
-      Weniger Engineering-Fehler, schnellere Inbetriebnahme und höhere Maschinenzuverlässigkeit — durch strukturierte Elektrokonstruktion und 13+ Jahre Erfahrung im Sondermaschinenbau.
-    </p>
-    <div class="hero-meta mono">
-      <span data-i18n="hero.meta1">13+ Jahre im Maschinenbau</span>
-      <span data-i18n="hero.meta2">EPLAN P8 · Motion Control · Drive Systems</span>
-      <span data-i18n="hero.meta3">R&amp;D-Erfahrung · Internationale Projekte</span>
-      <span data-i18n="hero.meta4">Deutschland · Schweiz · China · Indien</span>
-    </div>
-    <div class="cta-row">
-      <a href="#booking" class="btn btn-primary">
-        <span data-i18n="hero.cta1">Kostenloses Erstgespräch</span>
-        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </a>
-      <a href="#projects" class="btn btn-secondary">
-        <span data-i18n="hero.cta2">Projekt-Cases ansehen</span>
-      </a>
-    </div>
-    <div class="lang-badges">
-      <span class="lang-badge"><strong>DE</strong><span data-i18n="hero.langDE">Muttersprache</span></span>
-      <span class="lang-badge"><strong>EN</strong><span data-i18n="hero.langEN">Professionell</span></span>
-    </div>
-    <p class="hero-subnote" data-i18n="hero.subnote">20-Minuten-Erstgespräch — kostenlos und unverbindlich.</p>
   </div>
 </section>
 
@@ -2980,7 +3061,7 @@ section {
       </div>
       <div>
         <label class="field-label" data-i18n="bk.fPkg">Gewähltes Paket</label>
-        <input type="text" name="package" id="selectedPackage" value="EPLAN Starter — 580 €" readonly>
+        <input type="text" name="package" id="selectedPackage" value="Technischer Quick Check" readonly>
       </div>
 
       <div class="full">
