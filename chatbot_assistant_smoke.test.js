@@ -49,6 +49,12 @@ assert(i18n.en['sit.subtitle'].includes('copy-paste from old projects') && i18n.
 assert(i18n.de['hero.h1a'].includes('Freiberufliche Elektrokonstruktion'), 'hero states freelance electrical design immediately');
 assert(i18n.de['hero.subnote'].includes('passt / passt nicht') && i18n.de['hero.subnote'].includes('welche Unterlagen fehlen'), 'hero is optimized for fast buyer decision scanning');
 assert(i18n.de['hero.cta1'] === 'Ersteinschätzung buchen', 'primary CTA is assessment-oriented');
+assert(!i18n.de['about.title'].includes('Ich komme aus der Maschine'), 'about title avoids inaccurate machine-origin wording');
+assert(i18n.de['about.title'].includes('Maschinen- und Anlagenbau') && i18n.de['about.title'].includes('Praxis'), 'about title positions real machine-building practice');
+assert(i18n.de['about.p1'].includes('Lager') && i18n.de['about.p1'].includes('Arbeitsvorbereitung') && i18n.de['about.p1'].includes('Schaltschrankbau'), 'about copy shows shopfloor-to-engineering lifecycle breadth');
+assert(i18n.de['about.p1'].includes('VDE') && i18n.de['about.p1'].includes('Montage') && i18n.de['about.p1'].includes('Kunde'), 'about copy includes testing, machine installation and customer-site reality');
+assert(i18n.de['about.p2'].includes('Kick-off') && i18n.de['about.p2'].includes('Lasten') && i18n.de['about.p2'].includes('Pflichtenheft'), 'about copy includes project clarification and specification work');
+assert(i18n.de['about.p2'].includes('Lieferanten') && i18n.de['about.p2'].includes('Montageteams') && i18n.de['about.p2'].includes('finanzieller Verantwortung'), 'about copy includes supplier, team coordination and responsibility');
 assert(i18n.de['sit.title'].includes('Fehler') && i18n.de['sit.title'].includes('Blick von außen'), 'situations section qualifies fit through concrete failure patterns');
 assert(!i18n.de['sit.subtitle'].includes('Wenn nicht, soll die Seite genauso schnell aussortieren'), 'situations subtitle avoids weak self-referential sorting copy');
 assert(i18n.de['sit.subtitle'].includes('Copy-Paste') && i18n.de['sit.subtitle'].includes('Nacharbeit'), 'situations subtitle names concrete engineering failure patterns');
