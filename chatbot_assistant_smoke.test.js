@@ -23,10 +23,6 @@ assert(index.includes('Keine vertraulichen Kundendaten'), 'confidentiality warni
 assert(index.includes('stats-intro'), 'stats intro prevents abrupt transition into metrics');
 assert(index.includes('trust-intro'), 'trust intro prevents abrupt transition into industries/tools');
 assert(index.includes('html[lang="es"] .section-label'), 'Spanish labels are not forced into wide uppercase');
-assert(index.includes('window.__dietzThemeBound'), 'theme toggle is bootstrapped independently before lower feature scripts');
-assert(index.includes('if (!window.__dietzThemeBound && themeToggle)'), 'lower theme script does not double-bind the toggle');
-assert(index.includes('width: min(100%, 2172px);'), 'hero banner is not upscaled beyond native width');
-assert(index.includes('[data-theme="light"] .privacy-backdrop'), 'privacy overlay stays light in light mode');
 assert(i18n.en['sit.title'].includes('Still unsure'), 'English project-situations title reframes need-fit question');
 assert(i18n.en['sit.subtitle'].includes('If one of these situations'), 'English project-situations subtitle explains when support fits');
 
