@@ -20,6 +20,11 @@ assert(index.includes('buildAssistantSummary'), 'deterministic triage summary fu
 assert(index.includes('textarea[name="project"]'), 'assistant targets existing booking project textarea');
 assert(index.includes('missing_information'), 'assistant records missing-information queue');
 assert(index.includes('Keine vertraulichen Kundendaten'), 'confidentiality warning exists');
+assert(index.includes('stats-intro'), 'stats intro prevents abrupt transition into metrics');
+assert(index.includes('trust-intro'), 'trust intro prevents abrupt transition into industries/tools');
+assert(index.includes('html[lang="es"] .section-label'), 'Spanish labels are not forced into wide uppercase');
+assert(i18n.en['sit.title'].includes('Still unsure'), 'English project-situations title reframes need-fit question');
+assert(i18n.en['sit.subtitle'].includes('If one of these situations'), 'English project-situations subtitle explains when support fits');
 
 const forbidden = [
   'api.openai.com',

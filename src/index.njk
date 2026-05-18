@@ -1003,6 +1003,25 @@ section {
   .situation-card { min-height: auto; }
 }
 
+html[lang="es"] .section-label,
+html[lang="es"] .hero-badge,
+html[lang="es"] .hero-proof-label,
+html[lang="es"] .trust-label,
+html[lang="es"] .stat-label,
+html[lang="es"] .show-tag,
+html[lang="es"] .service-num,
+html[lang="es"] .field-label,
+html[lang="es"] .assistant-kicker {
+  text-transform: none;
+  letter-spacing: 0.035em;
+}
+
+html[lang="es"] .hero-proof-label,
+html[lang="es"] .stat-label,
+html[lang="es"] .trust-label {
+  font-weight: 600;
+}
+
 /* =========================================================
    ABOUT
    ========================================================= */
@@ -1265,9 +1284,21 @@ section {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: var(--bg-2);
-  padding: 4rem 0;
+  padding: 4.8rem 0 4rem;
 }
 .stats-band .container { max-width: 1400px; padding: 0 2rem; }
+.stats-intro,
+.trust-intro {
+  max-width: 760px;
+  margin-bottom: 2.6rem;
+}
+.stats-intro .section-subtitle,
+.trust-intro .section-subtitle {
+  margin-bottom: 0;
+}
+.trust-intro {
+  margin-bottom: 2.4rem;
+}
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2973,6 +3004,11 @@ section {
 <!-- ============================ STATS BAND ============================ -->
 <section class="stats-band" aria-label="Kennzahlen">
   <div class="container">
+    <div class="stats-intro fade">
+      <span class="section-label" data-i18n="stats.label">Einordnung</span>
+      <h2 class="section-title" data-i18n="stats.title">Erfahrung, bevor es in Details geht.</h2>
+      <p class="section-subtitle" data-i18n="stats.subtitle">Diese Kennzahlen ordnen kurz ein, aus welchem Praxisumfeld die folgenden Branchen, Standards und Projektsituationen kommen.</p>
+    </div>
     <div class="stats-grid fade">
       <div class="stat-cell">
         <div class="stat-value">13<sup>+</sup></div>
@@ -2997,6 +3033,11 @@ section {
 <!-- ============================ TRUST BAND ============================ -->
 <section id="trust" class="trust-section">
   <div class="container">
+    <div class="trust-intro fade">
+      <span class="section-label" data-i18n="trust.label">Arbeitsumfeld</span>
+      <h2 class="section-title" data-i18n="trust.title">Wo ich mich schnell zurechtfinde.</h2>
+      <p class="section-subtitle" data-i18n="trust.subtitle">Ein kompakter Überblick über typische Branchen, Einsatzorte, Normen und Werkzeuge — damit die Liste nicht plötzlich ohne Kontext beginnt.</p>
+    </div>
     <div class="trust-grid fade">
       <div class="trust-block">
         <div class="trust-label" data-i18n="trust.industriesLabel">Branchen</div>
