@@ -16,6 +16,20 @@
     },
     {
       "question": {
+        "de": "Welche Unterlagen beschleunigen die Ersteinschätzung?",
+        "en": "Which documents speed up the first assessment?",
+        "es": "¿Qué documentos aceleran la primera evaluación?",
+        "zh": "哪些资料可以加快初步评估？"
+      },
+      "answer": {
+        "de": "Hilfreich sind eine kurze Maschinenbeschreibung, gewünschter Lieferumfang, EPLAN-Version/Toolstand, vorhandene Stückliste, Klemmen-/Kabellisten, I/O- oder SPS-Signalliste, Normen-/Kundenvorgaben und der echte Termin- oder Fertigungsdruck. Für den Erstkontakt reichen grobe Angaben — vertrauliche Projektdateien erst nach passender Abstimmung oder NDA.",
+        "en": "Helpful inputs are a short machine description, desired scope, EPLAN version/tool status, available BOM, terminal/cable lists, I/O or PLC signal list, standards/customer requirements and the real schedule or production pressure. Rough information is enough for first contact — confidential project files should wait until fit or NDA is clarified.",
+        "es": "Ayudan una breve descripción de la máquina, alcance deseado, versión de EPLAN/estado de herramientas, BOM/lista de materiales disponible, listas de bornes/cables, lista de señales I/O o PLC, normas/requisitos del cliente y la presión real de plazo o fabricación. Para el primer contacto bastan datos generales — los archivos confidenciales esperan hasta aclarar encaje o NDA.",
+        "zh": "有帮助的信息包括：机器简述、期望交付范围、EPLAN 版本/工具状态、现有 BOM、端子/电缆清单、I/O 或 PLC 信号表、标准/客户要求，以及真实的交期或生产压力。首次联系只需概略信息——保密项目文件应在匹配或 NDA 明确后再提供。"
+      }
+    },
+    {
+      "question": {
         "de": "Wann passt eine Anfrage eher nicht?",
         "en": "When is an inquiry less likely to fit?",
         "es": "¿Cuándo una consulta probablemente no encaja?",

@@ -88,6 +88,8 @@ const faq = JSON.parse(fs.readFileSync(path.join(root, 'src/_data/faq.json'), 'u
 assert(packages.items[0].name.de === 'Technische Erstbewertung', 'quick package is outcome-oriented');
 assert(packages.items[1].name.de === 'EPLAN Qualitätsreview', 'review package is premium and concrete');
 assert(faq.items.some(item => item.question.de.includes('Wann passt') && item.answer.de.includes('reine Preisvergleiche')), 'FAQ includes fit/no-fit qualification');
+assert(faq.items.some(item => item.question.de.includes('Unterlagen') && item.answer.de.includes('EPLAN-Version') && item.answer.de.includes('Stückliste')), 'FAQ tells buyers which documents speed up assessment');
+assert(faq.items.some(item => item.question.en.includes('documents') && item.answer.en.includes('EPLAN version') && item.answer.en.includes('BOM')), 'English FAQ tells buyers which documents speed up assessment');
 
 const forbidden = [
   'Noch kein Live-KI-Chat',
