@@ -2399,6 +2399,87 @@ section {
   animation: flow 8s linear infinite;
 }
 
+
+/* =========================================================
+   AI ASSISTANT PREVIEW (local triage, backend-ready contract)
+   ========================================================= */
+(function() {
+  const launcher = document.getElementById('assistantLauncher');
+  const panel = document.getElementById('assistantPanel');
+  const closeBtn = document.getElementById('assistantClose');
+  const prepareBtn = document.getElementById('assistantPrepare');
+  const output = document.getElementById('assistantOutput');
+  if (!launcher || !panel || !prepareBtn || !output) return;
+
+  let selectedType = 'EPLAN / Elektrokonstruktion';
+
+  function openAssistant() {
+    panel.classList.add('open');
+    launcher.setAttribute('aria-expanded', 'true');
+  }
+  function closeAssistant() {
+    panel.classList.remove('open');
+    launcher.setAttribute('aria-expanded', 'false');
+  }
+
+  launcher.addEventListener('click', () => panel.classList.contains('open') ? closeAssistant() : openAssistant());
+  closeBtn.addEventListener('click', closeAssistant);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel.classList.contains('open')) closeAssistant();
+  });
+
+  document.querySelectorAll('#assistantProjectTypes .assistant-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('#assistantProjectTypes .assistant-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      selectedType = chip.dataset.type || selectedType;
+    });
+  });
+
+  function buildAssistantSummary() {
+    const machine = document.getElementById('assistantMachine')?.value.trim() || 'noch nicht angegeben';
+    const scope = document.getElementById('assistantScope')?.value.trim() || 'noch nicht beschrieben';
+    const timeline = document.getElementById('assistantTimeline')?.value || 'Noch offen';
+    const missing = [];
+    if (machine === 'noch nicht angegeben') missing.push('Maschine/Anlagentyp');
+    if (scope === 'noch nicht beschrieben') missing.push('Kurzbeschreibung der Aufgabe');
+    if (selectedType.includes('Safety')) missing.push('gewünschter Performance Level / vorhandene Risikobeurteilung');
+    if (selectedType.includes('EPLAN')) missing.push('EPLAN-Version, vorhandene Makros/Stammdaten, gewünschte Ausgaben');
+    if (selectedType.includes('SPS')) missing.push('Steuerungsplattform, vorhandenes Programm, Schnittstellen');
+
+    return {
+      project_type: selectedType,
+      machine,
+      scope,
+      timeline,
+      missing_information: missing,
+      privacy_note: 'Keine vertraulichen Kundendaten oder internen Projektdateien im Erstkontakt senden.'
+    };
+  }
+
+  prepareBtn.addEventListener('click', () => {
+    const summary = buildAssistantSummary();
+    const formatted = [
+      'Vorqualifizierung durch DIETZ Website-Assistent:',
+      `- Projekttyp: ${summary.project_type}`,
+      `- Maschine/Anlage: ${summary.machine}`,
+      `- Kurzbeschreibung: ${summary.scope}`,
+      `- Zeitrahmen: ${summary.timeline}`,
+      summary.missing_information.length ? `- Noch zu klären: ${summary.missing_information.join('; ')}` : '- Noch zu klären: keine offensichtlichen Pflichtangaben',
+      `- Hinweis: ${summary.privacy_note}`
+    ].join('\n');
+
+    const projectField = document.querySelector('textarea[name="project"]');
+    if (projectField) projectField.value = formatted;
+    const pkgField = document.getElementById('selectedPackage');
+    if (pkgField && !pkgField.value) pkgField.value = 'Technischer Quick Check';
+
+    output.textContent = 'Ich habe die Projektanfrage unten im Formular vorbereitet. Bitte prüfen/ergänzen und dann absenden.';
+    output.classList.add('active');
+    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+
 /* =========================================================
    PRIVACY MODAL (Centered Consent Dialog)
    ========================================================= */
@@ -2550,6 +2631,148 @@ section {
 @media (max-width: 580px) {
   .privacy-dialog { padding: 1.4rem 1.2rem 1.1rem; }
   .privacy-dialog h2 { font-size: 1.2rem; }
+}
+
+
+/* =========================================================
+   AI ASSISTANT PREVIEW (local-only, no external API yet)
+   ========================================================= */
+.assistant-launcher {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 18px 45px rgba(30, 44, 71, 0.22);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.assistant-launcher:hover { background: var(--accent-soft); transform: translateY(-1px); }
+.assistant-launcher .assistant-pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #8cffc1;
+  box-shadow: 0 0 0 6px rgba(140, 255, 193, 0.18);
+}
+.assistant-panel {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 5.2rem;
+  z-index: 81;
+  width: min(430px, calc(100vw - 2rem));
+  max-height: min(720px, calc(100vh - 7rem));
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--bg-card);
+  box-shadow: 0 24px 70px rgba(30, 44, 71, 0.22);
+  backdrop-filter: blur(18px);
+}
+.assistant-panel.open { display: flex; }
+.assistant-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--accent-dim), transparent);
+}
+.assistant-kicker {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.assistant-head h3 { font-size: 1.02rem; margin: 0; }
+.assistant-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-soft);
+}
+.assistant-body {
+  padding: 1rem;
+  overflow-y: auto;
+}
+.assistant-message {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.85rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg-3);
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+.assistant-message strong { color: var(--text); }
+.assistant-quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  margin: 0.85rem 0;
+}
+.assistant-chip {
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 0.62rem 0.75rem;
+  color: var(--text);
+  background: var(--bg-2);
+  font-size: 0.84rem;
+  text-align: left;
+}
+.assistant-chip:hover, .assistant-chip.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.assistant-field { margin-top: 0.8rem; }
+.assistant-field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+.assistant-actions {
+  display: flex;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+.assistant-actions .btn { flex: 1; justify-content: center; padding: 0.78rem 0.85rem; }
+.assistant-output {
+  display: none;
+  margin-top: 0.85rem;
+  border-left: 3px solid var(--accent);
+  padding: 0.8rem 0.85rem;
+  background: var(--accent-dim);
+  color: var(--text-soft);
+  font-size: 0.88rem;
+}
+.assistant-output.active { display: block; }
+.assistant-footnote {
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.76rem;
+  color: var(--text-mute);
+  background: var(--bg-2);
+}
+@media (max-width: 580px) {
+  .assistant-launcher { right: 0.8rem; bottom: 0.8rem; padding: 0.78rem 0.9rem; }
+  .assistant-panel { right: 0.75rem; bottom: 4.7rem; width: calc(100vw - 1.5rem); }
+  .assistant-quick-grid { grid-template-columns: 1fr; }
 }
 
 /* =========================================================
@@ -3731,13 +3954,77 @@ section {
   </div>
 </footer>
 
+
+<!-- ============================ AI ASSISTANT PREVIEW ============================ -->
+<button class="assistant-launcher" id="assistantLauncher" type="button" aria-controls="assistantPanel" aria-expanded="false">
+  <span class="assistant-pulse" aria-hidden="true"></span>
+  <span>Assistent vorbereiten</span>
+</button>
+
+<aside class="assistant-panel" id="assistantPanel" aria-label="DIETZ Projektassistent Vorschau">
+  <div class="assistant-head">
+    <div>
+      <span class="assistant-kicker">DIETZ Assistent · Vorschau</span>
+      <h3>Projekt grob einordnen</h3>
+    </div>
+    <button class="assistant-close" id="assistantClose" type="button" aria-label="Assistent schließen">×</button>
+  </div>
+  <div class="assistant-body">
+    <div class="assistant-message">
+      <strong>Noch kein Live-KI-Chat.</strong><br>
+      Diese Vorschau läuft lokal im Browser, stellt erste technische Fragen und überträgt nichts an ein KI-Backend. Später kann hier ein Cloudflare Worker mit LLM/ERP-Anbindung dahinter.
+    </div>
+
+    <div class="assistant-field">
+      <label>Worum geht es hauptsächlich?</label>
+      <div class="assistant-quick-grid" id="assistantProjectTypes">
+        <button class="assistant-chip active" type="button" data-type="EPLAN / Elektrokonstruktion">EPLAN / Elektrokonstruktion</button>
+        <button class="assistant-chip" type="button" data-type="SPS / HMI / Inbetriebnahme">SPS / HMI</button>
+        <button class="assistant-chip" type="button" data-type="Safety / CE / Risiko">Safety / CE</button>
+        <button class="assistant-chip" type="button" data-type="Retrofit / Fehlersuche">Retrofit / Fehlersuche</button>
+      </div>
+    </div>
+
+    <div class="assistant-field">
+      <label for="assistantMachine">Maschine / Anlage</label>
+      <input id="assistantMachine" type="text" maxlength="140" placeholder="z.B. Verpackungsmaschine, Extruder, Prüfstand">
+    </div>
+
+    <div class="assistant-field">
+      <label for="assistantScope">Kurzbeschreibung</label>
+      <textarea id="assistantScope" maxlength="900" placeholder="Was ist vorhanden, was soll geliefert werden, wo drückt es technisch?"></textarea>
+    </div>
+
+    <div class="assistant-field">
+      <label for="assistantTimeline">Zeitrahmen</label>
+      <select id="assistantTimeline">
+        <option>Nur Vorabklärung</option>
+        <option>Dringend / diese Woche</option>
+        <option>2–4 Wochen</option>
+        <option>1–3 Monate</option>
+        <option>Noch offen</option>
+      </select>
+    </div>
+
+    <div class="assistant-actions">
+      <button class="btn btn-primary" id="assistantPrepare" type="button">Anfrage vorbereiten</button>
+      <a class="btn btn-secondary" href="#booking">Formular öffnen</a>
+    </div>
+
+    <div class="assistant-output" id="assistantOutput"></div>
+  </div>
+  <div class="assistant-footnote">
+    Bitte im Erstkontakt keine vertraulichen Kundendaten, internen Schaltpläne oder EPLAN-Projekte hochladen/einfügen.
+  </div>
+</aside>
+
 <!-- ============================ PRIVACY MODAL ============================ -->
 <div class="privacy-modal" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
   <div class="privacy-backdrop"></div>
   <div class="privacy-dialog">
     <h2 id="privacyTitle" data-i18n="pv.title">Privatsphäre-Einstellungen</h2>
     <div class="privacy-content">
-      <p data-i18n="pv.intro" data-i18n-html>Diese Website lädt Schriftarten von <strong>Google Fonts</strong>, bettet einen <strong>Google-Kalender</strong> für die Terminbuchung ein, übermittelt Anfrageformulare über <strong>Web3Forms</strong> und speichert deine Theme- und Sprachpräferenz lokal in deinem Browser. Beim Laden externer Inhalte kann deine IP-Adresse an Google bzw. Web3Forms übertragen werden. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p data-i18n="pv.intro" data-i18n-html>Diese Website speichert Theme- und Sprachpräferenz lokal im Browser. Schriftarten werden lokal geladen. Das Anfrageformular wird über <strong>Web3Forms</strong> übermittelt; die Terminbuchung öffnet einen externen <strong>Google-Calendar</strong>-Link erst nach Klick. Die Assistenten-Vorschau läuft aktuell nur lokal im Browser und ruft kein KI-Backend auf. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
       <p data-i18n="pv.rights">Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.</p>
     </div>
 
@@ -3749,8 +4036,8 @@ section {
           <span data-i18n="pv.cat1Desc">Theme- und Sprachpräferenz im Local Storage deines Browsers. Einwilligungsfrei nach §25 Abs. 2 Nr. 2 TTDSG, da unbedingt erforderlich für die Bereitstellung des Dienstes.</span>
         </li>
         <li>
-          <strong data-i18n="pv.cat2Name">Externe Schriftarten · Google Fonts</strong>
-          <span data-i18n="pv.cat2Desc">Lädt Typografie vom Google-CDN (Google Ireland Limited). IP-Adresse wird übertragen, ggf. Drittlandtransfer in die USA. Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, EU-DPF-Framework.</span>
+          <strong data-i18n="pv.cat2Name">Schriftarten · lokal gehostet</strong>
+          <span data-i18n="pv.cat2Desc">Schriftarten werden lokal von dieser Website ausgeliefert. Es erfolgt kein Abruf von Google Fonts beim Seitenaufruf.</span>
         </li>
         <li>
           <strong data-i18n="pv.cat3Name">Formular-Backend · Web3Forms</strong>
@@ -3758,7 +4045,7 @@ section {
         </li>
         <li>
           <strong data-i18n="pv.cat4Name">Terminbuchung · Google Kalender</strong>
-          <span data-i18n="pv.cat4Desc">Der eingebettete Buchungskalender lädt Inhalte aus meinem Google-Workspace-Konto (Google Ireland Limited). Beim Aufruf des Buchungs-Bereichs kann deine IP-Adresse an Google übertragen werden. Auftragsverarbeitung mit Standard-AVV gemäß Art. 28 DSGVO, ggf. Drittlandtransfer in die USA mit Standardvertragsklauseln und EU-DPF-Framework.</span>
+          <span data-i18n="pv.cat4Desc">Die Terminbuchung ist ein externer Link zu Google Calendar. Google wird erst kontaktiert, wenn der Link aktiv geöffnet wird.</span>
         </li>
       </ul>
     </div>
@@ -4008,6 +4295,148 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
+
+/* =========================================================
+   AI ASSISTANT PREVIEW (local-only, no external API yet)
+   ========================================================= */
+.assistant-launcher {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 18px 45px rgba(30, 44, 71, 0.22);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.assistant-launcher:hover { background: var(--accent-soft); transform: translateY(-1px); }
+.assistant-launcher .assistant-pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #8cffc1;
+  box-shadow: 0 0 0 6px rgba(140, 255, 193, 0.18);
+}
+.assistant-panel {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 5.2rem;
+  z-index: 81;
+  width: min(430px, calc(100vw - 2rem));
+  max-height: min(720px, calc(100vh - 7rem));
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--bg-card);
+  box-shadow: 0 24px 70px rgba(30, 44, 71, 0.22);
+  backdrop-filter: blur(18px);
+}
+.assistant-panel.open { display: flex; }
+.assistant-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--accent-dim), transparent);
+}
+.assistant-kicker {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.assistant-head h3 { font-size: 1.02rem; margin: 0; }
+.assistant-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-soft);
+}
+.assistant-body {
+  padding: 1rem;
+  overflow-y: auto;
+}
+.assistant-message {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.85rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg-3);
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+.assistant-message strong { color: var(--text); }
+.assistant-quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  margin: 0.85rem 0;
+}
+.assistant-chip {
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 0.62rem 0.75rem;
+  color: var(--text);
+  background: var(--bg-2);
+  font-size: 0.84rem;
+  text-align: left;
+}
+.assistant-chip:hover, .assistant-chip.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.assistant-field { margin-top: 0.8rem; }
+.assistant-field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+.assistant-actions {
+  display: flex;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+.assistant-actions .btn { flex: 1; justify-content: center; padding: 0.78rem 0.85rem; }
+.assistant-output {
+  display: none;
+  margin-top: 0.85rem;
+  border-left: 3px solid var(--accent);
+  padding: 0.8rem 0.85rem;
+  background: var(--accent-dim);
+  color: var(--text-soft);
+  font-size: 0.88rem;
+}
+.assistant-output.active { display: block; }
+.assistant-footnote {
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.76rem;
+  color: var(--text-mute);
+  background: var(--bg-2);
+}
+@media (max-width: 580px) {
+  .assistant-launcher { right: 0.8rem; bottom: 0.8rem; padding: 0.78rem 0.9rem; }
+  .assistant-panel { right: 0.75rem; bottom: 4.7rem; width: calc(100vw - 1.5rem); }
+  .assistant-quick-grid { grid-template-columns: 1fr; }
+}
+
 /* =========================================================
    FADE-IN ON SCROLL
    ========================================================= */
@@ -4029,6 +4458,87 @@ document.querySelectorAll('.fade').forEach(el => io.observe(el));
 
 /* Year */
 document.getElementById('year').textContent = new Date().getFullYear();
+
+
+/* =========================================================
+   AI ASSISTANT PREVIEW (local triage, backend-ready contract)
+   ========================================================= */
+(function() {
+  const launcher = document.getElementById('assistantLauncher');
+  const panel = document.getElementById('assistantPanel');
+  const closeBtn = document.getElementById('assistantClose');
+  const prepareBtn = document.getElementById('assistantPrepare');
+  const output = document.getElementById('assistantOutput');
+  if (!launcher || !panel || !prepareBtn || !output) return;
+
+  let selectedType = 'EPLAN / Elektrokonstruktion';
+
+  function openAssistant() {
+    panel.classList.add('open');
+    launcher.setAttribute('aria-expanded', 'true');
+  }
+  function closeAssistant() {
+    panel.classList.remove('open');
+    launcher.setAttribute('aria-expanded', 'false');
+  }
+
+  launcher.addEventListener('click', () => panel.classList.contains('open') ? closeAssistant() : openAssistant());
+  closeBtn.addEventListener('click', closeAssistant);
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel.classList.contains('open')) closeAssistant();
+  });
+
+  document.querySelectorAll('#assistantProjectTypes .assistant-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('#assistantProjectTypes .assistant-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      selectedType = chip.dataset.type || selectedType;
+    });
+  });
+
+  function buildAssistantSummary() {
+    const machine = document.getElementById('assistantMachine')?.value.trim() || 'noch nicht angegeben';
+    const scope = document.getElementById('assistantScope')?.value.trim() || 'noch nicht beschrieben';
+    const timeline = document.getElementById('assistantTimeline')?.value || 'Noch offen';
+    const missing = [];
+    if (machine === 'noch nicht angegeben') missing.push('Maschine/Anlagentyp');
+    if (scope === 'noch nicht beschrieben') missing.push('Kurzbeschreibung der Aufgabe');
+    if (selectedType.includes('Safety')) missing.push('gewünschter Performance Level / vorhandene Risikobeurteilung');
+    if (selectedType.includes('EPLAN')) missing.push('EPLAN-Version, vorhandene Makros/Stammdaten, gewünschte Ausgaben');
+    if (selectedType.includes('SPS')) missing.push('Steuerungsplattform, vorhandenes Programm, Schnittstellen');
+
+    return {
+      project_type: selectedType,
+      machine,
+      scope,
+      timeline,
+      missing_information: missing,
+      privacy_note: 'Keine vertraulichen Kundendaten oder internen Projektdateien im Erstkontakt senden.'
+    };
+  }
+
+  prepareBtn.addEventListener('click', () => {
+    const summary = buildAssistantSummary();
+    const formatted = [
+      'Vorqualifizierung durch DIETZ Website-Assistent:',
+      `- Projekttyp: ${summary.project_type}`,
+      `- Maschine/Anlage: ${summary.machine}`,
+      `- Kurzbeschreibung: ${summary.scope}`,
+      `- Zeitrahmen: ${summary.timeline}`,
+      summary.missing_information.length ? `- Noch zu klären: ${summary.missing_information.join('; ')}` : '- Noch zu klären: keine offensichtlichen Pflichtangaben',
+      `- Hinweis: ${summary.privacy_note}`
+    ].join('\n');
+
+    const projectField = document.querySelector('textarea[name="project"]');
+    if (projectField) projectField.value = formatted;
+    const pkgField = document.getElementById('selectedPackage');
+    if (pkgField && !pkgField.value) pkgField.value = 'Technischer Quick Check';
+
+    output.textContent = 'Ich habe die Projektanfrage unten im Formular vorbereitet. Bitte prüfen/ergänzen und dann absenden.';
+    output.classList.add('active');
+    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
 
 /* =========================================================
    PRIVACY MODAL (centered consent dialog)
