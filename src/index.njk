@@ -3964,18 +3964,18 @@ html[lang="es"] .trust-label {
   <span>Assistent vorbereiten</span>
 </button>
 
-<aside class="assistant-panel" id="assistantPanel" aria-label="DIETZ Projektassistent Vorschau">
+<aside class="assistant-panel" id="assistantPanel" aria-label="DIETZ Projektassistent">
   <div class="assistant-head">
     <div>
-      <span class="assistant-kicker">DIETZ Assistent · Vorschau</span>
+      <span class="assistant-kicker">DIETZ Projektassistent</span>
       <h3>Projekt grob einordnen</h3>
     </div>
     <button class="assistant-close" id="assistantClose" type="button" aria-label="Assistent schließen">×</button>
   </div>
   <div class="assistant-body">
     <div class="assistant-message">
-      <strong>Noch kein Live-KI-Chat.</strong><br>
-      Diese Vorschau läuft lokal im Browser, stellt erste technische Fragen und überträgt nichts an ein KI-Backend. Später kann hier ein Cloudflare Worker mit LLM/ERP-Anbindung dahinter.
+      <strong>Projektanfrage strukturiert vorbereiten.</strong><br>
+      Beantworten Sie ein paar technische Fragen. Der Assistent übernimmt die Angaben anschließend in das Anfrageformular, damit ich den Bedarf schneller einordnen kann.
     </div>
 
     <div class="assistant-field">
@@ -4027,7 +4027,7 @@ html[lang="es"] .trust-label {
   <div class="privacy-dialog">
     <h2 id="privacyTitle" data-i18n="pv.title">Privatsphäre-Einstellungen</h2>
     <div class="privacy-content">
-      <p data-i18n="pv.intro" data-i18n-html>Diese Website speichert Theme- und Sprachpräferenz lokal im Browser. Schriftarten werden lokal geladen. Das Anfrageformular wird über <strong>Web3Forms</strong> übermittelt; die Terminbuchung öffnet einen externen <strong>Google-Calendar</strong>-Link erst nach Klick. Die Assistenten-Vorschau läuft aktuell nur lokal im Browser und ruft kein KI-Backend auf. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p data-i18n="pv.intro" data-i18n-html>Diese Website speichert Theme- und Sprachpräferenz lokal im Browser. Schriftarten werden lokal geladen. Das Anfrageformular wird über <strong>Web3Forms</strong> übermittelt; die Terminbuchung öffnet einen externen <strong>Google-Calendar</strong>-Link erst nach Klick. Details findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
       <p data-i18n="pv.rights">Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.</p>
     </div>
 
@@ -4376,12 +4376,22 @@ document.querySelectorAll('.faq-item').forEach(item => {
       `- Hinweis: ${summary.privacy_note}`
     ].join('\n');
 
-    const projectField = document.querySelector('textarea[name="project"]');
-    if (projectField) projectField.value = formatted;
+    const projectField = document.querySelector('#bookingForm textarea[name="project"], textarea[name="project"]');
+    if (projectField) {
+      projectField.value = formatted;
+      projectField.dispatchEvent(new Event('input', { bubbles: true }));
+      projectField.dispatchEvent(new Event('change', { bubbles: true }));
+    }
     const pkgField = document.getElementById('selectedPackage');
-    if (pkgField && !pkgField.value) pkgField.value = 'Technischer Quick Check';
+    if (pkgField) {
+      pkgField.value = selectedType;
+      pkgField.dispatchEvent(new Event('input', { bubbles: true }));
+      pkgField.dispatchEvent(new Event('change', { bubbles: true }));
+    }
 
-    output.textContent = 'Ich habe die Projektanfrage unten im Formular vorbereitet. Bitte prüfen/ergänzen und dann absenden.';
+    output.textContent = projectField
+      ? 'Die Projektanfrage wurde unten ins Formular übernommen. Bitte prüfen, Kontaktdaten ergänzen und dann absenden.'
+      : 'Die Zusammenfassung ist vorbereitet. Bitte öffnen Sie das Formular und übernehmen Sie die Angaben.';
     output.classList.add('active');
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });

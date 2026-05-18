@@ -18,11 +18,14 @@ function assert(condition, message) {
 assert(index.includes('AI ASSISTANT PREVIEW'), 'assistant CSS/HTML/JS marker exists');
 assert(index.includes('id="assistantLauncher"'), 'assistant launcher exists');
 assert(index.includes('id="assistantPanel"'), 'assistant panel exists');
-assert(index.includes('Noch kein Live-KI-Chat'), 'local-only/no-live-ai copy is visible');
+assert(index.includes('Projektanfrage strukturiert vorbereiten'), 'production assistant copy is visible');
 assert(index.includes('buildAssistantSummary'), 'deterministic triage summary function exists');
 assert(index.includes('textarea[name="project"]'), 'assistant targets existing booking project textarea');
 assert(index.includes('missing_information'), 'assistant records missing-information queue');
 assert(index.includes('Keine vertraulichen Kundendaten'), 'confidentiality warning exists');
+assert(index.includes("#bookingForm textarea[name=\"project\"], textarea[name=\"project\"]"), 'assistant targets the booking project textarea robustly');
+assert(index.includes("projectField.dispatchEvent(new Event('input', { bubbles: true }))"), 'assistant notifies the form after autofilling project text');
+assert(index.includes('pkgField.value = selectedType'), 'assistant transfers selected project type into the package field');
 assert(index.includes('stats-intro'), 'stats intro prevents abrupt transition into metrics');
 assert(index.includes('trust-intro'), 'trust intro prevents abrupt transition into industries/tools');
 assert(index.includes('html[lang="es"] .section-label'), 'Spanish labels are not forced into wide uppercase');
@@ -36,6 +39,12 @@ assert(i18n.en['sit.title'].includes('Still unsure'), 'English project-situation
 assert(i18n.en['sit.subtitle'].includes('If one of these situations'), 'English project-situations subtitle explains when support fits');
 
 const forbidden = [
+  'Noch kein Live-KI-Chat',
+  'DIETZ Assistent · Vorschau',
+  'stellt erste technische Fragen',
+  'KI-Backend',
+  'Cloudflare Worker',
+  'clients who run without me',
   'api.openai.com',
   'api.anthropic.com',
   'generativelanguage.googleapis.com',
