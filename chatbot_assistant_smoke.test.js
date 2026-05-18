@@ -69,6 +69,11 @@ assert(i18n.en['hero.cta1'] === 'Book assessment', 'English primary CTA is asses
 assert(i18n.de['nav.booking'] === 'Ersteinschätzung', 'navigation frames booking as technical assessment');
 assert(i18n.de['hero.badge'].includes('Senior') || i18n.de['hero.badge'].includes('EPLAN'), 'hero badge positions premium specialist support');
 assert(i18n.de['hero.tagline'].includes('ohne Agentur-Ebene'), 'hero reinforces direct solo provider trust');
+assert(i18n.de['hero.tagline'].includes('externem Projektfokus'), 'hero explains the value of an external focused specialist');
+assert(i18n.de['srv.subtitle'].includes('klar vereinbartem Scope') && i18n.de['srv.subtitle'].includes('Projektbudget'), 'services explain fixed scope and budget discipline before start');
+assert(i18n.de['sit.subtitle'].includes('Daily Business') && i18n.de['sit.subtitle'].includes('interne Themen'), 'situations explain why external focus can protect project progress');
+assert(i18n.de['depth.subtitle'].includes('abgegrenzter externer Scope') && i18n.de['depth.subtitle'].includes('Budget'), 'technical-depth copy connects external scope with budget control');
+assert(i18n.en['hero.tagline'].includes('external project focus'), 'English hero explains external focused specialist value');
 assert(index.includes('<a href="#situations" class="btn btn-secondary">'), 'secondary hero CTA links to bottleneck fit check');
 assert(index.indexOf('<section id="services">') < index.indexOf('<section id="about">'), 'services appear before about for faster buyer decision');
 assert(!index.includes('<div class="stat-value">100<sup>%</sup></div>'), 'stats do not imply absolute CE/UL/EMV guarantee');
