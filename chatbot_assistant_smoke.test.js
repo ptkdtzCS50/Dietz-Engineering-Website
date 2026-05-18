@@ -63,6 +63,9 @@ assert(i18n.de['sit.s2Title'].includes('Stückliste') || i18n.de['sit.s2Text'].i
 assert((i18n.de['sit.s3Text'].includes('Verdrahtung') || i18n.de['sit.s3Text'].includes('Verdrahten')) && i18n.de['sit.s3Text'].includes('Inbetriebnahme'), 'situations include wiring errors found during commissioning');
 assert(i18n.de['sit.s4Text'].includes('SPS') && (i18n.de['sit.s4Text'].includes('I/O') || i18n.de['sit.s4Text'].includes('Signale')), 'situations include PLC/I/O assignment drift');
 assert(i18n.de['trust.title'].includes('Praxisnähe'), 'trust section is explicit for industrial clients');
+assert(i18n.de['trust.subtitle'].includes('technisch fundiertes Verständnis') && i18n.de['trust.subtitle'].includes('Marktreife'), 'trust copy includes technical understanding and market-readiness R&D contribution');
+assert(i18n.de['about.p2'].includes('Research-Projekten') && i18n.de['about.p2'].includes('Marktreife'), 'about copy includes R&D contribution toward market readiness');
+assert(i18n.en['trust.subtitle'].includes('technically grounded understanding') && i18n.en['trust.subtitle'].includes('market readiness'), 'English trust copy includes R&D market-readiness positioning');
 assert(i18n.de['bk.title'].includes('Ersteinschätzung'), 'booking section makes the next step explicit');
 assert(i18n.en['hero.h1a'].includes('Freelance electrical design'), 'English hero states freelance electrical design immediately');
 assert(i18n.en['hero.cta1'] === 'Book assessment', 'English primary CTA is assessment-oriented');
