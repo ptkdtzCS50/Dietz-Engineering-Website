@@ -44,8 +44,16 @@ assert(index.includes('window.__dietzThemeBound'), 'theme toggle is bootstrapped
 assert(index.includes('[data-theme="light"] .privacy-backdrop'), 'privacy overlay stays light in light mode');
 assert(index.includes('width: min(100%, 2172px);'), 'hero banner is not upscaled beyond native width');
 assert(index.includes("document.querySelectorAll('.fade').forEach(el => el.classList.add('in'))"), 'fade sections are made visible immediately after JS boot');
-assert(i18n.en['sit.title'].includes('Still unsure'), 'English project-situations title reframes need-fit question');
-assert(i18n.en['sit.subtitle'].includes('If one of these situations'), 'English project-situations subtitle explains when support fits');
+assert(i18n.en['sit.title'].includes('Is Patrick a fit'), 'English project-situations title reframes need-fit question');
+assert(i18n.en['sit.subtitle'].includes('busy project and engineering managers'), 'English project-situations subtitle explains when support fits');
+assert(i18n.de['hero.h1a'].includes('Freiberufliche Elektrokonstruktion'), 'hero states freelance electrical design immediately');
+assert(i18n.de['hero.tagline'].includes('2–3 Minuten'), 'hero is optimized for fast buyer scanning');
+assert(i18n.de['hero.cta1'] === 'Projekt einschätzen lassen', 'primary CTA is assessment-oriented');
+assert(i18n.de['sit.title'].includes('Passt Patrick zu Ihrem Engpass?'), 'situations section qualifies fit quickly');
+assert(i18n.de['trust.title'].includes('Industrie-Trust'), 'trust section is explicit for industrial clients');
+assert(i18n.de['bk.title'].includes('Nächster Schritt'), 'booking section makes the next step explicit');
+assert(i18n.en['hero.h1a'].includes('Freelance electrical design'), 'English hero states freelance electrical design immediately');
+assert(i18n.en['hero.cta1'] === 'Get project assessment', 'English primary CTA is assessment-oriented');
 
 const forbidden = [
   'Noch kein Live-KI-Chat',
