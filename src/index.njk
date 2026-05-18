@@ -3961,62 +3961,62 @@ html[lang="es"] .trust-label {
 <!-- ============================ AI ASSISTANT PREVIEW ============================ -->
 <button class="assistant-launcher" id="assistantLauncher" type="button" aria-controls="assistantPanel" aria-expanded="false">
   <span class="assistant-pulse" aria-hidden="true"></span>
-  <span>Assistent vorbereiten</span>
+  <span data-i18n="assistant.launcher">Assistent vorbereiten</span>
 </button>
 
 <aside class="assistant-panel" id="assistantPanel" aria-label="DIETZ Projektassistent">
   <div class="assistant-head">
     <div>
-      <span class="assistant-kicker">DIETZ Projektassistent</span>
-      <h3>Projekt grob einordnen</h3>
+      <span class="assistant-kicker" data-i18n="assistant.kicker">DIETZ Projektassistent</span>
+      <h3 data-i18n="assistant.title">Projekt grob einordnen</h3>
     </div>
-    <button class="assistant-close" id="assistantClose" type="button" aria-label="Assistent schließen">×</button>
+    <button class="assistant-close" id="assistantClose" type="button" aria-label="Assistent schließen" data-i18n-aria-label="assistant.close">×</button>
   </div>
   <div class="assistant-body">
     <div class="assistant-message">
-      <strong>Projektanfrage strukturiert vorbereiten.</strong><br>
-      Beantworten Sie ein paar technische Fragen. Der Assistent übernimmt die Angaben anschließend in das Anfrageformular, damit ich den Bedarf schneller einordnen kann.
+      <strong data-i18n="assistant.messageTitle">Projektanfrage strukturiert vorbereiten.</strong><br>
+      <span data-i18n="assistant.messageText">Beantworten Sie ein paar technische Fragen. Der Assistent übernimmt die Angaben anschließend in das Anfrageformular, damit ich den Bedarf schneller einordnen kann.</span>
     </div>
 
     <div class="assistant-field">
-      <label>Worum geht es hauptsächlich?</label>
+      <label data-i18n="assistant.mainQuestion">Worum geht es hauptsächlich?</label>
       <div class="assistant-quick-grid" id="assistantProjectTypes">
-        <button class="assistant-chip active" type="button" data-type="EPLAN / Elektrokonstruktion">EPLAN / Elektrokonstruktion</button>
-        <button class="assistant-chip" type="button" data-type="SPS / HMI / Inbetriebnahme">SPS / HMI</button>
-        <button class="assistant-chip" type="button" data-type="Safety / CE / Risiko">Safety / CE</button>
-        <button class="assistant-chip" type="button" data-type="Retrofit / Fehlersuche">Retrofit / Fehlersuche</button>
+        <button class="assistant-chip active" type="button" data-type-key="assistant.typeEplan" data-i18n="assistant.typeEplan">EPLAN / Elektrokonstruktion</button>
+        <button class="assistant-chip" type="button" data-type-key="assistant.typeSps" data-i18n="assistant.typeSps">SPS / HMI</button>
+        <button class="assistant-chip" type="button" data-type-key="assistant.typeSafety" data-i18n="assistant.typeSafety">Safety / CE</button>
+        <button class="assistant-chip" type="button" data-type-key="assistant.typeRetrofit" data-i18n="assistant.typeRetrofit">Retrofit / Fehlersuche</button>
       </div>
     </div>
 
     <div class="assistant-field">
-      <label for="assistantMachine">Maschine / Anlage</label>
-      <input id="assistantMachine" type="text" maxlength="140" placeholder="z.B. Verpackungsmaschine, Extruder, Prüfstand">
+      <label for="assistantMachine" data-i18n="assistant.machine">Maschine / Anlage</label>
+      <input id="assistantMachine" type="text" maxlength="140" placeholder="z.B. Verpackungsmaschine, Extruder, Prüfstand" data-i18n-placeholder="assistant.machinePh">
     </div>
 
     <div class="assistant-field">
-      <label for="assistantScope">Kurzbeschreibung</label>
-      <textarea id="assistantScope" maxlength="900" placeholder="Was ist vorhanden, was soll geliefert werden, wo drückt es technisch?"></textarea>
+      <label for="assistantScope" data-i18n="assistant.scope">Kurzbeschreibung</label>
+      <textarea id="assistantScope" maxlength="900" placeholder="Was ist vorhanden, was soll geliefert werden, wo drückt es technisch?" data-i18n-placeholder="assistant.scopePh"></textarea>
     </div>
 
     <div class="assistant-field">
-      <label for="assistantTimeline">Zeitrahmen</label>
+      <label for="assistantTimeline" data-i18n="assistant.timeline">Zeitrahmen</label>
       <select id="assistantTimeline">
-        <option>Nur Vorabklärung</option>
-        <option>Dringend / diese Woche</option>
-        <option>2–4 Wochen</option>
-        <option>1–3 Monate</option>
-        <option>Noch offen</option>
+        <option data-i18n="assistant.timelineClarify">Nur Vorabklärung</option>
+        <option data-i18n="assistant.timelineUrgent">Dringend / diese Woche</option>
+        <option data-i18n="assistant.timelineWeeks">2–4 Wochen</option>
+        <option data-i18n="assistant.timelineMonths">1–3 Monate</option>
+        <option data-i18n="assistant.timelineOpen">Noch offen</option>
       </select>
     </div>
 
     <div class="assistant-actions">
-      <button class="btn btn-primary" id="assistantPrepare" type="button">Anfrage vorbereiten</button>
-      <a class="btn btn-secondary" href="#booking">Formular öffnen</a>
+      <button class="btn btn-primary" id="assistantPrepare" type="button" data-i18n="assistant.prepare">Anfrage vorbereiten</button>
+      <a class="btn btn-secondary" href="#booking" data-i18n="assistant.openForm">Formular öffnen</a>
     </div>
 
     <div class="assistant-output" id="assistantOutput"></div>
   </div>
-  <div class="assistant-footnote">
+  <div class="assistant-footnote" data-i18n="assistant.footnote">
     Bitte im Erstkontakt keine vertraulichen Kundendaten, internen Schaltpläne oder EPLAN-Projekte hochladen/einfügen.
   </div>
 </aside>
@@ -4120,6 +4120,12 @@ function applyLang(lang) {
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
     if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
+  });
+
+  // Accessibility labels via data-i18n-aria-label
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria-label');
+    if (dict[key] !== undefined) el.setAttribute('aria-label', dict[key]);
   });
 
   // Inline-Übersetzungen via data-translations (für Listendaten aus _data/*.json,
@@ -4318,7 +4324,8 @@ document.querySelectorAll('.faq-item').forEach(item => {
   const output = document.getElementById('assistantOutput');
   if (!launcher || !panel || !prepareBtn || !output) return;
 
-  let selectedType = 'EPLAN / Elektrokonstruktion';
+  let selectedTypeKey = 'assistant.typeEplan';
+  const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
 
   function openAssistant() {
     panel.classList.add('open');
@@ -4339,20 +4346,26 @@ document.querySelectorAll('.faq-item').forEach(item => {
     chip.addEventListener('click', () => {
       document.querySelectorAll('#assistantProjectTypes .assistant-chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
-      selectedType = chip.dataset.type || selectedType;
+      selectedTypeKey = chip.dataset.typeKey || selectedTypeKey;
     });
   });
 
   function buildAssistantSummary() {
-    const machine = document.getElementById('assistantMachine')?.value.trim() || 'noch nicht angegeben';
-    const scope = document.getElementById('assistantScope')?.value.trim() || 'noch nicht beschrieben';
-    const timeline = document.getElementById('assistantTimeline')?.value || 'Noch offen';
+    const dict = assistantDict();
+    const activeChip = document.querySelector('#assistantProjectTypes .assistant-chip.active');
+    const activeTypeKey = activeChip?.dataset.typeKey || selectedTypeKey;
+    const selectedType = dict[activeTypeKey] || activeChip?.textContent.trim() || dict['assistant.typeEplan'];
+    const machineFallback = dict['assistant.machineFallback'];
+    const scopeFallback = dict['assistant.scopeFallback'];
+    const machine = document.getElementById('assistantMachine')?.value.trim() || machineFallback;
+    const scope = document.getElementById('assistantScope')?.value.trim() || scopeFallback;
+    const timeline = document.getElementById('assistantTimeline')?.selectedOptions[0]?.textContent.trim() || dict['assistant.timelineOpen'];
     const missing = [];
-    if (machine === 'noch nicht angegeben') missing.push('Maschine/Anlagentyp');
-    if (scope === 'noch nicht beschrieben') missing.push('Kurzbeschreibung der Aufgabe');
-    if (selectedType.includes('Safety')) missing.push('gewünschter Performance Level / vorhandene Risikobeurteilung');
-    if (selectedType.includes('EPLAN')) missing.push('EPLAN-Version, vorhandene Makros/Stammdaten, gewünschte Ausgaben');
-    if (selectedType.includes('SPS')) missing.push('Steuerungsplattform, vorhandenes Programm, Schnittstellen');
+    if (machine === machineFallback) missing.push(dict['assistant.missingMachine']);
+    if (scope === scopeFallback) missing.push(dict['assistant.missingScope']);
+    if (activeTypeKey === 'assistant.typeSafety') missing.push(dict['assistant.missingSafety']);
+    if (activeTypeKey === 'assistant.typeEplan') missing.push(dict['assistant.missingEplan']);
+    if (activeTypeKey === 'assistant.typeSps') missing.push(dict['assistant.missingSps']);
 
     return {
       project_type: selectedType,
@@ -4360,20 +4373,21 @@ document.querySelectorAll('.faq-item').forEach(item => {
       scope,
       timeline,
       missing_information: missing,
-      privacy_note: 'Keine vertraulichen Kundendaten oder internen Projektdateien im Erstkontakt senden.'
+      privacy_note: dict['assistant.privacyNote']
     };
   }
 
   prepareBtn.addEventListener('click', () => {
     const summary = buildAssistantSummary();
+    const dict = assistantDict();
     const formatted = [
-      'Vorqualifizierung durch DIETZ Website-Assistent:',
-      `- Projekttyp: ${summary.project_type}`,
-      `- Maschine/Anlage: ${summary.machine}`,
-      `- Kurzbeschreibung: ${summary.scope}`,
-      `- Zeitrahmen: ${summary.timeline}`,
-      summary.missing_information.length ? `- Noch zu klären: ${summary.missing_information.join('; ')}` : '- Noch zu klären: keine offensichtlichen Pflichtangaben',
-      `- Hinweis: ${summary.privacy_note}`
+      dict['assistant.summaryTitle'],
+      `- ${dict['assistant.summaryType']}: ${summary.project_type}`,
+      `- ${dict['assistant.summaryMachine']}: ${summary.machine}`,
+      `- ${dict['assistant.summaryScope']}: ${summary.scope}`,
+      `- ${dict['assistant.summaryTimeline']}: ${summary.timeline}`,
+      summary.missing_information.length ? `- ${dict['assistant.summaryMissing']}: ${summary.missing_information.join('; ')}` : `- ${dict['assistant.summaryMissing']}: ${dict['assistant.summaryNone']}`,
+      `- ${dict['assistant.summaryNote']}: ${summary.privacy_note}`
     ].join('\n');
 
     const projectField = document.querySelector('#bookingForm textarea[name="project"], textarea[name="project"]');
@@ -4384,14 +4398,14 @@ document.querySelectorAll('.faq-item').forEach(item => {
     }
     const pkgField = document.getElementById('selectedPackage');
     if (pkgField) {
-      pkgField.value = selectedType;
+      pkgField.value = summary.project_type;
       pkgField.dispatchEvent(new Event('input', { bubbles: true }));
       pkgField.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
     output.textContent = projectField
-      ? 'Die Projektanfrage wurde unten ins Formular übernommen. Bitte prüfen, Kontaktdaten ergänzen und dann absenden.'
-      : 'Die Zusammenfassung ist vorbereitet. Bitte öffnen Sie das Formular und übernehmen Sie die Angaben.';
+      ? dict['assistant.outputDone']
+      : dict['assistant.outputNoField'];
     output.classList.add('active');
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
