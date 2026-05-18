@@ -47,13 +47,27 @@ assert(index.includes("document.querySelectorAll('.fade').forEach(el => el.class
 assert(i18n.en['sit.title'].includes('Is Patrick a fit'), 'English project-situations title reframes need-fit question');
 assert(i18n.en['sit.subtitle'].includes('busy project and engineering managers'), 'English project-situations subtitle explains when support fits');
 assert(i18n.de['hero.h1a'].includes('Freiberufliche Elektrokonstruktion'), 'hero states freelance electrical design immediately');
-assert(i18n.de['hero.tagline'].includes('2–3 Minuten'), 'hero is optimized for fast buyer scanning');
-assert(i18n.de['hero.cta1'] === 'Projekt einschätzen lassen', 'primary CTA is assessment-oriented');
-assert(i18n.de['sit.title'].includes('Passt Patrick zu Ihrem Engpass?'), 'situations section qualifies fit quickly');
-assert(i18n.de['trust.title'].includes('Industrie-Trust'), 'trust section is explicit for industrial clients');
-assert(i18n.de['bk.title'].includes('Nächster Schritt'), 'booking section makes the next step explicit');
+assert(i18n.de['hero.subnote'].includes('passt / passt nicht') && i18n.de['hero.subnote'].includes('welche Unterlagen fehlen'), 'hero is optimized for fast buyer decision scanning');
+assert(i18n.de['hero.cta1'] === 'Ersteinschätzung buchen', 'primary CTA is assessment-oriented');
+assert(i18n.de['sit.title'].includes('Passt Patrick zu Ihrem Engpass?') || i18n.de['sit.title'].includes('Engpass'), 'situations section qualifies fit quickly');
+assert(i18n.de['trust.title'].includes('Praxisnähe'), 'trust section is explicit for industrial clients');
+assert(i18n.de['bk.title'].includes('Ersteinschätzung'), 'booking section makes the next step explicit');
 assert(i18n.en['hero.h1a'].includes('Freelance electrical design'), 'English hero states freelance electrical design immediately');
-assert(i18n.en['hero.cta1'] === 'Get project assessment', 'English primary CTA is assessment-oriented');
+assert(i18n.en['hero.cta1'] === 'Book assessment', 'English primary CTA is assessment-oriented');
+assert(i18n.de['nav.booking'] === 'Ersteinschätzung', 'navigation frames booking as technical assessment');
+assert(i18n.de['hero.badge'].includes('Senior') || i18n.de['hero.badge'].includes('EPLAN'), 'hero badge positions premium specialist support');
+assert(i18n.de['hero.tagline'].includes('ohne Agentur-Ebene'), 'hero reinforces direct solo provider trust');
+assert(index.includes('<a href="#situations" class="btn btn-secondary">'), 'secondary hero CTA links to bottleneck fit check');
+assert(index.indexOf('<section id="services">') < index.indexOf('<section id="about">'), 'services appear before about for faster buyer decision');
+assert(!index.includes('<div class="stat-value">100<sup>%</sup></div>'), 'stats do not imply absolute CE/UL/EMV guarantee');
+assert(i18n.de['srv.priceOnRequest'].includes('vor Start klar vereinbart'), 'service pricing is framed as professional scope agreement');
+assert(i18n.de['bk.freeNote'].includes('keine technische Detailberatung ohne Auftrag'), 'first call is positioned as qualification not free consulting');
+
+const packages = JSON.parse(fs.readFileSync(path.join(root, 'src/_data/packages.json'), 'utf8'));
+const faq = JSON.parse(fs.readFileSync(path.join(root, 'src/_data/faq.json'), 'utf8'));
+assert(packages.items[0].name.de === 'Technische Erstbewertung', 'quick package is outcome-oriented');
+assert(packages.items[1].name.de === 'EPLAN Qualitätsreview', 'review package is premium and concrete');
+assert(faq.items.some(item => item.question.de.includes('Wann passt') && item.answer.de.includes('reine Preisvergleiche')), 'FAQ includes fit/no-fit qualification');
 
 const forbidden = [
   'Noch kein Live-KI-Chat',
