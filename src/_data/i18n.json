@@ -234,7 +234,15 @@
     "assistant.scopeFallback": "noch nicht beschrieben",
     "assistant.privacyNote": "Keine vertraulichen Kundendaten oder internen Projektdateien im Erstkontakt senden.",
     "assistant.outputDone": "Die Projektanfrage wurde unten ins Formular übernommen. Bitte prüfen, Kontaktdaten ergänzen und dann absenden.",
-    "assistant.outputNoField": "Die Zusammenfassung ist vorbereitet. Bitte öffnen Sie das Formular und übernehmen Sie die Angaben."
+    "assistant.outputNoField": "Die Zusammenfassung ist vorbereitet. Bitte öffnen Sie das Formular und übernehmen Sie die Angaben.",
+    "prj.moreSummary": "Weitere Projektbeispiele anzeigen",
+    "faq.moreSummary": "Weitere Fragen anzeigen",
+    "about.cred1Title": "Elektroniker für Betriebstechnik",
+    "about.cred1Text": "Industrielle Anlagentechnik, Schaltschrankbau, Steuerungstechnik und elektrische Inbetriebnahme.",
+    "about.cred2Period": "2020 · DAA",
+    "about.cred2Title": "Staatlich geprüfter Techniker — Elektrotechnik",
+    "about.cred2Text": "Energietechnik & Prozessautomatisierung, DQR/EQF Level 6 / Bachelor Professional.",
+    "about.credentialsLabel": "Ausbildung und Qualifikation"
   },
   "en": {
     "nav.about": "About",
@@ -471,7 +479,15 @@
     "assistant.scopeFallback": "not described yet",
     "assistant.privacyNote": "Do not send confidential customer data or internal project files in the first contact.",
     "assistant.outputDone": "The project inquiry has been transferred into the form below. Please review it, add contact details and submit.",
-    "assistant.outputNoField": "The summary is prepared. Please open the form and transfer the information."
+    "assistant.outputNoField": "The summary is prepared. Please open the form and transfer the information.",
+    "prj.moreSummary": "Show more project examples",
+    "faq.moreSummary": "Show more questions",
+    "about.cred1Title": "Industrial Electronics Technician",
+    "about.cred1Text": "Industrial plant engineering, panel building, control technology and electrical commissioning.",
+    "about.cred2Period": "2020 · DAA",
+    "about.cred2Title": "State-certified Technician — Electrical Engineering",
+    "about.cred2Text": "Energy technology & process automation, DQR/EQF level 6 / Bachelor Professional.",
+    "about.credentialsLabel": "Education and qualification"
   },
   "es": {
     "nav.about": "Sobre mí",
@@ -708,7 +724,15 @@
     "assistant.scopeFallback": "aún no descrito",
     "assistant.privacyNote": "No envíes datos confidenciales de clientes ni archivos internos de proyecto en el primer contacto.",
     "assistant.outputDone": "La consulta de proyecto se ha transferido al formulario inferior. Revísala, añade tus datos de contacto y envíala.",
-    "assistant.outputNoField": "El resumen está preparado. Abre el formulario y transfiere los datos."
+    "assistant.outputNoField": "El resumen está preparado. Abre el formulario y transfiere los datos.",
+    "prj.moreSummary": "Mostrar más ejemplos de proyectos",
+    "faq.moreSummary": "Mostrar más preguntas",
+    "about.cred1Title": "Técnico electrónico industrial",
+    "about.cred1Text": "Instalaciones industriales, armarios eléctricos, tecnología de control y puesta en marcha eléctrica.",
+    "about.cred2Period": "2020 · DAA",
+    "about.cred2Title": "Técnico estatal — Electrotecnia",
+    "about.cred2Text": "Tecnología energética y automatización de procesos, DQR/EQF nivel 6 / Bachelor Professional.",
+    "about.credentialsLabel": "Formación y cualificación"
   },
   "zh": {
     "nav.about": "关于我",
@@ -945,6 +969,14 @@
     "assistant.scopeFallback": "尚未描述",
     "assistant.privacyNote": "首次联系时不要发送客户机密数据或内部项目文件。",
     "assistant.outputDone": "项目咨询已填入下方表单。请检查、补充联系方式并提交。",
-    "assistant.outputNoField": "摘要已准备好。请打开表单并转入相关信息。"
+    "assistant.outputNoField": "摘要已准备好。请打开表单并转入相关信息。",
+    "prj.moreSummary": "显示更多项目示例",
+    "faq.moreSummary": "显示更多问题",
+    "about.cred1Title": "工业电子技术员",
+    "about.cred1Text": "工业设备技术、电控柜制造、控制技术和电气调试。",
+    "about.cred2Period": "2020 · DAA",
+    "about.cred2Title": "国家认证技术员 — 电气工程",
+    "about.cred2Text": "能源技术与过程自动化，DQR/EQF 6 级 / Bachelor Professional。",
+    "about.credentialsLabel": "教育与资质"
   }
 }

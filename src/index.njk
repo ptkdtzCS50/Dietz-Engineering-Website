@@ -1121,6 +1121,70 @@ html[lang="es"] .trust-label {
 .travel-note p { font-size: 0.92rem; color: var(--text-soft); margin: 0; }
 .travel-note strong { color: var(--text); display: block; margin-bottom: 0.2rem; }
 
+.credential-strip {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1.4rem 0 0.2rem;
+}
+.credential-item {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.9rem 1rem;
+}
+.credential-year {
+  flex: 0 0 auto;
+  min-width: 4.4rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: 0.1rem;
+}
+.credential-item strong { display: block; color: var(--text); font-size: 0.96rem; margin-bottom: 0.12rem; }
+.credential-item span:last-child { color: var(--text-soft); font-size: 0.88rem; line-height: 1.45; }
+
+.progressive-disclosure {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progressive-disclosure summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 1rem 1.2rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.progressive-disclosure summary::-webkit-details-marker { display: none; }
+.progressive-disclosure summary::after {
+  content: '+';
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--text-soft);
+}
+.progressive-disclosure[open] summary::after { content: '–'; }
+.progressive-disclosure .proj-grid,
+.progressive-disclosure .faq-list {
+  padding: 0 1.2rem 1.2rem;
+}
+.progressive-disclosure .faq-list { margin: 0; }
+@media (max-width: 760px) {
+  .credential-item { flex-direction: column; gap: 0.35rem; }
+  .credential-year { min-width: 0; }
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -3161,6 +3225,16 @@ html[lang="es"] .trust-label {
         <div class="usp-quote" data-i18n="about.usp">
           Elektrokonstruktion ist gut, wenn Schaltplan, Stückliste, Montage, Verdrahtung, SPS-Signale und Abnahme zusammenpassen.
         </div>
+        <div class="credential-strip" aria-label="Ausbildung und Qualifikation" data-i18n-aria-label="about.credentialsLabel">
+          <div class="credential-item">
+            <span class="credential-year">2012–2016</span>
+            <span><strong data-i18n="about.cred1Title">Elektroniker für Betriebstechnik</strong><span data-i18n="about.cred1Text">Industrielle Anlagentechnik, Schaltschrankbau, Steuerungstechnik und elektrische Inbetriebnahme.</span></span>
+          </div>
+          <div class="credential-item">
+            <span class="credential-year" data-i18n="about.cred2Period">2020 · DAA</span>
+            <span><strong data-i18n="about.cred2Title">Staatlich geprüfter Techniker — Elektrotechnik</strong><span data-i18n="about.cred2Text">Energietechnik & Prozessautomatisierung, DQR/EQF Level 6 / Bachelor Professional.</span></span>
+          </div>
+        </div>
         <div class="travel-note">
           <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
           <p>
@@ -3577,7 +3651,7 @@ html[lang="es"] .trust-label {
     <div class="proj-grid">
       {% for item in projects.items %}
       {% if loop.index <= 3 %}
-      <div class="proj-card fade">
+      <div class="proj-card fade project-visible">
         <div class="proj-meta mono">
           <span>{{ item.company }}</span>
           <span data-translations="{{ item.region | dump }}">{{ item.region.de }}</span>
@@ -3600,6 +3674,38 @@ html[lang="es"] .trust-label {
       {% endif %}
       {% endfor %}
     </div>
+
+    {% if projects.items.length > 3 %}
+    <details class="progressive-disclosure project-more fade">
+      <summary data-i18n="prj.moreSummary">Weitere Projektbeispiele anzeigen</summary>
+      <div class="proj-grid">
+        {% for item in projects.items %}
+        {% if loop.index > 3 %}
+      <div class="proj-card fade project-extra">
+        <div class="proj-meta mono">
+          <span>{{ item.company }}</span>
+          <span data-translations="{{ item.region | dump }}">{{ item.region.de }}</span>
+          {% if item.period_literal %}
+          <span>{{ item.period_literal }}</span>
+          {% else %}
+          <span data-translations="{{ item.period | dump }}">{{ item.period.de }}</span>
+          {% endif %}
+        </div>
+        <h3 data-translations="{{ item.title | dump }}">{{ item.title.de }}</h3>
+        <div class="proj-csr">
+          <p><strong data-i18n="prj.lblChallenge">Herausforderung:</strong><br><span data-translations="{{ item.challenge | dump }}">{{ item.challenge.de }}</span></p>
+          <p><strong data-i18n="prj.lblSolution">Lösung:</strong><br><span data-translations="{{ item.solution | dump }}">{{ item.solution.de }}</span></p>
+          <p><strong data-i18n="prj.lblResult">Ergebnis:</strong><br><span data-translations="{{ item.result | dump }}">{{ item.result.de }}</span></p>
+        </div>
+        <div class="tags">
+          {% for tag in item.tags %}<span class="tag" data-translations="{{ tag | dump }}">{{ tag.de }}</span>{% endfor %}
+        </div>
+      </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
 
     <div class="nda-banner fade">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -3882,7 +3988,7 @@ html[lang="es"] .trust-label {
     <div class="faq-list fade">
       {% for item in faq.items %}
       {% if loop.index <= 5 %}
-      <div class="faq-item">
+      <div class="faq-item faq-visible">
         <button class="faq-q" type="button">
           <span data-translations="{{ item.question | dump }}">{{ item.question.de }}</span>
           <span class="plus"></span>
@@ -3892,6 +3998,25 @@ html[lang="es"] .trust-label {
       {% endif %}
       {% endfor %}
     </div>
+
+    {% if faq.items.length > 5 %}
+    <details class="progressive-disclosure faq-more fade">
+      <summary data-i18n="faq.moreSummary">Weitere Fragen anzeigen</summary>
+      <div class="faq-list">
+        {% for item in faq.items %}
+        {% if loop.index > 5 %}
+      <div class="faq-item faq-extra">
+        <button class="faq-q" type="button">
+          <span data-translations="{{ item.question | dump }}">{{ item.question.de }}</span>
+          <span class="plus"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner" data-translations="{{ item.answer | dump }}">{{ item.answer.de }}</div></div>
+      </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
   </div>
 </section>
 
