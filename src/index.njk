@@ -2804,6 +2804,73 @@ html[lang="es"] .trust-label {
   .assistant-quick-grid { grid-template-columns: 1fr; }
 }
 
+/* Late mobile safety overrides: this sits after all component blocks so
+   process cards and navigation cannot fall back to desktop compression. */
+@media (max-width: 960px) {
+  .nav-links:not(.open) { display: none; }
+  .nav-toggle { display: flex; }
+  .proj-grid,
+  .progressive-disclosure .proj-grid,
+  .process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.8rem 1.2rem;
+  }
+  .process-grid::before { display: none; }
+}
+@media (max-width: 580px) {
+  .proj-grid,
+  .progressive-disclosure .proj-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .proj-card {
+    padding: 1.55rem 1.35rem;
+  }
+  .proj-meta {
+    align-items: flex-start;
+    gap: 0.25rem;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.45;
+  }
+  .proj-card h3 {
+    font-size: 1.22rem;
+    line-height: 1.28;
+  }
+  .proj-card p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .proc-step {
+    padding: 1.85rem 1.35rem 1.45rem;
+  }
+  .proc-num {
+    width: 44px;
+    height: 44px;
+    margin: -3rem 0 1rem;
+    font-size: 1rem;
+    box-shadow: 0 0 0 6px var(--bg);
+  }
+  .proc-step h3,
+  .proc-step p {
+    text-align: left;
+  }
+  .proc-step h3 {
+    font-size: 1.18rem;
+    line-height: 1.2;
+  }
+  .proc-step p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+}
+
 /* =========================================================
    FADE-IN  (only hidden once JS is ready — so content stays
    visible if scripting fails or is blocked)

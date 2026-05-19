@@ -47,6 +47,9 @@ assert(index.includes('font-size: clamp(2.35rem, 4.9vw, 4.35rem);'), 'desktop he
 assert(index.includes('.assistant-panel {\n  position: fixed;\n  right: 1.25rem;\n  top: 5.5rem;'), 'assistant panel is pinned below nav so close button remains reachable');
 assert(index.includes('max-height: none;') && index.includes('.assistant-body {\n  padding: 1rem;\n  overflow-y: auto;'), 'assistant panel uses body scrolling instead of hiding the header/close button');
 assert(index.includes('.assistant-close {\n  flex: 0 0 auto;\n  display: grid;'), 'assistant close button keeps a fixed accessible hit area');
+assert(index.includes('Late mobile safety overrides') && index.includes('.process-grid {\n    grid-template-columns: 1fr;\n    gap: 2rem;') && index.includes('.proc-step h3,\n  .proc-step p {\n    text-align: left;'), 'mobile process cards stack full-width with readable left-aligned text');
+assert(index.includes('.proj-grid,\n  .progressive-disclosure .proj-grid,\n  .process-grid {\n    grid-template-columns: 1fr;') && index.includes('.proj-meta {\n    align-items: flex-start;') && index.includes('.proj-card p {\n    font-size: 0.98rem;'), 'mobile project cards stack full-width and avoid narrow clipped columns');
+assert(index.includes('.nav-links:not(.open) { display: none; }'), 'late mobile nav override prevents compressed desktop links on phones');
 assert(index.includes("document.querySelectorAll('.fade').forEach(el => el.classList.add('in'))"), 'fade sections are made visible immediately after JS boot');
 assert(i18n.en['sit.title'].includes('external review') || i18n.en['sit.title'].includes('familiar'), 'English project-situations title reframes concrete failure patterns');
 assert(i18n.en['sit.subtitle'].includes('copy-paste from old projects') && i18n.en['sit.subtitle'].includes('rework'), 'English project-situations subtitle names concrete engineering problems');
