@@ -81,11 +81,11 @@ assert(index.includes('<a href="#situations" class="btn btn-secondary">'), 'seco
 assert(index.indexOf('<section id="services">') < index.indexOf('<section id="about">'), 'services appear before about for faster buyer decision');
 assert(!index.includes('<div class="stat-value">100<sup>%</sup></div>'), 'stats do not imply absolute CE/UL/EMV guarantee');
 assert(i18n.de['srv.priceOnRequest'].includes('vor Start klar vereinbart'), 'service pricing is framed as professional scope agreement');
-assert(i18n.de['bk.freeNote'].includes('keine technische Detailberatung ohne Auftrag'), 'first call is positioned as qualification not free consulting');
-assert(i18n.de['bk.subtitle'].includes('ohne vertrauliche Dateien') && !i18n.de['bk.subtitle'].includes('Unterlagen grob vor'), 'booking subtitle asks for document status without confidential files');
-assert(i18n.de['bk.consultIntro'].includes('ohne vertrauliche Details') && !i18n.de['bk.consultIntro'].includes('vorhandene Unterlagen,'), 'booking consult intro avoids requesting confidential documents');
-assert(i18n.de['bk.fProjectPh'].includes('ohne vertrauliche Inhalte') && !i18n.de['bk.fProjectPh'].includes('vorhandene Unterlagen,'), 'booking placeholder is consistent with confidentiality warning');
-assert(i18n.en['bk.subtitle'].includes('without confidential files'), 'English booking subtitle avoids confidential files');
+assert(i18n.de['bk.freeNote'].includes('freundlich') && i18n.de['bk.freeNote'].includes('ohne technische Detailberatung ohne Auftrag'), 'first call is positioned as friendly qualification not free consulting');
+assert(i18n.de['bk.subtitle'].includes('Terminplan') && i18n.de['bk.subtitle'].includes('ohne vertrauliche Dateien') && !i18n.de['bk.subtitle'].includes('Zeitdruck') && !i18n.de['bk.subtitle'].includes('Unterlagen grob vor'), 'booking subtitle asks for schedule/document status without confidential files');
+assert(i18n.de['bk.consultIntro'].includes('Terminplan') && i18n.de['bk.consultIntro'].includes('ohne vertrauliche Details') && !i18n.de['bk.consultIntro'].includes('Terminrisiko') && !i18n.de['bk.consultIntro'].includes('vorhandene Unterlagen,'), 'booking consult intro avoids harsh pressure wording and requesting confidential documents');
+assert(i18n.de['bk.fProjectPh'].includes('Terminplan') && i18n.de['bk.fProjectPh'].includes('aktueller Bedarf') && i18n.de['bk.fProjectPh'].includes('ohne vertrauliche Inhalte') && !i18n.de['bk.fProjectPh'].includes('akuter Engpass') && !i18n.de['bk.fProjectPh'].includes('vorhandene Unterlagen,'), 'booking placeholder is friendlier and consistent with confidentiality warning');
+assert(i18n.en['bk.subtitle'].includes('schedule') && i18n.en['bk.subtitle'].includes('without confidential files') && !i18n.en['bk.subtitle'].includes('time pressure'), 'English booking subtitle uses schedule and avoids confidential files');
 
 const packages = JSON.parse(fs.readFileSync(path.join(root, 'src/_data/packages.json'), 'utf8'));
 const faq = JSON.parse(fs.readFileSync(path.join(root, 'src/_data/faq.json'), 'utf8'));
