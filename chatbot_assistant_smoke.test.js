@@ -82,6 +82,10 @@ assert(index.indexOf('<section id="services">') < index.indexOf('<section id="ab
 assert(!index.includes('<div class="stat-value">100<sup>%</sup></div>'), 'stats do not imply absolute CE/UL/EMV guarantee');
 assert(i18n.de['srv.priceOnRequest'].includes('vor Start klar vereinbart'), 'service pricing is framed as professional scope agreement');
 assert(i18n.de['bk.freeNote'].includes('keine technische Detailberatung ohne Auftrag'), 'first call is positioned as qualification not free consulting');
+assert(i18n.de['bk.subtitle'].includes('ohne vertrauliche Dateien') && !i18n.de['bk.subtitle'].includes('Unterlagen grob vor'), 'booking subtitle asks for document status without confidential files');
+assert(i18n.de['bk.consultIntro'].includes('ohne vertrauliche Details') && !i18n.de['bk.consultIntro'].includes('vorhandene Unterlagen,'), 'booking consult intro avoids requesting confidential documents');
+assert(i18n.de['bk.fProjectPh'].includes('ohne vertrauliche Inhalte') && !i18n.de['bk.fProjectPh'].includes('vorhandene Unterlagen,'), 'booking placeholder is consistent with confidentiality warning');
+assert(i18n.en['bk.subtitle'].includes('without confidential files'), 'English booking subtitle avoids confidential files');
 
 const packages = JSON.parse(fs.readFileSync(path.join(root, 'src/_data/packages.json'), 'utf8'));
 const faq = JSON.parse(fs.readFileSync(path.join(root, 'src/_data/faq.json'), 'utf8'));
