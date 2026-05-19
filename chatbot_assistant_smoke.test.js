@@ -82,6 +82,10 @@ assert(i18n.de['prj.moreSummary'].includes('Weitere Projektbeispiele') && i18n.e
 assert(i18n.de['nav.booking'] === 'Ersteinschätzung', 'navigation frames booking as technical assessment');
 assert(i18n.de['hero.badge'].includes('Senior') || i18n.de['hero.badge'].includes('EPLAN'), 'hero badge positions premium specialist support');
 assert(i18n.de['hero.tagline'].includes('ohne Agentur-Ebene'), 'hero reinforces direct solo provider trust');
+assert(i18n.de['hero.meta4'].includes('14 Märkte') && i18n.en['hero.meta4'].includes('14 markets'), 'hero reflects broader international market experience');
+assert(i18n.de['stats.countries'].includes('Bediente Märkte') && i18n.de['stats.countries'].includes('Vor-Ort-Erfahrung'), 'stats label frames markets served without overclaiming all on-site');
+assert(i18n.de['trust.locations'].includes('Pakistan') && i18n.de['trust.locations'].includes('Mexiko') && i18n.de['trust.locations'].includes('Schweden'), 'trust locations include the expanded market list');
+assert(renderedIndex.includes('<div class="stat-value">14</div>'), 'market count is rendered as 14');
 assert(i18n.de['hero.tagline'].includes('externem Projektfokus'), 'hero explains the value of an external focused specialist');
 assert(i18n.de['srv.subtitle'].includes('klar vereinbartem Scope') && i18n.de['srv.subtitle'].includes('Projektbudget'), 'services explain fixed scope and budget discipline before start');
 assert(i18n.de['sit.subtitle'].includes('Daily Business') && i18n.de['sit.subtitle'].includes('interne Themen'), 'situations explain why external focus can protect project progress');
