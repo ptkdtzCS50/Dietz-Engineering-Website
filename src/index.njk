@@ -487,10 +487,10 @@ section {
 .hero-badge .dot { display: none; }
 
 .hero h1 {
-  font-size: clamp(2.6rem, 6.4vw, 5.2rem);
+  font-size: clamp(2.35rem, 4.9vw, 4.35rem);
   font-weight: 900;
   letter-spacing: -0.035em;
-  line-height: 1.02;
+  line-height: 1.04;
   margin-bottom: 1.6rem;
 }
 .hero h1 .accent {
@@ -2685,10 +2685,11 @@ html[lang="es"] .trust-label {
 .assistant-panel {
   position: fixed;
   right: 1.25rem;
+  top: 5.5rem;
   bottom: 5.2rem;
   z-index: 81;
   width: min(430px, calc(100vw - 2rem));
-  max-height: min(720px, calc(100vh - 7rem));
+  max-height: none;
   display: none;
   flex-direction: column;
   overflow: hidden;
@@ -2719,11 +2720,18 @@ html[lang="es"] .trust-label {
 }
 .assistant-head h3 { font-size: 1.02rem; margin: 0; }
 .assistant-close {
-  width: 2rem;
-  height: 2rem;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 999px;
   border: 1px solid var(--border-strong);
+  background: var(--bg-card);
   color: var(--text-soft);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
 }
 .assistant-body {
   padding: 1rem;
@@ -2792,7 +2800,7 @@ html[lang="es"] .trust-label {
 }
 @media (max-width: 580px) {
   .assistant-launcher { right: 0.8rem; bottom: 0.8rem; padding: 0.78rem 0.9rem; }
-  .assistant-panel { right: 0.75rem; bottom: 4.7rem; width: calc(100vw - 1.5rem); }
+  .assistant-panel { top: 4.75rem; right: 0.75rem; bottom: 4.7rem; width: calc(100vw - 1.5rem); }
   .assistant-quick-grid { grid-template-columns: 1fr; }
 }
 
