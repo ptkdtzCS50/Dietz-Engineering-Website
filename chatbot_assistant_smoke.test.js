@@ -69,6 +69,9 @@ assert(i18n.en['trust.subtitle'].includes('technically grounded understanding') 
 assert(i18n.de['bk.title'].includes('Ersteinschätzung'), 'booking section makes the next step explicit');
 assert(i18n.en['hero.h1a'].includes('Freelance electrical design'), 'English hero states freelance electrical design immediately');
 assert(i18n.en['hero.cta1'] === 'Book assessment', 'English primary CTA is assessment-oriented');
+assert((renderedIndex.match(/class="proj-card fade"/g) || []).length === 3, 'project section is visually tightened to three representative cards');
+assert((renderedIndex.match(/class="faq-item"/g) || []).length === 5, 'FAQ is visually tightened to five key questions');
+assert(!renderedIndex.includes('<section id="education">'), 'education section is folded into about/experience to reduce page length');
 assert(i18n.de['nav.booking'] === 'Ersteinschätzung', 'navigation frames booking as technical assessment');
 assert(i18n.de['hero.badge'].includes('Senior') || i18n.de['hero.badge'].includes('EPLAN'), 'hero badge positions premium specialist support');
 assert(i18n.de['hero.tagline'].includes('ohne Agentur-Ebene'), 'hero reinforces direct solo provider trust');
