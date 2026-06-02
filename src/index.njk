@@ -1493,6 +1493,40 @@ html[lang="es"] .trust-label {
   transition: transform 0.5s cubic-bezier(.2, .8, .2, 1);
 }
 .show-card:hover .show-visual svg { transform: scale(1.06); }
+.show-visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(.2, .8, .2, 1);
+}
+.show-card:hover .show-visual img { transform: scale(1.05); }
+
+/* About-Akzent: Foto-Banner unter dem Fließtext */
+.about-accent {
+  margin: 1.8rem 0 1.4rem;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-2);
+}
+.about-accent img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.about-accent figcaption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.85rem 1.1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #ffffff;
+  background: linear-gradient(0deg, rgba(30, 44, 71, 0.88) 0%, rgba(30, 44, 71, 0.55) 60%, rgba(30, 44, 71, 0) 100%);
+  letter-spacing: 0.01em;
+}
 .show-body {
   padding: 1.6rem 1.6rem 1.8rem;
   display: flex;
@@ -2656,7 +2690,7 @@ html[lang="es"] .trust-label {
 
 
 /* =========================================================
-   AI ASSISTANT PREVIEW (local-only, no external API yet)
+   ARIA WEBSITE ASSISTANT (local answer + optional live endpoint + Patrick handoff)
    ========================================================= */
 .assistant-launcher {
   position: fixed;
@@ -2708,6 +2742,21 @@ html[lang="es"] .trust-label {
   padding: 1rem 1rem 0.85rem;
   border-bottom: 1px solid var(--border);
   background: linear-gradient(135deg, var(--accent-dim), transparent);
+}
+.assistant-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.assistant-avatar {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.88);
+  box-shadow: 0 10px 28px rgba(30, 44, 71, 0.18);
+  background: var(--bg-2);
 }
 .assistant-kicker {
   display: block;
@@ -2768,6 +2817,11 @@ html[lang="es"] .trust-label {
   background: var(--accent-dim);
 }
 .assistant-field { margin-top: 0.8rem; }
+.assistant-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
 .assistant-field label {
   display: block;
   margin-bottom: 0.35rem;
@@ -2780,6 +2834,15 @@ html[lang="es"] .trust-label {
   gap: 0.55rem;
   margin-top: 0.8rem;
 }
+.assistant-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+.assistant-consent input { margin-top: 0.15rem; }
 .assistant-actions .btn { flex: 1; justify-content: center; padding: 0.78rem 0.85rem; }
 .assistant-output {
   display: none;
@@ -2791,6 +2854,59 @@ html[lang="es"] .trust-label {
   font-size: 0.88rem;
 }
 .assistant-output.active { display: block; }
+.assistant-livechat { display: flex; flex-direction: column; gap: 0.85rem; }
+.assistant-chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-height: 190px;
+  max-height: 310px;
+  overflow-y: auto;
+  padding: 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.52);
+}
+.assistant-chat-bubble {
+  max-width: 88%;
+  border-radius: 16px;
+  padding: 0.75rem 0.85rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+.assistant-chat-bubble-aria {
+  align-self: flex-start;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.assistant-chat-bubble-user {
+  align-self: flex-end;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  color: var(--text);
+}
+.assistant-chat-compose {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.65rem;
+  align-items: end;
+}
+.assistant-chat-compose textarea { min-height: 48px; resize: vertical; }
+.assistant-live-actions .btn { flex: 1; }
+.assistant-lead-details {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.75rem;
+  background: rgba(255,255,255,0.4);
+}
+.assistant-lead-details summary {
+  cursor: pointer;
+  color: var(--text-soft);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
 .assistant-footnote {
   padding: 0.8rem 1rem;
   border-top: 1px solid var(--border);
@@ -2879,6 +2995,46 @@ html[lang="es"] .trust-label {
 .js-ready .fade.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .js-ready .fade { opacity: 1; transform: none; transition: none; }
+}
+
+/* =========================================================
+   WORK PROOF STRIP
+   ========================================================= */
+.work-proof-section {
+  padding: 4.5rem 0;
+  background: var(--bg-2);
+}
+.work-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+.work-proof-item {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.work-proof-item img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.02);
+}
+.work-proof-caption {
+  padding: 0.9rem 0.95rem 1rem;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+.work-proof-caption strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+  font-size: 0.92rem;
+}
+@media (max-width: 820px) {
+  .work-proof-grid { grid-template-columns: 1fr; gap: 1rem; }
 }
 </style>
 </head>
@@ -3160,6 +3316,31 @@ html[lang="es"] .trust-label {
   </div>
 </section>
 
+<!-- ============================ WORK PROOF ============================ -->
+<section id="work-proof" class="work-proof-section">
+  <div class="container">
+    <div class="fade">
+      <span class="section-label" data-i18n="proof.label">Praxisbilder</span>
+      <h2 class="section-title" data-i18n="proof.title">Technik, die nach echter Fertigung aussieht.</h2>
+      <p class="section-subtitle" data-i18n="proof.subtitle">Einblicke in typische Schaltschrank-, Verdrahtungs- und Anlagenumgebungen, wie sie bei sauber geplanter Elektrodokumentation zusammenkommen.</p>
+    </div>
+    <div class="work-proof-grid fade">
+      <figure class="work-proof-item">
+        <img src="images/work/cabinet-pro-panel.jpg" alt="Schaltschrank im Aufbau mit Antriebstechnik, Steuerungskomponenten und strukturierter Verdrahtung" loading="lazy">
+        <figcaption class="work-proof-caption"><strong data-i18n="proof.p1Title">Schaltschranknähe</strong><span data-i18n="proof.p1Text">Verdrahtung, Klemmen, Netzwerk- und Steuerungskomponenten müssen in Planung und Fertigung zusammenpassen.</span></figcaption>
+      </figure>
+      <figure class="work-proof-item">
+        <img src="images/work/terminal-io-wiring.jpg?v=2" alt="Beschriftete Klemmen, I/O-Baugruppen und sauber zugeordnete Verdrahtung im Schaltschrank" loading="lazy">
+        <figcaption class="work-proof-caption"><strong data-i18n="proof.p2Title">Klemmen und I/O</strong><span data-i18n="proof.p2Text">Signalzuordnung, Kabel, Klemmenplan und SPS-Liste brauchen einen sauberen gemeinsamen Stand.</span></figcaption>
+      </figure>
+      <figure class="work-proof-item">
+        <img src="images/work/power-feed.jpg" alt="Leistungsanschluss mit Kupferschienen, Kabelschuhen und Schrumpfschlauch im Schaltschrank" loading="lazy">
+        <figcaption class="work-proof-caption"><strong data-i18n="proof.p3Title">Anlagenumfeld</strong><span data-i18n="proof.p3Text">Elektrokonstruktion endet nicht im Plan: Maschine, Prozess, Montage und Inbetriebnahme bestimmen die Qualität der Übergabe.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ PROJECT SITUATIONS ============================ -->
 <section id="situations" class="situations-section">
   <div class="container">
@@ -3310,6 +3491,10 @@ html[lang="es"] .trust-label {
             <span><strong data-i18n="about.cred2Title">Staatlich geprüfter Techniker — Elektrotechnik</strong><span data-i18n="about.cred2Text">Energietechnik & Prozessautomatisierung, DQR/EQF Level 6 / Bachelor Professional.</span></span>
           </div>
         </div>
+        <figure class="about-accent">
+          <img src="images/accent/onsite-service.png" alt="Vor-Ort-Service: Techniker an einem geöffneten Doppeltür-Schaltschrank in der Halle" loading="lazy">
+          <figcaption data-i18n="about.accentCaption">Vor Ort, wo die Maschine steht — Installation, Inbetriebnahme, Retrofit und Service.</figcaption>
+        </figure>
         <div class="travel-note">
           <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
           <p>
@@ -3347,89 +3532,7 @@ html[lang="es"] .trust-label {
       <!-- Schaltschrank -->
       <div class="show-card fade">
         <div class="show-visual">
-          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Cabinet frame -->
-            <rect x="20" y="20" width="280" height="200" rx="4" fill="none" stroke="#1e2c47" stroke-width="2"/>
-            <rect x="28" y="28" width="264" height="184" rx="2" fill="none" stroke="#1e2c47" stroke-width="0.6" opacity="0.5"/>
-            <!-- Hinges -->
-            <circle cx="20" cy="50" r="2.5" fill="#1e2c47"/>
-            <circle cx="20" cy="190" r="2.5" fill="#1e2c47"/>
-            <!-- DIN rails -->
-            <g stroke="#1e2c47" stroke-width="1.4" fill="none">
-              <line x1="40" y1="55" x2="280" y2="55"/>
-              <line x1="40" y1="105" x2="280" y2="105"/>
-              <line x1="40" y1="155" x2="280" y2="155"/>
-              <line x1="40" y1="200" x2="280" y2="200"/>
-            </g>
-            <!-- Row 1: Main breakers -->
-            <g fill="#1e2c47">
-              <rect x="46" y="40" width="12" height="18" rx="1"/>
-              <rect x="60" y="40" width="12" height="18" rx="1"/>
-              <rect x="74" y="40" width="12" height="18" rx="1"/>
-            </g>
-            <!-- Row 1: MCBs -->
-            <g fill="#8b8e92">
-              <rect x="100" y="42" width="6" height="16"/><rect x="108" y="42" width="6" height="16"/>
-              <rect x="116" y="42" width="6" height="16"/><rect x="124" y="42" width="6" height="16"/>
-              <rect x="132" y="42" width="6" height="16"/><rect x="140" y="42" width="6" height="16"/>
-              <rect x="148" y="42" width="6" height="16"/><rect x="156" y="42" width="6" height="16"/>
-              <rect x="164" y="42" width="6" height="16"/><rect x="172" y="42" width="6" height="16"/>
-              <rect x="180" y="42" width="6" height="16"/><rect x="188" y="42" width="6" height="16"/>
-            </g>
-            <!-- Row 1: PLC -->
-            <rect x="210" y="36" width="60" height="24" rx="1.5" fill="#1e2c47"/>
-            <g fill="#8b8e92"><circle cx="218" cy="44" r="1"/><circle cx="222" cy="44" r="1"/><circle cx="226" cy="44" r="1"/><circle cx="218" cy="52" r="1"/><circle cx="222" cy="52" r="1"/><circle cx="226" cy="52" r="1"/></g>
-            <!-- Row 2: Contactors -->
-            <g fill="#1e2c47">
-              <rect x="46" y="86" width="22" height="22" rx="1.5"/>
-              <rect x="72" y="86" width="22" height="22" rx="1.5"/>
-              <rect x="98" y="86" width="22" height="22" rx="1.5"/>
-              <rect x="124" y="86" width="22" height="22" rx="1.5"/>
-            </g>
-            <!-- Row 2: Frequency converters -->
-            <g fill="#8b8e92">
-              <rect x="160" y="84" width="36" height="26" rx="1.5"/>
-              <rect x="200" y="84" width="36" height="26" rx="1.5"/>
-              <rect x="240" y="84" width="36" height="26" rx="1.5"/>
-            </g>
-            <!-- Row 3: Terminal blocks -->
-            <g fill="#1e2c47" opacity="0.85">
-              <rect x="46" y="140" width="3" height="18"/><rect x="51" y="140" width="3" height="18"/>
-              <rect x="56" y="140" width="3" height="18"/><rect x="61" y="140" width="3" height="18"/>
-              <rect x="66" y="140" width="3" height="18"/><rect x="71" y="140" width="3" height="18"/>
-              <rect x="76" y="140" width="3" height="18"/><rect x="81" y="140" width="3" height="18"/>
-              <rect x="86" y="140" width="3" height="18"/><rect x="91" y="140" width="3" height="18"/>
-              <rect x="96" y="140" width="3" height="18"/><rect x="101" y="140" width="3" height="18"/>
-              <rect x="106" y="140" width="3" height="18"/><rect x="111" y="140" width="3" height="18"/>
-              <rect x="116" y="140" width="3" height="18"/><rect x="121" y="140" width="3" height="18"/>
-              <rect x="126" y="140" width="3" height="18"/><rect x="131" y="140" width="3" height="18"/>
-              <rect x="136" y="140" width="3" height="18"/><rect x="141" y="140" width="3" height="18"/>
-              <rect x="146" y="140" width="3" height="18"/><rect x="151" y="140" width="3" height="18"/>
-              <rect x="156" y="140" width="3" height="18"/><rect x="161" y="140" width="3" height="18"/>
-              <rect x="166" y="140" width="3" height="18"/><rect x="171" y="140" width="3" height="18"/>
-              <rect x="176" y="140" width="3" height="18"/><rect x="181" y="140" width="3" height="18"/>
-              <rect x="186" y="140" width="3" height="18"/><rect x="191" y="140" width="3" height="18"/>
-              <rect x="196" y="140" width="3" height="18"/><rect x="201" y="140" width="3" height="18"/>
-              <rect x="206" y="140" width="3" height="18"/><rect x="211" y="140" width="3" height="18"/>
-              <rect x="216" y="140" width="3" height="18"/><rect x="221" y="140" width="3" height="18"/>
-              <rect x="226" y="140" width="3" height="18"/><rect x="231" y="140" width="3" height="18"/>
-              <rect x="236" y="140" width="3" height="18"/><rect x="241" y="140" width="3" height="18"/>
-              <rect x="246" y="140" width="3" height="18"/><rect x="251" y="140" width="3" height="18"/>
-              <rect x="256" y="140" width="3" height="18"/><rect x="261" y="140" width="3" height="18"/>
-              <rect x="266" y="140" width="3" height="18"/><rect x="271" y="140" width="3" height="18"/>
-            </g>
-            <!-- Cable channel bottom -->
-            <rect x="40" y="178" width="240" height="18" fill="none" stroke="#8b8e92" stroke-width="1" stroke-dasharray="3 2"/>
-            <!-- Wires -->
-            <g stroke="#1e2c47" stroke-width="0.6" fill="none" opacity="0.4">
-              <path d="M 60 110 L 60 138"/>
-              <path d="M 84 110 L 84 138"/>
-              <path d="M 108 110 L 108 138"/>
-              <path d="M 178 112 L 178 138"/>
-              <path d="M 218 112 L 218 138"/>
-              <path d="M 258 112 L 258 138"/>
-            </g>
-          </svg>
+          <img src="images/showcase/cabinet-build.jpg" alt="Schaltschrank im Aufbau mit DIN-Schienen, Schuetzen und Netzwerk-Switch" loading="lazy">
         </div>
         <div class="show-body">
           <div class="show-tag">01 / Schaltschrank</div>
@@ -3442,88 +3545,7 @@ html[lang="es"] .trust-label {
       <!-- EPLAN -->
       <div class="show-card fade">
         <div class="show-visual">
-          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Sheet frame -->
-            <rect x="14" y="14" width="292" height="212" fill="#ffffff" stroke="#1e2c47" stroke-width="1.4"/>
-            <rect x="20" y="20" width="280" height="200" fill="none" stroke="#1e2c47" stroke-width="0.5" opacity="0.6"/>
-            <!-- Title block -->
-            <g stroke="#1e2c47" stroke-width="0.7" fill="none">
-              <rect x="200" y="190" width="100" height="30"/>
-              <line x1="200" y1="200" x2="300" y2="200"/>
-              <line x1="200" y1="210" x2="300" y2="210"/>
-              <line x1="240" y1="190" x2="240" y2="220"/>
-            </g>
-            <text x="204" y="198" font-family="Inter" font-size="5" fill="#1e2c47">PROJ</text>
-            <text x="244" y="198" font-family="Inter" font-size="5" fill="#1e2c47">DOC</text>
-            <text x="204" y="208" font-family="Inter" font-size="5" fill="#1e2c47">=A1</text>
-            <text x="244" y="208" font-family="Inter" font-size="5" fill="#1e2c47">+S2</text>
-            <!-- Power rails L1 L2 L3 -->
-            <g stroke="#1e2c47" stroke-width="1" fill="none">
-              <line x1="34" y1="36" x2="190" y2="36"/>
-              <line x1="34" y1="44" x2="190" y2="44"/>
-              <line x1="34" y1="52" x2="190" y2="52"/>
-            </g>
-            <text x="22" y="38" font-family="Inter" font-size="6" fill="#1e2c47">L1</text>
-            <text x="22" y="46" font-family="Inter" font-size="6" fill="#1e2c47">L2</text>
-            <text x="22" y="54" font-family="Inter" font-size="6" fill="#1e2c47">L3</text>
-            <!-- Circuit breaker Q1 -->
-            <g stroke="#1e2c47" stroke-width="1" fill="none">
-              <line x1="60" y1="36" x2="60" y2="60"/>
-              <line x1="68" y1="44" x2="68" y2="68"/>
-              <line x1="76" y1="52" x2="76" y2="76"/>
-              <rect x="56" y="60" width="24" height="22"/>
-            </g>
-            <text x="84" y="74" font-family="Inter" font-size="6" fill="#8b8e92">-Q1</text>
-            <!-- Contactor K1 -->
-            <g stroke="#1e2c47" stroke-width="1" fill="none">
-              <line x1="60" y1="82" x2="60" y2="100"/>
-              <line x1="68" y1="82" x2="68" y2="100"/>
-              <line x1="76" y1="82" x2="76" y2="100"/>
-              <path d="M 56 100 L 64 108"/>
-              <path d="M 64 100 L 72 108"/>
-              <path d="M 72 100 L 80 108"/>
-              <line x1="60" y1="108" x2="60" y2="130"/>
-              <line x1="68" y1="108" x2="68" y2="130"/>
-              <line x1="76" y1="108" x2="76" y2="130"/>
-              <rect x="84" y="100" width="14" height="8"/>
-            </g>
-            <text x="100" y="106" font-family="Inter" font-size="6" fill="#8b8e92">-K1</text>
-            <!-- Motor M1 -->
-            <circle cx="68" cy="150" r="14" stroke="#1e2c47" stroke-width="1.2" fill="none"/>
-            <text x="64" y="153" font-family="Inter" font-size="8" fill="#1e2c47" font-weight="600">M</text>
-            <line x1="60" y1="130" x2="60" y2="138"/>
-            <line x1="68" y1="130" x2="68" y2="136"/>
-            <line x1="76" y1="130" x2="76" y2="138"/>
-            <text x="86" y="152" font-family="Inter" font-size="6" fill="#8b8e92">-M1</text>
-            <!-- Right side: Control circuit -->
-            <g stroke="#1e2c47" stroke-width="0.9" fill="none">
-              <line x1="140" y1="60" x2="140" y2="170"/>
-              <line x1="190" y1="60" x2="190" y2="170"/>
-            </g>
-            <text x="132" y="58" font-family="Inter" font-size="6" fill="#1e2c47">+24V</text>
-            <text x="184" y="58" font-family="Inter" font-size="6" fill="#1e2c47">0V</text>
-            <!-- Buttons & contacts -->
-            <g stroke="#1e2c47" stroke-width="0.9" fill="none">
-              <line x1="140" y1="78" x2="140" y2="86"/>
-              <circle cx="140" cy="92" r="3"/>
-              <line x1="140" y1="98" x2="140" y2="110"/>
-              <rect x="135" y="110" width="10" height="14"/>
-              <line x1="140" y1="124" x2="140" y2="170"/>
-            </g>
-            <text x="148" y="96" font-family="Inter" font-size="5" fill="#8b8e92">-S1</text>
-            <text x="148" y="120" font-family="Inter" font-size="5" fill="#8b8e92">-K1</text>
-            <!-- Wire numbers -->
-            <text x="62" y="32" font-family="Inter" font-size="4" fill="#8b8e92">1</text>
-            <text x="70" y="32" font-family="Inter" font-size="4" fill="#8b8e92">3</text>
-            <text x="78" y="32" font-family="Inter" font-size="4" fill="#8b8e92">5</text>
-            <text x="62" y="146" font-family="Inter" font-size="4" fill="#8b8e92">U</text>
-            <text x="70" y="146" font-family="Inter" font-size="4" fill="#8b8e92">V</text>
-            <text x="78" y="146" font-family="Inter" font-size="4" fill="#8b8e92">W</text>
-            <!-- Cross reference -->
-            <g stroke="#8b8e92" stroke-width="0.5" stroke-dasharray="2 2" fill="none">
-              <line x1="98" y1="104" x2="135" y2="117"/>
-            </g>
-          </svg>
+          <img src="images/showcase/eplan-design.jpg" alt="Engineering-Arbeitsplatz mit EPLAN-Schaltplan auf zwei Monitoren" loading="lazy">
         </div>
         <div class="show-body">
           <div class="show-tag">02 / EPLAN P8</div>
@@ -3536,67 +3558,7 @@ html[lang="es"] .trust-label {
       <!-- 3D Modeling -->
       <div class="show-card fade">
         <div class="show-visual">
-          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Iso grid -->
-            <g stroke="#1e2c47" stroke-width="0.4" opacity="0.18">
-              <line x1="20" y1="120" x2="160" y2="40"/>
-              <line x1="20" y1="160" x2="200" y2="60"/>
-              <line x1="20" y1="200" x2="240" y2="80"/>
-              <line x1="60" y1="220" x2="280" y2="100"/>
-              <line x1="100" y1="220" x2="300" y2="120"/>
-              <line x1="160" y1="40" x2="300" y2="120"/>
-              <line x1="200" y1="60" x2="300" y2="160"/>
-              <line x1="240" y1="80" x2="300" y2="180"/>
-              <line x1="280" y1="100" x2="300" y2="200"/>
-            </g>
-            <!-- Main isometric box (Schaltschrank-like) -->
-            <g stroke="#1e2c47" stroke-width="1.6" fill="none">
-              <!-- Front face -->
-              <path d="M 100 100 L 180 100 L 180 200 L 100 200 Z"/>
-              <!-- Top face -->
-              <path d="M 100 100 L 140 70 L 220 70 L 180 100"/>
-              <!-- Right face -->
-              <path d="M 180 100 L 220 70 L 220 170 L 180 200"/>
-            </g>
-            <!-- Door split line -->
-            <line x1="140" y1="100" x2="140" y2="200" stroke="#1e2c47" stroke-width="0.7" stroke-dasharray="3 2"/>
-            <!-- Door handle -->
-            <rect x="135" y="145" width="3" height="14" fill="#1e2c47"/>
-            <!-- Internal components (visible through wireframe) -->
-            <g stroke="#8b8e92" stroke-width="0.7" fill="none" opacity="0.7">
-              <rect x="108" y="115" width="64" height="10"/>
-              <rect x="108" y="132" width="64" height="10"/>
-              <rect x="108" y="149" width="64" height="10"/>
-              <rect x="108" y="166" width="64" height="10"/>
-              <rect x="108" y="183" width="64" height="10"/>
-            </g>
-            <!-- Hidden edges (back) -->
-            <g stroke="#1e2c47" stroke-width="0.6" stroke-dasharray="2 2" fill="none" opacity="0.5">
-              <line x1="140" y1="70" x2="140" y2="170"/>
-              <line x1="140" y1="170" x2="220" y2="170"/>
-              <line x1="140" y1="170" x2="100" y2="200"/>
-            </g>
-            <!-- Dimension lines -->
-            <g stroke="#1e2c47" stroke-width="0.6" fill="none">
-              <line x1="100" y1="215" x2="180" y2="215"/>
-              <line x1="100" y1="212" x2="100" y2="218"/>
-              <line x1="180" y1="212" x2="180" y2="218"/>
-              <line x1="190" y1="100" x2="190" y2="200"/>
-              <line x1="187" y1="100" x2="193" y2="100"/>
-              <line x1="187" y1="200" x2="193" y2="200"/>
-            </g>
-            <text x="135" y="227" font-family="Inter" font-size="7" fill="#1e2c47" font-weight="500">800</text>
-            <text x="195" y="153" font-family="Inter" font-size="7" fill="#1e2c47" font-weight="500">2000</text>
-            <!-- Origin marker -->
-            <g stroke="#1e2c47" stroke-width="1.2" fill="none">
-              <line x1="50" y1="200" x2="78" y2="200"/>
-              <line x1="50" y1="200" x2="50" y2="172"/>
-              <line x1="50" y1="200" x2="35" y2="215"/>
-            </g>
-            <text x="80" y="203" font-family="Inter" font-size="6" fill="#1e2c47">X</text>
-            <text x="46" y="168" font-family="Inter" font-size="6" fill="#1e2c47">Z</text>
-            <text x="28" y="222" font-family="Inter" font-size="6" fill="#1e2c47">Y</text>
-          </svg>
+          <img src="images/showcase/cabinet-pro.png" alt="Offener Schaltschrank in der Werkstatt mit strukturierter Verdrahtung" loading="lazy">
         </div>
         <div class="show-body">
           <div class="show-tag">03 / 3D-Modellierung</div>
@@ -3609,97 +3571,7 @@ html[lang="es"] .trust-label {
       <!-- Project Management -->
       <div class="show-card fade">
         <div class="show-visual">
-          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Board background -->
-            <rect x="14" y="14" width="292" height="212" rx="3" fill="#ffffff" stroke="#1e2c47" stroke-width="1"/>
-            <!-- Column headers -->
-            <g font-family="Inter" font-size="7" font-weight="700" fill="#1e2c47" letter-spacing="1">
-              <text x="32" y="36">BACKLOG</text>
-              <text x="120" y="36">IN PROGRESS</text>
-              <text x="220" y="36">DONE</text>
-            </g>
-            <!-- Column dividers -->
-            <g stroke="#1e2c47" stroke-width="0.5" opacity="0.3">
-              <line x1="108" y1="44" x2="108" y2="220"/>
-              <line x1="208" y1="44" x2="208" y2="220"/>
-            </g>
-            <!-- Underline header -->
-            <line x1="20" y1="44" x2="300" y2="44" stroke="#1e2c47" stroke-width="0.6" opacity="0.4"/>
-            <!-- BACKLOG cards -->
-            <g>
-              <rect x="24" y="52" width="78" height="32" rx="3" fill="#f6f7f9" stroke="#1e2c47" stroke-width="0.7"/>
-              <rect x="24" y="52" width="3" height="32" fill="#8b8e92"/>
-              <rect x="32" y="58" width="46" height="3" rx="1" fill="#1e2c47"/>
-              <rect x="32" y="64" width="60" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <rect x="32" y="68" width="50" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <rect x="32" y="76" width="14" height="4" rx="1" fill="#1e2c47" opacity="0.15"/>
-              <rect x="48" y="76" width="18" height="4" rx="1" fill="#1e2c47" opacity="0.15"/>
-            </g>
-            <g>
-              <rect x="24" y="92" width="78" height="32" rx="3" fill="#f6f7f9" stroke="#1e2c47" stroke-width="0.7"/>
-              <rect x="24" y="92" width="3" height="32" fill="#8b8e92"/>
-              <rect x="32" y="98" width="56" height="3" rx="1" fill="#1e2c47"/>
-              <rect x="32" y="104" width="62" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <rect x="32" y="116" width="20" height="4" rx="1" fill="#1e2c47" opacity="0.15"/>
-            </g>
-            <g>
-              <rect x="24" y="132" width="78" height="32" rx="3" fill="#f6f7f9" stroke="#1e2c47" stroke-width="0.7"/>
-              <rect x="24" y="132" width="3" height="32" fill="#8b8e92"/>
-              <rect x="32" y="138" width="40" height="3" rx="1" fill="#1e2c47"/>
-              <rect x="32" y="144" width="58" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <rect x="32" y="156" width="16" height="4" rx="1" fill="#1e2c47" opacity="0.15"/>
-            </g>
-            <!-- IN PROGRESS cards -->
-            <g>
-              <rect x="116" y="52" width="86" height="40" rx="3" fill="#ffffff" stroke="#1e2c47" stroke-width="1"/>
-              <rect x="116" y="52" width="3" height="40" fill="#1e2c47"/>
-              <rect x="124" y="58" width="60" height="3" rx="1" fill="#1e2c47"/>
-              <rect x="124" y="64" width="70" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <rect x="124" y="68" width="64" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <rect x="124" y="72" width="40" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <!-- Progress bar -->
-              <rect x="124" y="82" width="64" height="3" rx="1.5" fill="#1e2c47" opacity="0.15"/>
-              <rect x="124" y="82" width="42" height="3" rx="1.5" fill="#1e2c47"/>
-            </g>
-            <g>
-              <rect x="116" y="100" width="86" height="40" rx="3" fill="#ffffff" stroke="#1e2c47" stroke-width="1"/>
-              <rect x="116" y="100" width="3" height="40" fill="#1e2c47"/>
-              <rect x="124" y="106" width="50" height="3" rx="1" fill="#1e2c47"/>
-              <rect x="124" y="112" width="68" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <rect x="124" y="116" width="58" height="2" rx="1" fill="#8b8e92" opacity="0.6"/>
-              <rect x="124" y="130" width="64" height="3" rx="1.5" fill="#1e2c47" opacity="0.15"/>
-              <rect x="124" y="130" width="20" height="3" rx="1.5" fill="#1e2c47"/>
-            </g>
-            <!-- DONE cards -->
-            <g opacity="0.7">
-              <rect x="216" y="52" width="78" height="28" rx="3" fill="#f6f7f9" stroke="#8b8e92" stroke-width="0.7"/>
-              <rect x="216" y="52" width="3" height="28" fill="#8b8e92"/>
-              <rect x="224" y="58" width="44" height="3" rx="1" fill="#8b8e92"/>
-              <rect x="224" y="64" width="58" height="2" rx="1" fill="#8b8e92" opacity="0.5"/>
-              <path d="M 280 70 L 284 74 L 290 66" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
-            </g>
-            <g opacity="0.7">
-              <rect x="216" y="88" width="78" height="28" rx="3" fill="#f6f7f9" stroke="#8b8e92" stroke-width="0.7"/>
-              <rect x="216" y="88" width="3" height="28" fill="#8b8e92"/>
-              <rect x="224" y="94" width="48" height="3" rx="1" fill="#8b8e92"/>
-              <rect x="224" y="100" width="56" height="2" rx="1" fill="#8b8e92" opacity="0.5"/>
-              <path d="M 280 106 L 284 110 L 290 102" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
-            </g>
-            <g opacity="0.7">
-              <rect x="216" y="124" width="78" height="28" rx="3" fill="#f6f7f9" stroke="#8b8e92" stroke-width="0.7"/>
-              <rect x="216" y="124" width="3" height="28" fill="#8b8e92"/>
-              <rect x="224" y="130" width="40" height="3" rx="1" fill="#8b8e92"/>
-              <rect x="224" y="136" width="52" height="2" rx="1" fill="#8b8e92" opacity="0.5"/>
-              <path d="M 280 142 L 284 146 L 290 138" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
-            </g>
-            <g opacity="0.7">
-              <rect x="216" y="160" width="78" height="28" rx="3" fill="#f6f7f9" stroke="#8b8e92" stroke-width="0.7"/>
-              <rect x="216" y="160" width="3" height="28" fill="#8b8e92"/>
-              <rect x="224" y="166" width="46" height="3" rx="1" fill="#8b8e92"/>
-              <rect x="224" y="172" width="50" height="2" rx="1" fill="#8b8e92" opacity="0.5"/>
-              <path d="M 280 178 L 284 182 L 290 174" stroke="#1e2c47" stroke-width="1.4" fill="none"/>
-            </g>
-          </svg>
+          <img src="images/showcase/cable-management.jpg" alt="Diszipliniertes Kabelmanagement im Schaltschrank — Leistungskabel durch Schellen zu Antrieben" loading="lazy">
         </div>
         <div class="show-body">
           <div class="show-tag">04 / Projektmanagement</div>
@@ -4137,7 +4009,7 @@ html[lang="es"] .trust-label {
 </footer>
 
 
-<!-- ============================ AI ASSISTANT PREVIEW ============================ -->
+<!-- ============================ ARIA WEBSITE ASSISTANT ============================ -->
 <button class="assistant-launcher" id="assistantLauncher" type="button" aria-controls="assistantPanel" aria-expanded="false">
   <span class="assistant-pulse" aria-hidden="true"></span>
   <span data-i18n="assistant.launcher">Assistent vorbereiten</span>
@@ -4145,55 +4017,86 @@ html[lang="es"] .trust-label {
 
 <aside class="assistant-panel" id="assistantPanel" aria-label="DIETZ Projektassistent">
   <div class="assistant-head">
-    <div>
-      <span class="assistant-kicker" data-i18n="assistant.kicker">DIETZ Projektassistent</span>
-      <h3 data-i18n="assistant.title">Projekt grob einordnen</h3>
+    <div class="assistant-identity">
+      <img class="assistant-avatar" src="aria-assistant-avatar.jpg" alt="Aria, digitale DIETZ Projektassistenz" loading="lazy" decoding="async">
+      <div>
+        <span class="assistant-kicker" data-i18n="assistant.kicker">DIETZ Projektassistent</span>
+        <h3 data-i18n="assistant.title">Projekt grob einordnen</h3>
+      </div>
     </div>
     <button class="assistant-close" id="assistantClose" type="button" aria-label="Assistent schließen" data-i18n-aria-label="assistant.close">×</button>
   </div>
-  <div class="assistant-body">
+  <div class="assistant-body assistant-livechat">
     <div class="assistant-message">
-      <strong data-i18n="assistant.messageTitle">Projektanfrage strukturiert vorbereiten.</strong><br>
-      <span data-i18n="assistant.messageText">Beantworten Sie ein paar technische Fragen. Der Assistent übernimmt die Angaben anschließend in das Anfrageformular, damit ich den Bedarf schneller einordnen kann.</span>
+      <strong data-i18n="assistant.messageTitle">Direkt mit DIETZ Engineering chatten.</strong><br>
+      <span data-i18n="assistant.messageText">Schreiben Sie einfach Ihre Frage. Patrick wird benachrichtigt; wenn er nicht direkt verfügbar ist, hilft Aria bei der ersten technischen Einordnung.</span>
     </div>
 
-    <div class="assistant-field">
-      <label data-i18n="assistant.mainQuestion">Worum geht es hauptsächlich?</label>
-      <div class="assistant-quick-grid" id="assistantProjectTypes">
-        <button class="assistant-chip active" type="button" data-type-key="assistant.typeEplan" data-i18n="assistant.typeEplan">EPLAN / Elektrokonstruktion</button>
-        <button class="assistant-chip" type="button" data-type-key="assistant.typeSps" data-i18n="assistant.typeSps">SPS / HMI</button>
-        <button class="assistant-chip" type="button" data-type-key="assistant.typeSafety" data-i18n="assistant.typeSafety">Safety / CE</button>
-        <button class="assistant-chip" type="button" data-type-key="assistant.typeRetrofit" data-i18n="assistant.typeRetrofit">Retrofit / Fehlersuche</button>
+    <div class="assistant-chat-log" id="assistantChatLog" aria-live="polite">
+      <div class="assistant-chat-bubble assistant-chat-bubble-aria" data-i18n="assistant.greeting">Hallo, ich bin Aria von DIETZ Engineering. Schreiben Sie mir kurz, worum es geht — ich kann Patrick benachrichtigen oder die ersten technischen Punkte vorqualifizieren.</div>
+    </div>
+
+    <div class="assistant-chat-compose">
+      <textarea id="assistantChatInput" maxlength="900" rows="2" placeholder="Nachricht schreiben …" data-i18n-placeholder="assistant.inputPh"></textarea>
+      <button class="btn btn-primary" id="assistantChatSend" type="button" data-i18n="assistant.send">Senden</button>
+    </div>
+
+    <div class="assistant-actions assistant-live-actions">
+      <button class="btn btn-secondary" id="assistantTakeover" type="button" data-i18n="assistant.takeover">Patrick dazuholen</button>
+      <button class="btn btn-secondary" id="assistantPrepare" type="button" data-i18n="assistant.prepare">Ins Formular übernehmen</button>
+    </div>
+
+    <details class="assistant-lead-details">
+      <summary data-i18n="assistant.detailsSummary">Angaben für Rückmeldung oder Projektanfrage ergänzen</summary>
+      <div class="assistant-field">
+        <label data-i18n="assistant.mainQuestion">Worum geht es hauptsächlich?</label>
+        <div class="assistant-quick-grid" id="assistantProjectTypes">
+          <button class="assistant-chip active" type="button" data-type-key="assistant.typeEplan" data-i18n="assistant.typeEplan">EPLAN / Elektrokonstruktion</button>
+          <button class="assistant-chip" type="button" data-type-key="assistant.typeSps" data-i18n="assistant.typeSps">SPS / HMI</button>
+          <button class="assistant-chip" type="button" data-type-key="assistant.typeSafety" data-i18n="assistant.typeSafety">Safety / CE</button>
+          <button class="assistant-chip" type="button" data-type-key="assistant.typeRetrofit" data-i18n="assistant.typeRetrofit">Retrofit / Fehlersuche</button>
+        </div>
       </div>
-    </div>
+      <div class="assistant-field">
+        <label for="assistantMachine" data-i18n="assistant.machine">Maschine / Anlage</label>
+        <input id="assistantMachine" type="text" maxlength="140" placeholder="z.B. Verpackungsmaschine, Extruder, Prüfstand" data-i18n-placeholder="assistant.machinePh">
+      </div>
+      <div class="assistant-field">
+        <label for="assistantScope" data-i18n="assistant.scope">Kurzbeschreibung</label>
+        <textarea id="assistantScope" maxlength="900" placeholder="Was ist vorhanden, was soll geliefert werden, wo drückt es technisch?" data-i18n-placeholder="assistant.scopePh"></textarea>
+      </div>
+      <textarea id="assistantQuestion" class="assistant-hidden-question" maxlength="900" hidden></textarea>
+      <div class="assistant-field">
+        <label for="assistantTimeline" data-i18n="assistant.timeline">Zeitrahmen</label>
+        <select id="assistantTimeline">
+          <option data-i18n="assistant.timelineClarify">Nur Vorabklärung</option>
+          <option data-i18n="assistant.timelineUrgent">Dringend / diese Woche</option>
+          <option data-i18n="assistant.timelineWeeks">2–4 Wochen</option>
+          <option data-i18n="assistant.timelineMonths">1–3 Monate</option>
+          <option data-i18n="assistant.timelineOpen">Noch offen</option>
+        </select>
+      </div>
+      <div class="assistant-field assistant-contact-grid">
+        <div>
+          <label for="assistantContactName" data-i18n="assistant.contactName">Name für Rückfragen</label>
+          <input id="assistantContactName" type="text" maxlength="140" placeholder="Vorname Nachname" data-i18n-placeholder="assistant.contactNamePh">
+        </div>
+        <div>
+          <label for="assistantContactContact" data-i18n="assistant.contactContact">E-Mail oder Telefon</label>
+          <input id="assistantContactContact" type="text" maxlength="180" placeholder="name@firma.de oder Telefonnummer" data-i18n-placeholder="assistant.contactContactPh">
+        </div>
+      </div>
+      <label class="assistant-consent">
+        <input id="assistantConsent" type="checkbox">
+        <span data-i18n="assistant.consentLabel">Ich möchte, dass meine Angaben zur Rückmeldung an Patrick Dietz weitergegeben werden. Keine vertraulichen Projektdateien im Chat senden.</span>
+      </label>
+      <div class="assistant-actions">
+        <button class="btn btn-secondary" id="assistantConfirm" type="button" data-i18n="assistant.confirm">Anfrage senden</button>
+        <a class="btn btn-secondary" href="#booking" data-i18n="assistant.openForm">Formular öffnen</a>
+      </div>
+    </details>
 
-    <div class="assistant-field">
-      <label for="assistantMachine" data-i18n="assistant.machine">Maschine / Anlage</label>
-      <input id="assistantMachine" type="text" maxlength="140" placeholder="z.B. Verpackungsmaschine, Extruder, Prüfstand" data-i18n-placeholder="assistant.machinePh">
-    </div>
-
-    <div class="assistant-field">
-      <label for="assistantScope" data-i18n="assistant.scope">Kurzbeschreibung</label>
-      <textarea id="assistantScope" maxlength="900" placeholder="Was ist vorhanden, was soll geliefert werden, wo drückt es technisch?" data-i18n-placeholder="assistant.scopePh"></textarea>
-    </div>
-
-    <div class="assistant-field">
-      <label for="assistantTimeline" data-i18n="assistant.timeline">Zeitrahmen</label>
-      <select id="assistantTimeline">
-        <option data-i18n="assistant.timelineClarify">Nur Vorabklärung</option>
-        <option data-i18n="assistant.timelineUrgent">Dringend / diese Woche</option>
-        <option data-i18n="assistant.timelineWeeks">2–4 Wochen</option>
-        <option data-i18n="assistant.timelineMonths">1–3 Monate</option>
-        <option data-i18n="assistant.timelineOpen">Noch offen</option>
-      </select>
-    </div>
-
-    <div class="assistant-actions">
-      <button class="btn btn-primary" id="assistantPrepare" type="button" data-i18n="assistant.prepare">Anfrage vorbereiten</button>
-      <a class="btn btn-secondary" href="#booking" data-i18n="assistant.openForm">Formular öffnen</a>
-    </div>
-
-    <div class="assistant-output" id="assistantOutput"></div>
+    <div class="assistant-output" id="assistantOutput" aria-live="polite"></div>
   </div>
   <div class="assistant-footnote" data-i18n="assistant.footnote">
     Bitte im Erstkontakt keine vertraulichen Kundendaten, internen Schaltpläne oder EPLAN-Projekte hochladen/einfügen.
@@ -4246,6 +4149,7 @@ html[lang="es"] .trust-label {
 </div>
 
 <!-- ============================ SCRIPT ============================ -->
+<script src="/assistant-config.js?v=local-bridge-20260602"></script>
 <script>
 /* Activate JS-only styles (fade-ins) — without this class, content
    remains visible even when this script is blocked or errors out. */
@@ -4493,33 +4397,380 @@ document.querySelectorAll('.faq-item').forEach(item => {
 
 
 /* =========================================================
-   AI ASSISTANT PREVIEW (local triage, backend-ready contract)
+   ARIA WEBSITE ASSISTANT (hybrid KI + local fallback + Patrick handoff)
    ========================================================= */
 (function() {
   const launcher = document.getElementById('assistantLauncher');
   const panel = document.getElementById('assistantPanel');
   const closeBtn = document.getElementById('assistantClose');
   const prepareBtn = document.getElementById('assistantPrepare');
+  const askBtn = document.getElementById('assistantAsk');
+  const confirmBtn = document.getElementById('assistantConfirm');
+  const takeoverBtn = document.getElementById('assistantTakeover');
+  const chatLog = document.getElementById('assistantChatLog');
+  const chatInput = document.getElementById('assistantChatInput');
+  const chatSendBtn = document.getElementById('assistantChatSend');
   const output = document.getElementById('assistantOutput');
   if (!launcher || !panel || !prepareBtn || !output) return;
 
-  let selectedTypeKey = 'assistant.typeEplan';
-  const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
+  const assistantConfig = Object.assign({
+    mode: 'hybrid', endpoint: '', localDevEndpoint: '', liveAiEnabled: false, fallbackEnabled: true,
+    handoffMode: 'telegram_review', timeoutMs: 9000, avatar: 'aria-assistant-avatar.jpg'
+  }, window.DIETZ_ASSISTANT_CONFIG || {});
+  const isLocalAssistantHost = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+  if (!assistantConfig.endpoint && isLocalAssistantHost && assistantConfig.localDevEndpoint) assistantConfig.endpoint = assistantConfig.localDevEndpoint;
 
-  function openAssistant() {
-    panel.classList.add('open');
-    launcher.setAttribute('aria-expanded', 'true');
+  const DIETZ_ASSISTANT_KNOWLEDGE = {
+    identity: 'Aria · DIETZ Projektassistenz',
+    patrick: 'Patrick Dietz, freiberufliche Elektrokonstruktion mit externem Projektfokus für Maschinen- und Anlagenbau.',
+    strengths: ['EPLAN P8', 'EPLAN Makro-Erstellung', 'Artikel-/BMK-Struktur', 'Klemmen', 'Kabel', 'Stücklisten', 'Schaltschrankbau-Unterlagen', 'Pro Panel / Smartwiring Kontext', 'Retrofit / Fehlersuche', 'Inbetriebnahme-nahe Praxis'],
+    boundaries: ['keine verbindlichen Preise', 'keine garantierten Termine', 'keine CE-/Safety-/Normfreigabe im Chat', 'keine vertraulichen EPLAN-Projekte im Erstkontakt'],
+    review_required_personal_patrick: ['Angebote', 'Aufwand', 'Termine', 'CE/Safety', 'Normkonformität', 'Kundendateien', 'finale technische Zusagen']
+  };
+
+  let selectedTypeKey = 'assistant.typeEplan';
+  let lastAssistantResult = null;
+  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false };
+  const operator_decision_buttons = ['start_chat', 'let_aria_answer', 'end_chat'];
+  const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
+  const clean = (value, max = 900) => String(value || '').replace(/\s+/g, ' ').trim().slice(0, max);
+
+  function isAssistantQuestionInScope(summary) {
+    const text = `${summary.question} ${summary.scope} ${summary.machine} ${summary.project_type}`.toLowerCase();
+    if (!text.trim()) return true;
+    const offTopic = ['wetter', 'weather', 'fußball', 'fussball', 'football', 'politik', 'politics', 'rezept', 'recipe', 'witz', 'joke', 'aktien', 'stock price', 'lotto', 'horoskop', 'horoscope'];
+    const domain = ['patrick', 'dietz', 'werdegang', 'lebenslauf', 'cv', 'erfahrung', 'können', 'koennen', 'leistung', 'auftrag', 'projekt', 'maschine', 'anlage', 'eplan', 'p8', 'pro panel', 'schaltplan', 'elektro', 'elektrokonstruktion', 'sps', 'plc', 'hmi', 'safety', 'ce', 'ul', 'emv', 'schaltschrank', 'stückliste', 'stueckliste', 'bom', 'klemmen', 'kabel', 'inbetriebnahme', 'retrofit', 'fehlersuche', 'angebot', 'termin'];
+    const hasOffTopic = offTopic.some(term => text.includes(term));
+    const hasDomain = domain.some(term => text.includes(term));
+    return hasDomain || !hasOffTopic;
   }
-  function closeAssistant() {
-    panel.classList.remove('open');
-    launcher.setAttribute('aria-expanded', 'false');
+
+  function getAssistantNextQuestion(summary) {
+    const dict = assistantDict();
+    if (summary.machine === dict['assistant.machineFallback']) return dict['assistant.nextMachine'];
+    if (summary.scope === dict['assistant.scopeFallback']) return dict['assistant.nextScope'];
+    if (!summary.timeline || summary.timeline === dict['assistant.timelineOpen']) return dict['assistant.nextTimeline'];
+    const name = clean(document.getElementById('assistantContactName')?.value, 140);
+    const contact = clean(document.getElementById('assistantContactContact')?.value, 180);
+    if (guidedAssistantState.takeoverRequested && (!name || !contact)) return dict['assistant.nextContact'];
+    return '';
+  }
+
+  function openAssistant() { panel.classList.add('open'); launcher.setAttribute('aria-expanded', 'true'); }
+  function closeAssistant() { panel.classList.remove('open'); launcher.setAttribute('aria-expanded', 'false'); }
+  function setOutput(message, detail) { output.textContent = detail ? `${message}\n\n${detail}` : message; output.classList.add('active'); }
+
+  function appendChatMessage(role, message) {
+    if (!chatLog || !message) return null;
+    const bubble = document.createElement('div');
+    bubble.className = `assistant-chat-bubble assistant-chat-bubble-${role === 'user' ? 'user' : 'aria'}`;
+    bubble.textContent = message;
+    chatLog.appendChild(bubble);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return bubble;
+  }
+
+
+  function shouldRequestPatrickFromMessage(message) {
+    const text = clean(message, 900).toLowerCase();
+    return ['patrick', 'herr dietz', 'dietz', 'mensch', 'berater', 'kontakt', 'anrufen', 'rufen sie', 'dazuholen', 'übernehmen', 'uebernehmen', 'sprechen'].some(term => text.includes(term));
+  }
+
+
+  function isLowInformationChatMessage(message) {
+    const text = clean(message, 120).toLowerCase().replace(/[!?.,#\s]+$/g, '');
+    return ['hallo', 'hello', 'hi', 'hey', 'guten tag', 'noch da', 'da'].includes(text);
+  }
+
+  function stopOperatorWindowCountdown() {
+    if (guidedAssistantState.operatorCountdownTimer) clearInterval(guidedAssistantState.operatorCountdownTimer);
+    guidedAssistantState.operatorCountdownTimer = null;
+    guidedAssistantState.operatorCountdownBubble = null;
+  }
+
+  function startOperatorWindowCountdown(seconds = 60) {
+    const dict = assistantDict();
+    stopOperatorWindowCountdown();
+    let remaining = seconds;
+    const render = () => {
+      const text = (dict['assistant.operatorCountdown'] || 'Falls Patrick nicht direkt verfügbar ist, übernimmt Aria automatisch in {seconds} Sekunden.').replace('{seconds}', String(remaining));
+      if (!guidedAssistantState.operatorCountdownBubble) {
+        guidedAssistantState.operatorCountdownBubble = appendChatMessage('aria', text);
+      } else {
+        guidedAssistantState.operatorCountdownBubble.textContent = text;
+      }
+    };
+    render();
+    guidedAssistantState.operatorCountdownTimer = setInterval(() => {
+      remaining -= 1;
+      if (remaining <= 0) {
+        stopOperatorWindowCountdown();
+        return;
+      }
+      render();
+    }, 1000);
+  }
+
+  async function answerWithAria(summary, reason = 'local_aria_answer', capturedField = '') {
+    guidedAssistantState.ariaActive = true;
+    const result = assistantConfig.liveAiEnabled ? await callAssistantEndpoint(summary) : buildAssistantFallbackReply(summary, reason);
+    result.reply = buildConversationalAriaReply(summary, capturedField);
+    lastAssistantResult = result;
+    appendChatMessage('aria', result.reply);
+    return result;
+  }
+
+  function syncFreeTextToSummary(message) {
+    const questionField = document.getElementById('assistantQuestion');
+    const scopeField = document.getElementById('assistantScope');
+    if (questionField) {
+      questionField.value = message;
+      questionField.dispatchEvent(new Event('input', { bubbles: true }));
+      questionField.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    if (scopeField && !clean(scopeField.value)) {
+      scopeField.value = message;
+      scopeField.dispatchEvent(new Event('input', { bubbles: true }));
+      scopeField.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+
+
+
+  function isPriceQuestion(message) {
+    const text = clean(message, 220).toLowerCase();
+    return ['preis', 'kosten', 'kostet', 'budget', 'angebot', 'stundensatz'].some(term => text.includes(term));
+  }
+
+  function updateGuidedSummaryFromMessageIntent(message) {
+    const value = clean(message, 220);
+    const text = value.toLowerCase();
+    const scopeField = document.getElementById('assistantScope');
+    const appendScope = (label, detail) => {
+      if (!scopeField || !detail) return;
+      const current = clean(scopeField.value, 900);
+      const line = `${label}: ${detail}`;
+      scopeField.value = current && !current.includes(line) ? `${current}
+${line}` : (current || line);
+      scopeField.dispatchEvent(new Event('input', { bubbles: true }));
+      scopeField.dispatchEvent(new Event('change', { bubbles: true }));
+    };
+    if (isPriceQuestion(value)) return 'price';
+    if (/\d+\s*(antriebe|motoren|achsen)/i.test(value)) { appendScope('Antriebe/Motoren', value); return 'drive_count'; }
+    if (/(montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|\d{1,2}\.\d{1,2}\.\d{2,4}|morgen|heute|nächste|naechste)/i.test(value)) { appendScope('Termin/Rückmeldung', value); guidedAssistantState.awaitingField = 'contact'; return 'timeline'; }
+    if (guidedAssistantState.awaitingField === 'contact') {
+      if (/@|\+?\d[\d\s/()-]{5,}/.test(value)) {
+        const contactField = document.getElementById('assistantContactContact');
+        if (contactField) { contactField.value = value; contactField.dispatchEvent(new Event('input', { bubbles: true })); contactField.dispatchEvent(new Event('change', { bubbles: true })); }
+        return 'contact';
+      }
+      if (/^[a-zäöüß]+\s+[a-zäöüß-]+$/i.test(value)) {
+        const nameField = document.getElementById('assistantContactName');
+        if (nameField) { nameField.value = value; nameField.dispatchEvent(new Event('input', { bubbles: true })); nameField.dispatchEvent(new Event('change', { bubbles: true })); }
+        return 'contact_name';
+      }
+      if (/(chat|hier|reicht|genau)/i.test(value)) return 'contact_channel_question';
+    }
+    return '';
+  }
+
+  function updateGuidedSummaryFromExpectedField(message) {
+    const value = clean(message, 220);
+    if (!value) return '';
+    const field = guidedAssistantState.awaitingField;
+    if (field === 'machine') {
+      const machineField = document.getElementById('assistantMachine');
+      if (machineField) {
+        machineField.value = value;
+        machineField.dispatchEvent(new Event('input', { bubbles: true }));
+        machineField.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      guidedAssistantState.awaitingField = '';
+      return 'machine';
+    }
+    if (field === 'scope' || field === 'eplan_specific') {
+      const scopeField = document.getElementById('assistantScope');
+      if (scopeField) {
+        const current = clean(scopeField.value, 900);
+        scopeField.value = current && current !== value ? `${current}
+${value}` : value;
+        scopeField.dispatchEvent(new Event('input', { bubbles: true }));
+        scopeField.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      guidedAssistantState.awaitingField = '';
+      return field;
+    }
+    return '';
+  }
+
+  function buildConversationalAriaReply(summary, capturedField = '') {
+    const dict = assistantDict();
+    const text = `${summary.question} ${summary.scope} ${summary.project_type}`.toLowerCase();
+    const isEplan = summary.project_type_key === 'assistant.typeEplan' || text.includes('eplan');
+    const lines = [];
+
+    if (capturedField === 'machine') {
+      lines.push((dict['assistant.ackMachine'] || 'Danke, ich habe {machine} als Maschine/Anlage notiert.').replace('{machine}', summary.machine));
+      guidedAssistantState.awaitingField = 'eplan_specific';
+      lines.push(dict['assistant.askSpecificEplan'] || 'Welche konkrete EPLAN-Frage soll geklärt werden?');
+      return lines.join('\n\n');
+    }
+
+    if (capturedField === 'price') {
+      guidedAssistantState.awaitingField = 'scope';
+      return dict['assistant.priceBoundary'] || 'Einen belastbaren Preis kann ich ohne Prüfung nicht nennen. Für eine grobe Einordnung fehlen Umfang, Unterlagenstand, Anzahl Antriebe und gewünschte Lieferung.';
+    }
+    if (capturedField === 'drive_count') {
+      guidedAssistantState.awaitingField = 'scope';
+      return dict['assistant.ackDriveCount'] || 'Danke, die Anzahl der Antriebe ist notiert. Welche Nennleistungen und Umrichter/Starter sind betroffen?';
+    }
+    if (capturedField === 'timeline') {
+      guidedAssistantState.awaitingField = 'contact';
+      return `${dict['assistant.ackTimeline'] || 'Danke, den Termin habe ich notiert.'}\n\n${dict['assistant.nextContact']}`;
+    }
+    if (capturedField === 'contact_name') {
+      guidedAssistantState.awaitingField = 'contact';
+      return dict['assistant.askContactChannel'] || 'Danke. Bitte ergänzen Sie noch E-Mail oder Telefonnummer, falls Patrick außerhalb dieses Chats antworten soll.';
+    }
+    if (capturedField === 'contact_channel_question') {
+      guidedAssistantState.awaitingField = 'contact';
+      return dict['assistant.chatContactClarify'] || 'Für den lokalen Test ja. Für eine echte Projektanfrage wäre zusätzlich E-Mail oder Telefon sinnvoll.';
+    }
+    if (capturedField === 'contact') {
+      guidedAssistantState.awaitingField = '';
+      return dict['assistant.contactComplete'] || 'Danke, Kontakt ist notiert. Ich kann Patrick die Einordnung damit sauber übergeben.';
+    }
+    if (capturedField === 'scope' || capturedField === 'eplan_specific') {
+      guidedAssistantState.awaitingField = summary.timeline === dict['assistant.timelineOpen'] ? 'timeline' : 'contact';
+      lines.push(dict['assistant.ackScope'] || 'Danke, das hilft für die Einordnung.');
+      lines.push(dict['assistant.nextTimeline']);
+      return lines.join('\n\n');
+    }
+
+    if (isEplan && !guidedAssistantState.answeredEplanIntro) {
+      guidedAssistantState.answeredEplanIntro = true;
+      if (summary.machine === dict['assistant.machineFallback']) {
+        guidedAssistantState.awaitingField = 'machine';
+        return `${dict['assistant.shortEplanIntro'] || dict['assistant.defaultTrustReply']}
+
+${dict['assistant.nextMachine']}`;
+      }
+      guidedAssistantState.awaitingField = 'eplan_specific';
+      return `${dict['assistant.shortEplanIntro'] || dict['assistant.defaultTrustReply']}
+
+${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
+    }
+
+    const nextQuestion = getAssistantNextQuestion(summary);
+    if (nextQuestion) {
+      if (nextQuestion === dict['assistant.nextMachine']) guidedAssistantState.awaitingField = 'machine';
+      else if (nextQuestion === dict['assistant.nextScope']) guidedAssistantState.awaitingField = isEplan ? 'eplan_specific' : 'scope';
+      return nextQuestion;
+    }
+
+    guidedAssistantState.awaitingField = 'contact';
+    return dict['assistant.nextContact'];
+  }
+
+  function startOperatorReplyPolling(sessionId) {
+    const endpoint = clean(assistantConfig.endpoint, 600);
+    if (!endpoint || !sessionId) return;
+    guidedAssistantState.sessionId = sessionId;
+    if (guidedAssistantState.replyPollTimer) clearInterval(guidedAssistantState.replyPollTimer);
+    pollOperatorReplies();
+    guidedAssistantState.replyPollTimer = setInterval(pollOperatorReplies, 1200);
+  }
+
+  async function pollOperatorReplies() {
+    const endpoint = clean(assistantConfig.endpoint, 600);
+    const sessionId = guidedAssistantState.sessionId;
+    if (!endpoint || !sessionId) return;
+    const base = endpoint.replace(/\/?$/, '');
+    try {
+      const response = await fetch(`${base}/replies?session_id=${encodeURIComponent(sessionId)}&after=${guidedAssistantState.replyCursor}`);
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.ok) return;
+      (data.replies || []).forEach(reply => {
+        if (reply?.action === 'start_chat' || reply?.action === 'operator_reply') {
+          guidedAssistantState.operatorActive = true;
+          guidedAssistantState.ariaActive = false;
+          guidedAssistantState.operatorWindowActive = false;
+          if (guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
+          stopOperatorWindowCountdown();
+          if (!guidedAssistantState.operatorActiveNoticeShown) {
+            appendChatMessage('aria', assistantDict()['assistant.operatorActiveNotice'] || 'Patrick übernimmt jetzt den Chat. Aria hält sich zurück.');
+            guidedAssistantState.operatorActiveNoticeShown = true;
+          }
+        }
+        if (reply?.message) appendChatMessage('aria', reply.message);
+        if (reply?.action === 'end_chat') {
+          guidedAssistantState.operatorActive = false;
+          if (guidedAssistantState.replyPollTimer) clearInterval(guidedAssistantState.replyPollTimer);
+          appendChatMessage('aria', assistantDict()['assistant.operatorClosedNotice'] || 'Patrick hat den Livechat beendet. Aria kann wieder bei der Einordnung helfen.');
+        }
+      });
+      guidedAssistantState.replyCursor = Number(data.next || guidedAssistantState.replyCursor);
+      if ((data.replies || []).length && guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
+      if ((data.replies || []).length) { guidedAssistantState.operatorWindowActive = false; stopOperatorWindowCountdown(); }
+    } catch (error) { /* local dev polling should stay quiet */ }
+  }
+
+  async function notifyPatrickForLiveChat(summary) {
+    const fallback = buildAssistantFallbackReply(summary, 'patrick_notification_pending');
+    lastAssistantResult = fallback;
+    const endpoint = clean(assistantConfig.endpoint, 600);
+    if (!endpoint) return { ok: false, skipped: true, reason: 'handoff_endpoint_missing' };
+    try {
+      const handoff = await sendAssistantLead(summary, fallback);
+      if (handoff?.session_id) startOperatorReplyPolling(handoff.session_id);
+      return handoff;
+    } catch (error) {
+      return { ok: false, skipped: true, reason: 'handoff_error' };
+    }
+  }
+
+  function hasAssistantHandoffConsent() {
+    return document.getElementById('assistantConsent')?.checked === true;
+  }
+
+  function requireAssistantHandoffConsent(dict) {
+    if (hasAssistantHandoffConsent()) return true;
+    appendChatMessage('aria', dict['assistant.consentRequired']);
+    setOutput(dict['assistant.consentRequired']);
+    return false;
+  }
+
+
+  async function forwardCustomerMessageToOperator(message, summary) {
+    const endpoint = clean(assistantConfig.endpoint, 600);
+    const sessionId = guidedAssistantState.sessionId;
+    if (!endpoint || !sessionId) return { ok: false, skipped: true, reason: 'operator_endpoint_missing' };
+    const base = endpoint.replace(/\/?$/, '');
+    try {
+      const response = await fetch(`${base.replace(/\/assistant$/, '')}/operator/customer-message`, {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId, message, language: langSelect?.value || 'de', context: summary })
+      });
+      return await response.json().catch(() => ({ ok: response.ok }));
+    } catch (error) {
+      return { ok: false, skipped: true, reason: 'operator_forward_failed' };
+    }
+  }
+
+  async function requestAiFallbackAfterOperatorWindow() {
+    if (guidedAssistantState.aiFallbackStarted || guidedAssistantState.ariaActive) return;
+    guidedAssistantState.aiFallbackStarted = true;
+    guidedAssistantState.operatorWindowActive = false;
+    stopOperatorWindowCountdown();
+    const dict = assistantDict();
+    const summary = buildAssistantSummary();
+    appendChatMessage('aria', dict['assistant.aiFallback']);
+    await answerWithAria(summary, 'operator_window_elapsed');
   }
 
   launcher.addEventListener('click', () => panel.classList.contains('open') ? closeAssistant() : openAssistant());
   closeBtn.addEventListener('click', closeAssistant);
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && panel.classList.contains('open')) closeAssistant();
-  });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && panel.classList.contains('open')) closeAssistant(); });
 
   document.querySelectorAll('#assistantProjectTypes .assistant-chip').forEach(chip => {
     chip.addEventListener('click', () => {
@@ -4529,6 +4780,16 @@ document.querySelectorAll('.faq-item').forEach(item => {
     });
   });
 
+  function buildDietzAssistantPersona() {
+    return {
+      role: DIETZ_ASSISTANT_KNOWLEDGE.identity,
+      purpose: 'Vertrauen schaffen, erste technische Fragen ehrlich beantworten und verbindliche Themen an Patrick übergeben.',
+      knowledge: DIETZ_ASSISTANT_KNOWLEDGE,
+      style: ['ruhig', 'ehrlich', 'technisch konkret', 'nicht übertrieben', 'nicht salesy'],
+      forbidden_claims: DIETZ_ASSISTANT_KNOWLEDGE.boundaries
+    };
+  }
+
   function buildAssistantSummary() {
     const dict = assistantDict();
     const activeChip = document.querySelector('#assistantProjectTypes .assistant-chip.active');
@@ -4536,8 +4797,9 @@ document.querySelectorAll('.faq-item').forEach(item => {
     const selectedType = dict[activeTypeKey] || activeChip?.textContent.trim() || dict['assistant.typeEplan'];
     const machineFallback = dict['assistant.machineFallback'];
     const scopeFallback = dict['assistant.scopeFallback'];
-    const machine = document.getElementById('assistantMachine')?.value.trim() || machineFallback;
-    const scope = document.getElementById('assistantScope')?.value.trim() || scopeFallback;
+    const machine = clean(document.getElementById('assistantMachine')?.value, 140) || machineFallback;
+    const scope = clean(document.getElementById('assistantScope')?.value, 900) || scopeFallback;
+    const question = clean(document.getElementById('assistantQuestion')?.value, 900);
     const timeline = document.getElementById('assistantTimeline')?.selectedOptions[0]?.textContent.trim() || dict['assistant.timelineOpen'];
     const missing = [];
     if (machine === machineFallback) missing.push(dict['assistant.missingMachine']);
@@ -4545,30 +4807,105 @@ document.querySelectorAll('.faq-item').forEach(item => {
     if (activeTypeKey === 'assistant.typeSafety') missing.push(dict['assistant.missingSafety']);
     if (activeTypeKey === 'assistant.typeEplan') missing.push(dict['assistant.missingEplan']);
     if (activeTypeKey === 'assistant.typeSps') missing.push(dict['assistant.missingSps']);
+    const contact_name = clean(document.getElementById('assistantContactName')?.value, 140);
+    const contact_contact = clean(document.getElementById('assistantContactContact')?.value, 180);
+    return { project_type: selectedType, project_type_key: activeTypeKey, machine, scope, question, timeline, contact_name, contact_contact, missing_information: missing, privacy_note: dict['assistant.privacyNote'] };
+  }
 
+  function shouldEscalateToPatrick(summary, replyText = '') {
+    const text = `${summary.question} ${summary.scope} ${replyText}`.toLowerCase();
+    const reviewMarkers = ['preis', 'kosten', 'angebot', 'termin', 'lieferzeit', 'ce', 'safety', 'norm', 'garantie', 'vertrag', 'confidential', 'vertraulich'];
+    return summary.missing_information.length > 0 || reviewMarkers.some(marker => text.includes(marker)) || assistantConfig.handoffMode === 'telegram_review';
+  }
+
+  function buildAssistantFallbackReply(summary, reason = 'token_or_endpoint_fallback') {
+    const dict = assistantDict();
+    if (!isAssistantQuestionInScope(summary)) {
+      return { mode: 'fallback', fallback_reason: 'out_of_scope', intent: 'out_of_scope_boundary', reply: dict['assistant.outOfScope'], requires_human: false, escalation_reason: 'not_project_related' };
+    }
+    const text = `${summary.question} ${summary.scope} ${summary.project_type}`.toLowerCase();
+    const asksEplanMacro = ['eplan', 'makro', 'macro', 'data portal', 'pro panel'].some(term => text.includes(term));
+    const answer = asksEplanMacro ? dict['assistant.trustEplanMacro'] : dict['assistant.defaultTrustReply'];
     return {
-      project_type: selectedType,
-      machine,
-      scope,
-      timeline,
-      missing_information: missing,
-      privacy_note: dict['assistant.privacyNote']
+      mode: 'fallback', fallback_reason: reason, intent: asksEplanMacro ? 'eplan_macro_trust_question' : 'project_triage',
+      reply: `${dict['assistant.localFallbackNotice']}\n\n${answer}\n\n${dict['assistant.boundaryNoGuarantee']}`,
+      requires_human: shouldEscalateToPatrick(summary, answer), escalation_reason: 'review_required_personal_patrick'
     };
   }
 
-  prepareBtn.addEventListener('click', () => {
-    const summary = buildAssistantSummary();
+  async function callAssistantEndpoint(summary) {
+    const endpoint = clean(assistantConfig.endpoint, 600);
+    if (!assistantConfig.liveAiEnabled || !endpoint) return buildAssistantFallbackReply(summary, 'local_aria_answer');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), Number(assistantConfig.timeoutMs) || 9000);
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST', headers: { 'content-type': 'application/json' }, signal: controller.signal,
+        body: JSON.stringify({
+          language: langSelect?.value || 'de', persona: buildDietzAssistantPersona(), context: summary,
+          messages: [{ role: 'user', content: summary.question || summary.scope || summary.project_type }]
+        })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.reply) return buildAssistantFallbackReply(summary, data.fallback_reason || 'token_or_endpoint_fallback');
+      return Object.assign({ mode: 'live_ai', requires_human: shouldEscalateToPatrick(summary, data.reply) }, data);
+    } catch (error) {
+      return buildAssistantFallbackReply(summary, 'token_or_endpoint_fallback');
+    } finally { clearTimeout(timeout); }
+  }
+
+  async function sendAssistantLead(summary, result) {
+    if (!hasAssistantHandoffConsent()) return { ok: false, skipped: true, reason: 'consent_required' };
+    const endpoint = clean(assistantConfig.endpoint, 600);
+    const leadEndpoint = endpoint ? endpoint.replace(/\/?$/, '/lead') : '';
+    if (!leadEndpoint) return { ok: false, skipped: true, reason: 'handoff_endpoint_missing' };
+    const response = await fetch(leadEndpoint, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        session_id: guidedAssistantState.sessionId || undefined,
+        language: langSelect?.value || 'de', confirmed: true, fallback_reason: result?.fallback_reason || 'manual_handoff',
+        context: summary, question: summary.question || summary.scope,
+        customer: { name: clean(document.getElementById('assistantContactName')?.value, 140), contact: clean(document.getElementById('assistantContactContact')?.value, 180) }
+      })
+    });
+    const data = await response.json().catch(() => ({ ok: response.ok }));
+    if (data?.session_id) startOperatorReplyPolling(data.session_id);
+    return data;
+  }
+
+  function formatAssistantSummary(summary) {
     const dict = assistantDict();
-    const formatted = [
+    return [
       dict['assistant.summaryTitle'],
       `- ${dict['assistant.summaryType']}: ${summary.project_type}`,
       `- ${dict['assistant.summaryMachine']}: ${summary.machine}`,
       `- ${dict['assistant.summaryScope']}: ${summary.scope}`,
+      summary.question ? `- ${dict['assistant.question']}: ${summary.question}` : '',
       `- ${dict['assistant.summaryTimeline']}: ${summary.timeline}`,
       summary.missing_information.length ? `- ${dict['assistant.summaryMissing']}: ${summary.missing_information.join('; ')}` : `- ${dict['assistant.summaryMissing']}: ${dict['assistant.summaryNone']}`,
       `- ${dict['assistant.summaryNote']}: ${summary.privacy_note}`
-    ].join('\n');
+    ].filter(Boolean).join('\n');
+  }
 
+  function fillCustomerFieldsFromAssistant(summary) {
+    const fullName = clean(summary.contact_name, 140);
+    const contact = clean(summary.contact_contact, 180);
+    const parts = fullName.split(' ').filter(Boolean);
+    const firstField = document.querySelector('#bookingForm input[name="firstname"]');
+    const lastField = document.querySelector('#bookingForm input[name="lastname"]');
+    const emailField = document.querySelector('#bookingForm input[name="email"]');
+    if (firstField && parts[0] && !firstField.value) firstField.value = parts.shift();
+    if (lastField && parts.length && !lastField.value) lastField.value = parts.join(' ');
+    if (emailField && /@/.test(contact) && !emailField.value) emailField.value = contact;
+    [firstField, lastField, emailField].filter(Boolean).forEach(field => {
+      field.dispatchEvent(new Event('input', { bubbles: true }));
+      field.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  }
+
+  function fillBookingForm(summary) {
+    const formatted = formatAssistantSummary(summary);
+    fillCustomerFieldsFromAssistant(summary);
     const projectField = document.querySelector('#bookingForm textarea[name="project"], textarea[name="project"]');
     if (projectField) {
       projectField.value = formatted;
@@ -4581,15 +4918,136 @@ document.querySelectorAll('.faq-item').forEach(item => {
       pkgField.dispatchEvent(new Event('input', { bubbles: true }));
       pkgField.dispatchEvent(new Event('change', { bubbles: true }));
     }
+    return Boolean(projectField);
+  }
 
-    output.textContent = projectField
-      ? dict['assistant.outputDone']
-      : dict['assistant.outputNoField'];
-    output.classList.add('active');
+  askBtn?.addEventListener('click', async () => {
+    const dict = assistantDict();
+    const summary = buildAssistantSummary();
+    guidedAssistantState.turns += 1;
+    if (!summary.question && summary.scope === dict['assistant.scopeFallback']) { setOutput(dict['assistant.emptyQuestionPrompt'], 'question_missing_local_prompt'); return; }
+    if (!isAssistantQuestionInScope(summary)) {
+      lastAssistantResult = buildAssistantFallbackReply(summary, 'out_of_scope');
+      setOutput(lastAssistantResult.reply);
+      return;
+    }
+    setOutput('…');
+    lastAssistantResult = await callAssistantEndpoint(summary);
+    setOutput(lastAssistantResult.reply);
+    fillBookingForm(summary);
+  });
+
+  prepareBtn.addEventListener('click', () => {
+    const summary = buildAssistantSummary();
+    const dict = assistantDict();
+    const hasField = fillBookingForm(summary);
+    const fallback = buildAssistantFallbackReply(summary, assistantConfig.liveAiEnabled ? 'prepared_triage' : 'local_aria_answer');
+    lastAssistantResult = fallback;
+    setOutput(hasField ? dict['assistant.outputDone'] : dict['assistant.outputNoField'], fallback.reply);
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
-})();
 
+  async function requestLiveTakeover() {
+    const dict = assistantDict();
+    if (!requireAssistantHandoffConsent(dict)) return;
+    guidedAssistantState.takeoverRequested = true;
+    const summary = buildAssistantSummary();
+    fillBookingForm(summary);
+    guidedAssistantState.operatorWindowActive = true;
+    appendChatMessage('aria', dict['assistant.waitingPatrick']);
+    await notifyPatrickForLiveChat(summary);
+    startOperatorWindowCountdown(60);
+    if (guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
+    guidedAssistantState.operatorTimer = setTimeout(requestAiFallbackAfterOperatorWindow, 60000);
+  }
+
+  async function handleAssistantChatSend() {
+    const dict = assistantDict();
+    const message = clean(chatInput?.value, 900);
+    if (!message) return;
+    chatInput.value = '';
+    if (guidedAssistantState.operatorActive) {
+      const intentField = updateGuidedSummaryFromMessageIntent(message);
+      if (!intentField) updateGuidedSummaryFromExpectedField(message);
+      appendChatMessage('user', message);
+      const summary = buildAssistantSummary();
+      fillBookingForm(summary);
+      await forwardCustomerMessageToOperator(message, summary);
+      return;
+    }
+    if (isLowInformationChatMessage(message)) {
+      appendChatMessage('user', message);
+      appendChatMessage('aria', assistantDict()['assistant.stillHerePrompt'] || 'Ja, ich bin da. Bitte schreiben Sie kurz die konkrete technische Frage oder den nächsten Punkt.');
+      return;
+    }
+    let capturedField = updateGuidedSummaryFromMessageIntent(message);
+    if (!capturedField) capturedField = updateGuidedSummaryFromExpectedField(message);
+    if (!capturedField) syncFreeTextToSummary(message);
+    appendChatMessage('user', message);
+    const summary = buildAssistantSummary();
+    guidedAssistantState.turns += 1;
+    if (!isAssistantQuestionInScope(summary)) {
+      const result = buildAssistantFallbackReply(summary, 'out_of_scope');
+      lastAssistantResult = result;
+      appendChatMessage('aria', result.reply);
+      return;
+    }
+    fillBookingForm(summary);
+
+    if (guidedAssistantState.ariaActive && !shouldRequestPatrickFromMessage(message)) {
+      await answerWithAria(summary, 'local_aria_followup', capturedField);
+      return;
+    }
+
+    if (guidedAssistantState.operatorWindowActive && !shouldRequestPatrickFromMessage(message)) {
+      appendChatMessage('aria', dict['assistant.operatorCollecting'] || 'Danke, ich nehme die Ergänzung mit. Aria übernimmt nach Ablauf des Timers automatisch.');
+      return;
+    }
+
+    if (shouldRequestPatrickFromMessage(message) || !guidedAssistantState.patrickNotified) {
+      if (!requireAssistantHandoffConsent(dict)) {
+        await answerWithAria(summary, 'local_aria_answer', capturedField);
+        return;
+      }
+      guidedAssistantState.patrickNotified = true;
+      guidedAssistantState.ariaActive = false;
+      guidedAssistantState.aiFallbackStarted = false;
+      guidedAssistantState.operatorWindowActive = true;
+      appendChatMessage('aria', dict['assistant.waitingPatrick']);
+      await notifyPatrickForLiveChat(summary);
+      startOperatorWindowCountdown(60);
+      if (guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
+      guidedAssistantState.operatorTimer = setTimeout(requestAiFallbackAfterOperatorWindow, 60000);
+      return;
+    }
+
+    await answerWithAria(summary, 'local_aria_followup', capturedField);
+  }
+
+  chatSendBtn?.addEventListener('click', handleAssistantChatSend);
+  chatInput?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleAssistantChatSend();
+    }
+  });
+
+  confirmBtn?.addEventListener('click', async () => {
+    const dict = assistantDict();
+    const consent = document.getElementById('assistantConsent');
+    if (!consent?.checked) { setOutput(dict['assistant.consentRequired']); return; }
+    const summary = buildAssistantSummary();
+    const result = lastAssistantResult || buildAssistantFallbackReply(summary, 'manual_handoff');
+    fillBookingForm(summary);
+    try {
+      const handoff = await sendAssistantLead(summary, result);
+      if (handoff?.session_id) startOperatorReplyPolling(handoff.session_id);
+      setOutput(handoff.ok || handoff.delivered ? dict['assistant.handoffDone'] : dict['assistant.handoffFailed']);
+    } catch (error) { setOutput(dict['assistant.handoffFailed']); }
+  });
+
+  takeoverBtn?.addEventListener('click', requestLiveTakeover);
+})();
 /* =========================================================
    PRIVACY MODAL (centered consent dialog)
    ========================================================= */

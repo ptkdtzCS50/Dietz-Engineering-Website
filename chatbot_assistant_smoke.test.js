@@ -15,20 +15,96 @@ function assert(condition, message) {
   }
 }
 
-assert(index.includes('AI ASSISTANT PREVIEW'), 'assistant CSS/HTML/JS marker exists');
+assert(index.includes('ARIA WEBSITE ASSISTANT'), 'assistant CSS/HTML/JS marker exists as a real Aria website assistant, not preview copy');
 assert(index.includes('id="assistantLauncher"'), 'assistant launcher exists');
 assert(index.includes('id="assistantPanel"'), 'assistant panel exists');
-assert(index.includes('Projektanfrage strukturiert vorbereiten'), 'production assistant copy is visible');
+assert(!index.includes('data-chatbase-test="enabled"'), 'production page does not hide Aria behind temporary Chatbase test mode');
+assert(!index.includes('https://www.chatbase.co/embed.min.js'), 'production page does not auto-load a third-party Chatbase widget');
+assert(index.includes('aria-assistant-avatar.jpg'), 'Aria assistant avatar image is embedded in the website assistant');
+assert(index.includes('class="assistant-avatar"'), 'assistant header contains a personal avatar block');
+assert(index.includes('Direkt mit DIETZ Engineering chatten'), 'production assistant copy is visible');
 assert(index.includes('data-i18n="assistant.kicker"'), 'assistant kicker is translated via data-i18n');
 assert(index.includes('data-i18n="assistant.title"'), 'assistant title is translated via data-i18n');
 assert(index.includes('data-i18n="assistant.messageTitle"'), 'assistant message title is translated via data-i18n');
 assert(index.includes('data-i18n-placeholder="assistant.machinePh"'), 'assistant machine placeholder is translated');
 assert(index.includes('data-i18n-placeholder="assistant.scopePh"'), 'assistant scope placeholder is translated');
-assert(i18n.en['assistant.messageTitle'] === 'Prepare project inquiry in a structured way.', 'English assistant message title exists');
+assert(i18n.en['assistant.messageTitle'].includes('Chat directly'), 'English assistant message title exists');
 assert(i18n.en['assistant.mainQuestion'] === 'What is it mainly about?', 'English assistant question exists');
-assert(i18n.en['assistant.prepare'] === 'Prepare inquiry', 'English assistant action exists');
+assert(i18n.en['assistant.prepare'] === 'Transfer to form', 'English assistant action exists');
 assert(i18n.en['assistant.timelineUrgent'] === 'Urgent / this week', 'English assistant timeline option exists');
 assert(index.includes('buildAssistantSummary'), 'deterministic triage summary function exists');
+assert(index.includes('buildDietzAssistantPersona'), 'assistant has a DIETZ/Patrick persona contract');
+assert(index.includes('buildAssistantFallbackReply'), 'assistant has a local fallback answer builder');
+assert(index.includes('question_missing_local_prompt'), 'empty assistant questions get a useful local prompt instead of a disabled-widget message');
+assert(index.includes('callAssistantEndpoint'), 'assistant can call a guarded backend endpoint when configured');
+assert(index.includes('sendAssistantLead'), 'assistant can hand off leads to Patrick/Telegram through backend');
+assert(index.includes('shouldEscalateToPatrick'), 'assistant detects questions that need Patrick review');
+assert(index.includes('guidedAssistantState'), 'assistant has guided conversation state');
+assert(index.includes('getAssistantNextQuestion'), 'assistant guides customers with targeted next questions');
+assert(index.includes('isAssistantQuestionInScope'), 'assistant filters unrelated/off-topic questions');
+assert(i18n.de['assistant.outOfScope'].includes('Aria beantwortet Fragen zu Patrick'), 'assistant has polished off-topic reply copy');
+assert(index.includes('fillCustomerFieldsFromAssistant'), 'assistant can transfer contact details into the booking form');
+assert(index.includes('requestLiveTakeover'), 'assistant has a live takeover request path for Patrick');
+assert(index.includes('assistant.takeover'), 'assistant exposes a customer-facing takeover action');
+assert(index.includes('assistant-chat-log'), 'assistant is presented as a real chat log, not a form-first wizard');
+assert(index.includes('assistantChatInput'), 'assistant has a direct free-text chat input');
+assert(index.includes('operator_decision_buttons'), 'internal Patrick handoff model supports decision buttons');
+assert(index.includes("'start_chat', 'let_aria_answer', 'end_chat'"), 'operator model includes start/end chat actions');
+assert(index.includes('function appendChatMessage('), 'assistant chat send can append the customer message visibly to the chat log');
+assert(index.includes('function syncFreeTextToSummary('), 'assistant chat send can sync free text before building a summary');
+assert(index.includes('function notifyPatrickForLiveChat('), 'assistant notifies Patrick before AI fallback');
+assert(index.includes('function startOperatorReplyPolling('), 'assistant starts polling for Patrick operator replies');
+assert(index.includes('function pollOperatorReplies('), 'assistant can render Patrick replies from the local bridge');
+assert(index.includes('function requestAiFallbackAfterOperatorWindow('), 'assistant defines the delayed Aria fallback callback');
+assert(index.includes('function startOperatorWindowCountdown('), 'assistant shows a visible operator countdown before Aria takes over');
+assert(index.includes('setTimeout(requestAiFallbackAfterOperatorWindow, 60000)'), 'assistant uses a practical 60-second operator window before Aria takes over');
+assert(index.includes('guidedAssistantState.ariaActive'), 'assistant keeps Aria in the conversation after timeout instead of notifying Patrick every message');
+assert(index.includes('guidedAssistantState.operatorWindowActive'), 'assistant collects follow-up customer messages during the 60-second operator window without repeating Patrick notifications');
+assert(index.includes('shouldRequestPatrickFromMessage'), 'assistant only re-adds Patrick when the customer explicitly asks for Patrick or human takeover');
+assert(i18n.de['assistant.operatorCountdown'].includes('{seconds}'), 'German assistant countdown text exposes seconds placeholder');
+assert(i18n.de['assistant.operatorCollecting'].includes('60-Sekunden'), 'German assistant follow-up collection text explains the 60-second timer');
+assert(index.includes('function updateGuidedSummaryFromExpectedField('), 'assistant updates the expected missing field from conversational follow-up answers');
+assert(index.includes('function buildConversationalAriaReply('), 'assistant has a concise non-repetitive chat reply builder for follow-up turns');
+assert(index.includes('guidedAssistantState.awaitingField'), 'assistant remembers which concrete detail Aria asked for next');
+assert(index.includes('guidedAssistantState.answeredEplanIntro'), 'assistant does not repeat the long EPLAN intro on every follow-up turn');
+assert(index.includes('function isLowInformationChatMessage('), 'assistant recognizes low-information pings like Hallo? without storing them as project details');
+assert(i18n.de['assistant.askSpecificEplan'].includes('Welche konkrete EPLAN-Frage'), 'assistant asks a specific EPLAN follow-up instead of repeating generic EPLAN copy');
+assert(i18n.de['assistant.ackMachine'].includes('{machine}'), 'assistant can acknowledge captured machine details in chat');
+assert(index.includes('guidedAssistantState.operatorActive'), 'assistant enters an operator-active mode after Patrick replies');
+assert(index.includes('function forwardCustomerMessageToOperator('), 'assistant forwards follow-up customer messages to Patrick while operator mode is active');
+assert(index.includes('setInterval(pollOperatorReplies, 1200)'), 'assistant polls operator replies quickly enough for local livechat testing');
+assert(index.includes('function updateGuidedSummaryFromMessageIntent('), 'assistant detects timeline/contact/price/drive-count intents from natural chat messages');
+assert(i18n.de['assistant.priceBoundary'].includes('keinen belastbaren Preis'), 'assistant answers price questions with a practical non-binding boundary instead of repeating contact prompts');
+assert(i18n.de['assistant.operatorActiveNotice'].includes('übernimmt jetzt den Chat'), 'customer sees that Patrick, not Aria, has taken over the chat');
+const assistantConfig = fs.readFileSync(path.join(root, 'src/static/assistant-config.js'), 'utf8');
+assert(assistantConfig.includes('endpoint: ""'), 'public assistant config has no localhost endpoint by default');
+assert(assistantConfig.includes('localDevEndpoint: "http://127.0.0.1:8790/assistant"'), 'local assistant config keeps the localhost bridge for Patrick testing');
+assert(fs.existsSync(path.join(root, 'scripts/local_assistant_bridge.py')), 'local assistant Telegram bridge script exists for dev handoff testing');
+const localBridge = fs.readFileSync(path.join(root, 'scripts/local_assistant_bridge.py'), 'utf8');
+assert(localBridge.includes('send_message_tool'), 'local assistant bridge forwards handoff via Hermes messaging');
+assert(localBridge.includes('/operator/reply') && localBridge.includes('/assistant/replies'), 'local assistant bridge exposes operator reply and website polling endpoints');
+assert(localBridge.includes('/operator/customer-message'), 'local bridge accepts live customer follow-up messages after Patrick has taken over');
+assert(localBridge.includes('Antwort an Chat') && localBridge.includes('Direkt antworten'), 'local bridge sends Patrick a copyable direct-reply prompt for each customer message');
+assert(localBridge.includes('/operator/ui') && localBridge.includes('Antwort senden'), 'local bridge exposes a clickable browser reply UI for Patrick');
+assert(localBridge.includes('Antworten öffnen') && localBridge.includes('reply_url'), 'operator notification includes a direct answer link so Patrick does not have to copy prompts');
+assert(localBridge.includes('detect_message_language') && localBridge.includes('zh') && localBridge.includes('es'), 'operator bridge detects Spanish and Chinese customer messages for Patrick');
+const languageSmoke = execFileSync('python3', ['-c', `
+import importlib.util
+spec = importlib.util.spec_from_file_location('bridge', 'scripts/local_assistant_bridge.py')
+bridge = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(bridge)
+assert bridge.detect_message_language('Hola, tengo una pregunta de EPLAN P8') == 'es'
+assert bridge.detect_message_language('Hole tengo una pregunta de eplan p8') == 'es'
+assert bridge.detect_message_language('Ich habe eine Frage zu EPLAN P8') == 'de'
+assert bridge.detect_message_language('我有一个EPLAN问题') == 'zh'
+`], { cwd: root, encoding: 'utf8' });
+assert(languageSmoke !== null, 'local bridge language detector classifies Spanish tengo/Hola, German and Chinese correctly');
+assert(localBridge.includes('prepare_operator_reply') && localBridge.includes('corrected_message') && localBridge.includes('translated_message'), 'operator bridge prepares grammar-corrected and translated operator replies before delivery');
+assert(localBridge.includes('/operator/prepare-reply') && localBridge.includes('Entwurf prüfen'), 'operator UI has a draft review step before sending translated replies');
+assert(localBridge.includes('Übersetzung für Patrick') && localBridge.includes('Antwortsprache'), 'operator UI shows inbound translation context and outbound language mode');
+assert(i18n.de['assistant.greeting'].includes('Patrick'), 'assistant has a warm livechat greeting mentioning Patrick handoff');
+assert(i18n.de['assistant.waitingPatrick'].includes('Patrick'), 'assistant tells customer Patrick is being notified without exposing internals');
+assert(i18n.de['assistant.aiFallback'].includes('nicht direkt verfügbar'), 'assistant has polished AI fallback after Patrick timeout');
 assert(index.includes('textarea[name="project"]'), 'assistant targets existing booking project textarea');
 assert(index.includes('missing_information'), 'assistant records missing-information queue');
 assert(i18n.de['assistant.privacyNote'].includes('Keine vertraulichen Kundendaten'), 'confidentiality warning exists in i18n');
@@ -47,6 +123,7 @@ assert(index.includes('font-size: clamp(2.35rem, 4.9vw, 4.35rem);'), 'desktop he
 assert(index.includes('.assistant-panel {\n  position: fixed;\n  right: 1.25rem;\n  top: 5.5rem;'), 'assistant panel is pinned below nav so close button remains reachable');
 assert(index.includes('max-height: none;') && index.includes('.assistant-body {\n  padding: 1rem;\n  overflow-y: auto;'), 'assistant panel uses body scrolling instead of hiding the header/close button');
 assert(index.includes('.assistant-close {\n  flex: 0 0 auto;\n  display: grid;'), 'assistant close button keeps a fixed accessible hit area');
+assert(!index.includes('Live-KI ist noch nicht für den öffentlichen Betrieb aktiviert'), 'public UI does not show non-working/live-disabled chatbot copy');
 assert(index.includes('Late mobile safety overrides') && index.includes('.process-grid {\n    grid-template-columns: 1fr;\n    gap: 2rem;') && index.includes('.proc-step h3,\n  .proc-step p {\n    text-align: left;'), 'mobile process cards stack full-width with readable left-aligned text');
 assert(index.includes('.proj-grid,\n  .progressive-disclosure .proj-grid,\n  .process-grid {\n    grid-template-columns: 1fr;') && index.includes('.proj-meta {\n    align-items: flex-start;') && index.includes('.proj-card p {\n    font-size: 0.98rem;'), 'mobile project cards stack full-width and avoid narrow clipped columns');
 assert(index.includes('.nav-links:not(.open) { display: none; }'), 'late mobile nav override prevents compressed desktop links on phones');
