@@ -18,8 +18,9 @@ function assert(condition, message) {
 assert(index.includes('ARIA WEBSITE ASSISTANT'), 'assistant CSS/HTML/JS marker exists as a real Aria website assistant, not preview copy');
 assert(index.includes('id="assistantLauncher"'), 'assistant launcher exists');
 assert(index.includes('id="assistantPanel"'), 'assistant panel exists');
-assert(!index.includes('data-chatbase-test="enabled"'), 'production page does not hide Aria behind temporary Chatbase test mode');
-assert(!index.includes('https://www.chatbase.co/embed.min.js'), 'production page does not auto-load a third-party Chatbase widget');
+assert(index.includes('data-chatbase-live="enabled"'), 'Chatbase live mode is marked on the production page');
+assert(index.includes('jjukctX1wFEHC5Dh01_ND') && index.includes('https://www.chatbase.co/embed.min.js'), 'Chatbase live widget embed is installed');
+assert(index.includes('body[data-chatbase-live="enabled"] .assistant-launcher') && index.includes('body[data-chatbase-live="enabled"] .assistant-panel'), 'Chatbase live mode hides the in-house Aria widget to avoid double chat launchers');
 assert(index.includes('aria-assistant-avatar.jpg'), 'Aria assistant avatar image is embedded in the website assistant');
 assert(index.includes('class="assistant-avatar"'), 'assistant header contains a personal avatar block');
 assert(index.includes('Direkt mit DIETZ Engineering chatten'), 'production assistant copy is visible');

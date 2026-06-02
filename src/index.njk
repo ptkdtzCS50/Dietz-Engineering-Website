@@ -2692,6 +2692,11 @@ html[lang="es"] .trust-label {
 /* =========================================================
    ARIA WEBSITE ASSISTANT (local answer + optional live endpoint + Patrick handoff)
    ========================================================= */
+body[data-chatbase-live="enabled"] .assistant-launcher,
+body[data-chatbase-live="enabled"] .assistant-panel {
+  display: none !important;
+}
+
 .assistant-launcher {
   position: fixed;
   right: 1.25rem;
@@ -3038,7 +3043,7 @@ html[lang="es"] .trust-label {
 }
 </style>
 </head>
-<body>
+<body data-chatbase-live="enabled">
 
 <!-- ============================ NAV ============================ -->
 <nav class="nav">
@@ -5078,6 +5083,10 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     customizeBtn.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
 })();
+</script>
+<!-- Chatbase live assistant. Aria remains in the codebase, but is hidden while this live Chatbase test is active. -->
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="jjukctX1wFEHC5Dh01_ND";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 </body>
 </html>

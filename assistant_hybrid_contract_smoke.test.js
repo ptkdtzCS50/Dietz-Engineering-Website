@@ -42,7 +42,7 @@ assert(index.includes('assistantConsent') && index.includes('assistant.consentRe
 assert(index.includes('assistant.consentLabel'), 'assistant handoff consent text is translated');
 assert(index.includes('function hasAssistantHandoffConsent(') && index.includes('function requireAssistantHandoffConsent('), 'all Patrick/Telegram handoff paths have a shared consent guard');
 assert(index.includes('if (!hasAssistantHandoffConsent()) return { ok: false, skipped: true, reason: \'consent_required\' };'), 'lead endpoint call is blocked before consent');
-assert(!index.includes('https://www.chatbase.co/embed.min.js') && !index.includes('data-chatbase-test="enabled"'), 'production page does not auto-load temporary Chatbase widget');
+assert(index.includes('https://www.chatbase.co/embed.min.js') && index.includes('data-chatbase-live="enabled"'), 'production page intentionally loads Chatbase live assistant');
 const chatCallSegment = index.slice(index.indexOf('async function callAssistantEndpoint'), index.indexOf('async function sendAssistantLead'));
 assert(!chatCallSegment.includes('assistantContactName') && !chatCallSegment.includes('assistantContactContact'), 'normal chat call does not send contact details before confirmed handoff');
 
