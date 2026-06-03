@@ -2867,7 +2867,9 @@ body[data-aria-local-test="enabled"] .assistant-panel.open {
   flex: 1 1 auto;
   min-height: 0;
   padding: 1rem;
-  overflow: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 .assistant-message {
   border: 1px solid var(--border);
@@ -3025,10 +3027,26 @@ body[data-aria-local-test="enabled"] .assistant-panel.open {
   color: var(--text-mute);
   background: var(--bg-2);
 }
+body.assistant-panel-open {
+  overflow: hidden;
+}
+body.assistant-panel-open .assistant-launcher,
+body.assistant-panel-open .assistant-teaser {
+  display: none;
+}
 @media (max-width: 580px) {
-  .assistant-launcher { right: 0.8rem; bottom: 0.8rem; width: 3.65rem; height: 3.65rem; padding: 0; }
-  .assistant-teaser { right: 0.75rem; bottom: 5.05rem; width: calc(100vw - 1.5rem); padding-right: 2.6rem; }
-  .assistant-panel { top: 4.75rem; right: 0.75rem; bottom: 4.7rem; width: calc(100vw - 1.5rem); }
+  .assistant-launcher { right: max(0.8rem, env(safe-area-inset-right)); bottom: max(0.8rem, env(safe-area-inset-bottom)); width: 3.65rem; height: 3.65rem; padding: 0; }
+  .assistant-teaser { right: 0.75rem; bottom: calc(5.05rem + env(safe-area-inset-bottom)); width: calc(100vw - 1.5rem); padding-right: 2.6rem; }
+  .assistant-panel {
+    top: max(0.6rem, env(safe-area-inset-top));
+    right: 0.55rem;
+    bottom: max(0.6rem, env(safe-area-inset-bottom));
+    width: calc(100vw - 1.1rem);
+    max-height: calc(100dvh - 1.2rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+  .assistant-head { padding: 0.85rem 0.85rem 0.7rem; }
+  .assistant-body { padding: 0.85rem; }
+  .assistant-footnote { padding: 0.7rem 0.85rem; }
   .assistant-quick-grid { grid-template-columns: 1fr; }
 }
 
@@ -4679,8 +4697,17 @@ document.querySelectorAll('.faq-item').forEach(item => {
     return '';
   }
 
-  function openAssistant() { panel.classList.add('open'); launcher.setAttribute('aria-expanded', 'true'); hideAssistantTeaser(true); }
-  function closeAssistant() { panel.classList.remove('open'); launcher.setAttribute('aria-expanded', 'false'); }
+  function openAssistant() {
+    panel.classList.add('open');
+    document.body.classList.add('assistant-panel-open');
+    launcher.setAttribute('aria-expanded', 'true');
+    hideAssistantTeaser(true);
+  }
+  function closeAssistant() {
+    panel.classList.remove('open');
+    document.body.classList.remove('assistant-panel-open');
+    launcher.setAttribute('aria-expanded', 'false');
+  }
   function setOutput(message, detail) { output.textContent = detail ? `${message}\n\n${detail}` : message; output.classList.add('active'); }
 
   function waitForAssistantTyping(ms) {
