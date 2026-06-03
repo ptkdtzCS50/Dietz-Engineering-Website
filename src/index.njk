@@ -4609,7 +4609,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
   let selectedTypeKey = 'assistant.typeEplan';
   let lastAssistantResult = null;
   let assistantTypingQueue = Promise.resolve();
-  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, contactFormActionShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
+  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, contactFormActionShown: false, outOfHoursNoticeShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
   const operator_decision_buttons = ['start_chat', 'let_aria_answer', 'end_chat'];
   const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
   const clean = (value, max = 900) => String(value || '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -4784,12 +4784,15 @@ document.querySelectorAll('.faq-item').forEach(item => {
   }
 
   function handleOutOfHoursPatrickRequest(summary = buildAssistantSummary()) {
-    guidedAssistantState.takeoverRequested = true;
+    guidedAssistantState.takeoverRequested = false;
     guidedAssistantState.operatorWindowActive = false;
     guidedAssistantState.ariaActive = false;
     fillBookingForm(summary);
     const message = assistantDict()['assistant.outOfHoursContact'] || 'Patrick ist persönlich zwischen 08:00 und 17:00 Uhr erreichbar. Außerhalb dieser Zeit nutzen Sie bitte das Kontaktformular auf der Website.';
-    appendChatMessage('aria', message);
+    if (!guidedAssistantState.outOfHoursNoticeShown) {
+      appendChatMessage('aria', message);
+      guidedAssistantState.outOfHoursNoticeShown = true;
+    }
     appendContactFormAction();
     setOutput(message);
     return { ok: false, skipped: true, reason: 'outside_availability_window' };
