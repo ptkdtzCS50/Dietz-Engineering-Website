@@ -1,0 +1,64 @@
+{
+  "project_templates": [
+    {
+      "id": "eplan_small_support",
+      "title": "EPLAN-Unterstützung für abgegrenztes Arbeitspaket",
+      "typical_inputs": [
+        "EPLAN-Version",
+        "bestehendes EPLAN-Projekt oder PDF-Schaltplan",
+        "gewünschter Änderungsumfang",
+        "Zieltermin",
+        "Makros/Artikeldaten vorhanden?"
+      ],
+      "missing_information_default": [
+        "Umfang in Seiten/Funktionen",
+        "EPLAN-Version",
+        "vorhandene Unterlagen",
+        "gewünschter Liefertermin"
+      ],
+      "aria_may_classify": true,
+      "aria_may_accept": false,
+      "patrick_review_required": true
+    },
+    {
+      "id": "cabinet_io_cleanup",
+      "title": "Klemmen-/I/O-/Verdrahtungsstruktur bereinigen",
+      "typical_inputs": [
+        "Klemmenplan",
+        "SPS-I/O-Liste",
+        "Kabelübersicht",
+        "Fotos vom Schaltschrank",
+        "Änderungs- oder Fehlerbeschreibung"
+      ],
+      "missing_information_default": [
+        "betroffene Baugruppen/Klemmen",
+        "aktueller Planstand",
+        "Ziel: Review, Bereinigung oder Neuerstellung",
+        "Fotos/Listen vorhanden?"
+      ],
+      "aria_may_classify": true,
+      "aria_may_accept": false,
+      "patrick_review_required": true
+    },
+    {
+      "id": "documentation_review_package",
+      "title": "Schaltplan- und Dokumentationsreview",
+      "typical_inputs": [
+        "PDF-Schaltplan",
+        "EPLAN-Quelle falls vorhanden",
+        "Review-Ziel",
+        "bekannte Fehler/offene Punkte",
+        "Übergabetermin"
+      ],
+      "missing_information_default": [
+        "Review-Ziel",
+        "Unterlagenstand",
+        "kritische Bereiche",
+        "gewünschte Rückgabeform"
+      ],
+      "aria_may_classify": true,
+      "aria_may_accept": false,
+      "patrick_review_required": true
+    }
+  ]
+}

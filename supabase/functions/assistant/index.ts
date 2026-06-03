@@ -1,7 +1,7 @@
 // @ts-nocheck
 declare const Deno: any;
 
-const DEFAULT_MODEL = "gpt-5-mini";
+const DEFAULT_MODEL = "gpt-4.1-mini";
 const MAX_MESSAGE_CHARS = 1800;
 const MAX_REQUESTS_PER_IP = 12;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
@@ -24,6 +24,37 @@ function env(name: string): string {
 
 function cleanText(value: unknown, max = 4000): string {
   return String(value || "").replace(/\s+/g, " ").trim().slice(0, max);
+}
+
+function redactContactData(value: unknown, max = 4000): string {
+  return cleanText(value, max)
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[redacted-email]")
+    .replace(/(?:\+|00)\d[\d\s()./-]{6,}\d/g, "[redacted-phone]")
+    .replace(/\b(?:tel|telefon|phone|mobile|handy|whatsapp|e-mail|email|mail)\s*[:=]\s*\S+(?:\s+\S+){0,2}/gi, "[redacted-contact]")
+    .replace(/\b(?:firma|company|unternehmen)\s*[:=]\s*\S+(?:\s+\S+){0,4}/gi, "[redacted-company]");
+}
+
+function sanitizeContextForAi(context: Record<string, unknown> = {}) {
+  return {
+    project_type: redactContactData(context.project_type, 220),
+    machine: redactContactData(context.machine, 260),
+    timeline: redactContactData(context.timeline, 180),
+    scope: redactContactData(context.scope, 1200),
+  };
+}
+
+function sanitizePayloadForAi(payload: AssistantPayload): AssistantPayload {
+  return {
+    question: redactContactData(payload.question, MAX_MESSAGE_CHARS),
+    messages: normalizeMessages(payload).map((message) => ({
+      role: message.role,
+      content: redactContactData(message.content, MAX_MESSAGE_CHARS),
+    })),
+    context: sanitizeContextForAi(payload.context || {}),
+    language: cleanText(payload.language, 8),
+    confirmed: false,
+    fallback_reason: cleanText(payload.fallback_reason, 120),
+  };
 }
 
 function jsonResponse(payload: unknown, status = 200, headers: Record<string, string> = {}) {
@@ -94,7 +125,11 @@ function systemPrompt(language = "de") {
     "Patrick Dietz supports freelance electrical engineering for machine and plant builders: EPLAN P8 schematics, macro/article/BMK structure, terminals, cables, BOM consistency, panel-building documentation, Pro Panel/Smartwiring context, installation, commissioning, retrofit troubleshooting, and structured project handover.",
     "For EPLAN macros: say Patrick can generally help assess existing structures, prepare project-suitable macros, and build reusable standards, but the concrete macro type, Data Portal data, Pro Panel 3D macro, and customer library must be checked from the project context.",
     "Never claim certifications, guaranteed CE/Safety/legal compliance, fixed prices, fixed delivery dates, or final engineering release.",
+    "Never invent email addresses, phone numbers, employee counts, customer names, references, discounts, hourly rates, or other contact/company facts. If a contact route is needed, refer to the official website contact details or the website handoff form only.",
+    "Do not promise a callback time, same-day response, or any concrete response time. You may say Patrick checks customer inquiries personally and a handoff can be prepared.",
+    "Do not say you cannot contact Patrick directly. Instead: explain that the website can prepare a handoff to Patrick via the private Telegram operator channel after explicit consent and sufficient contact/project details.",
     "Never ask for passwords, secrets, complete confidential schematics, EPLAN projects, or internal customer files in chat. Recommend a suitable secure channel after first contact.",
+    "For handoff requests: ask for name, preferred contact route, topic, urgency, and explicit consent; warn that sensitive project files should wait for an agreed secure channel.",
     "Patrick prüft verbindliche Fragen persönlich.",
     "Keep answers compact, calm, practical, and customer-facing.",
   ].join("\n");
@@ -110,6 +145,28 @@ function contextPrompt(context: Record<string, unknown> = {}) {
   ].join("\n");
 }
 
+function assistantAiEnabled(): boolean {
+  return env("ASSISTANT_ENABLED").trim().toLowerCase() !== "false";
+}
+
+function assistantDiagnostic(error?: unknown) {
+  const message = error instanceof Error ? error.message : cleanText(error, 240);
+  return {
+    ai_enabled: assistantAiEnabled(),
+    has_openai_key: Boolean(env("OPENAI_API_KEY")),
+    openai_model: env("OPENAI_MODEL") || DEFAULT_MODEL,
+    error_hint: message ? cleanText(message, 240) : "",
+  };
+}
+
+function fallbackReasonForError(error: unknown): string {
+  const message = error instanceof Error ? error.message : cleanText(error, 300);
+  if (message.includes("OPENAI_API_KEY missing")) return "openai_key_missing";
+  if (message.includes("ASSISTANT_ENABLED is false")) return "assistant_disabled";
+  if (message.includes("assistant model unavailable")) return "openai_model_unavailable";
+  return "token_or_endpoint_fallback";
+}
+
 function fallbackReply(payload: AssistantPayload, fallback_reason = "token_or_endpoint_fallback") {
   const text = normalizeMessages(payload).map((m) => m.content).join(" ").toLowerCase();
   const eplanMacro = ["eplan", "makro", "macro", "data portal", "pro panel"].some((term) => text.includes(term));
@@ -123,25 +180,40 @@ function fallbackReply(payload: AssistantPayload, fallback_reason = "token_or_en
     intent: eplanMacro ? "eplan_macro_trust_question" : "project_triage",
     requires_human: true,
     escalation_reason: "review_required_personal_patrick",
+    diagnostic: assistantDiagnostic(),
+  };
+}
+
+function unavailableReply(error: unknown, fallback_reason = fallbackReasonForError(error)) {
+  return {
+    ok: false,
+    reply: "Aria-KI ist aktuell nicht erreichbar. Bitte versuchen Sie es gleich erneut oder holen Sie Patrick über die Übergabe dazu.",
+    mode: "ai_unavailable",
+    fallback_reason,
+    requires_human: true,
+    escalation_reason: "ai_unavailable",
+    diagnostic: assistantDiagnostic(error),
   };
 }
 
 async function callOpenAI(payload: AssistantPayload) {
-  if (env("ASSISTANT_ENABLED") !== "true") throw new Error("ASSISTANT_ENABLED is false");
-  const apiKey = env("OPENAI_API_KEY");
+  if (!assistantAiEnabled()) throw new Error("ASSISTANT_ENABLED is false");
+  const apiKey = env("OPENAI_API_KEY")
+    .replace(/[\s"'`]/g, "")
+    .trim();
   if (!apiKey) throw new Error("OPENAI_API_KEY missing");
+  const aiPayload = sanitizePayloadForAi(payload);
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
     body: JSON.stringify({
       model: env("OPENAI_MODEL") || DEFAULT_MODEL,
       input: [
-        { role: "system", content: systemPrompt(cleanText(payload.language, 8) || "de") },
-        { role: "user", content: contextPrompt(payload.context || {}) },
-        ...normalizeMessages(payload),
+        { role: "system", content: systemPrompt(cleanText(aiPayload.language, 8) || "de") },
+        { role: "user", content: contextPrompt(aiPayload.context || {}) },
+        ...normalizeMessages(aiPayload),
       ],
       max_output_tokens: 700,
-      reasoning: { effort: "low" },
     }),
   });
   const data = await response.json();
@@ -160,6 +232,7 @@ function formatLead(payload: AssistantPayload, result: Record<string, unknown>) 
   const context = payload.context || {};
   return [
     "Neue DIETZ Website-Anfrage / Aria Projektassistenz",
+    "Operator-Kanal: private Telegram-Gruppe",
     "",
     `Name: ${cleanText(customer.name, 160) || "nicht angegeben"}`,
     `Kontakt: ${cleanText(customer.contact, 220) || "nicht angegeben"}`,
@@ -172,8 +245,7 @@ function formatLead(payload: AssistantPayload, result: Record<string, unknown>) 
     "",
     `Frage: ${normalizeMessages(payload).map((m) => m.content).join(" | ") || "nicht angegeben"}`,
     "",
-    `Aria-Modus: ${cleanText(result.mode, 80)}`,
-    `Aria-Antwort: ${cleanText(result.reply, 1400)}`,
+    `Status: Patrick-Review angefordert (${cleanText(result.mode, 80) || "handoff"})`,
     "",
     "Patrick prüft verbindliche Fragen persönlich.",
   ].join("\n");
@@ -195,12 +267,14 @@ async function handleChat(request: Request, payload: AssistantPayload, headers: 
   const limited = rateLimit(request);
   let result: Record<string, unknown>;
   if (!limited.ok) {
-    result = fallbackReply(payload, limited.fallback_reason);
+    result = unavailableReply(new Error(limited.fallback_reason || "rate_limit_fallback"), limited.fallback_reason || "rate_limit_fallback");
   } else {
     try { result = await callOpenAI(payload); }
-    catch (error) { result = fallbackReply(payload, "token_or_endpoint_fallback"); }
+    catch (error) {
+      result = unavailableReply(error);
+    }
   }
-  return jsonResponse(result, 200, headers);
+  return jsonResponse(result, result.mode === "live_ai" ? 200 : 503, headers);
 }
 
 async function handleLead(request: Request, payload: AssistantPayload, headers: Record<string, string>) {

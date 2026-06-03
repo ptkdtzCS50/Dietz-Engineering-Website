@@ -7,6 +7,7 @@ const renderedIndexPath = path.join(root, '_site', 'index.html');
 const renderedIndex = fs.existsSync(renderedIndexPath) ? fs.readFileSync(renderedIndexPath, 'utf8') : index;
 const i18n = JSON.parse(fs.readFileSync(path.join(root, 'src/_data/i18n.json'), 'utf8'));
 const { execFileSync } = require('child_process');
+const pythonBin = process.env.PYTHON_BIN || 'python3';
 
 function assert(condition, message) {
   if (!condition) {
@@ -21,6 +22,11 @@ assert(index.includes('id="assistantPanel"'), 'assistant panel exists');
 assert(index.includes('data-chatbase-live="enabled"'), 'Chatbase live mode is marked on the production page');
 assert(index.includes('jjukctX1wFEHC5Dh01_ND') && index.includes('https://www.chatbase.co/embed.min.js'), 'Chatbase live widget embed is installed');
 assert(index.includes('body[data-chatbase-live="enabled"] .assistant-launcher') && index.includes('body[data-chatbase-live="enabled"] .assistant-panel'), 'Chatbase live mode hides the in-house Aria widget to avoid double chat launchers');
+assert(index.includes('body[data-aria-local-test="enabled"] .assistant-launcher') && index.includes('body[data-aria-local-test="enabled"] .assistant-panel.open'), 'local Aria test mode can show the in-house assistant while Chatbase is disabled');
+assert(index.includes("const wantsRemoteAria = ariaTestMode === 'remote'") && index.includes('assistantConfig.remoteTestEndpoint'), 'local website can route Aria to the Supabase test endpoint with ?aria=remote');
+assert(index.includes('assistantConfig.localProxyEndpoint') && index.includes('isLocalAssistantHost'), 'localhost ?aria=remote uses the local proxy to avoid browser CORS blocking live AI tests');
+assert(index.includes('if ((wantsRemoteAria || wantsLocalAria) && assistantConfig.endpoint) assistantConfig.liveAiEnabled = true;'), '?aria=remote/local enables live AI chat instead of static-only replies');
+assert(index.includes("if(isAriaLocalTest)return;"), 'Chatbase loader is skipped during local Aria website testing');
 assert(index.includes('aria-assistant-avatar.jpg'), 'Aria assistant avatar image is embedded in the website assistant');
 assert(index.includes('class="assistant-avatar"'), 'assistant header contains a personal avatar block');
 assert(index.includes('Direkt mit DIETZ Engineering chatten'), 'production assistant copy is visible');
@@ -49,9 +55,15 @@ assert(index.includes('requestLiveTakeover'), 'assistant has a live takeover req
 assert(index.includes('assistant.takeover'), 'assistant exposes a customer-facing takeover action');
 assert(index.includes('assistant-chat-log'), 'assistant is presented as a real chat log, not a form-first wizard');
 assert(index.includes('assistantChatInput'), 'assistant has a direct free-text chat input');
+assert(index.includes('assistantTeaser') && index.includes('assistant-teaser-close') && index.includes('aria_assistant_teaser_dismissed_v1'), 'assistant launcher has a dismissible greeting teaser bubble');
+assert(index.includes('assistant-launcher-icon') && index.includes('<svg') && index.includes('aria-label="Chat mit DIETZ öffnen"') && index.includes('M7.5 17.5'), 'assistant launcher uses a Chatbase-like circular chat/message bubble icon');
+assert(index.includes('width: 3.9rem;') && index.includes('height: 3.9rem;') && index.includes('.assistant-launcher-text { display: none; }'), 'assistant launcher is icon-first/circular instead of a wide text pill');
 assert(index.includes('operator_decision_buttons'), 'internal Patrick handoff model supports decision buttons');
 assert(index.includes("'start_chat', 'let_aria_answer', 'end_chat'"), 'operator model includes start/end chat actions');
 assert(index.includes('function appendChatMessage('), 'assistant chat send can append the customer message visibly to the chat log');
+assert(index.includes('function rememberAssistantMessage(') && index.includes('guidedAssistantState.chatHistory'), 'assistant keeps a compact chat history for live AI context');
+assert(index.includes("if (assistantConfig.liveAiEnabled && result.mode !== 'live_ai')") && index.includes("result.mode = 'ai_unavailable';"), 'remote AI failures are shown as unavailable instead of static fallback answers');
+assert(index.includes("if (!assistantConfig.liveAiEnabled && result.mode !== 'live_ai') result.reply = buildConversationalAriaReply(summary, capturedField);"), 'static conversational fallback is limited to explicit offline mode only');
 assert(index.includes('function syncFreeTextToSummary('), 'assistant chat send can sync free text before building a summary');
 assert(index.includes('function notifyPatrickForLiveChat('), 'assistant notifies Patrick before AI fallback');
 assert(index.includes('function startOperatorReplyPolling('), 'assistant starts polling for Patrick operator replies');
@@ -62,6 +74,12 @@ assert(index.includes('setTimeout(requestAiFallbackAfterOperatorWindow, 60000)')
 assert(index.includes('guidedAssistantState.ariaActive'), 'assistant keeps Aria in the conversation after timeout instead of notifying Patrick every message');
 assert(index.includes('guidedAssistantState.operatorWindowActive'), 'assistant collects follow-up customer messages during the 60-second operator window without repeating Patrick notifications');
 assert(index.includes('shouldRequestPatrickFromMessage'), 'assistant only re-adds Patrick when the customer explicitly asks for Patrick or human takeover');
+assert(index.includes("const initialWantsPatrick = shouldRequestPatrickFromMessage(message)") && index.includes('const wantsPatrick = initialWantsPatrick'), 'assistant separates Patrick-handoff intent from normal chat detail capture');
+assert(index.includes("if (!wantsPatrick && !assistantConfig.liveAiEnabled && !capturedField) capturedField = updateGuidedSummaryFromExpectedField(message);"), 'Patrick handoff commands and live-AI chat turns are not stored as machine/scope answers');
+assert(!index.includes("shouldRequestPatrickFromMessage(message) || !guidedAssistantState.patrickNotified"), 'assistant does not force a Patrick handoff on the first ordinary chat message');
+assert(index.includes("patrick dazuholen") && !index.includes("return ['patrick', 'herr dietz', 'dietz'"), 'questions merely mentioning Patrick do not trigger human handoff');
+assert(index.includes('function askForChatHandoffDetails(') && index.includes('appendHandoffQuickActions()'), 'missing consent/details stays in chat and shows handoff quick actions');
+assert(index.includes('const email = value.match') && index.includes('assistantContactContact'), 'assistant extracts contact details from a natural chat message');
 assert(i18n.de['assistant.operatorCountdown'].includes('{seconds}'), 'German assistant countdown text exposes seconds placeholder');
 assert(i18n.de['assistant.operatorCollecting'].includes('60-Sekunden'), 'German assistant follow-up collection text explains the 60-second timer');
 assert(index.includes('function updateGuidedSummaryFromExpectedField('), 'assistant updates the expected missing field from conversational follow-up answers');
@@ -80,16 +98,20 @@ assert(i18n.de['assistant.operatorActiveNotice'].includes('übernimmt jetzt den 
 const assistantConfig = fs.readFileSync(path.join(root, 'src/static/assistant-config.js'), 'utf8');
 assert(assistantConfig.includes('endpoint: ""'), 'public assistant config has no localhost endpoint by default');
 assert(assistantConfig.includes('localDevEndpoint: "http://127.0.0.1:8790/assistant"'), 'local assistant config keeps the localhost bridge for Patrick testing');
+assert(assistantConfig.includes('localProxyEndpoint: "http://127.0.0.1:8790/assistant"'), 'local assistant config exposes the same-origin-friendly AI proxy for localhost website tests');
+assert(assistantConfig.includes('remoteTestEndpoint: "https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant"'), 'local assistant config exposes the Supabase assistant endpoint for ?aria=remote tests');
 assert(fs.existsSync(path.join(root, 'scripts/local_assistant_bridge.py')), 'local assistant Telegram bridge script exists for dev handoff testing');
 const localBridge = fs.readFileSync(path.join(root, 'scripts/local_assistant_bridge.py'), 'utf8');
 assert(localBridge.includes('send_message_tool'), 'local assistant bridge forwards handoff via Hermes messaging');
 assert(localBridge.includes('/operator/reply') && localBridge.includes('/assistant/replies'), 'local assistant bridge exposes operator reply and website polling endpoints');
+assert(localBridge.includes('REMOTE_ASSISTANT_ENDPOINT') && localBridge.includes('_proxy_remote_assistant'), 'local assistant bridge proxies /assistant chat calls to the remote Supabase AI function');
+assert(localBridge.includes('"mode": "ai_unavailable"') && localBridge.includes('Aria-KI ist aktuell nicht erreichbar'), 'local assistant bridge turns remote fallback into AI-unavailable instead of fake chat answers');
 assert(localBridge.includes('/operator/customer-message'), 'local bridge accepts live customer follow-up messages after Patrick has taken over');
 assert(localBridge.includes('Antwort an Chat') && localBridge.includes('Direkt antworten'), 'local bridge sends Patrick a copyable direct-reply prompt for each customer message');
 assert(localBridge.includes('/operator/ui') && localBridge.includes('Antwort senden'), 'local bridge exposes a clickable browser reply UI for Patrick');
 assert(localBridge.includes('Antworten öffnen') && localBridge.includes('reply_url'), 'operator notification includes a direct answer link so Patrick does not have to copy prompts');
 assert(localBridge.includes('detect_message_language') && localBridge.includes('zh') && localBridge.includes('es'), 'operator bridge detects Spanish and Chinese customer messages for Patrick');
-const languageSmoke = execFileSync('python3', ['-c', `
+const languageSmoke = execFileSync(pythonBin, ['-c', `
 import importlib.util
 spec = importlib.util.spec_from_file_location('bridge', 'scripts/local_assistant_bridge.py')
 bridge = importlib.util.module_from_spec(spec)
@@ -122,7 +144,7 @@ assert(index.includes('[data-theme="light"] .privacy-backdrop'), 'privacy overla
 assert(index.includes('width: min(100%, 2172px);'), 'hero banner is not upscaled beyond native width');
 assert(index.includes('font-size: clamp(2.35rem, 4.9vw, 4.35rem);'), 'desktop hero headline is capped smaller for wide screens');
 assert(index.includes('.assistant-panel {\n  position: fixed;\n  right: 1.25rem;\n  top: 5.5rem;'), 'assistant panel is pinned below nav so close button remains reachable');
-assert(index.includes('max-height: none;') && index.includes('.assistant-body {\n  padding: 1rem;\n  overflow-y: auto;'), 'assistant panel uses body scrolling instead of hiding the header/close button');
+assert(index.includes('max-height: none;') && index.includes('.assistant-body {\n  flex: 1 1 auto;\n  min-height: 0;') && index.includes('.assistant-chat-log {\n  flex: 1 1 auto;'), 'assistant panel uses full available height while keeping header/compose/footer visible');
 assert(index.includes('.assistant-close {\n  flex: 0 0 auto;\n  display: grid;'), 'assistant close button keeps a fixed accessible hit area');
 assert(!index.includes('Live-KI ist noch nicht für den öffentlichen Betrieb aktiviert'), 'public UI does not show non-working/live-disabled chatbot copy');
 assert(index.includes('Late mobile safety overrides') && index.includes('.process-grid {\n    grid-template-columns: 1fr;\n    gap: 2rem;') && index.includes('.proc-step h3,\n  .proc-step p {\n    text-align: left;'), 'mobile process cards stack full-width with readable left-aligned text');

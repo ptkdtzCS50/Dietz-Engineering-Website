@@ -2693,8 +2693,17 @@ html[lang="es"] .trust-label {
    ARIA WEBSITE ASSISTANT (local answer + optional live endpoint + Patrick handoff)
    ========================================================= */
 body[data-chatbase-live="enabled"] .assistant-launcher,
+body[data-chatbase-live="enabled"] .assistant-teaser,
 body[data-chatbase-live="enabled"] .assistant-panel {
   display: none !important;
+}
+
+body[data-aria-local-test="enabled"] .assistant-launcher {
+  display: inline-flex !important;
+}
+
+body[data-aria-local-test="enabled"] .assistant-panel.open {
+  display: flex !important;
 }
 
 .assistant-launcher {
@@ -2702,24 +2711,91 @@ body[data-chatbase-live="enabled"] .assistant-panel {
   right: 1.25rem;
   bottom: 1.25rem;
   z-index: 80;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.85rem 1rem;
+  display: inline-grid;
+  place-items: center;
+  width: 3.9rem;
+  height: 3.9rem;
+  padding: 0;
   border-radius: 999px;
-  background: var(--accent);
+  background: linear-gradient(145deg, var(--accent), #113a5c);
   color: #ffffff;
-  box-shadow: 0 18px 45px rgba(30, 44, 71, 0.22);
+  box-shadow: 0 18px 45px rgba(30, 44, 71, 0.28);
   font-weight: 700;
   letter-spacing: -0.01em;
 }
-.assistant-launcher:hover { background: var(--accent-soft); transform: translateY(-1px); }
-.assistant-launcher .assistant-pulse {
-  width: 9px;
-  height: 9px;
+.assistant-launcher:hover { background: linear-gradient(145deg, #113a5c, var(--accent)); transform: translateY(-2px); box-shadow: 0 22px 54px rgba(30, 44, 71, 0.32); }
+.assistant-launcher-text { display: none; }
+.assistant-teaser {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 5.65rem;
+  z-index: 79;
+  width: min(420px, calc(100vw - 2rem));
+  padding: 0.95rem 3rem 0.95rem 1.05rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.94);
+  color: var(--text);
+  box-shadow: 0 18px 48px rgba(30, 44, 71, 0.16);
+  backdrop-filter: blur(14px);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.assistant-teaser::after {
+  content: '';
+  position: absolute;
+  right: 2.35rem;
+  bottom: -9px;
+  width: 18px;
+  height: 18px;
+  transform: rotate(45deg);
+  background: rgba(255,255,255,0.94);
+  border-right: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+}
+.assistant-teaser strong { color: var(--text); }
+.assistant-teaser-close {
+  position: absolute;
+  top: -0.65rem;
+  right: -0.55rem;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-soft);
+  box-shadow: 0 8px 20px rgba(30, 44, 71, 0.13);
+  cursor: pointer;
+}
+.assistant-teaser.is-hidden { display: none; }
+.assistant-launcher-icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: transparent;
+  flex: 0 0 auto;
+}
+.assistant-launcher-icon svg {
+  width: 2rem;
+  height: 2rem;
+  stroke: currentColor;
+}
+.assistant-launcher-icon::after {
+  content: '';
+  position: absolute;
+  right: 0.55rem;
+  top: 0.55rem;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   background: #8cffc1;
-  box-shadow: 0 0 0 6px rgba(140, 255, 193, 0.18);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 4px rgba(140, 255, 193, 0.16);
 }
 .assistant-panel {
   position: fixed;
@@ -2788,8 +2864,10 @@ body[data-chatbase-live="enabled"] .assistant-panel {
   cursor: pointer;
 }
 .assistant-body {
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 1rem;
-  overflow-y: auto;
+  overflow: hidden;
 }
 .assistant-message {
   border: 1px solid var(--border);
@@ -2801,6 +2879,18 @@ body[data-chatbase-live="enabled"] .assistant-panel {
   font-size: 0.92rem;
 }
 .assistant-message strong { color: var(--text); }
+.assistant-ai-consent {
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  padding: 0.85rem;
+  background: var(--accent-dim);
+  color: var(--text);
+  font-size: 0.86rem;
+}
+.assistant-ai-consent p { margin: 0 0 0.65rem; color: var(--text-soft); }
+.assistant-ai-consent-actions { display: flex; gap: 0.55rem; flex-wrap: wrap; }
+.assistant-ai-consent-actions .btn { flex: 1; min-width: 10rem; justify-content: center; }
+.assistant-fieldless-hidden { display: none !important; }
 .assistant-quick-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2860,12 +2950,17 @@ body[data-chatbase-live="enabled"] .assistant-panel {
 }
 .assistant-output.active { display: block; }
 .assistant-livechat { display: flex; flex-direction: column; gap: 0.85rem; }
+.assistant-livechat .assistant-message,
+.assistant-livechat .assistant-ai-consent,
+.assistant-livechat .assistant-chat-compose,
+.assistant-livechat .assistant-output { flex: 0 0 auto; }
 .assistant-chat-log {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
-  min-height: 190px;
-  max-height: 310px;
   overflow-y: auto;
   padding: 0.85rem;
   border: 1px solid var(--border);
@@ -2900,6 +2995,16 @@ body[data-chatbase-live="enabled"] .assistant-panel {
 }
 .assistant-chat-compose textarea { min-height: 48px; resize: vertical; }
 .assistant-live-actions .btn { flex: 1; }
+.assistant-chat-log .assistant-live-actions {
+  align-self: stretch;
+  margin: 0.1rem 0 0.25rem;
+  flex-wrap: wrap;
+}
+.assistant-chat-log .assistant-live-actions .btn {
+  min-width: 9rem;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.82rem;
+}
 .assistant-lead-details {
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -2913,6 +3018,7 @@ body[data-chatbase-live="enabled"] .assistant-panel {
   font-size: 0.88rem;
 }
 .assistant-footnote {
+  flex: 0 0 auto;
   padding: 0.8rem 1rem;
   border-top: 1px solid var(--border);
   font-size: 0.76rem;
@@ -2920,7 +3026,8 @@ body[data-chatbase-live="enabled"] .assistant-panel {
   background: var(--bg-2);
 }
 @media (max-width: 580px) {
-  .assistant-launcher { right: 0.8rem; bottom: 0.8rem; padding: 0.78rem 0.9rem; }
+  .assistant-launcher { right: 0.8rem; bottom: 0.8rem; width: 3.65rem; height: 3.65rem; padding: 0; }
+  .assistant-teaser { right: 0.75rem; bottom: 5.05rem; width: calc(100vw - 1.5rem); padding-right: 2.6rem; }
   .assistant-panel { top: 4.75rem; right: 0.75rem; bottom: 4.7rem; width: calc(100vw - 1.5rem); }
   .assistant-quick-grid { grid-template-columns: 1fr; }
 }
@@ -3065,6 +3172,7 @@ body[data-chatbase-live="enabled"] .assistant-panel {
       <li><a href="#experience" data-i18n="nav.experience">Erfahrung</a></li>
       <li><a href="#process" data-i18n="nav.process">Prozess</a></li>
       <li><a href="#booking" data-i18n="nav.booking">Buchung</a></li>
+      <li><a href="/customer-care/">Support Portal</a></li>
       <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
       <li class="nav-mobile-controls">
@@ -3335,7 +3443,7 @@ body[data-chatbase-live="enabled"] .assistant-panel {
         <figcaption class="work-proof-caption"><strong data-i18n="proof.p1Title">Schaltschranknähe</strong><span data-i18n="proof.p1Text">Verdrahtung, Klemmen, Netzwerk- und Steuerungskomponenten müssen in Planung und Fertigung zusammenpassen.</span></figcaption>
       </figure>
       <figure class="work-proof-item">
-        <img src="images/work/terminal-io-wiring.jpg?v=2" alt="Beschriftete Klemmen, I/O-Baugruppen und sauber zugeordnete Verdrahtung im Schaltschrank" loading="lazy">
+        <img src="images/work/terminal-io-wiring.jpg?v=3" alt="Beschriftete Klemmen, I/O-Baugruppen und sauber zugeordnete Verdrahtung im Schaltschrank" loading="lazy">
         <figcaption class="work-proof-caption"><strong data-i18n="proof.p2Title">Klemmen und I/O</strong><span data-i18n="proof.p2Text">Signalzuordnung, Kabel, Klemmenplan und SPS-Liste brauchen einen sauberen gemeinsamen Stand.</span></figcaption>
       </figure>
       <figure class="work-proof-item">
@@ -4015,18 +4123,27 @@ body[data-chatbase-live="enabled"] .assistant-panel {
 
 
 <!-- ============================ ARIA WEBSITE ASSISTANT ============================ -->
-<button class="assistant-launcher" id="assistantLauncher" type="button" aria-controls="assistantPanel" aria-expanded="false">
-  <span class="assistant-pulse" aria-hidden="true"></span>
-  <span data-i18n="assistant.launcher">Assistent vorbereiten</span>
+<div class="assistant-teaser" id="assistantTeaser" role="status" aria-live="polite">
+  <button class="assistant-teaser-close" id="assistantTeaserClose" type="button" aria-label="Begrüßung ausblenden">×</button>
+  <span data-i18n="assistant.teaser">Hallo, ich bin Aria von DIETZ Engineering. Worum geht es? Ich kann erste technische Punkte vorqualifizieren.</span>
+</div>
+<button class="assistant-launcher" id="assistantLauncher" type="button" aria-label="Chat mit DIETZ öffnen" aria-controls="assistantPanel" aria-expanded="false">
+  <span class="assistant-launcher-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+      <path d="M7.5 17.5 4 20v-4.25A7.75 7.75 0 0 1 3 12C3 7.58 7.03 4 12 4s9 3.58 9 8-4.03 8-9 8a10.2 10.2 0 0 1-4.5-1.05Z"></path>
+      <path d="M8 11.5h8M8 14.5h5"></path>
+    </svg>
+  </span>
+  <span class="assistant-launcher-text" data-i18n="assistant.launcher">Chat mit DIETZ</span>
 </button>
 
 <aside class="assistant-panel" id="assistantPanel" aria-label="DIETZ Projektassistent">
   <div class="assistant-head">
     <div class="assistant-identity">
-      <img class="assistant-avatar" src="aria-assistant-avatar.jpg" alt="Aria, digitale DIETZ Projektassistenz" loading="lazy" decoding="async">
+      <img class="assistant-avatar" src="aria-assistant-avatar.jpg" alt="Aria, technische Assistentin von DIETZ Engineering" loading="lazy" decoding="async">
       <div>
-        <span class="assistant-kicker" data-i18n="assistant.kicker">DIETZ Projektassistent</span>
-        <h3 data-i18n="assistant.title">Projekt grob einordnen</h3>
+        <span class="assistant-kicker" data-i18n="assistant.kicker">Aria · Technische Assistentin</span>
+        <h3 data-i18n="assistant.title">DIETZ Engineering</h3>
       </div>
     </div>
     <button class="assistant-close" id="assistantClose" type="button" aria-label="Assistent schließen" data-i18n-aria-label="assistant.close">×</button>
@@ -4034,7 +4151,15 @@ body[data-chatbase-live="enabled"] .assistant-panel {
   <div class="assistant-body assistant-livechat">
     <div class="assistant-message">
       <strong data-i18n="assistant.messageTitle">Direkt mit DIETZ Engineering chatten.</strong><br>
-      <span data-i18n="assistant.messageText">Schreiben Sie einfach Ihre Frage. Patrick wird benachrichtigt; wenn er nicht direkt verfügbar ist, hilft Aria bei der ersten technischen Einordnung.</span>
+      <span data-i18n="assistant.messageText">Schreiben Sie einfach Ihre Frage. Aria hilft bei der ersten technischen Einordnung. Wenn Sie Patrick direkt kontaktieren möchten, nutzen Sie den Button im Chat.</span>
+    </div>
+
+    <div class="assistant-ai-consent" id="assistantAiConsentGate">
+      <p data-i18n="assistant.aiConsentNotice" data-i18n-html><strong>Hinweis:</strong> Aria nutzt KI zur Erstbeantwortung. Ihre Chat-Nachrichten können dafür an einen KI-Dienstleister (OpenAI) übertragen und verarbeitet werden. Bitte senden Sie hier keine vertraulichen Projektdateien, Passwörter oder sensiblen Kundendaten.</p>
+      <div class="assistant-ai-consent-actions">
+        <button class="btn btn-primary" id="assistantAiConsentAccept" type="button" data-i18n="assistant.aiConsentAccept">Zustimmen und Chat starten</button>
+        <a class="btn btn-secondary" id="assistantAiConsentDecline" href="#booking" data-i18n="assistant.aiConsentDecline">Ohne KI: Formular nutzen</a>
+      </div>
     </div>
 
     <div class="assistant-chat-log" id="assistantChatLog" aria-live="polite">
@@ -4046,12 +4171,12 @@ body[data-chatbase-live="enabled"] .assistant-panel {
       <button class="btn btn-primary" id="assistantChatSend" type="button" data-i18n="assistant.send">Senden</button>
     </div>
 
-    <div class="assistant-actions assistant-live-actions">
-      <button class="btn btn-secondary" id="assistantTakeover" type="button" data-i18n="assistant.takeover">Patrick dazuholen</button>
+    <div class="assistant-actions assistant-live-actions assistant-fieldless-hidden">
+      <button class="btn btn-secondary" id="assistantTakeover" type="button" data-i18n="assistant.takeover">Patrick kontaktieren</button>
       <button class="btn btn-secondary" id="assistantPrepare" type="button" data-i18n="assistant.prepare">Ins Formular übernehmen</button>
     </div>
 
-    <details class="assistant-lead-details">
+    <details class="assistant-lead-details assistant-fieldless-hidden" id="assistantLeadDetails">
       <summary data-i18n="assistant.detailsSummary">Angaben für Rückmeldung oder Projektanfrage ergänzen</summary>
       <div class="assistant-field">
         <label data-i18n="assistant.mainQuestion">Worum geht es hauptsächlich?</label>
@@ -4162,6 +4287,18 @@ document.documentElement.classList.add('js-ready');
 document.querySelectorAll('.fade').forEach(el => el.classList.add('in'));
 /* I18N STRINGS — geladen aus src/_data/i18n.json (per Eleventy) */
 const i18n = {{ i18n | dump | safe }};
+i18n.de['assistant.consentRequired'] = 'Bitte setzen Sie unten bei den Angaben den Haken zur Weitergabe an Patrick. Danach auf „Anfrage senden“ oder „Patrick dazuholen“ klicken.';
+i18n.en['assistant.consentRequired'] = 'Please open the details below, tick the consent box for forwarding to Patrick, then click “Send inquiry” or “Bring Patrick in”.';
+i18n.es['assistant.consentRequired'] = 'Abra los detalles abajo, marque el consentimiento para enviar la consulta a Patrick y luego pulse “Enviar consulta” o “Llamar a Patrick”.';
+i18n.zh['assistant.consentRequired'] = '请先打开下方详细信息，勾选同意转交给 Patrick，然后点击“发送询问”或“请 Patrick 加入”。';
+i18n.de['assistant.handoffFailed'] = 'Die Weitergabe ist gerade nicht erreichbar. Im lokalen Test bitte Supabase-CORS für http://127.0.0.1:8088 freigeben; online funktioniert es über die freigegebene Domain.';
+i18n.en['assistant.handoffFailed'] = 'Handoff is not reachable right now. For local testing, allow http://127.0.0.1:8088 in Supabase CORS; online it works through the approved domain.';
+i18n.es['assistant.handoffFailed'] = 'La entrega no está disponible ahora. Para pruebas locales, permita http://127.0.0.1:8088 en Supabase CORS; online funciona con el dominio autorizado.';
+i18n.zh['assistant.handoffFailed'] = '转交目前不可用。本地测试请在 Supabase CORS 中允许 http://127.0.0.1:8088；线上通过已授权域名工作。';
+i18n.de['assistant.aiUnavailable'] = 'Aria-KI ist aktuell nicht erreichbar. Bitte versuchen Sie es gleich erneut oder holen Sie Patrick über die Übergabe dazu.';
+i18n.en['assistant.aiUnavailable'] = 'Aria AI is currently unavailable. Please try again shortly or hand the conversation over to Patrick.';
+i18n.es['assistant.aiUnavailable'] = 'La IA de Aria no está disponible ahora. Inténtelo de nuevo en breve o entregue la conversación a Patrick.';
+i18n.zh['assistant.aiUnavailable'] = 'Aria AI 当前不可用。请稍后重试，或将对话转交给 Patrick。';
 
 /* =========================================================
    STATE  (declared up front — must exist before applyLang runs,
@@ -4406,6 +4543,8 @@ document.querySelectorAll('.faq-item').forEach(item => {
    ========================================================= */
 (function() {
   const launcher = document.getElementById('assistantLauncher');
+  const teaser = document.getElementById('assistantTeaser');
+  const teaserClose = document.getElementById('assistantTeaserClose');
   const panel = document.getElementById('assistantPanel');
   const closeBtn = document.getElementById('assistantClose');
   const prepareBtn = document.getElementById('assistantPrepare');
@@ -4415,30 +4554,98 @@ document.querySelectorAll('.faq-item').forEach(item => {
   const chatLog = document.getElementById('assistantChatLog');
   const chatInput = document.getElementById('assistantChatInput');
   const chatSendBtn = document.getElementById('assistantChatSend');
+  const aiConsentGate = document.getElementById('assistantAiConsentGate');
+  const aiConsentAccept = document.getElementById('assistantAiConsentAccept');
+  const aiConsentDecline = document.getElementById('assistantAiConsentDecline');
   const output = document.getElementById('assistantOutput');
   if (!launcher || !panel || !prepareBtn || !output) return;
 
   const assistantConfig = Object.assign({
-    mode: 'hybrid', endpoint: '', localDevEndpoint: '', liveAiEnabled: false, fallbackEnabled: true,
+    mode: 'hybrid', endpoint: '', localDevEndpoint: '', remoteTestEndpoint: '', liveAiEnabled: false, fallbackEnabled: true,
     handoffMode: 'telegram_review', timeoutMs: 9000, avatar: 'aria-assistant-avatar.jpg'
   }, window.DIETZ_ASSISTANT_CONFIG || {});
+  const assistantParams = new URLSearchParams(window.location.search);
   const isLocalAssistantHost = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
-  if (!assistantConfig.endpoint && isLocalAssistantHost && assistantConfig.localDevEndpoint) assistantConfig.endpoint = assistantConfig.localDevEndpoint;
+  const ariaTestMode = assistantParams.get('aria');
+  const wantsRemoteAria = ariaTestMode === 'remote' || assistantParams.get('ariaEndpoint') === 'supabase';
+  const wantsLocalAria = ariaTestMode === 'local' || ariaTestMode === '1' || (isLocalAssistantHost && !wantsRemoteAria);
+  if ((wantsRemoteAria || wantsLocalAria) && document.body) {
+    document.body.dataset.ariaLocalTest = 'enabled';
+    document.body.dataset.chatbaseLive = 'disabled';
+  }
+  if (!assistantConfig.endpoint && wantsRemoteAria && isLocalAssistantHost && assistantConfig.localProxyEndpoint) assistantConfig.endpoint = assistantConfig.localProxyEndpoint;
+  if (!assistantConfig.endpoint && wantsRemoteAria && assistantConfig.remoteTestEndpoint) assistantConfig.endpoint = assistantConfig.remoteTestEndpoint;
+  if (!assistantConfig.endpoint && wantsLocalAria && assistantConfig.localDevEndpoint) assistantConfig.endpoint = assistantConfig.localDevEndpoint;
+  if ((wantsRemoteAria || wantsLocalAria) && assistantConfig.endpoint) assistantConfig.liveAiEnabled = true;
+
+  const DIETZ_ASSISTANT_PROJECT_FILES = {
+    identity: {{ aria.identity | dump | safe }},
+    services: {{ aria.services | dump | safe }},
+    project_templates: {{ aria.project_templates | dump | safe }},
+    decision_rules: {{ aria.decision_rules | dump | safe }},
+    handoff_rules: {{ aria.handoff_rules | dump | safe }},
+    intake_questions: {{ aria.intake_questions | dump | safe }}
+  };
 
   const DIETZ_ASSISTANT_KNOWLEDGE = {
-    identity: 'Aria · DIETZ Projektassistenz',
+    identity: `${DIETZ_ASSISTANT_PROJECT_FILES.identity.assistant_name} · ${DIETZ_ASSISTANT_PROJECT_FILES.identity.role} von ${DIETZ_ASSISTANT_PROJECT_FILES.identity.company}`,
     patrick: 'Patrick Dietz, freiberufliche Elektrokonstruktion mit externem Projektfokus für Maschinen- und Anlagenbau.',
-    strengths: ['EPLAN P8', 'EPLAN Makro-Erstellung', 'Artikel-/BMK-Struktur', 'Klemmen', 'Kabel', 'Stücklisten', 'Schaltschrankbau-Unterlagen', 'Pro Panel / Smartwiring Kontext', 'Retrofit / Fehlersuche', 'Inbetriebnahme-nahe Praxis'],
-    boundaries: ['keine verbindlichen Preise', 'keine garantierten Termine', 'keine CE-/Safety-/Normfreigabe im Chat', 'keine vertraulichen EPLAN-Projekte im Erstkontakt'],
-    review_required_personal_patrick: ['Angebote', 'Aufwand', 'Termine', 'CE/Safety', 'Normkonformität', 'Kundendateien', 'finale technische Zusagen']
+    strengths: (DIETZ_ASSISTANT_PROJECT_FILES.services.services || []).flatMap(service => service.keywords || []),
+    boundaries: DIETZ_ASSISTANT_PROJECT_FILES.identity.boundaries || [],
+    review_required_personal_patrick: DIETZ_ASSISTANT_PROJECT_FILES.identity.review_required || []
   };
 
   let selectedTypeKey = 'assistant.typeEplan';
   let lastAssistantResult = null;
-  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false };
+  let assistantTypingQueue = Promise.resolve();
+  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
   const operator_decision_buttons = ['start_chat', 'let_aria_answer', 'end_chat'];
   const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
   const clean = (value, max = 900) => String(value || '').replace(/\s+/g, ' ').trim().slice(0, max);
+  const teaserStorageKey = 'aria_assistant_teaser_dismissed_v1';
+  const aiConsentStorageKey = 'dietz_aria_openai_consent_v1';
+  let assistantAiConsentGiven = false;
+  try { assistantAiConsentGiven = localStorage.getItem(aiConsentStorageKey) === 'yes'; } catch (error) { assistantAiConsentGiven = false; }
+
+  function hideAssistantTeaser(persist = false) {
+    teaser?.classList.add('is-hidden');
+    teaser?.setAttribute('aria-hidden', 'true');
+    if (persist) {
+      try { localStorage.setItem(teaserStorageKey, 'yes'); } catch (error) {}
+    }
+  }
+
+  function showAssistantTeaserIfAllowed() {
+    let dismissed = false;
+    try { dismissed = localStorage.getItem(teaserStorageKey) === 'yes'; } catch (error) { dismissed = false; }
+    if (dismissed || panel?.classList.contains('open')) hideAssistantTeaser(false);
+  }
+
+  function setAssistantAiConsent(given) {
+    assistantAiConsentGiven = Boolean(given);
+    if (chatInput) chatInput.disabled = !assistantAiConsentGiven;
+    if (chatSendBtn) chatSendBtn.disabled = !assistantAiConsentGiven;
+    if (aiConsentGate) aiConsentGate.hidden = assistantAiConsentGiven;
+  }
+
+  setAssistantAiConsent(assistantAiConsentGiven);
+  showAssistantTeaserIfAllowed();
+  teaserClose?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    hideAssistantTeaser(true);
+  });
+  teaser?.addEventListener('click', (event) => {
+    if (event.target === teaser) openAssistant();
+  });
+  aiConsentAccept?.addEventListener('click', () => {
+    try { localStorage.setItem(aiConsentStorageKey, 'yes'); } catch (error) {}
+    setAssistantAiConsent(true);
+    appendChatMessage('aria', 'Danke. Sie können jetzt direkt hier schreiben. Für eine Übergabe reichen z. B.: Name, Kontakt, Thema und „Ich stimme der Übergabe an Patrick zu.“');
+  });
+  aiConsentDecline?.addEventListener('click', () => {
+    appendChatMessage('aria', 'Kein Problem. Nutzen Sie bitte das Kontaktformular; der KI-Chat bleibt ohne Zustimmung deaktiviert.');
+    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
   function isAssistantQuestionInScope(summary) {
     const text = `${summary.question} ${summary.scope} ${summary.machine} ${summary.project_type}`.toLowerCase();
@@ -4461,24 +4668,117 @@ document.querySelectorAll('.faq-item').forEach(item => {
     return '';
   }
 
-  function openAssistant() { panel.classList.add('open'); launcher.setAttribute('aria-expanded', 'true'); }
+  function openAssistant() { panel.classList.add('open'); launcher.setAttribute('aria-expanded', 'true'); hideAssistantTeaser(true); }
   function closeAssistant() { panel.classList.remove('open'); launcher.setAttribute('aria-expanded', 'false'); }
   function setOutput(message, detail) { output.textContent = detail ? `${message}\n\n${detail}` : message; output.classList.add('active'); }
+
+  function waitForAssistantTyping(ms) {
+    return new Promise(resolve => window.setTimeout(resolve, ms));
+  }
+
+  async function typeAssistantBubble(bubble, message) {
+    if (!bubble || !message) return;
+    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches === true;
+    if (reducedMotion || message.length > 900) {
+      bubble.textContent = message;
+      chatLog.scrollTop = chatLog.scrollHeight;
+      return;
+    }
+    bubble.textContent = '';
+    bubble.setAttribute('aria-busy', 'true');
+    for (let index = 0; index < message.length; index += 3) {
+      bubble.textContent = message.slice(0, index + 3);
+      chatLog.scrollTop = chatLog.scrollHeight;
+      const char = message[index] || '';
+      const pause = /[.!?]\s/.test(message.slice(index, index + 2)) ? 60 : /[,;:]\s/.test(message.slice(index, index + 2)) ? 34 : char === '\n' ? 45 : 12;
+      await waitForAssistantTyping(pause);
+    }
+    bubble.textContent = message;
+    bubble.removeAttribute('aria-busy');
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
 
   function appendChatMessage(role, message) {
     if (!chatLog || !message) return null;
     const bubble = document.createElement('div');
     bubble.className = `assistant-chat-bubble assistant-chat-bubble-${role === 'user' ? 'user' : 'aria'}`;
-    bubble.textContent = message;
+    if (role === 'user') {
+      bubble.textContent = message;
+    } else {
+      bubble.textContent = '';
+      assistantTypingQueue = assistantTypingQueue.then(() => typeAssistantBubble(bubble, message)).catch(() => { bubble.textContent = message; });
+    }
     chatLog.appendChild(bubble);
     chatLog.scrollTop = chatLog.scrollHeight;
     return bubble;
   }
 
+  function appendPatrickContactAction() {
+    if (!chatLog || guidedAssistantState.contactActionShown || guidedAssistantState.patrickNotified || guidedAssistantState.operatorWindowActive) return null;
+    guidedAssistantState.contactActionShown = true;
+    const actions = document.createElement('div');
+    actions.className = 'assistant-actions assistant-live-actions assistant-contact-action';
+    const button = document.createElement('button');
+    button.className = 'btn btn-secondary';
+    button.type = 'button';
+    button.textContent = 'Patrick kontaktieren';
+    button.addEventListener('click', () => {
+      guidedAssistantState.contactActionShown = false;
+      actions.remove();
+      requestLiveTakeover();
+    });
+    actions.appendChild(button);
+    chatLog.appendChild(actions);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return actions;
+  }
+
+  function appendHandoffQuickActions() {
+    if (!chatLog) return null;
+    const actions = document.createElement('div');
+    actions.className = 'assistant-actions assistant-live-actions';
+    const addButton = (label, handler) => {
+      const button = document.createElement('button');
+      button.className = 'btn btn-secondary';
+      button.type = 'button';
+      button.textContent = label;
+      button.addEventListener('click', handler);
+      actions.appendChild(button);
+    };
+    addButton('Beispiel einfügen', () => {
+      if (chatInput) {
+        chatInput.value = 'Name: Max Mustermann\nKontakt: max@example.de\nThema: kurze Projektbeschreibung\nIch stimme der Übergabe an Patrick zu.';
+        chatInput.focus();
+      }
+    });
+    addButton('Patrick informieren', () => requestLiveTakeover());
+    chatLog.appendChild(actions);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return actions;
+  }
+
+  function rememberAssistantMessage(role, content) {
+    const text = clean(content, 900);
+    if (!text) return;
+    guidedAssistantState.chatHistory.push({ role: role === 'assistant' || role === 'aria' ? 'assistant' : 'user', content: text });
+    guidedAssistantState.chatHistory = guidedAssistantState.chatHistory.slice(-10);
+  }
+
 
   function shouldRequestPatrickFromMessage(message) {
     const text = clean(message, 900).toLowerCase();
-    return ['patrick', 'herr dietz', 'dietz', 'mensch', 'berater', 'kontakt', 'anrufen', 'rufen sie', 'dazuholen', 'übernehmen', 'uebernehmen', 'sprechen'].some(term => text.includes(term));
+    return /(?:hol+e|hohle|holle|ruf|rufe|verbinde)\s+(?:bitte\s+)?patrick/.test(text)
+      || ['herr dietz sprechen', 'mit patrick sprechen', 'patrick dazuholen', 'dazuholen', 'mensch', 'berater', 'kontakt aufnehmen', 'kontakt zu patrick', 'anrufen', 'rufen sie', 'übernehmen', 'uebernehmen', 'weiterleiten', 'verbinden'].some(term => text.includes(term));
+  }
+
+  function openAssistantLeadDetails(focusId = 'assistantConsent') {
+    const details = document.getElementById('assistantLeadDetails');
+    if (details) {
+      details.open = true;
+      details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    const target = document.getElementById(focusId);
+    if (target) setTimeout(() => target.focus({ preventScroll: false }), 80);
   }
 
 
@@ -4519,15 +4819,24 @@ document.querySelectorAll('.faq-item').forEach(item => {
   async function answerWithAria(summary, reason = 'local_aria_answer', capturedField = '') {
     guidedAssistantState.ariaActive = true;
     const result = assistantConfig.liveAiEnabled ? await callAssistantEndpoint(summary) : buildAssistantFallbackReply(summary, reason);
-    result.reply = buildConversationalAriaReply(summary, capturedField);
+    if (assistantConfig.liveAiEnabled && result.mode !== 'live_ai') {
+      result.reply = assistantDict()['assistant.aiUnavailable'];
+      result.mode = 'ai_unavailable';
+    }
+    if (!assistantConfig.liveAiEnabled && result.mode !== 'live_ai') result.reply = buildConversationalAriaReply(summary, capturedField);
     lastAssistantResult = result;
     appendChatMessage('aria', result.reply);
+    rememberAssistantMessage('assistant', result.reply);
+    if (result.requires_human && !guidedAssistantState.patrickNotified && !guidedAssistantState.operatorWindowActive) {
+      appendPatrickContactAction();
+    }
     return result;
   }
 
   function syncFreeTextToSummary(message) {
     const questionField = document.getElementById('assistantQuestion');
     const scopeField = document.getElementById('assistantScope');
+    if (shouldRequestPatrickFromMessage(message)) return;
     if (questionField) {
       questionField.value = message;
       questionField.dispatchEvent(new Event('input', { bubbles: true }));
@@ -4560,9 +4869,49 @@ ${line}` : (current || line);
       scopeField.dispatchEvent(new Event('input', { bubbles: true }));
       scopeField.dispatchEvent(new Event('change', { bubbles: true }));
     };
+    const introName = value.match(/\b(?:ich bin|mein name ist|hier ist)\s+([a-zäöüß][a-zäöüß-]{1,40})\b/i)?.[1] || '';
+    const explicitNameMatch = value.match(/\bname\s*:\s*([^,;\n.]+)/i) || value.match(/\b(?:mein name ist|ich heiße|ich heisse)\s+([^,;\n.]+)/i);
+    if (explicitNameMatch) {
+      const nameField = document.getElementById('assistantContactName');
+      const nameValue = clean(explicitNameMatch[1].replace(/\b(kontakt|telefon|tel\.?|e-?mail|thema)\b.*$/i, ''), 140);
+      if (nameField && nameValue) {
+        nameField.value = nameValue;
+        nameField.dispatchEvent(new Event('input', { bubbles: true }));
+        nameField.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+    const topicMatch = value.match(/\b(?:thema|betreff|bedarf)\s*:\s*([^,;\n.]+)/i);
+    if (topicMatch) appendScope('Thema', clean(topicMatch[1], 180));
+    if (introName && !['ein', 'eine', 'einer', 'echter', 'echte', 'kunde', 'kundin'].includes(introName.toLowerCase())) {
+      const nameField = document.getElementById('assistantContactName');
+      const niceName = introName.charAt(0).toUpperCase() + introName.slice(1).toLowerCase();
+      if (nameField && !clean(nameField.value)) {
+        nameField.value = niceName;
+        nameField.dispatchEvent(new Event('input', { bubbles: true }));
+        nameField.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+    const email = value.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0] || '';
+    const phone = value.match(/\+?\d[\d\s/().-]{6,}\d/)?.[0] || '';
+    if (email || phone) {
+      const contactField = document.getElementById('assistantContactContact');
+      const nameField = document.getElementById('assistantContactName');
+      const contactValue = clean([email, phone].filter(Boolean).join(' '), 180);
+      if (contactField) { contactField.value = contactValue; contactField.dispatchEvent(new Event('input', { bubbles: true })); contactField.dispatchEvent(new Event('change', { bubbles: true })); }
+      if (nameField && !clean(nameField.value)) {
+        const nameCandidate = clean(value.replace(email, '').replace(phone, '').replace(/patrick\s+dazuholen/ig, '').replace(/kontakt|telefon|email|e-mail/ig, ''), 80);
+        if (/^[a-zäöüß][a-zäöüß\s-]{1,79}$/i.test(nameCandidate)) {
+          nameField.value = nameCandidate;
+          nameField.dispatchEvent(new Event('input', { bubbles: true }));
+          nameField.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+      guidedAssistantState.awaitingField = '';
+      return 'contact';
+    }
     if (isPriceQuestion(value)) return 'price';
     if (/\d+\s*(antriebe|motoren|achsen)/i.test(value)) { appendScope('Antriebe/Motoren', value); return 'drive_count'; }
-    if (/(montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|\d{1,2}\.\d{1,2}\.\d{2,4}|morgen|heute|nächste|naechste)/i.test(value)) { appendScope('Termin/Rückmeldung', value); guidedAssistantState.awaitingField = 'contact'; return 'timeline'; }
+    if (/(montag|dienstag|mittwoch|donnerstag|freitag|samstag|sonntag|\d{1,2}\.\d{1,2}\.\d{2,4}|morgen|heute|jetzt|sofort|dringend|nächste|naechste)/i.test(value)) { appendScope('Termin/Rückmeldung', value); guidedAssistantState.awaitingField = 'contact'; return 'timeline'; }
     if (guidedAssistantState.awaitingField === 'contact') {
       if (/@|\+?\d[\d\s/()-]{5,}/.test(value)) {
         const contactField = document.getElementById('assistantContactContact');
@@ -4582,6 +4931,8 @@ ${line}` : (current || line);
   function updateGuidedSummaryFromExpectedField(message) {
     const value = clean(message, 220);
     if (!value) return '';
+    if (shouldRequestPatrickFromMessage(value)) return '';
+    if (/\bpatrick\b/i.test(value) && clean(value, 80).split(/\s+/).length <= 4) return '';
     const field = guidedAssistantState.awaitingField;
     if (field === 'machine') {
       const machineField = document.getElementById('assistantMachine');
@@ -4655,10 +5006,10 @@ ${value}` : value;
     if (isEplan && !guidedAssistantState.answeredEplanIntro) {
       guidedAssistantState.answeredEplanIntro = true;
       if (summary.machine === dict['assistant.machineFallback']) {
-        guidedAssistantState.awaitingField = 'machine';
+        guidedAssistantState.awaitingField = 'eplan_specific';
         return `${dict['assistant.shortEplanIntro'] || dict['assistant.defaultTrustReply']}
 
-${dict['assistant.nextMachine']}`;
+${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
       }
       guidedAssistantState.awaitingField = 'eplan_specific';
       return `${dict['assistant.shortEplanIntro'] || dict['assistant.defaultTrustReply']}
@@ -4738,11 +5089,68 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     return document.getElementById('assistantConsent')?.checked === true;
   }
 
+  function applyChatHandoffConsentFromMessage(message) {
+    const text = clean(message, 900).toLowerCase();
+    const explicitConsent = /(ich\s+)?stimme\s+(der\s+)?(weitergabe|übergabe|uebergabe|kontaktaufnahme)(\s+an\s+patrick)?\s+zu/.test(text)
+      || /(ich\s+bin\s+)?(einverstanden|zustimmung|freigabe)\b/.test(text)
+      || /(ja|bitte|ich stimme).{0,80}(weiterleiten|an patrick|patrick informieren|patrick benachrichtigen|patrick dazuholen|übergabe|uebergabe)/.test(text);
+    if (!explicitConsent) return false;
+    const consent = document.getElementById('assistantConsent');
+    if (consent) {
+      consent.checked = true;
+      consent.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    return true;
+  }
+
   function requireAssistantHandoffConsent(dict) {
     if (hasAssistantHandoffConsent()) return true;
+    guidedAssistantState.takeoverRequested = true;
+    guidedAssistantState.awaitingField = 'handoff_contact';
     appendChatMessage('aria', dict['assistant.consentRequired']);
+    appendHandoffQuickActions();
     setOutput(dict['assistant.consentRequired']);
     return false;
+  }
+
+  function getAssistantHandoffMissing(summary) {
+    const missing = [];
+    if (!clean(summary.contact_name, 140)) missing.push('Name');
+    if (!clean(summary.contact_contact, 180)) missing.push('Kontaktweg, z. B. E-Mail oder Telefon');
+    return missing;
+  }
+
+  function askForChatHandoffDetails(summary) {
+    const missing = getAssistantHandoffMissing(summary);
+    guidedAssistantState.takeoverRequested = true;
+    guidedAssistantState.awaitingField = 'handoff_contact';
+    const text = missing.length
+      ? `Gerne. Bitte schreiben Sie die fehlenden Angaben direkt hier in den Chat, zum Beispiel:\n\nName: Max Mustermann\nKontakt: max@example.de oder +49 ...\nThema: ${summary.scope && summary.scope !== assistantDict()['assistant.scopeFallback'] ? summary.scope : 'kurze Projektbeschreibung'}\n\nWenn Sie einverstanden sind, schreiben Sie dazu: „Ich stimme der Übergabe an Patrick zu.“`
+      : 'Danke, die Angaben sind vollständig. Bitte bestätigen Sie noch kurz im Chat: „Ich stimme der Übergabe an Patrick zu.“';
+    appendChatMessage('aria', text);
+    appendHandoffQuickActions();
+    setOutput(text);
+  }
+
+  async function startPatrickHandoffFromChat(summary) {
+    const dict = assistantDict();
+    fillBookingForm(summary);
+    guidedAssistantState.patrickNotified = true;
+    guidedAssistantState.ariaActive = false;
+    guidedAssistantState.aiFallbackStarted = false;
+    guidedAssistantState.operatorWindowActive = true;
+    appendChatMessage('aria', dict['assistant.waitingPatrick']);
+    const handoff = await notifyPatrickForLiveChat(summary);
+    if (!(handoff?.ok || handoff?.delivered || handoff?.session_id)) {
+      appendChatMessage('aria', dict['assistant.handoffFailed']);
+      setOutput(dict['assistant.handoffFailed']);
+      guidedAssistantState.operatorWindowActive = false;
+      return handoff;
+    }
+    startOperatorWindowCountdown(60);
+    if (guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
+    guidedAssistantState.operatorTimer = setTimeout(requestAiFallbackAfterOperatorWindow, 60000);
+    return handoff;
   }
 
 
@@ -4790,6 +5198,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
       role: DIETZ_ASSISTANT_KNOWLEDGE.identity,
       purpose: 'Vertrauen schaffen, erste technische Fragen ehrlich beantworten und verbindliche Themen an Patrick übergeben.',
       knowledge: DIETZ_ASSISTANT_KNOWLEDGE,
+      project_files: DIETZ_ASSISTANT_PROJECT_FILES,
       style: ['ruhig', 'ehrlich', 'technisch konkret', 'nicht übertrieben', 'nicht salesy'],
       forbidden_claims: DIETZ_ASSISTANT_KNOWLEDGE.boundaries
     };
@@ -4817,6 +5226,24 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     return { project_type: selectedType, project_type_key: activeTypeKey, machine, scope, question, timeline, contact_name, contact_contact, missing_information: missing, privacy_note: dict['assistant.privacyNote'] };
   }
 
+  function classifyAssistantProjectFromFiles(summary) {
+    const text = `${summary.question} ${summary.scope} ${summary.machine} ${summary.project_type}`.toLowerCase();
+    const rules = DIETZ_ASSISTANT_PROJECT_FILES.decision_rules?.rules || [];
+    const matchedRule = rules.find(rule => (rule.if_contains || []).some(term => text.includes(String(term).toLowerCase())));
+    const base = matchedRule || DIETZ_ASSISTANT_PROJECT_FILES.decision_rules?.default || {};
+    const templates = DIETZ_ASSISTANT_PROJECT_FILES.project_templates?.project_templates || [];
+    const template = templates.find(item => item.id === base.suggested_template) || null;
+    return {
+      source: 'project_file_classification',
+      rule_id: matchedRule?.id || 'default',
+      project_fit: base.project_fit || 'open',
+      suggested_template: base.suggested_template || 'needs_clarification',
+      next_action: base.next_action || 'ask_one_clarifying_question',
+      patrick_review_required: base.patrick_review_required !== false,
+      missing_information_default: template?.missing_information_default || []
+    };
+  }
+
   function shouldEscalateToPatrick(summary, replyText = '') {
     const text = `${summary.question} ${summary.scope} ${replyText}`.toLowerCase();
     const reviewMarkers = ['preis', 'kosten', 'angebot', 'termin', 'lieferzeit', 'ce', 'safety', 'norm', 'garantie', 'vertrag', 'confidential', 'vertraulich'];
@@ -4829,10 +5256,12 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
       return { mode: 'fallback', fallback_reason: 'out_of_scope', intent: 'out_of_scope_boundary', reply: dict['assistant.outOfScope'], requires_human: false, escalation_reason: 'not_project_related' };
     }
     const text = `${summary.question} ${summary.scope} ${summary.project_type}`.toLowerCase();
+    const projectClassification = classifyAssistantProjectFromFiles(summary);
     const asksEplanMacro = ['eplan', 'makro', 'macro', 'data portal', 'pro panel'].some(term => text.includes(term));
     const answer = asksEplanMacro ? dict['assistant.trustEplanMacro'] : dict['assistant.defaultTrustReply'];
     return {
       mode: 'fallback', fallback_reason: reason, intent: asksEplanMacro ? 'eplan_macro_trust_question' : 'project_triage',
+      project_file_classification: projectClassification,
       reply: `${dict['assistant.localFallbackNotice']}\n\n${answer}\n\n${dict['assistant.boundaryNoGuarantee']}`,
       requires_human: shouldEscalateToPatrick(summary, answer), escalation_reason: 'review_required_personal_patrick'
     };
@@ -4840,7 +5269,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
 
   async function callAssistantEndpoint(summary) {
     const endpoint = clean(assistantConfig.endpoint, 600);
-    if (!assistantConfig.liveAiEnabled || !endpoint) return buildAssistantFallbackReply(summary, 'local_aria_answer');
+    if (!assistantConfig.liveAiEnabled || !endpoint) return { mode: 'ai_unavailable', reply: assistantDict()['assistant.aiUnavailable'], requires_human: true, fallback_reason: 'ai_endpoint_missing' };
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), Number(assistantConfig.timeoutMs) || 9000);
     try {
@@ -4848,14 +5277,16 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
         method: 'POST', headers: { 'content-type': 'application/json' }, signal: controller.signal,
         body: JSON.stringify({
           language: langSelect?.value || 'de', persona: buildDietzAssistantPersona(), context: summary,
-          messages: [{ role: 'user', content: summary.question || summary.scope || summary.project_type }]
+          messages: guidedAssistantState.chatHistory.length
+            ? guidedAssistantState.chatHistory
+            : [{ role: 'user', content: summary.question || summary.scope || summary.project_type }]
         })
       });
       const data = await response.json().catch(() => ({}));
-      if (!response.ok || !data.reply) return buildAssistantFallbackReply(summary, data.fallback_reason || 'token_or_endpoint_fallback');
+      if (!response.ok || !data.reply || data.mode !== 'live_ai') return { mode: 'ai_unavailable', reply: assistantDict()['assistant.aiUnavailable'], requires_human: true, fallback_reason: data.fallback_reason || 'ai_unavailable', diagnostic: data.diagnostic || {} };
       return Object.assign({ mode: 'live_ai', requires_human: shouldEscalateToPatrick(summary, data.reply) }, data);
     } catch (error) {
-      return buildAssistantFallbackReply(summary, 'token_or_endpoint_fallback');
+      return { mode: 'ai_unavailable', reply: assistantDict()['assistant.aiUnavailable'], requires_human: true, fallback_reason: 'ai_request_failed' };
     } finally { clearTimeout(timeout); }
   }
 
@@ -4954,20 +5385,21 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
 
   async function requestLiveTakeover() {
     const dict = assistantDict();
-    if (!requireAssistantHandoffConsent(dict)) return;
     guidedAssistantState.takeoverRequested = true;
     const summary = buildAssistantSummary();
-    fillBookingForm(summary);
-    guidedAssistantState.operatorWindowActive = true;
-    appendChatMessage('aria', dict['assistant.waitingPatrick']);
-    await notifyPatrickForLiveChat(summary);
-    startOperatorWindowCountdown(60);
-    if (guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
-    guidedAssistantState.operatorTimer = setTimeout(requestAiFallbackAfterOperatorWindow, 60000);
+    if (getAssistantHandoffMissing(summary).length || !hasAssistantHandoffConsent()) {
+      askForChatHandoffDetails(summary);
+      return;
+    }
+    await startPatrickHandoffFromChat(summary);
   }
 
   async function handleAssistantChatSend() {
     const dict = assistantDict();
+    if (!assistantAiConsentGiven) {
+      appendChatMessage('aria', 'Bitte stimmen Sie zuerst dem KI-Hinweis zu. Ohne Zustimmung können Sie das normale Kontaktformular nutzen.');
+      return;
+    }
     const message = clean(chatInput?.value, 900);
     if (!message) return;
     chatInput.value = '';
@@ -4985,10 +5417,15 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
       appendChatMessage('aria', assistantDict()['assistant.stillHerePrompt'] || 'Ja, ich bin da. Bitte schreiben Sie kurz die konkrete technische Frage oder den nächsten Punkt.');
       return;
     }
+    const initialWantsPatrick = shouldRequestPatrickFromMessage(message);
     let capturedField = updateGuidedSummaryFromMessageIntent(message);
-    if (!capturedField) capturedField = updateGuidedSummaryFromExpectedField(message);
-    if (!capturedField) syncFreeTextToSummary(message);
+    const chatConsentGiven = applyChatHandoffConsentFromMessage(message);
+    const handoffIntentText = /(?:weitergabe|weiterleiten|übergabe|uebergabe|kontaktaufnahme|patrick\s+(?:informieren|benachrichtigen|dazuholen)|an\s+patrick)/i.test(message);
+    const wantsPatrick = initialWantsPatrick || chatConsentGiven || (guidedAssistantState.takeoverRequested && hasAssistantHandoffConsent()) || handoffIntentText;
+    if (!wantsPatrick && !assistantConfig.liveAiEnabled && !capturedField) capturedField = updateGuidedSummaryFromExpectedField(message);
+    if (!wantsPatrick && !capturedField) syncFreeTextToSummary(message);
     appendChatMessage('user', message);
+    rememberAssistantMessage('user', message);
     const summary = buildAssistantSummary();
     guidedAssistantState.turns += 1;
     if (!isAssistantQuestionInScope(summary)) {
@@ -4999,30 +5436,23 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     }
     fillBookingForm(summary);
 
-    if (guidedAssistantState.ariaActive && !shouldRequestPatrickFromMessage(message)) {
+    if (guidedAssistantState.ariaActive && !wantsPatrick) {
       await answerWithAria(summary, 'local_aria_followup', capturedField);
       return;
     }
 
-    if (guidedAssistantState.operatorWindowActive && !shouldRequestPatrickFromMessage(message)) {
+    if (guidedAssistantState.operatorWindowActive && !wantsPatrick) {
       appendChatMessage('aria', dict['assistant.operatorCollecting'] || 'Danke, ich nehme die Ergänzung mit. Aria übernimmt nach Ablauf des Timers automatisch.');
       return;
     }
 
-    if (shouldRequestPatrickFromMessage(message) || !guidedAssistantState.patrickNotified) {
-      if (!requireAssistantHandoffConsent(dict)) {
-        await answerWithAria(summary, 'local_aria_answer', capturedField);
+    if (wantsPatrick) {
+      guidedAssistantState.takeoverRequested = true;
+      if (getAssistantHandoffMissing(summary).length || !hasAssistantHandoffConsent()) {
+        askForChatHandoffDetails(summary);
         return;
       }
-      guidedAssistantState.patrickNotified = true;
-      guidedAssistantState.ariaActive = false;
-      guidedAssistantState.aiFallbackStarted = false;
-      guidedAssistantState.operatorWindowActive = true;
-      appendChatMessage('aria', dict['assistant.waitingPatrick']);
-      await notifyPatrickForLiveChat(summary);
-      startOperatorWindowCountdown(60);
-      if (guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
-      guidedAssistantState.operatorTimer = setTimeout(requestAiFallbackAfterOperatorWindow, 60000);
+      await startPatrickHandoffFromChat(summary);
       return;
     }
 
@@ -5039,8 +5469,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
 
   confirmBtn?.addEventListener('click', async () => {
     const dict = assistantDict();
-    const consent = document.getElementById('assistantConsent');
-    if (!consent?.checked) { setOutput(dict['assistant.consentRequired']); return; }
+    if (!requireAssistantHandoffConsent(dict)) return;
     const summary = buildAssistantSummary();
     const result = lastAssistantResult || buildAssistantFallbackReply(summary, 'manual_handoff');
     fillBookingForm(summary);
@@ -5086,7 +5515,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
 </script>
 <!-- Chatbase live assistant. Aria remains in the codebase, but is hidden while this live Chatbase test is active. -->
 <script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="jjukctX1wFEHC5Dh01_ND";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+(function(){const params=new URLSearchParams(window.location.search);const host=window.location.hostname;const isLocalHost=['localhost','127.0.0.1','::1'].includes(host);const isAriaLocalTest=params.get('aria')==='local'||params.get('aria')==='1'||params.get('aria')==='remote'||params.get('ariaEndpoint')==='supabase'||isLocalHost;if(isAriaLocalTest)return;if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="jjukctX1wFEHC5Dh01_ND";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 </body>
 </html>

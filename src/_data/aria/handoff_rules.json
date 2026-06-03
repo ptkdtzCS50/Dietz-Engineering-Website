@@ -1,0 +1,28 @@
+{
+  "required_for_handoff": [
+    "name",
+    "contact",
+    "topic",
+    "consent"
+  ],
+  "nice_to_have": [
+    "machine",
+    "scope",
+    "timeline",
+    "available_documents",
+    "eplan_version",
+    "urgency",
+    "desired_result"
+  ],
+  "consent_text_de": "Ich stimme der Übergabe an Patrick zu.",
+  "operator_channel": "private Telegram-Gruppe",
+  "customer_copy_policy": "Kontakt nur dezent anbieten; Details erst nach Klick auf Patrick kontaktieren oder ausdrücklicher Übergabeabsicht abfragen.",
+  "patrick_summary_sections": [
+    "Kontakt",
+    "Thema",
+    "Aria-Klassifizierung",
+    "Offene Punkte",
+    "Empfohlene nächste Aktion",
+    "Review-Grenzen"
+  ]
+}

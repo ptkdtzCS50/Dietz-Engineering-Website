@@ -80,6 +80,30 @@ npm run build      # Einmal-Build (Output in _site/)
 
 ---
 
+## Aria Operator-Handoff per Telegram
+
+Empfohlen ist eine private Telegram-Gruppe, kein Channel. Eine Gruppe passt besser, weil Patrick dort spaeter direkt antworten kann und der Bot echte Chat-Sessions/Webhooks zuordnen kann. Ein Channel ist eher fuer Broadcast und waere fuer Kundenchat-Handoff unpraktischer.
+
+Vorbereitung:
+
+1. Bot ueber `@BotFather` erstellen.
+2. Private Gruppe z. B. `DIETZ Operator` anlegen.
+3. Bot in die Gruppe einladen.
+4. Gruppen-`chat_id` ermitteln.
+5. Secrets serverseitig setzen, niemals im Frontend:
+
+```text
+TELEGRAM_BOT_TOKEN
+TELEGRAM_CHAT_ID
+ASSISTANT_ALLOWED_ORIGIN=https://dietz-engineering.com,https://www.dietz-engineering.com
+ASSISTANT_ENABLED=false
+OPENAI_API_KEY=...
+```
+
+Datenschutz-Regel: Kontaktdaten werden vor externen KI-Calls entfernt. E-Mail, Telefon, Firma und aehnliche Kontaktmarker duerfen nur nach bestaetigtem Handoff an Patrick/Telegram gehen, nicht an OpenAI/Chatbase/GPT.
+
+---
+
 ## Status
 
 | Phase | Was | Status |

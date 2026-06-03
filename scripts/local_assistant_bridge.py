@@ -23,10 +23,12 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, cast
 from urllib.parse import parse_qs, quote, urlparse
+from urllib.request import Request, urlopen
 
 HOST = "127.0.0.1"
 PORT = int(os.getenv("DIETZ_ASSISTANT_BRIDGE_PORT", "8790"))
 TARGET = os.getenv("DIETZ_ASSISTANT_BRIDGE_TARGET", "telegram")
+REMOTE_ASSISTANT_ENDPOINT = os.getenv("DIETZ_REMOTE_ASSISTANT_ENDPOINT", "https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant")
 MAX_BODY_BYTES = 32_768
 SESSIONS_PATH = Path(os.getenv("DIETZ_ASSISTANT_SESSIONS_PATH", "/tmp/dietz_assistant_sessions.json"))
 
@@ -278,6 +280,121 @@ def _send_to_telegram(message: str) -> dict[str, Any]:
     return {"ok": True, "delivery": data}
 
 
+def _proxy_remote_assistant(raw_body: str, path_suffix: str = "") -> tuple[int, dict[str, Any]]:
+    endpoint = REMOTE_ASSISTANT_ENDPOINT.rstrip("/") + path_suffix
+    request = Request(
+        endpoint,
+        data=raw_body.encode("utf-8"),
+        headers={"Content-Type": "application/json", "Origin": "https://dietz-engineering.com"},
+        method="POST",
+    )
+    try:
+        with urlopen(request, timeout=18) as response:
+            raw = response.read().decode("utf-8", errors="replace")
+            status = int(response.status)
+    except Exception as exc:
+        return 502, {"ok": False, "mode": "proxy_error", "error": str(exc)[:300]}
+    try:
+        data = json.loads(raw)
+    except Exception:
+        data = {"ok": status < 400, "raw": raw}
+    if isinstance(data, dict) and data.get("mode") == "fallback":
+        return 503, {
+            "ok": False,
+            "mode": "ai_unavailable",
+            "fallback_reason": data.get("fallback_reason", "remote_ai_fallback"),
+            "reply": "Aria-KI ist aktuell nicht erreichbar. Bitte versuchen Sie es gleich erneut oder holen Sie Patrick über die Übergabe dazu.",
+            "diagnostic": data.get("diagnostic", {}),
+        }
+    return status, data if isinstance(data, dict) else {"ok": status < 400, "data": data}
+
+
+def _latest_user_message(payload: dict[str, Any]) -> str:
+    messages = payload.get("messages")
+    if isinstance(messages, list):
+        for item in reversed(messages):
+            if isinstance(item, dict) and item.get("role") == "user":
+                return _clean(item.get("content"), 1200)
+    return _clean(payload.get("question"), 1200)
+
+
+def _local_chat_fallback(payload: dict[str, Any], remote_fallback: dict[str, Any] | None = None) -> dict[str, Any]:
+    context = cast(dict[str, Any], payload.get("context") if isinstance(payload.get("context"), dict) else {})
+    message = _latest_user_message(payload)
+    lower = message.lower()
+    normalized = lower.replace("reviw", "review").replace("reviev", "review").replace("e-plan", "eplan")
+    name = _clean(context.get("contact_name"), 80)
+    prefix = f"{name}, " if name else ""
+
+    if any(term in normalized for term in ["wetter", "temperatur", "regen", "sonne", "vorhersage"]):
+        reply = (
+            f"{prefix}zum Wetter kann ich hier nicht sinnvoll helfen. Ich bin für Fragen zu Patrick Dietz, DIETZ Engineering, EPLAN/Elektrokonstruktion, Projektunterstützung und Handoff an Patrick gedacht."
+        )
+    elif any(term in normalized for term in ["mitarbeiter", "team", "angestellte", "wie viele leute", "wie viele personen", "firma groß", "firma gross"]):
+        reply = (
+            f"{prefix}DIETZ Engineering ist als direkter Spezialistenkontakt rund um Patrick Dietz positioniert, nicht als große Agentur. "
+            "Für Ihr Projekt bedeutet das: kurze Wege, klare Verantwortung und direkte Abstimmung mit Patrick."
+        )
+    elif any(term in normalized for term in ["werdegang", "ausbildung", "techniker", "lebenslauf", "cv", "zuletzt gearbeitet", "letzte arbeit", "wo hat patrick", "wo arbeitete patrick", "berufserfahrung"]):
+        reply = (
+            f"{prefix}Patricks Werdegang kommt aus der Praxis im Maschinen- und Anlagenbau: Elektroniker für Betriebstechnik, später staatlich geprüfter Techniker Elektrotechnik. "
+            "Er hat Erfahrung aus Lager/Arbeitsvorbereitung, Schaltschrankbau, VDE-Messungen, Montage, Installation, Inbetriebnahme, Lieferantenabklärung und Projektabstimmung. "
+            "Auf der Website sind u. a. Projektstationen bei Breyer Maschinenfabrik von 2015 bis 2022 sowie internationale Inbetriebnahmen und EPLAN-Projekte genannt; vertrauliche aktuelle Kunden nennt Aria nicht im Chat."
+        )
+    elif any(term in normalized for term in ["was kannst", "was kann patrick", "was macht patrick", "wobei kann patrick", "wobei kannst", "wie kannst", "helfen", "unterstützung", "unterstuetzung"]):
+        reply = (
+            f"{prefix}Patrick kann vor allem bei Elektrokonstruktion und EPLAN-Projekten unterstützen: "
+            "EPLAN P8, Pro Panel, Makros, Artikel-/BMK-Struktur, Klemmen, Kabel, Stücklisten, Schaltschrankunterlagen, Reviews, Retrofit, Fehlersuche und IBN-nahe Themen. "
+            "Dazu kommt praktische Erfahrung aus Schaltschrankbau, Montage, Inbetriebnahme, Lieferanten-/Projektabstimmung und Maschinenbau. "
+            "Wenn es verbindlich um Termin, Preis, CE/Safety oder konkrete Projektfreigaben geht, leite ich den Verlauf nach Ihrer Zustimmung an Patrick weiter."
+        )
+    elif any(term in normalized for term in ["review", "prüfung", "pruefung", "prüfen", "pruefen", "qualität", "qualitaet", "check", "kontrolle"]):
+        reply = (
+            f"{prefix}bei einem EPLAN-Review kann Patrick zum Beispiel Struktur, BMK-Logik, Klemmen/Kabel, Stücklisten, Artikelstammdaten, Auswertungen, Fertigungsunterlagen und offensichtliche Übergabe-Risiken prüfen. "
+            "Hilfreich wären EPLAN-Version, Projektstand, Ziel des Reviews und ob es um Fertigung, Inbetriebnahme, CE/Safety-Vorbereitung oder eine allgemeine Qualitätsprüfung geht."
+        )
+    elif any(term in normalized for term in ["ce", "safety", "norm", "risiko", "risikobeurteilung", "ul", "emv"]):
+        reply = (
+            f"{prefix}CE/Safety kann ich nur vorqualifizieren: Welche Normen, Risikobeurteilung, Performance-Level/Safety-Funktionen und vorhandenen Unterlagen es gibt. "
+            "Eine verbindliche CE-/Normfreigabe macht Patrick erst nach persönlicher Prüfung der Dokumentation."
+        )
+    elif any(term in normalized for term in ["kost", "preis", "budget", "stundensatz", "angebot"]):
+        reply = (
+            f"{prefix}einen belastbaren Preis kann ich im Chat nicht nennen. Für eine grobe Einordnung braucht Patrick Umfang, EPLAN-Version, Unterlagenstand, gewünschte Lieferung, Zeitraum und ob Review oder aktive Konstruktion gefragt ist. "
+            "Wenn Sie möchten, gebe ich den Verlauf mit Ihrer Zustimmung direkt an Patrick weiter."
+        )
+    elif any(term in normalized for term in ["wann", "start", "verfügbar", "verfuegbar", "kapazität", "kapazitaet", "kurzfristig", "längerfristig", "laengerfristig"]):
+        reply = (
+            f"{prefix}Start und Kapazität muss Patrick persönlich bestätigen. Für die Einschätzung sind Startwunsch, Laufzeit, Wochenstunden, Remote/Vor-Ort und EPLAN-Aufgaben wichtig. "
+            "Ich kann diese Punkte sammeln und den Chatverlauf direkt an Patrick weitergeben."
+        )
+    elif any(term in normalized for term in ["eplan", "makro", "pro panel", "artikel", "bmk", "klemmen", "stückliste", "stueckliste"]):
+        reply = (
+            f"{prefix}bei EPLAN kann Patrick vor allem bei P8-Struktur, Makros, Artikel-/BMK-Logik, Klemmen, Kabeln, Stücklisten, Pro Panel/Smartwiring und Reviews unterstützen. "
+            "Interessant wäre: Geht es um laufende Konstruktion als Ausfallvertretung, Review eines bestehenden Projekts oder Aufbau/Ordnung von Stammdaten?"
+        )
+    elif any(term in normalized for term in ["wirklich", "sicher", "ernsthaft"]):
+        reply = (
+            f"{prefix}ja, aber mit klarer Grenze: Ich kann vorqualifizieren und Patricks Arbeitsfelder erklären. "
+            "Verbindliche Zusagen zu Verfügbarkeit, Aufwand, Preis oder Normen gibt Patrick persönlich nach Prüfung."
+        )
+    else:
+        reply = (
+            f"{prefix}ich kann das einordnen. Schreiben Sie kurz, ob es um EPLAN-Konstruktion, Review, Makros/Stammdaten, Schaltschrankunterlagen, CE/Safety oder kurzfristige Kapazität geht. "
+            "Wenn Patrick übernehmen soll, kann ich den Verlauf nach Ihrer Zustimmung weiterleiten."
+        )
+
+    diagnostic = cast(dict[str, Any], (remote_fallback or {}).get("diagnostic") if isinstance((remote_fallback or {}).get("diagnostic"), dict) else {})
+    return {
+        "reply": reply,
+        "mode": "local_bridge_fallback",
+        "fallback_reason": (remote_fallback or {}).get("fallback_reason", "remote_fallback_replaced"),
+        "requires_human": True,
+        "escalation_reason": "review_required_personal_patrick",
+        "diagnostic": diagnostic,
+    }
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args: Any) -> None:
         print(f"[{datetime.now().strftime('%H:%M:%S')}] {self.address_string()} {format % args}", flush=True)
@@ -285,7 +402,10 @@ class Handler(BaseHTTPRequestHandler):
     def _headers(self, status: int = 200) -> None:
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Access-Control-Allow-Origin", "http://127.0.0.1:8788")
+        origin = self.headers.get("Origin") or "http://127.0.0.1:8088"
+        if origin not in {"http://127.0.0.1:8088", "http://localhost:8088", "http://127.0.0.1:8788"}:
+            origin = "http://127.0.0.1:8088"
+        self.send_header("Access-Control-Allow-Origin", origin)
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
@@ -376,7 +496,7 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get("Content-Length", "0"))
             if length <= 0 or length > MAX_BODY_BYTES:
                 raise ValueError("invalid_body_size")
-            raw_body = self.rfile.read(length).decode("utf-8")
+            raw_body = self.rfile.read(length).decode("utf-8", errors="replace")
             if parsed.path == "/operator/prepare-reply":
                 form = parse_qs(raw_body)
                 session_id = _clean((form.get("session_id") or [""])[0], 120)
@@ -436,6 +556,12 @@ class Handler(BaseHTTPRequestHandler):
                 return
             payload = json.loads(raw_body)
             sessions = _load_sessions()
+
+            if parsed.path == "/assistant":
+                status, data = _proxy_remote_assistant(raw_body)
+                self._headers(status)
+                self.wfile.write(json.dumps(data, ensure_ascii=False).encode())
+                return
 
             if parsed.path == "/operator/reply":
                 session_id = _clean(payload.get("session_id"), 120)

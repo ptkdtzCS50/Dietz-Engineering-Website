@@ -1,0 +1,40 @@
+{
+  "services": [
+    {
+      "id": "eplan_p8_support",
+      "label": "EPLAN P8 Projektunterstützung",
+      "keywords": ["EPLAN", "P8", "Schaltplan", "Makro", "Artikel", "BMK", "Stückliste"],
+      "good_for": [
+        "Schaltplanerstellung oder -bereinigung",
+        "Makro- und Artikelstruktur",
+        "BMK-/Seiten-/Anlagenstruktur",
+        "Stücklisten und Übergabeunterlagen"
+      ],
+      "patrick_review_required": true
+    },
+    {
+      "id": "cabinet_io_terminals",
+      "label": "Klemmen, I/O und Schaltschrank-nahe Dokumentation",
+      "keywords": ["Klemmen", "I/O", "SPS", "PLC", "Kabel", "Verdrahtung", "Schaltschrank"],
+      "good_for": [
+        "Klemmenplan und Kabelübersicht",
+        "I/O-Zuordnung und SPS-Liste",
+        "Abgleich von Foto, Plan und Dokumentation",
+        "saubere Signal- und Anschlussstruktur"
+      ],
+      "patrick_review_required": true
+    },
+    {
+      "id": "documentation_review",
+      "label": "Schaltplan- und Dokumentationsreview",
+      "keywords": ["Review", "Plausibilität", "Dokumentation", "Bestandsplan", "Fehlersuche", "Retrofit"],
+      "good_for": [
+        "technische Plausibilitätsprüfung",
+        "Dokumentationsqualität vor Übergabe",
+        "Retrofit-/Bestandsunterlagen strukturieren",
+        "offene Punkte für Patrick zusammenfassen"
+      ],
+      "patrick_review_required": true
+    }
+  ]
+}

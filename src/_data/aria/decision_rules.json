@@ -1,0 +1,42 @@
+{
+  "rules": [
+    {
+      "id": "eplan_project_fit",
+      "if_contains": ["EPLAN", "P8", "Schaltplan", "Makro", "Artikel"],
+      "project_fit": "high",
+      "suggested_template": "eplan_small_support",
+      "next_action": "offer_patrick_contact",
+      "patrick_review_required": true
+    },
+    {
+      "id": "terminal_io_fit",
+      "if_contains": ["Klemmen", "I/O", "SPS", "PLC", "Kabel", "Schaltschrank"],
+      "project_fit": "high",
+      "suggested_template": "cabinet_io_cleanup",
+      "next_action": "offer_patrick_contact",
+      "patrick_review_required": true
+    },
+    {
+      "id": "documentation_review_fit",
+      "if_contains": ["Review", "Plausibilität", "Bestandsplan", "Dokumentation", "Retrofit"],
+      "project_fit": "medium_high",
+      "suggested_template": "documentation_review_package",
+      "next_action": "ask_scope_then_offer_contact",
+      "patrick_review_required": true
+    },
+    {
+      "id": "binding_boundary",
+      "if_contains": ["Preis", "Kosten", "Angebot", "Termin", "CE", "Safety", "Abnahme", "Normfreigabe"],
+      "project_fit": "review_required",
+      "suggested_template": "patrick_review",
+      "next_action": "explain_boundary_and_offer_contact",
+      "patrick_review_required": true
+    }
+  ],
+  "default": {
+    "project_fit": "open",
+    "suggested_template": "needs_clarification",
+    "next_action": "ask_one_clarifying_question",
+    "patrick_review_required": true
+  }
+}

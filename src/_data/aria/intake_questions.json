@@ -1,0 +1,34 @@
+{
+  "questions": [
+    {
+      "id": "machine_or_system",
+      "label": "Um welche Maschine, Anlage oder Funktion geht es?",
+      "ask_when_missing": ["machine", "project_context"],
+      "review_status": "review_required_before_binding_offer"
+    },
+    {
+      "id": "scope_goal",
+      "label": "Geht es eher um Erstellung, Review, Bereinigung oder Fehlersuche?",
+      "ask_when_missing": ["scope", "desired_result"],
+      "review_status": "review_required_before_binding_offer"
+    },
+    {
+      "id": "documents_available",
+      "label": "Welche Unterlagen sind vorhanden: EPLAN-Projekt, PDF, I/O-Liste, Klemmenplan, Fotos oder Stückliste?",
+      "ask_when_missing": ["available_documents"],
+      "review_status": "review_required_before_binding_offer"
+    },
+    {
+      "id": "timeline",
+      "label": "Gibt es einen gewünschten Zeitraum oder einen kritischen Termin?",
+      "ask_when_missing": ["timeline", "urgency"],
+      "review_status": "review_required_before_binding_offer"
+    },
+    {
+      "id": "eplan_version",
+      "label": "Falls EPLAN betroffen ist: Welche EPLAN-Version bzw. welcher Projektstand liegt vor?",
+      "ask_when_missing": ["eplan_version"],
+      "review_status": "review_required_before_binding_offer"
+    }
+  ]
+}
