@@ -132,7 +132,7 @@ assert(i18n.de['assistant.waitingPatrick'].includes('Patrick'), 'assistant tells
 assert(i18n.de['assistant.aiFallback'].includes('nicht direkt verfügbar'), 'assistant has polished AI fallback after Patrick timeout');
 assert(index.includes('textarea[name="project"]'), 'assistant targets existing booking project textarea');
 assert(index.includes('missing_information'), 'assistant records missing-information queue');
-assert(i18n.de['assistant.privacyNote'].includes('Keine vertraulichen Kundendaten'), 'confidentiality warning exists in i18n');
+assert(i18n.de['assistant.privacyNote'].includes('sensiblen Kundendaten'), 'confidentiality warning exists in i18n without project-document wording');
 assert(index.includes("#bookingForm textarea[name=\"project\"], textarea[name=\"project\"]"), 'assistant targets the booking project textarea robustly');
 assert(index.includes("projectField.dispatchEvent(new Event('input', { bubbles: true }))"), 'assistant notifies the form after autofilling project text');
 assert(index.includes('pkgField.value = summary.project_type'), 'assistant transfers translated selected project type into the package field');

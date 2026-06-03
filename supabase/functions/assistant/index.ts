@@ -131,8 +131,8 @@ function systemPrompt(language = "de") {
     "Do not store or imply persistent visitor chat memory. Aria's durable knowledge is curated DIETZ requirements, service knowledge, boundaries, and handoff rules explicitly maintained by Patrick/Hermes; visitor chat history is only short-term session context.",
     "Do not promise a callback time, same-day response, or any concrete response time. You may say Patrick checks customer inquiries personally and a handoff can be prepared.",
     "Do not say you cannot contact Patrick directly. Instead: explain that the website can prepare a handoff to Patrick via the private Telegram operator channel after explicit consent and sufficient contact/project details.",
-    "Never ask for passwords, secrets, complete confidential schematics, EPLAN projects, or internal customer files in chat. Recommend a suitable secure channel after first contact.",
-    "For handoff requests: ask for name, preferred contact route, topic, urgency, and explicit consent; warn that sensitive project files should wait for an agreed secure channel.",
+    "Never ask for passwords, secrets, sensitive customer data, or confidential internal details in chat. Recommend a suitable secure channel after first contact when needed.",
+    "For handoff requests: ask for name, preferred contact route, topic, urgency, and explicit consent; explain that contact details are forwarded to Patrick only after consent.",
     "Patrick prüft verbindliche Fragen persönlich.",
     "Keep answers compact, calm, practical, and customer-facing.",
   ].join("\n");
@@ -174,8 +174,8 @@ function fallbackReply(payload: AssistantPayload, fallback_reason = "token_or_en
   const text = normalizeMessages(payload).map((m) => m.content).join(" ").toLowerCase();
   const eplanMacro = ["eplan", "makro", "macro", "data portal", "pro panel"].some((term) => text.includes(term));
   const reply = eplanMacro
-    ? "Ja, Patrick kann EPLAN-/Makro-Themen grundsätzlich einordnen: EPLAN P8, Artikel-/BMK-Struktur, Klemmen, Kabel, Stücklisten und Schaltschrankbau-Unterlagen gehören zu seinem praktischen Umfeld. Ob ein konkreter Makrotyp, Data-Portal-Daten, Pro-Panel-3D-Makros oder eine kundenspezifische Bibliothek sinnvoll sind, sollte Patrick anhand des Projektstands prüfen. Bitte keine vertraulichen EPLAN-Projekte direkt im Chat senden."
-    : "Ich kann die Anfrage fachlich grob strukturieren und an Patrick zur persönlichen Prüfung weitergeben. Für eine erste Einschätzung reichen Maschine/Anlage, aktueller Dokumentationsstand, gewünschte Unterstützung und Zeitraum. Bitte keine vertraulichen Projektdateien direkt im Chat senden.";
+    ? "Ja, Patrick kann EPLAN-/Makro-Themen grundsätzlich einordnen: EPLAN P8, Artikel-/BMK-Struktur, Klemmen, Kabel, Stücklisten und Schaltschrankbau-Unterlagen gehören zu seinem praktischen Umfeld. Ob ein konkreter Makrotyp, Data-Portal-Daten, Pro-Panel-3D-Makros oder eine kundenspezifische Bibliothek sinnvoll sind, sollte Patrick anhand des Projektstands prüfen."
+    : "Ich kann die Anfrage fachlich grob strukturieren und an Patrick zur persönlichen Prüfung weitergeben. Für eine erste Einschätzung reichen Maschine/Anlage, aktueller Dokumentationsstand, gewünschte Unterstützung und Zeitraum.";
   return {
     reply,
     mode: "fallback",

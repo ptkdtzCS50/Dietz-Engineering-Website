@@ -4173,16 +4173,14 @@ body.assistant-panel-open .assistant-teaser {
     </div>
 
     <div class="assistant-ai-consent" id="assistantAiConsentGate">
-      <p data-i18n="assistant.aiConsentNotice" data-i18n-html><strong>Hinweis:</strong> Aria nutzt KI zur Erstbeantwortung. Ihre Chat-Nachrichten können dafür an einen KI-Dienstleister (OpenAI) übertragen und verarbeitet werden. Bitte senden Sie hier keine vertraulichen Projektdateien, Passwörter oder sensiblen Kundendaten.</p>
+      <p data-i18n="assistant.aiConsentNotice" data-i18n-html><strong>Hinweis:</strong> Aria nutzt KI zur Erstbeantwortung. Ihre Chat-Nachrichten können dafür an einen KI-Dienstleister (OpenAI) übertragen und verarbeitet werden. Bitte senden Sie hier keine Passwörter oder sensiblen Kundendaten.</p>
       <div class="assistant-ai-consent-actions">
         <button class="btn btn-primary" id="assistantAiConsentAccept" type="button" data-i18n="assistant.aiConsentAccept">Zustimmen und Chat starten</button>
         <a class="btn btn-secondary" id="assistantAiConsentDecline" href="#booking" data-i18n="assistant.aiConsentDecline">Ohne KI: Formular nutzen</a>
       </div>
     </div>
 
-    <div class="assistant-chat-log" id="assistantChatLog" aria-live="polite">
-      <div class="assistant-chat-bubble assistant-chat-bubble-aria" data-i18n="assistant.greeting">Hallo, ich bin Aria von DIETZ Engineering. Schreiben Sie mir kurz, worum es geht — ich kann Patrick benachrichtigen oder die ersten technischen Punkte vorqualifizieren.</div>
-    </div>
+    <div class="assistant-chat-log" id="assistantChatLog" aria-live="polite" data-consent-gated-greeting="true"></div>
 
     <div class="assistant-chat-compose">
       <textarea id="assistantChatInput" maxlength="900" rows="2" placeholder="Nachricht schreiben …" data-i18n-placeholder="assistant.inputPh"></textarea>
@@ -4236,7 +4234,7 @@ body.assistant-panel-open .assistant-teaser {
       </div>
       <label class="assistant-consent">
         <input id="assistantConsent" type="checkbox">
-        <span data-i18n="assistant.consentLabel">Ich möchte, dass meine Angaben zur Rückmeldung an Patrick Dietz weitergegeben werden. Keine vertraulichen Projektdateien im Chat senden.</span>
+        <span data-i18n="assistant.consentLabel">Ich bin einverstanden, dass meine Angaben zur Rückmeldung an Patrick Dietz übermittelt werden. Wenn kein Auftrag zustande kommt, werden diese Daten spätestens nach 7 Tagen gelöscht.</span>
       </label>
       <div class="assistant-actions">
         <button class="btn btn-secondary" id="assistantConfirm" type="button" data-i18n="assistant.confirm">Anfrage senden</button>
@@ -4247,7 +4245,7 @@ body.assistant-panel-open .assistant-teaser {
     <div class="assistant-output" id="assistantOutput" aria-live="polite"></div>
   </div>
   <div class="assistant-footnote" data-i18n="assistant.footnote">
-    Bitte im Erstkontakt keine vertraulichen Kundendaten, internen Schaltpläne oder EPLAN-Projekte hochladen/einfügen.
+    Bitte im Erstkontakt keine Passwörter oder sensiblen Kundendaten eingeben. KI-Verarbeitung erfolgt über einen externen Dienstleister.
   </div>
 </aside>
 
@@ -4305,10 +4303,10 @@ document.documentElement.classList.add('js-ready');
 document.querySelectorAll('.fade').forEach(el => el.classList.add('in'));
 /* I18N STRINGS — geladen aus src/_data/i18n.json (per Eleventy) */
 const i18n = {{ i18n | dump | safe }};
-i18n.de['assistant.consentRequired'] = 'Bitte setzen Sie unten bei den Angaben den Haken zur Weitergabe an Patrick. Danach auf „Anfrage senden“ oder „Patrick dazuholen“ klicken.';
-i18n.en['assistant.consentRequired'] = 'Please open the details below, tick the consent box for forwarding to Patrick, then click “Send inquiry” or “Bring Patrick in”.';
-i18n.es['assistant.consentRequired'] = 'Abra los detalles abajo, marque el consentimiento para enviar la consulta a Patrick y luego pulse “Enviar consulta” o “Llamar a Patrick”.';
-i18n.zh['assistant.consentRequired'] = '请先打开下方详细信息，勾选同意转交给 Patrick，然后点击“发送询问”或“请 Patrick 加入”。';
+i18n.de['assistant.consentRequired'] = 'Bitte bestätigen Sie vor dem Senden: Ihre Angaben werden an Patrick Dietz übermittelt. Wenn kein Auftrag zustande kommt, werden diese Daten spätestens nach 7 Tagen gelöscht.';
+i18n.en['assistant.consentRequired'] = 'Please confirm before sending: your details will be forwarded to Patrick Dietz. If no assignment results, this data will be deleted after 7 days at the latest.';
+i18n.es['assistant.consentRequired'] = 'Confirme antes de enviar: sus datos se enviarán a Patrick Dietz. Si no se concreta ningún encargo, estos datos se eliminarán como máximo después de 7 días.';
+i18n.zh['assistant.consentRequired'] = '发送前请确认：您的信息将转交给 Patrick Dietz。如果未形成委托，这些数据最迟将在 7 天后删除。';
 i18n.de['assistant.handoffFailed'] = 'Die Weitergabe ist gerade nicht erreichbar. Im lokalen Test bitte Supabase-CORS für http://127.0.0.1:8088 freigeben; online funktioniert es über die freigegebene Domain.';
 i18n.en['assistant.handoffFailed'] = 'Handoff is not reachable right now. For local testing, allow http://127.0.0.1:8088 in Supabase CORS; online it works through the approved domain.';
 i18n.es['assistant.handoffFailed'] = 'La entrega no está disponible ahora. Para pruebas locales, permita http://127.0.0.1:8088 en Supabase CORS; online funciona con el dominio autorizado.';
@@ -4627,6 +4625,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
   let selectedTypeKey = 'assistant.typeEplan';
   let lastAssistantResult = null;
   let assistantTypingQueue = Promise.resolve();
+  let assistantGreetingAppended = false;
   const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, contactFormActionShown: false, outOfHoursNoticeShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
   const operator_decision_buttons = ['start_chat', 'let_aria_answer', 'end_chat'];
   const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
@@ -4650,11 +4649,18 @@ document.querySelectorAll('.faq-item').forEach(item => {
     if (dismissed || panel?.classList.contains('open')) hideAssistantTeaser(false);
   }
 
+  function appendAssistantGreetingAfterConsent() {
+    if (assistantGreetingAppended || !assistantAiConsentGiven) return;
+    assistantGreetingAppended = true;
+    appendChatMessage('aria', assistantDict()['assistant.greeting']);
+  }
+
   function setAssistantAiConsent(given) {
     assistantAiConsentGiven = Boolean(given);
     if (chatInput) chatInput.disabled = !assistantAiConsentGiven;
     if (chatSendBtn) chatSendBtn.disabled = !assistantAiConsentGiven;
     if (aiConsentGate) aiConsentGate.hidden = assistantAiConsentGiven;
+    if (assistantAiConsentGiven) appendAssistantGreetingAfterConsent();
   }
 
   setAssistantAiConsent(assistantAiConsentGiven);
@@ -4669,10 +4675,10 @@ document.querySelectorAll('.faq-item').forEach(item => {
   aiConsentAccept?.addEventListener('click', () => {
     try { localStorage.setItem(aiConsentStorageKey, 'yes'); } catch (error) {}
     setAssistantAiConsent(true);
-    appendChatMessage('aria', 'Danke. Sie können jetzt direkt hier schreiben. Für eine Übergabe reichen z. B.: Name, Kontakt, Thema und „Ich stimme der Übergabe an Patrick zu.“');
+    appendChatMessage('aria', assistantDict()['assistant.aiConsentStarted']);
   });
   aiConsentDecline?.addEventListener('click', () => {
-    appendChatMessage('aria', 'Kein Problem. Nutzen Sie bitte das Kontaktformular; der KI-Chat bleibt ohne Zustimmung deaktiviert.');
+    appendChatMessage('aria', assistantDict()['assistant.aiConsentDeclined']);
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
@@ -5199,9 +5205,10 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     if (hasAssistantHandoffConsent()) return true;
     guidedAssistantState.takeoverRequested = true;
     guidedAssistantState.awaitingField = 'handoff_contact';
+    appendChatMessage('aria', dict['assistant.handoffPrivacyNotice']);
     appendChatMessage('aria', dict['assistant.consentRequired']);
     appendHandoffQuickActions();
-    setOutput(dict['assistant.consentRequired']);
+    setOutput(`${dict['assistant.handoffPrivacyNotice']}\n\n${dict['assistant.consentRequired']}`);
     return false;
   }
 
@@ -5216,9 +5223,10 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     const missing = getAssistantHandoffMissing(summary);
     guidedAssistantState.takeoverRequested = true;
     guidedAssistantState.awaitingField = 'handoff_contact';
+    const privacyNotice = assistantDict()['assistant.handoffPrivacyNotice'];
     const text = missing.length
-      ? `Gerne. Bitte schreiben Sie die fehlenden Angaben direkt hier in den Chat, zum Beispiel:\n\nName: Max Mustermann\nKontakt: max@example.de oder +49 ...\nThema: ${summary.scope && summary.scope !== assistantDict()['assistant.scopeFallback'] ? summary.scope : 'kurze Projektbeschreibung'}\n\nWenn Sie einverstanden sind, schreiben Sie dazu: „Ich stimme der Übergabe an Patrick zu.“`
-      : 'Danke, die Angaben sind vollständig. Bitte bestätigen Sie noch kurz im Chat: „Ich stimme der Übergabe an Patrick zu.“';
+      ? `Gerne. Bitte schreiben Sie die fehlenden Angaben direkt hier in den Chat, zum Beispiel:\n\nName: Max Mustermann\nKontakt: max@example.de oder +49 ...\nThema: ${summary.scope && summary.scope !== assistantDict()['assistant.scopeFallback'] ? summary.scope : 'kurze Projektbeschreibung'}\n\n${privacyNotice}\n\nWenn Sie einverstanden sind, schreiben Sie dazu: „Ich stimme der Übergabe an Patrick zu.“`
+      : `${privacyNotice}\n\nDanke, die Angaben sind vollständig. Bitte bestätigen Sie noch kurz im Chat: „Ich stimme der Übergabe an Patrick zu.“`;
     appendChatMessage('aria', text);
     appendHandoffQuickActions();
     setOutput(text);

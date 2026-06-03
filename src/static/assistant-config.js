@@ -15,5 +15,5 @@ window.DIETZ_ASSISTANT_CONFIG = {
   knowledgeVersion: "dietz-trust-v1",
   maxQuestionChars: 900,
   timeoutMs: 9000,
-  consentText: "Ich bestätige, dass meine Angaben zur Bearbeitung der Anfrage verarbeitet und bei Bedarf an Patrick Dietz weitergeleitet werden dürfen. Bitte keine vertraulichen Projektdateien im Chat senden."
+  consentText: "Ich bestätige, dass meine Angaben zur Bearbeitung der Anfrage verarbeitet und bei Bedarf an Patrick Dietz weitergeleitet werden dürfen. Wenn kein Auftrag zustande kommt, werden diese Daten spätestens nach 7 Tagen gelöscht."
 };
