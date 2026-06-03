@@ -19,6 +19,7 @@ const requiredFiles = [
   'decision_rules.json',
   'handoff_rules.json',
   'intake_questions.json',
+  'memory_policy.json',
 ];
 
 for (const file of requiredFiles) {
@@ -55,9 +56,17 @@ const intake = JSON.parse(fs.readFileSync(path.join(ariaDir, 'intake_questions.j
 assert(intake.questions.some(question => question.id === 'documents_available'), 'intake questions include available documents');
 assert(intake.questions.every(question => question.review_status === 'review_required_before_binding_offer'), 'intake questions keep review boundary visible');
 
+const memoryPolicy = JSON.parse(fs.readFileSync(path.join(ariaDir, 'memory_policy.json'), 'utf8'));
+assert(memoryPolicy.durable_memory_type === 'curated_requirements_knowledge', 'Aria durable memory is curated requirements/knowledge, not chat history');
+assert(memoryPolicy.forbidden_storage.includes('persistent_chat_history'), 'Aria must not persist visitor chat history');
+assert(memoryPolicy.allowed_storage.includes('patrick_approved_requirements'), 'Aria may keep Patrick-approved requirements');
+assert(memoryPolicy.runtime_context_policy === 'short_term_session_context_only', 'Aria may only use short-term session context during a live chat');
+
 assert(index.includes('DIETZ_ASSISTANT_PROJECT_FILES'), 'website embeds the externalized Aria project files');
 assert(index.includes('{{ aria.identity | dump | safe }}'), 'identity is loaded from src/_data/aria/identity.json');
 assert(index.includes('{{ aria.project_templates | dump | safe }}'), 'project templates are loaded from src/_data/aria/project_templates.json');
+assert(index.includes('{{ aria.memory_policy | dump | safe }}'), 'memory policy is loaded from src/_data/aria/memory_policy.json');
+assert(index.includes('memory_policy: DIETZ_ASSISTANT_PROJECT_FILES.memory_policy'), 'assistant persona carries curated memory policy');
 assert(index.includes('classifyAssistantProjectFromFiles'), 'assistant has a project-file classification helper');
 assert(index.includes('project_file_classification'), 'assistant result carries project-file classification marker');
 

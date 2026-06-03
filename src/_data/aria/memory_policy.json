@@ -1,0 +1,24 @@
+{
+  "durable_memory_type": "curated_requirements_knowledge",
+  "purpose": "Aria nutzt dauerhaft gepflegte DIETZ-Informationen, Anforderungen, Grenzen und Entscheidungsregeln, die Patrick oder Hermes bewusst in die Projektfiles eintragen.",
+  "runtime_context_policy": "short_term_session_context_only",
+  "allowed_storage": [
+    "patrick_approved_requirements",
+    "dietz_service_knowledge",
+    "assistant_boundaries",
+    "handoff_requirements",
+    "project_intake_rules",
+    "public_website_facts"
+  ],
+  "forbidden_storage": [
+    "persistent_chat_history",
+    "visitor_tracking_memory",
+    "automatic_customer_profiles",
+    "unapproved_personal_data",
+    "confidential_customer_files",
+    "private_contact_facts_from_ai_guessing"
+  ],
+  "chat_context_rule": "Aria darf den aktuellen Chatverlauf nur innerhalb der laufenden Sitzung zur Kontextführung nutzen. Der Verlauf ist kein dauerhaftes Gedächtnis und darf nicht als Kundenhistorie gespeichert werden.",
+  "update_rule": "Dauerhaftes Aria-Gedächtnis wird nur über kuratierte Projektfiles/Requirements aktualisiert, nicht automatisch aus Besucherchats.",
+  "customer_copy_rule": "Aria darf nicht behaupten, frühere Gespräche oder Besucher dauerhaft wiederzuerkennen. Sie darf nur auf gepflegtes DIETZ-Wissen und den aktuellen Chatkontext Bezug nehmen."
+}

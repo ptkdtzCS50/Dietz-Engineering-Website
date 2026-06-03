@@ -3150,7 +3150,7 @@ body[data-aria-local-test="enabled"] .assistant-panel.open {
 }
 </style>
 </head>
-<body data-chatbase-live="enabled">
+<body>
 
 <!-- ============================ NAV ============================ -->
 <nav class="nav">
@@ -4573,9 +4573,10 @@ document.querySelectorAll('.faq-item').forEach(item => {
     document.body.dataset.ariaLocalTest = 'enabled';
     document.body.dataset.chatbaseLive = 'disabled';
   }
-  if (!assistantConfig.endpoint && wantsRemoteAria && isLocalAssistantHost && assistantConfig.localProxyEndpoint) assistantConfig.endpoint = assistantConfig.localProxyEndpoint;
-  if (!assistantConfig.endpoint && wantsRemoteAria && assistantConfig.remoteTestEndpoint) assistantConfig.endpoint = assistantConfig.remoteTestEndpoint;
-  if (!assistantConfig.endpoint && wantsLocalAria && assistantConfig.localDevEndpoint) assistantConfig.endpoint = assistantConfig.localDevEndpoint;
+  if (document.body) document.body.dataset.ariaPrimary = 'enabled';
+  if (wantsRemoteAria && isLocalAssistantHost && assistantConfig.localProxyEndpoint) assistantConfig.endpoint = assistantConfig.localProxyEndpoint;
+  else if (wantsRemoteAria && assistantConfig.remoteTestEndpoint) assistantConfig.endpoint = assistantConfig.remoteTestEndpoint;
+  else if (wantsLocalAria && assistantConfig.localDevEndpoint) assistantConfig.endpoint = assistantConfig.localDevEndpoint;
   if ((wantsRemoteAria || wantsLocalAria) && assistantConfig.endpoint) assistantConfig.liveAiEnabled = true;
 
   const DIETZ_ASSISTANT_PROJECT_FILES = {
@@ -4584,7 +4585,8 @@ document.querySelectorAll('.faq-item').forEach(item => {
     project_templates: {{ aria.project_templates | dump | safe }},
     decision_rules: {{ aria.decision_rules | dump | safe }},
     handoff_rules: {{ aria.handoff_rules | dump | safe }},
-    intake_questions: {{ aria.intake_questions | dump | safe }}
+    intake_questions: {{ aria.intake_questions | dump | safe }},
+    memory_policy: {{ aria.memory_policy | dump | safe }}
   };
 
   const DIETZ_ASSISTANT_KNOWLEDGE = {
@@ -5199,6 +5201,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
       purpose: 'Vertrauen schaffen, erste technische Fragen ehrlich beantworten und verbindliche Themen an Patrick übergeben.',
       knowledge: DIETZ_ASSISTANT_KNOWLEDGE,
       project_files: DIETZ_ASSISTANT_PROJECT_FILES,
+      memory_policy: DIETZ_ASSISTANT_PROJECT_FILES.memory_policy,
       style: ['ruhig', 'ehrlich', 'technisch konkret', 'nicht übertrieben', 'nicht salesy'],
       forbidden_claims: DIETZ_ASSISTANT_KNOWLEDGE.boundaries
     };
@@ -5513,9 +5516,9 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
   });
 })();
 </script>
-<!-- Chatbase live assistant. Aria remains in the codebase, but is hidden while this live Chatbase test is active. -->
+<!-- Chatbase fallback assistant. Aria is primary; Chatbase loads only with ?chatbase=fallback for emergency/manual fallback. -->
 <script>
-(function(){const params=new URLSearchParams(window.location.search);const host=window.location.hostname;const isLocalHost=['localhost','127.0.0.1','::1'].includes(host);const isAriaLocalTest=params.get('aria')==='local'||params.get('aria')==='1'||params.get('aria')==='remote'||params.get('ariaEndpoint')==='supabase'||isLocalHost;if(isAriaLocalTest)return;if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="jjukctX1wFEHC5Dh01_ND";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+(function(){const params=new URLSearchParams(window.location.search);const useChatbaseFallback=params.get('chatbase')==='fallback'||params.get('assistant')==='chatbase';if(!useChatbaseFallback)return;if(document.body){document.body.dataset.chatbaseLive='enabled';document.body.dataset.ariaPrimary='fallback_disabled'}if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="jjukctX1wFEHC5Dh01_ND";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 </body>
 </html>

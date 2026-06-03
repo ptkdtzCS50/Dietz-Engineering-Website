@@ -1,10 +1,10 @@
 window.DIETZ_ASSISTANT_CONFIG = {
   mode: "hybrid",
-  endpoint: "",
+  endpoint: "https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant",
   localDevEndpoint: "http://127.0.0.1:8790/assistant",
   localProxyEndpoint: "http://127.0.0.1:8790/assistant",
   remoteTestEndpoint: "https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant",
-  liveAiEnabled: false,
+  liveAiEnabled: true,
   fallbackEnabled: true,
   avatar: "aria-assistant-avatar.jpg",
   handoffMode: "telegram_review",
