@@ -4806,6 +4806,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
     button.textContent = assistantDict()['assistant.contactFormButton'] || 'Zum Kontaktformular';
     button.addEventListener('click', () => {
       fillBookingForm(buildAssistantSummary());
+      closeAssistant();
       const booking = document.getElementById('booking');
       if (booking) booking.scrollIntoView({ behavior: 'smooth', block: 'start' });
       window.location.hash = 'booking';

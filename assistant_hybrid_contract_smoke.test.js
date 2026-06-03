@@ -76,6 +76,8 @@ assert(index.includes('document.body.dataset.ariaPrimary = \'enabled\''), 'produ
 assert(index.includes('function isPatrickLiveHandoffAvailable(') && index.includes('function appendContactFormAction('), 'assistant checks Patrick availability and can show a contact-form action');
 assert(index.includes("availabilityTimezone: 'Europe/Berlin'") && index.includes("availableFromHour: 8") && index.includes("availableUntilHour: 17"), 'assistant default availability is 08:00-17:00 Europe/Berlin');
 assert(index.includes("window.location.hash = 'booking'") && index.includes("assistant.outOfHoursContact"), 'after-hours Patrick requests route users to the contact form');
+const contactFormActionSegment = index.slice(index.indexOf('function appendContactFormAction('), index.indexOf('function handleOutOfHoursPatrickRequest('));
+assert(contactFormActionSegment.includes('closeAssistant();') && contactFormActionSegment.indexOf('closeAssistant();') < contactFormActionSegment.indexOf("window.location.hash = 'booking'"), 'mobile contact-form CTA closes the assistant overlay before routing to the booking form');
 assert(index.includes("guidedAssistantState.outOfHoursNoticeShown") && index.includes('guidedAssistantState.takeoverRequested = false;'), 'after-hours contact notice is non-sticky so later technical questions continue as Aria chat');
 assert(index.includes("if (!isPatrickLiveHandoffAvailable())") && index.includes("appendContactFormAction()"), 'live Telegram handoff is blocked outside Patrick availability window');
 assert(index.includes('document.body.dataset.ariaLocalTest') && index.includes("ariaTestMode === 'remote'"), 'local website can expose Aria for remote Supabase handoff tests');
