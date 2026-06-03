@@ -3007,6 +3007,18 @@ body[data-aria-local-test="enabled"] .assistant-panel.open {
   padding: 0.65rem 0.75rem;
   font-size: 0.82rem;
 }
+.assistant-start-questions {
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin: 0.1rem 0 0.25rem;
+}
+.assistant-start-questions .btn {
+  justify-content: flex-start;
+  text-align: left;
+  white-space: normal;
+}
 .assistant-lead-details {
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -4188,7 +4200,7 @@ body.assistant-panel-open .assistant-teaser {
     </div>
 
     <div class="assistant-actions assistant-live-actions assistant-fieldless-hidden">
-      <button class="btn btn-secondary" id="assistantTakeover" type="button" data-i18n="assistant.takeover">Patrick kontaktieren</button>
+      <button class="btn btn-secondary" id="assistantTakeover" type="button" data-i18n="assistant.takeover">Herrn Dietz kontaktieren</button>
       <button class="btn btn-secondary" id="assistantPrepare" type="button" data-i18n="assistant.prepare">Ins Formular übernehmen</button>
     </div>
 
@@ -4626,7 +4638,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
   let lastAssistantResult = null;
   let assistantTypingQueue = Promise.resolve();
   let assistantGreetingAppended = false;
-  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, contactFormActionShown: false, outOfHoursNoticeShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
+  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, contactFormActionShown: false, startQuestionsShown: false, outOfHoursNoticeShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
   const operator_decision_buttons = ['start_chat', 'let_aria_answer', 'end_chat'];
   const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
   const clean = (value, max = 900) => String(value || '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -4649,10 +4661,35 @@ document.querySelectorAll('.faq-item').forEach(item => {
     if (dismissed || panel?.classList.contains('open')) hideAssistantTeaser(false);
   }
 
+  function appendAssistantStartQuestions() {
+    if (!chatLog || guidedAssistantState.startQuestionsShown) return null;
+    guidedAssistantState.startQuestionsShown = true;
+    const dict = assistantDict();
+    const actions = document.createElement('div');
+    actions.className = 'assistant-actions assistant-start-questions';
+    ['assistant.startQuestionServices', 'assistant.startQuestionEplan', 'assistant.startQuestionProcess'].forEach((key) => {
+      const button = document.createElement('button');
+      button.className = 'btn btn-secondary';
+      button.type = 'button';
+      button.textContent = dict[key] || key;
+      button.addEventListener('click', () => {
+        if (!chatInput) return;
+        chatInput.value = button.textContent;
+        actions.remove();
+        handleAssistantChatSend();
+      });
+      actions.appendChild(button);
+    });
+    chatLog.appendChild(actions);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return actions;
+  }
+
   function appendAssistantGreetingAfterConsent() {
     if (assistantGreetingAppended || !assistantAiConsentGiven) return;
     assistantGreetingAppended = true;
     appendChatMessage('aria', assistantDict()['assistant.greeting']);
+    appendAssistantStartQuestions();
   }
 
   function setAssistantAiConsent(given) {
@@ -4675,7 +4712,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
   aiConsentAccept?.addEventListener('click', () => {
     try { localStorage.setItem(aiConsentStorageKey, 'yes'); } catch (error) {}
     setAssistantAiConsent(true);
-    appendChatMessage('aria', assistantDict()['assistant.aiConsentStarted']);
   });
   aiConsentDecline?.addEventListener('click', () => {
     appendChatMessage('aria', assistantDict()['assistant.aiConsentDeclined']);

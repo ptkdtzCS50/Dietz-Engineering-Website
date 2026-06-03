@@ -59,6 +59,10 @@ assert(index.includes('assistant.aiConsentNotice') && index.includes('assistant.
 assert(index.includes('data-i18n="assistant.aiConsentNotice" data-i18n-html') && index.includes('data-i18n="assistant.aiConsentAccept"') && index.includes('data-i18n="assistant.aiConsentDecline"'), 'AI consent notice and buttons are wired to runtime translation');
 assert(index.includes('data-consent-gated-greeting="true"') && index.includes('function appendAssistantGreetingAfterConsent('), 'Aria greeting is appended only after AI consent is accepted/restored');
 assert(!index.includes('<div class="assistant-chat-bubble assistant-chat-bubble-aria" data-i18n="assistant.greeting">'), 'Aria greeting is not pre-rendered before the AI consent gate');
+assert(/Herrn? Dietz/.test(i18n.de['assistant.greeting']) && !i18n.de['assistant.greeting'].includes('Patrick vorbereiten') && i18n.de['assistant.greeting'].length < 150, 'German Aria greeting is formal, positive about Herr Dietz, and concise after AI consent');
+assert(index.includes('function appendAssistantStartQuestions(') && index.includes('assistant.startQuestionServices') && index.includes('assistant.startQuestionEplan') && index.includes('assistant.startQuestionProcess'), 'Aria shows three frequent-question starter buttons after AI consent');
+assert(index.includes('assistant-start-questions') && index.includes('handleAssistantChatSend()'), 'starter question buttons inject the selected question into the chat flow');
+assert(!index.includes("appendChatMessage('aria', assistantDict()['assistant.aiConsentStarted']);"), 'accepting AI consent does not add an extra second start sentence');
 assert(index.includes('assistant.handoffPrivacyNotice') && JSON.stringify(i18n.de).includes('maximal 7 Tage') && JSON.stringify(i18n.de).includes('spätestens nach 7 Tagen'), 'handoff flow explains seven-day storage before sending contact data to Patrick');
 const assistantCopy = Object.fromEntries(Object.entries(i18n.de).filter(([key]) => key.startsWith('assistant.')));
 assert(!/Projektdateien|project files|archivos confidenciales|保密项目文件/i.test(index + JSON.stringify(assistantCopy)), 'assistant copy does not warn specifically about project documents/files in chat');
@@ -117,6 +121,7 @@ assert(fn.includes('assistantDiagnostic') && fn.includes('has_openai_key') && fn
 assert(fn.includes('function unavailableReply') && fn.includes('mode: "ai_unavailable"'), 'server chat returns AI-unavailable instead of static fallback when model access fails');
 assert(fn.includes('Patrick prüft verbindliche Fragen persönlich'), 'server function keeps Patrick review boundary');
 assert(fn.includes('Never invent email addresses') && fn.includes('official website contact details'), 'server prompt forbids fake contact details and invented email addresses');
+assert(fn.includes('customer-facing German answers formally as Herr Dietz') && fn.includes('Ja, Herr Dietz kann EPLAN-/Makro-Themen'), 'server-side Aria answers speak formally and positively about Herr Dietz');
 assert(fn.includes('Do not store or imply persistent visitor chat memory') && fn.includes('durable knowledge is curated DIETZ requirements'), 'server prompt separates durable curated knowledge from persistent chat memory');
 assert(fn.includes('Do not say you cannot contact Patrick directly') && fn.includes('private Telegram operator channel'), 'server prompt aligns Aria handoff wording with the configured Telegram operator channel');
 assert(fn.includes('operatorSessions') && fn.includes('handleOperatorReply') && fn.includes('handleReplies'), 'server function exposes production operator reply polling instead of routing Patrick replies back into AI chat');

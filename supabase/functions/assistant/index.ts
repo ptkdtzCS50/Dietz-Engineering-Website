@@ -124,8 +124,9 @@ function systemPrompt(language = "de") {
     "You are Aria, the DIETZ project assistant for Patrick Dietz.",
     `Answer in the user's language when possible. Preferred language: ${cleanText(language, 8)}.`,
     "Purpose: build trust by answering first technical questions honestly and concretely, not by overselling.",
+    "Refer to Patrick Dietz in customer-facing German answers formally as Herr Dietz, not casually as Patrick, unless quoting system/operator status.",
     "Patrick Dietz supports freelance electrical engineering for machine and plant builders: EPLAN P8 schematics, macro/article/BMK structure, terminals, cables, BOM consistency, panel-building documentation, Pro Panel/Smartwiring context, installation, commissioning, retrofit troubleshooting, and structured project handover.",
-    "For EPLAN macros: say Patrick can generally help assess existing structures, prepare project-suitable macros, and build reusable standards, but the concrete macro type, Data Portal data, Pro Panel 3D macro, and customer library must be checked from the project context.",
+    "For EPLAN macros: say Herr Dietz can generally help assess existing structures, prepare project-suitable macros, and build reusable standards, but the concrete macro type, Data Portal data, Pro Panel 3D macro, and customer library must be checked from the project context.",
     "Never claim certifications, guaranteed CE/Safety/legal compliance, fixed prices, fixed delivery dates, or final engineering release.",
     "Never invent email addresses, phone numbers, employee counts, customer names, references, discounts, hourly rates, or other contact/company facts. If a contact route is needed, refer to the official website contact details or the website handoff form only.",
     "Do not store or imply persistent visitor chat memory. Aria's durable knowledge is curated DIETZ requirements, service knowledge, boundaries, and handoff rules explicitly maintained by Patrick/Hermes; visitor chat history is only short-term session context.",
@@ -174,8 +175,8 @@ function fallbackReply(payload: AssistantPayload, fallback_reason = "token_or_en
   const text = normalizeMessages(payload).map((m) => m.content).join(" ").toLowerCase();
   const eplanMacro = ["eplan", "makro", "macro", "data portal", "pro panel"].some((term) => text.includes(term));
   const reply = eplanMacro
-    ? "Ja, Patrick kann EPLAN-/Makro-Themen grundsätzlich einordnen: EPLAN P8, Artikel-/BMK-Struktur, Klemmen, Kabel, Stücklisten und Schaltschrankbau-Unterlagen gehören zu seinem praktischen Umfeld. Ob ein konkreter Makrotyp, Data-Portal-Daten, Pro-Panel-3D-Makros oder eine kundenspezifische Bibliothek sinnvoll sind, sollte Patrick anhand des Projektstands prüfen."
-    : "Ich kann die Anfrage fachlich grob strukturieren und an Patrick zur persönlichen Prüfung weitergeben. Für eine erste Einschätzung reichen Maschine/Anlage, aktueller Dokumentationsstand, gewünschte Unterstützung und Zeitraum.";
+    ? "Ja, Herr Dietz kann EPLAN-/Makro-Themen grundsätzlich einordnen: EPLAN P8, Artikel-/BMK-Struktur, Klemmen, Kabel, Stücklisten und Schaltschrankbau-Unterlagen gehören zu seinem praktischen Umfeld. Ob ein konkreter Makrotyp, Data-Portal-Daten, Pro-Panel-3D-Makros oder eine kundenspezifische Bibliothek sinnvoll sind, sollte Herr Dietz anhand des Projektstands prüfen."
+    : "Ich kann die Anfrage fachlich grob strukturieren und an Herrn Dietz zur persönlichen Prüfung weitergeben. Für eine erste Einschätzung reichen Maschine/Anlage, aktueller Dokumentationsstand, gewünschte Unterstützung und Zeitraum.";
   return {
     reply,
     mode: "fallback",

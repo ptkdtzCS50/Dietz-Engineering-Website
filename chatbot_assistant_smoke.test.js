@@ -50,7 +50,7 @@ assert(index.includes('shouldEscalateToPatrick'), 'assistant detects questions t
 assert(index.includes('guidedAssistantState'), 'assistant has guided conversation state');
 assert(index.includes('getAssistantNextQuestion'), 'assistant guides customers with targeted next questions');
 assert(index.includes('isAssistantQuestionInScope'), 'assistant filters unrelated/off-topic questions');
-assert(i18n.de['assistant.outOfScope'].includes('Aria beantwortet Fragen zu Patrick'), 'assistant has polished off-topic reply copy');
+assert(i18n.de['assistant.outOfScope'].includes('Aria beantwortet Fragen zu Herrn Dietz'), 'assistant has polished formal off-topic reply copy');
 assert(index.includes('fillCustomerFieldsFromAssistant'), 'assistant can transfer contact details into the booking form');
 assert(index.includes('requestLiveTakeover'), 'assistant has a live takeover request path for Patrick');
 assert(index.includes('assistant.takeover'), 'assistant exposes a customer-facing takeover action');
@@ -127,8 +127,8 @@ assert(languageSmoke !== null, 'local bridge language detector classifies Spanis
 assert(localBridge.includes('prepare_operator_reply') && localBridge.includes('corrected_message') && localBridge.includes('translated_message'), 'operator bridge prepares grammar-corrected and translated operator replies before delivery');
 assert(localBridge.includes('/operator/prepare-reply') && localBridge.includes('Entwurf prüfen'), 'operator UI has a draft review step before sending translated replies');
 assert(localBridge.includes('Übersetzung für Patrick') && localBridge.includes('Antwortsprache'), 'operator UI shows inbound translation context and outbound language mode');
-assert(i18n.de['assistant.greeting'].includes('Patrick'), 'assistant has a warm livechat greeting mentioning Patrick handoff');
-assert(i18n.de['assistant.waitingPatrick'].includes('Patrick'), 'assistant tells customer Patrick is being notified without exposing internals');
+assert(/Herrn? Dietz/.test(i18n.de['assistant.greeting']), 'assistant has a warm formal livechat greeting about Herr Dietz');
+assert(/Herrn? Dietz/.test(i18n.de['assistant.waitingPatrick']), 'assistant tells customer Herr Dietz is being notified without exposing internals');
 assert(i18n.de['assistant.aiFallback'].includes('nicht direkt verfügbar'), 'assistant has polished AI fallback after Patrick timeout');
 assert(index.includes('textarea[name="project"]'), 'assistant targets existing booking project textarea');
 assert(index.includes('missing_information'), 'assistant records missing-information queue');
