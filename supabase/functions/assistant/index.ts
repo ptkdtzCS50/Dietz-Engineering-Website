@@ -17,6 +17,8 @@ type AssistantPayload = {
 };
 
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
+const OPERATOR_SESSION_TTL_MS = 2 * 60 * 60 * 1000;
+const operatorSessions = new Map<string, { token: string; replies: { id: number; action: string; message: string; created_at: string }[]; nextId: number; createdAt: number }>();
 
 function env(name: string): string {
   return Deno.env.get(name) || "";
@@ -84,7 +86,7 @@ function corsHeaders(request: Request): Record<string, string> {
   const allowOrigin = allowedOrigins().includes(origin) ? origin : allowedOrigins()[0];
   return {
     "access-control-allow-origin": allowOrigin,
-    "access-control-allow-methods": "POST, OPTIONS",
+    "access-control-allow-methods": "POST, GET, OPTIONS",
     "access-control-allow-headers": "authorization, x-client-info, apikey, content-type, x-turnstile-token",
     "vary": "origin",
   };
@@ -228,7 +230,7 @@ async function callOpenAI(payload: AssistantPayload) {
   };
 }
 
-function formatLead(payload: AssistantPayload, result: Record<string, unknown>) {
+function formatLead(payload: AssistantPayload, result: Record<string, unknown>, sessionId = "", operatorUrl = "") {
   const customer = payload.customer || {};
   const context = payload.context || {};
   return [
@@ -247,6 +249,8 @@ function formatLead(payload: AssistantPayload, result: Record<string, unknown>) 
     `Frage: ${normalizeMessages(payload).map((m) => m.content).join(" | ") || "nicht angegeben"}`,
     "",
     `Status: Patrick-Review angefordert (${cleanText(result.mode, 80) || "handoff"})`,
+    sessionId ? `Chat-Session: ${sessionId}` : "",
+    operatorUrl ? `Antwort an Chat: ${operatorUrl}` : "",
     "",
     "Patrick prüft verbindliche Fragen persönlich.",
   ].join("\n");
@@ -264,6 +268,49 @@ async function notifyTelegram(text: string) {
   return response.json().catch(() => ({ ok: response.ok, status: response.status }));
 }
 
+function escapeHtml(value: unknown): string {
+  return cleanText(value, 4000)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function cleanupOperatorSessions() {
+  const now = Date.now();
+  for (const [sessionId, session] of operatorSessions.entries()) {
+    if (now - session.createdAt > OPERATOR_SESSION_TTL_MS) operatorSessions.delete(sessionId);
+  }
+}
+
+function createOperatorSession() {
+  cleanupOperatorSessions();
+  const sessionId = crypto.randomUUID();
+  const token = crypto.randomUUID().replace(/-/g, "");
+  operatorSessions.set(sessionId, { token, replies: [], nextId: 1, createdAt: Date.now() });
+  return { sessionId, token };
+}
+
+function operatorBaseUrl(request: Request) {
+  const url = new URL(request.url);
+  return `${url.origin}${url.pathname.replace(/\/?(?:lead|escalate|replies|operator\/(?:ui|reply))?$/, "")}`.replace(/\/$/, "");
+}
+
+function operatorUiHtml(sessionId: string, token: string, actionUrl: string, notice = "") {
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DIETZ Operator Antwort</title><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:2rem;max-width:760px;line-height:1.5;background:#0d1320;color:#f5f7fb}textarea{width:100%;min-height:9rem;border-radius:14px;border:1px solid #39445c;background:#111a2d;color:#f5f7fb;padding:1rem;font:inherit}button{margin-top:1rem;border:0;border-radius:999px;padding:.85rem 1.25rem;background:#f0c36a;color:#17120a;font-weight:700}.notice{padding:1rem;border-radius:14px;background:#16233a;margin-bottom:1rem}.muted{color:#aeb8ce}</style></head><body><h1>Antwort an Website-Chat</h1>${notice ? `<div class="notice">${escapeHtml(notice)}</div>` : ""}<form method="post" action="${escapeHtml(actionUrl)}"><input type="hidden" name="session_id" value="${escapeHtml(sessionId)}"><input type="hidden" name="operator_token" value="${escapeHtml(token)}"><label for="message">Nachricht von Patrick</label><textarea id="message" name="message" autofocus required placeholder="Antwort für den Website-Besucher ..."></textarea><br><button type="submit">Antwort senden</button></form><p class="muted">Die Antwort wird in den aktuellen Website-Chat gelegt. Dieser Kurzzeit-Kanal läuft automatisch ab.</p></body></html>`;
+}
+
+function parseFormBody(raw: string): Record<string, string> {
+  const params = new URLSearchParams(raw);
+  return Object.fromEntries(params.entries());
+}
+
+function getRequestPayload(request: Request, raw: string): Record<string, unknown> {
+  const contentType = request.headers.get("content-type") || "";
+  if (contentType.includes("application/x-www-form-urlencoded")) return parseFormBody(raw);
+  try { return JSON.parse(raw); } catch { return {}; }
+}
+
 async function handleChat(request: Request, payload: AssistantPayload, headers: Record<string, string>) {
   const limited = rateLimit(request);
   let result: Record<string, unknown>;
@@ -278,6 +325,49 @@ async function handleChat(request: Request, payload: AssistantPayload, headers: 
   return jsonResponse(result, result.mode === "live_ai" ? 200 : 503, headers);
 }
 
+async function handleReplies(request: Request, headers: Record<string, string>) {
+  cleanupOperatorSessions();
+  const url = new URL(request.url);
+  const sessionId = cleanText(url.searchParams.get("session_id"), 120);
+  const after = Number(url.searchParams.get("after") || 0);
+  const session = operatorSessions.get(sessionId);
+  if (!session) return jsonResponse({ ok: true, replies: [], next: after || 0, expired: true }, 200, headers);
+  const replies = session.replies.filter((reply) => reply.id > after);
+  const next = session.replies.length ? session.replies[session.replies.length - 1].id : after || 0;
+  return jsonResponse({ ok: true, replies, next }, 200, headers);
+}
+
+function handleOperatorUi(request: Request, headers: Record<string, string>) {
+  cleanupOperatorSessions();
+  const url = new URL(request.url);
+  const sessionId = cleanText(url.searchParams.get("session_id"), 120);
+  const token = cleanText(url.searchParams.get("operator_token"), 120);
+  const session = operatorSessions.get(sessionId);
+  const base = operatorBaseUrl(request);
+  const actionUrl = `${base}/operator/reply`;
+  if (!session || session.token !== token) {
+    return new Response(operatorUiHtml(sessionId, token, actionUrl, "Dieser Antwort-Link ist abgelaufen oder ungültig."), { status: 404, headers: { ...headers, "content-type": "text/html; charset=utf-8" } });
+  }
+  return new Response(operatorUiHtml(sessionId, token, actionUrl), { status: 200, headers: { ...headers, "content-type": "text/html; charset=utf-8" } });
+}
+
+async function handleOperatorReply(request: Request, raw: string, headers: Record<string, string>) {
+  cleanupOperatorSessions();
+  const payload = getRequestPayload(request, raw);
+  const sessionId = cleanText(payload.session_id, 120);
+  const token = cleanText(payload.operator_token, 120);
+  const message = cleanText(payload.message, 1200);
+  const session = operatorSessions.get(sessionId);
+  if (!session || session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
+  if (!message) return jsonResponse({ ok: false, error: "message_required" }, 400, headers);
+  session.replies.push({ id: session.nextId++, action: "operator_reply", message, created_at: new Date().toISOString() });
+  const acceptsHtml = (request.headers.get("accept") || "").includes("text/html") || (request.headers.get("content-type") || "").includes("application/x-www-form-urlencoded");
+  if (acceptsHtml) {
+    return new Response(operatorUiHtml(sessionId, token, `${operatorBaseUrl(request)}/operator/reply`, "Antwort wurde an den Website-Chat übergeben."), { status: 200, headers: { ...headers, "content-type": "text/html; charset=utf-8" } });
+  }
+  return jsonResponse({ ok: true, delivered: true, session_id: sessionId, next: session.nextId - 1 }, 200, headers);
+}
+
 async function handleLead(request: Request, payload: AssistantPayload, headers: Record<string, string>) {
   if (payload.confirmed !== true) {
     return jsonResponse({ error: "handoff requires confirmed consent" }, 400, headers);
@@ -285,18 +375,28 @@ async function handleLead(request: Request, payload: AssistantPayload, headers: 
   const limited = rateLimit(request);
   if (!limited.ok) return jsonResponse({ ok: false, fallback_reason: limited.fallback_reason }, 429, headers);
   const result = fallbackReply(payload, payload.fallback_reason || "confirmed_handoff");
-  const telegram = await notifyTelegram(formatLead(payload, result));
-  return jsonResponse({ ok: true, delivered: !telegram.skipped, telegram, fallback_reason: result.fallback_reason }, 200, headers);
+  const { sessionId, token } = createOperatorSession();
+  const replyUrl = `${operatorBaseUrl(request)}/operator/ui?session_id=${encodeURIComponent(sessionId)}&operator_token=${encodeURIComponent(token)}`;
+  const telegram = await notifyTelegram(formatLead(payload, result, sessionId, replyUrl));
+  return jsonResponse({ ok: true, delivered: !telegram.skipped, telegram, fallback_reason: result.fallback_reason, session_id: sessionId, operator_token: token, reply_url: replyUrl }, 200, headers);
 }
 
 Deno.serve(async (request) => {
   const headers = corsHeaders(request);
   if (request.method === "OPTIONS") return new Response(null, { status: isOriginAllowed(request) ? 204 : 403, headers });
   if (!isOriginAllowed(request)) return jsonResponse({ error: "origin not allowed" }, 403, headers);
-  if (request.method !== "POST") return jsonResponse({ error: "method not allowed" }, 405, headers);
-  const payload = await readJson(request);
-  if (!payload) return jsonResponse({ error: "invalid json" }, 400, headers);
   const pathname = new URL(request.url).pathname;
+  if (request.method === "GET") {
+    if (pathname.endsWith("/replies")) return await handleReplies(request, headers);
+    if (pathname.endsWith("/operator/ui")) return handleOperatorUi(request, headers);
+    return jsonResponse({ error: "method not allowed" }, 405, headers);
+  }
+  if (request.method !== "POST") return jsonResponse({ error: "method not allowed" }, 405, headers);
+  const raw = await request.text();
+  if (pathname.endsWith("/operator/reply")) return await handleOperatorReply(request, raw, headers);
+  let payload: AssistantPayload | null = null;
+  try { payload = JSON.parse(raw); } catch { payload = null; }
+  if (!payload) return jsonResponse({ error: "invalid json" }, 400, headers);
   if (pathname.endsWith("/lead") || pathname.endsWith("/escalate")) return await handleLead(request, payload, headers);
   return await handleChat(request, payload, headers);
 });

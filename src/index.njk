@@ -4299,6 +4299,14 @@ i18n.de['assistant.aiUnavailable'] = 'Aria-KI ist aktuell nicht erreichbar. Bitt
 i18n.en['assistant.aiUnavailable'] = 'Aria AI is currently unavailable. Please try again shortly or hand the conversation over to Patrick.';
 i18n.es['assistant.aiUnavailable'] = 'La IA de Aria no está disponible ahora. Inténtelo de nuevo en breve o entregue la conversación a Patrick.';
 i18n.zh['assistant.aiUnavailable'] = 'Aria AI 当前不可用。请稍后重试，或将对话转交给 Patrick。';
+i18n.de['assistant.outOfHoursContact'] = 'Patrick ist persönlich zwischen 08:00 und 17:00 Uhr erreichbar. Außerhalb dieser Zeit nutzen Sie bitte das Kontaktformular auf der Website; Aria kann Ihre technischen Punkte weiterhin vorqualifizieren.';
+i18n.en['assistant.outOfHoursContact'] = 'Patrick is personally available between 08:00 and 17:00. Outside these hours, please use the website contact form; Aria can still pre-qualify the technical points.';
+i18n.es['assistant.outOfHoursContact'] = 'Patrick está disponible personalmente entre las 08:00 y las 17:00. Fuera de este horario, utilice el formulario de contacto del sitio web; Aria puede seguir precalificando los puntos técnicos.';
+i18n.zh['assistant.outOfHoursContact'] = 'Patrick 个人可接手的时间为 08:00 至 17:00。此时间以外请使用网站联系表单；Aria 仍可继续预先整理技术要点。';
+i18n.de['assistant.contactFormButton'] = 'Zum Kontaktformular';
+i18n.en['assistant.contactFormButton'] = 'Open contact form';
+i18n.es['assistant.contactFormButton'] = 'Abrir formulario de contacto';
+i18n.zh['assistant.contactFormButton'] = '打开联系表单';
 
 /* =========================================================
    STATE  (declared up front — must exist before applyLang runs,
@@ -4562,7 +4570,8 @@ document.querySelectorAll('.faq-item').forEach(item => {
 
   const assistantConfig = Object.assign({
     mode: 'hybrid', endpoint: '', localDevEndpoint: '', remoteTestEndpoint: '', liveAiEnabled: false, fallbackEnabled: true,
-    handoffMode: 'telegram_review', timeoutMs: 9000, avatar: 'aria-assistant-avatar.jpg'
+    handoffMode: 'telegram_review', timeoutMs: 9000, avatar: 'aria-assistant-avatar.jpg',
+    availabilityTimezone: 'Europe/Berlin', availableFromHour: 8, availableUntilHour: 17
   }, window.DIETZ_ASSISTANT_CONFIG || {});
   const assistantParams = new URLSearchParams(window.location.search);
   const isLocalAssistantHost = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
@@ -4600,7 +4609,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
   let selectedTypeKey = 'assistant.typeEplan';
   let lastAssistantResult = null;
   let assistantTypingQueue = Promise.resolve();
-  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
+  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, contactFormActionShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
   const operator_decision_buttons = ['start_chat', 'let_aria_answer', 'end_chat'];
   const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
   const clean = (value, max = 900) => String(value || '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -4733,6 +4742,57 @@ document.querySelectorAll('.faq-item').forEach(item => {
     chatLog.appendChild(actions);
     chatLog.scrollTop = chatLog.scrollHeight;
     return actions;
+  }
+
+  function isPatrickLiveHandoffAvailable(now = new Date()) {
+    const timezone = assistantConfig.availabilityTimezone || 'Europe/Berlin';
+    const fromHour = Number(assistantConfig.availableFromHour ?? 8);
+    const untilHour = Number(assistantConfig.availableUntilHour ?? 17);
+    try {
+      const parts = new Intl.DateTimeFormat('en-GB', { timeZone: timezone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+        .formatToParts(now)
+        .reduce((acc, part) => { acc[part.type] = part.value; return acc; }, {});
+      const hour = Number(parts.hour || 0);
+      const minute = Number(parts.minute || 0);
+      const current = hour + minute / 60;
+      return current >= fromHour && current < untilHour;
+    } catch (error) {
+      const current = now.getHours() + now.getMinutes() / 60;
+      return current >= fromHour && current < untilHour;
+    }
+  }
+
+  function appendContactFormAction() {
+    if (!chatLog || guidedAssistantState.contactFormActionShown) return null;
+    guidedAssistantState.contactFormActionShown = true;
+    const actions = document.createElement('div');
+    actions.className = 'assistant-actions assistant-live-actions assistant-contact-form-action';
+    const button = document.createElement('button');
+    button.className = 'btn btn-secondary';
+    button.type = 'button';
+    button.textContent = assistantDict()['assistant.contactFormButton'] || 'Zum Kontaktformular';
+    button.addEventListener('click', () => {
+      fillBookingForm(buildAssistantSummary());
+      const booking = document.getElementById('booking');
+      if (booking) booking.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.location.hash = 'booking';
+    });
+    actions.appendChild(button);
+    chatLog.appendChild(actions);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    return actions;
+  }
+
+  function handleOutOfHoursPatrickRequest(summary = buildAssistantSummary()) {
+    guidedAssistantState.takeoverRequested = true;
+    guidedAssistantState.operatorWindowActive = false;
+    guidedAssistantState.ariaActive = false;
+    fillBookingForm(summary);
+    const message = assistantDict()['assistant.outOfHoursContact'] || 'Patrick ist persönlich zwischen 08:00 und 17:00 Uhr erreichbar. Außerhalb dieser Zeit nutzen Sie bitte das Kontaktformular auf der Website.';
+    appendChatMessage('aria', message);
+    appendContactFormAction();
+    setOutput(message);
+    return { ok: false, skipped: true, reason: 'outside_availability_window' };
   }
 
   function appendHandoffQuickActions() {
@@ -5136,6 +5196,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
 
   async function startPatrickHandoffFromChat(summary) {
     const dict = assistantDict();
+    if (!isPatrickLiveHandoffAvailable()) return handleOutOfHoursPatrickRequest(summary);
     fillBookingForm(summary);
     guidedAssistantState.patrickNotified = true;
     guidedAssistantState.ariaActive = false;
@@ -5390,6 +5451,10 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     const dict = assistantDict();
     guidedAssistantState.takeoverRequested = true;
     const summary = buildAssistantSummary();
+    if (!isPatrickLiveHandoffAvailable()) {
+      handleOutOfHoursPatrickRequest(summary);
+      return;
+    }
     if (getAssistantHandoffMissing(summary).length || !hasAssistantHandoffConsent()) {
       askForChatHandoffDetails(summary);
       return;
@@ -5451,6 +5516,10 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
 
     if (wantsPatrick) {
       guidedAssistantState.takeoverRequested = true;
+      if (!isPatrickLiveHandoffAvailable()) {
+        handleOutOfHoursPatrickRequest(summary);
+        return;
+      }
       if (getAssistantHandoffMissing(summary).length || !hasAssistantHandoffConsent()) {
         askForChatHandoffDetails(summary);
         return;
@@ -5472,8 +5541,12 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
 
   confirmBtn?.addEventListener('click', async () => {
     const dict = assistantDict();
-    if (!requireAssistantHandoffConsent(dict)) return;
     const summary = buildAssistantSummary();
+    if (!isPatrickLiveHandoffAvailable()) {
+      handleOutOfHoursPatrickRequest(summary);
+      return;
+    }
+    if (!requireAssistantHandoffConsent(dict)) return;
     const result = lastAssistantResult || buildAssistantFallbackReply(summary, 'manual_handoff');
     fillBookingForm(summary);
     try {

@@ -27,6 +27,7 @@ assert(config.includes('fallbackEnabled: true'), 'local fallback is enabled');
 assert(config.includes('avatar: "aria-assistant-avatar.jpg"'), 'Aria avatar is part of the public assistant config');
 assert(config.includes('handoffMode: "telegram_review"'), 'handoff mode targets Patrick review');
 assert(config.includes('operatorChannel: "telegram_private_group"'), 'operator channel is a private Telegram group, not a broadcast channel');
+assert(config.includes('availabilityTimezone: "Europe/Berlin"') && config.includes('availableFromHour: 8') && config.includes('availableUntilHour: 17'), 'Patrick live handoff is limited to 08:00-17:00 Europe/Berlin');
 assert(!/sk-[A-Za-z0-9_-]{20,}/.test(config), 'config contains no OpenAI secret');
 assert(!/\b\d{8,12}:[A-Za-z0-9_-]{25,}\b/.test(config), 'config contains no Telegram bot token');
 
@@ -64,6 +65,10 @@ assert(index.includes('if (!hasAssistantHandoffConsent()) return { ok: false, sk
 assert(!index.includes('<body data-chatbase-live="enabled">'), 'production page no longer hides Aria behind Chatbase by default');
 assert(index.includes('params.get(\'chatbase\')===\'fallback\'') && index.includes('https://www.chatbase.co/embed.min.js'), 'Chatbase remains available only as explicit fallback override');
 assert(index.includes('document.body.dataset.ariaPrimary = \'enabled\''), 'production marks Aria as the primary assistant');
+assert(index.includes('function isPatrickLiveHandoffAvailable(') && index.includes('function appendContactFormAction('), 'assistant checks Patrick availability and can show a contact-form action');
+assert(index.includes("availabilityTimezone: 'Europe/Berlin'") && index.includes("availableFromHour: 8") && index.includes("availableUntilHour: 17"), 'assistant default availability is 08:00-17:00 Europe/Berlin');
+assert(index.includes("window.location.hash = 'booking'") && index.includes("assistant.outOfHoursContact"), 'after-hours Patrick requests route users to the contact form');
+assert(index.includes("if (!isPatrickLiveHandoffAvailable())") && index.includes("appendContactFormAction()"), 'live Telegram handoff is blocked outside Patrick availability window');
 assert(index.includes('document.body.dataset.ariaLocalTest') && index.includes("ariaTestMode === 'remote'"), 'local website can expose Aria for remote Supabase handoff tests');
 const chatCallSegment = index.slice(index.indexOf('async function callAssistantEndpoint'), index.indexOf('async function sendAssistantLead'));
 assert(!chatCallSegment.includes('assistantContactName') && !chatCallSegment.includes('assistantContactContact'), 'normal chat call does not send contact details before confirmed handoff');
@@ -103,6 +108,9 @@ assert(fn.includes('Patrick prüft verbindliche Fragen persönlich'), 'server fu
 assert(fn.includes('Never invent email addresses') && fn.includes('official website contact details'), 'server prompt forbids fake contact details and invented email addresses');
 assert(fn.includes('Do not store or imply persistent visitor chat memory') && fn.includes('durable knowledge is curated DIETZ requirements'), 'server prompt separates durable curated knowledge from persistent chat memory');
 assert(fn.includes('Do not say you cannot contact Patrick directly') && fn.includes('private Telegram operator channel'), 'server prompt aligns Aria handoff wording with the configured Telegram operator channel');
+assert(fn.includes('operatorSessions') && fn.includes('handleOperatorReply') && fn.includes('handleReplies'), 'server function exposes production operator reply polling instead of routing Patrick replies back into AI chat');
+assert(fn.includes('session_id') && fn.includes('operator_token') && fn.includes('/operator/ui'), 'handoff response includes session id and protected operator UI link for Patrick replies');
+assert(fn.includes('POST, GET, OPTIONS'), 'CORS allows website reply polling GET requests');
 assert(fn.includes('Do not promise a callback time') && fn.includes('concrete response time'), 'server prompt forbids binding callback promises');
 assert(!/patrick\.dietz@elektroengineering\.de/i.test(fn + index + JSON.stringify(i18n)), 'assistant must not contain the previously invented email address');
 assert(!/sk-[A-Za-z0-9_-]{20,}/.test(fn), 'server function contains no OpenAI secret');
