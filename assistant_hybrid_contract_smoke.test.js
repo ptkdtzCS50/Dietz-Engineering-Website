@@ -123,7 +123,7 @@ assert(fn.includes('Herr Dietz prüft verbindliche Fragen persönlich'), 'server
 assert(fn.includes('Never invent email addresses') && fn.includes('official website contact details'), 'server prompt forbids fake contact details and invented email addresses');
 assert(fn.includes('customer-facing German answers formally as Herr Dietz') && fn.includes('Ja, Herr Dietz kann EPLAN-/Makro-Themen'), 'server-side Aria answers speak formally and positively about Herr Dietz');
 assert(fn.includes('Do not store or imply persistent visitor chat memory') && fn.includes('durable knowledge is curated DIETZ requirements'), 'server prompt separates durable curated knowledge from persistent chat memory');
-assert(fn.includes('Do not say you cannot contact Herr Dietz directly') && fn.includes('private Telegram operator channel'), 'server prompt aligns Aria handoff wording with the configured Telegram operator channel');
+assert(fn.includes('Do not say you cannot contact Mr Dietz directly') && fn.includes('privaten Telegram-Operator-Kanal') && fn.includes('an Herrn Dietz'), 'server prompt aligns Aria handoff wording with the configured Telegram operator channel and correct German case');
 assert(fn.includes('operatorSessions') && fn.includes('handleOperatorReply') && fn.includes('handleReplies'), 'server function exposes production operator reply polling instead of routing Patrick replies back into AI chat');
 assert(fn.includes('session_id') && fn.includes('operator_token') && fn.includes('operatorPublicUiUrl'), 'handoff response includes session id and protected public operator UI link for Patrick replies');
 assert(fn.includes('POST, GET, OPTIONS'), 'CORS allows website reply polling GET requests');
