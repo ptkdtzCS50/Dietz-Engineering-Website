@@ -2957,9 +2957,9 @@ body[data-aria-local-test="enabled"] .assistant-panel.open {
 .assistant-livechat .assistant-chat-compose,
 .assistant-livechat .assistant-output { flex: 0 0 auto; }
 .assistant-chat-log {
-  flex: 1 1 auto;
-  min-height: 0;
-  max-height: none;
+  flex: 0 0 auto;
+  min-height: 9.5rem;
+  max-height: min(34dvh, 18rem);
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
@@ -3018,6 +3018,7 @@ body[data-aria-local-test="enabled"] .assistant-panel.open {
   justify-content: flex-start;
   text-align: left;
   white-space: normal;
+  min-height: 2.75rem;
 }
 .assistant-lead-details {
   border: 1px solid var(--border);

@@ -146,7 +146,7 @@ assert(index.includes('[data-theme="light"] .privacy-backdrop'), 'privacy overla
 assert(index.includes('width: min(100%, 2172px);'), 'hero banner is not upscaled beyond native width');
 assert(index.includes('font-size: clamp(2.35rem, 4.9vw, 4.35rem);'), 'desktop hero headline is capped smaller for wide screens');
 assert(index.includes('.assistant-panel {\n  position: fixed;\n  right: 1.25rem;\n  top: 5.5rem;'), 'assistant panel is pinned below nav so close button remains reachable');
-assert(index.includes('max-height: none;') && index.includes('.assistant-body {\n  flex: 1 1 auto;\n  min-height: 0;') && index.includes('.assistant-chat-log {\n  flex: 1 1 auto;'), 'assistant panel uses full available height while keeping header/compose/footer visible');
+assert(index.includes('max-height: none;') && index.includes('.assistant-body {\n  flex: 1 1 auto;\n  min-height: 0;') && index.includes('.assistant-chat-log {\n  flex: 0 0 auto;\n  min-height: 9.5rem;\n  max-height: min(34dvh, 18rem);'), 'assistant panel keeps header/compose/footer visible and prevents the mobile chat log from collapsing');
 assert(index.includes('.assistant-close {\n  flex: 0 0 auto;\n  display: grid;'), 'assistant close button keeps a fixed accessible hit area');
 assert(!index.includes('Live-KI ist noch nicht für den öffentlichen Betrieb aktiviert'), 'public UI does not show non-working/live-disabled chatbot copy');
 assert(index.includes('Late mobile safety overrides') && index.includes('.process-grid {\n    grid-template-columns: 1fr;\n    gap: 2rem;') && index.includes('.proc-step h3,\n  .proc-step p {\n    text-align: left;'), 'mobile process cards stack full-width with readable left-aligned text');

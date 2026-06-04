@@ -294,7 +294,10 @@ function createOperatorSession() {
 
 function operatorBaseUrl(request: Request) {
   const url = new URL(request.url);
-  return `${url.origin}${url.pathname.replace(/\/?(?:lead|escalate|replies|operator\/(?:ui|reply))?$/, "")}`.replace(/\/$/, "");
+  const canonicalFunctionPath = "/functions/v1/assistant";
+  const normalizedPath = url.pathname.replace(/\/?(?:lead|escalate|replies|operator\/(?:ui|reply))?$/, "").replace(/\/$/, "");
+  if (normalizedPath.endsWith(canonicalFunctionPath)) return `${url.origin}${normalizedPath}`;
+  return `${url.origin}${canonicalFunctionPath}`;
 }
 
 function operatorUiHtml(sessionId: string, token: string, actionUrl: string, notice = "") {
