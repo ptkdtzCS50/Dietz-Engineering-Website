@@ -4639,7 +4639,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
   let lastAssistantResult = null;
   let assistantTypingQueue = Promise.resolve();
   let assistantGreetingAppended = false;
-  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, contactFormActionShown: false, startQuestionsShown: false, outOfHoursNoticeShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
+  const guidedAssistantState = { turns: 0, lastQuestionKey: '', takeoverRequested: false, operatorTimer: null, operatorCountdownTimer: null, operatorWindowActive: false, aiFallbackStarted: false, ariaActive: false, patrickNotified: false, contactActionShown: false, contactFormActionShown: false, startQuestionsShown: false, outOfHoursNoticeShown: false, operatorCountdownBubble: null, awaitingField: '', answeredEplanIntro: false, sessionId: '', replyCursor: 0, replyPollTimer: null, operatorReplyPollInFlight: false, renderedOperatorReplyIds: new Set(), operatorActive: false, operatorActiveNoticeShown: false, chatHistory: [] };
   const operator_decision_buttons = ['start_chat', 'let_aria_answer', 'end_chat'];
   const assistantDict = () => i18n[langSelect?.value || 'de'] || i18n.de;
   const clean = (value, max = 900) => String(value || '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -5167,6 +5167,10 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
   function startOperatorReplyPolling(sessionId) {
     const endpoint = clean(assistantConfig.endpoint, 600);
     if (!endpoint || !sessionId) return;
+    if (guidedAssistantState.sessionId !== sessionId) {
+      guidedAssistantState.replyCursor = 0;
+      guidedAssistantState.renderedOperatorReplyIds.clear();
+    }
     guidedAssistantState.sessionId = sessionId;
     if (guidedAssistantState.replyPollTimer) clearInterval(guidedAssistantState.replyPollTimer);
     pollOperatorReplies();
@@ -5176,13 +5180,19 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
   async function pollOperatorReplies() {
     const endpoint = clean(assistantConfig.endpoint, 600);
     const sessionId = guidedAssistantState.sessionId;
-    if (!endpoint || !sessionId) return;
+    if (!endpoint || !sessionId || guidedAssistantState.operatorReplyPollInFlight) return;
+    guidedAssistantState.operatorReplyPollInFlight = true;
     const base = endpoint.replace(/\/?$/, '');
     try {
       const response = await fetch(`${base}/replies?session_id=${encodeURIComponent(sessionId)}&after=${guidedAssistantState.replyCursor}`);
       const data = await response.json().catch(() => ({}));
       if (!response.ok || !data.ok) return;
+      const newReplies = [];
       (data.replies || []).forEach(reply => {
+        const replyKey = `${reply?.id || reply?.reply_id || ''}:${reply?.action || ''}:${reply?.message || ''}`;
+        if (!reply?.message || guidedAssistantState.renderedOperatorReplyIds.has(replyKey)) return;
+        guidedAssistantState.renderedOperatorReplyIds.add(replyKey);
+        newReplies.push(reply);
         if (reply?.action === 'start_chat' || reply?.action === 'operator_reply') {
           guidedAssistantState.operatorActive = true;
           guidedAssistantState.ariaActive = false;
@@ -5194,7 +5204,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
             guidedAssistantState.operatorActiveNoticeShown = true;
           }
         }
-        if (reply?.message) appendChatMessage('aria', reply.message);
+        appendChatMessage('aria', reply.message);
         if (reply?.action === 'end_chat') {
           guidedAssistantState.operatorActive = false;
           if (guidedAssistantState.replyPollTimer) clearInterval(guidedAssistantState.replyPollTimer);
@@ -5202,9 +5212,10 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
         }
       });
       guidedAssistantState.replyCursor = Number(data.next || guidedAssistantState.replyCursor);
-      if ((data.replies || []).length && guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
-      if ((data.replies || []).length) { guidedAssistantState.operatorWindowActive = false; stopOperatorWindowCountdown(); }
+      if (newReplies.length && guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
+      if (newReplies.length) { guidedAssistantState.operatorWindowActive = false; stopOperatorWindowCountdown(); }
     } catch (error) { /* local dev polling should stay quiet */ }
+    finally { guidedAssistantState.operatorReplyPollInFlight = false; }
   }
 
   async function notifyPatrickForLiveChat(summary) {

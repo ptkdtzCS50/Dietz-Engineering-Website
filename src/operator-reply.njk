@@ -8,48 +8,69 @@
   <style>
     :root{
       color-scheme:dark;
-      --bg:#070b13;--panel:#0f1726;--panel2:#121c2f;--text:#f7f9fc;--muted:#aeb8ce;
-      --gold:#f0c36a;--gold2:#ffd985;--line:rgba(255,255,255,.14);--blue:#7aa7ff;
-      --shadow:0 24px 80px rgba(0,0,0,.42);--radius:28px;
+      --bg:#050914;--bg2:#0c1323;--panel:#101a2e;--panel2:#142039;--text:#f7f9fc;--muted:#aeb8ce;
+      --gold:#f0c36a;--gold2:#ffd985;--line:rgba(255,255,255,.14);--blue:#7aa7ff;--ok:#69e3a7;
+      --shadow:0 28px 90px rgba(0,0,0,.46);--radius:30px;--radius2:20px;
     }
-    *{box-sizing:border-box} body{margin:0;min-height:100dvh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 12% 0%,rgba(240,195,106,.18),transparent 28rem),linear-gradient(145deg,#070b13 0%,#0b1220 48%,#111827 100%);color:var(--text);line-height:1.55}
-    .dietz-shell{width:min(1120px,100% - 32px);margin:0 auto;padding:22px 0 42px}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:clamp(2rem,7vw,5rem)}
-    .brand{display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--text);font-weight:900;letter-spacing:.02em}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--gold),#fff1ba);color:#15100a;display:grid;place-items:center;font-weight:950;box-shadow:0 10px 30px rgba(240,195,106,.22)}
-    .pill{border:1px solid var(--line);border-radius:999px;padding:.55rem .85rem;color:var(--muted);font-size:.9rem;background:rgba(255,255,255,.04)}
-    .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,420px);gap:1.25rem;align-items:stretch}.card{background:linear-gradient(180deg,rgba(18,28,47,.92),rgba(11,18,32,.96));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1.15rem,4vw,2rem)}
-    .eyebrow{color:var(--gold2);font-weight:850;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;margin:0 0 .75rem}h1{font-size:clamp(2rem,6vw,4.2rem);line-height:.98;margin:.1rem 0 1rem;letter-spacing:-.045em}.lead{color:var(--muted);font-size:clamp(1rem,2vw,1.16rem);max-width:64ch;margin:0}
-    .timeline{display:flex;flex-direction:column;gap:.85rem;margin-top:1.35rem;max-height:min(46dvh,520px);overflow:auto;padding-right:.15rem;overscroll-behavior:contain}.empty{border:1px dashed var(--line);border-radius:20px;padding:1rem;color:var(--muted);background:rgba(255,255,255,.03)}
-    .msg{border:1px solid var(--line);border-radius:20px;padding:.85rem 1rem;background:rgba(255,255,255,.045)}.msg[data-role="customer"]{border-color:rgba(122,167,255,.38);background:rgba(122,167,255,.10)}.msg[data-role="patrick"]{border-color:rgba(240,195,106,.45);background:rgba(240,195,106,.11)}.msg-role{display:block;font-size:.78rem;color:var(--gold2);font-weight:900;text-transform:uppercase;letter-spacing:.09em;margin-bottom:.35rem}.msg[data-role="customer"] .msg-role{color:#9dbdff}.msg-text{white-space:pre-wrap;color:#eef3ff}.msg-time{display:block;margin-top:.35rem;color:var(--muted);font-size:.78rem}
-    label{display:block;font-weight:850;margin:.7rem 0 .45rem}textarea{width:100%;min-height:11rem;resize:vertical;border-radius:22px;border:1px solid rgba(255,255,255,.22);background:#0b1324;color:var(--text);padding:1rem;font:inherit;outline:none}textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(240,195,106,.15)}
-    button{margin-top:1rem;border:0;border-radius:999px;padding:.95rem 1.3rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#17120a;font-weight:950;min-height:46px;box-shadow:0 16px 36px rgba(240,195,106,.25)}button:disabled{opacity:.55}.notice{padding:1rem;border-radius:18px;background:rgba(240,195,106,.12);border:1px solid rgba(240,195,106,.28);margin:1rem 0}.muted{color:var(--muted)}.hidden{display:none!important}.status{min-height:1.5rem;color:var(--muted);font-size:.92rem}
-    @media(max-width:820px){.dietz-shell{width:min(100% - 24px,1120px);padding-top:16px}.topbar{align-items:flex-start}.pill{display:none}.hero{grid-template-columns:1fr}.card{border-radius:24px}.timeline{max-height:38dvh}h1{font-size:clamp(2.3rem,11vw,3.5rem)}}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100dvh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 8% -8%,rgba(240,195,106,.23),transparent 26rem),radial-gradient(circle at 88% 2%,rgba(122,167,255,.14),transparent 28rem),linear-gradient(145deg,var(--bg) 0%,var(--bg2) 52%,#101827 100%);color:var(--text);line-height:1.55}
+    .dietz-shell{width:min(1180px,100% - 32px);margin:0 auto;padding:22px 0 46px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:clamp(1.5rem,4vw,3.8rem)}
+    .brand{display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--text);font-weight:950;letter-spacing:.02em}.mark{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,var(--gold),#fff1ba);color:#15100a;display:grid;place-items:center;font-weight:950;box-shadow:0 12px 30px rgba(240,195,106,.24)}
+    .top-actions{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;justify-content:flex-end}.pill{border:1px solid var(--line);border-radius:999px;padding:.58rem .9rem;color:var(--muted);font-size:.9rem;background:rgba(255,255,255,.045)}.pill.gold{color:var(--gold2);border-color:rgba(240,195,106,.34);background:rgba(240,195,106,.08)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(320px,.84fr);gap:1.15rem;align-items:stretch}.operator-panel{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(20,32,57,.94),rgba(9,15,29,.97));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1.1rem,3.2vw,2rem)}
+    .operator-panel::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(240,195,106,.14),transparent 34%,rgba(122,167,255,.08));opacity:.9}.operator-panel>*{position:relative}.eyebrow{color:var(--gold2);font-weight:900;text-transform:uppercase;letter-spacing:.13em;font-size:.78rem;margin:0 0 .7rem}h1{font-size:clamp(2.15rem,5.8vw,4.5rem);line-height:.96;margin:.1rem 0 1rem;letter-spacing:-.05em}.lead{color:var(--muted);font-size:clamp(1rem,2vw,1.16rem);max-width:66ch;margin:0}
+    .operator-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem;margin-top:1.1rem}.operator-kpi{border:1px solid var(--line);border-radius:18px;padding:.78rem .85rem;background:rgba(255,255,255,.045)}.operator-kpi strong{display:block;font-size:.8rem;color:var(--gold2);letter-spacing:.08em;text-transform:uppercase}.operator-kpi span{display:block;color:var(--muted);font-size:.9rem;margin-top:.18rem}
+    .timeline{display:flex;flex-direction:column;gap:.85rem;margin-top:1.1rem;max-height:min(47dvh,540px);overflow:auto;padding-right:.15rem;overscroll-behavior:contain}.empty{border:1px dashed var(--line);border-radius:20px;padding:1rem;color:var(--muted);background:rgba(255,255,255,.035)}
+    .msg{border:1px solid var(--line);border-radius:20px;padding:.85rem 1rem;background:rgba(255,255,255,.048)}.msg[data-role="customer"]{border-color:rgba(122,167,255,.4);background:rgba(122,167,255,.105)}.msg[data-role="patrick"]{border-color:rgba(240,195,106,.48);background:rgba(240,195,106,.12)}.msg-role{display:block;font-size:.76rem;color:var(--gold2);font-weight:950;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem}.msg[data-role="customer"] .msg-role{color:#a8c4ff}.msg-text{white-space:pre-wrap;color:#eef3ff}.msg-time{display:block;margin-top:.35rem;color:var(--muted);font-size:.78rem}
+    label{display:block;font-weight:900;margin:.75rem 0 .45rem}.compose-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.4rem}.status-dot{display:inline-flex;align-items:center;gap:.38rem;color:var(--muted);font-size:.88rem}.status-dot::before{content:"";width:.58rem;height:.58rem;border-radius:999px;background:var(--ok);box-shadow:0 0 0 5px rgba(105,227,167,.11)}textarea{width:100%;min-height:12rem;resize:vertical;border-radius:22px;border:1px solid rgba(255,255,255,.22);background:#0b1324;color:var(--text);padding:1rem;font:inherit;outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(240,195,106,.15)}
+    button{margin-top:1rem;border:0;border-radius:999px;padding:1rem 1.35rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#17120a;font-weight:950;min-height:48px;box-shadow:0 18px 40px rgba(240,195,106,.26);cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.notice,.review-box{padding:1rem;border-radius:20px;background:rgba(240,195,106,.12);border:1px solid rgba(240,195,106,.28);margin:1rem 0}.review-box{background:rgba(122,167,255,.08);border-color:rgba(122,167,255,.24)}.review-box strong{color:#cfe0ff}.muted{color:var(--muted)}.hidden{display:none!important}.status{min-height:1.5rem;color:var(--muted);font-size:.92rem}.fineprint{font-size:.86rem;color:var(--muted);margin-top:.8rem}.actions-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.secondary-link{color:var(--gold2);text-decoration:none;font-weight:850}
+    @media(max-width:860px){.dietz-shell{width:min(100% - 24px,1180px);padding-top:16px}.topbar{align-items:flex-start}.top-actions .pill:not(.gold){display:none}.hero{grid-template-columns:1fr}.operator-panel{border-radius:24px}.operator-kpis{grid-template-columns:1fr}.timeline{max-height:38dvh}h1{font-size:clamp(2.35rem,11vw,3.55rem)}}
   </style>
 </head>
 <body>
   <div class="dietz-shell" data-operator-console>
     <header class="topbar">
       <a class="brand" href="/" aria-label="Dietz Engineering"><span class="mark">D</span><span>Dietz Engineering</span></a>
-      <span class="pill">Privater Operator-Kanal</span>
+      <div class="top-actions">
+        <span class="pill gold">Aria Livechat</span>
+        <span class="pill">Privater Operator-Kanal</span>
+      </div>
     </header>
     <section class="hero">
-      <article class="card">
-        <p class="eyebrow">Aria Livechat</p>
+      <article class="operator-panel">
+        <p class="eyebrow">DIETZ Operator Console</p>
         <h1>Antwort an Website-Chat</h1>
-        <p class="lead">Hier siehst du den aktuellen Besucher-Verlauf und kannst direkt im Website-Chat antworten.</p>
+        <p class="lead">Aktueller Besucher-Verlauf, Patrick-Antworten und Livechat-Status in einer Oberfläche passend zur DIETZ-Website.</p>
+        <div class="operator-kpis" aria-label="Operator Status">
+          <div class="operator-kpi"><strong>Kanal</strong><span>Website-Chat</span></div>
+          <div class="operator-kpi"><strong>Rolle</strong><span>Herr Dietz übernimmt</span></div>
+          <div class="operator-kpi"><strong>Status</strong><span>Verlauf pollt automatisch</span></div>
+        </div>
         <div id="missingNotice" class="notice hidden">Der Antwort-Link ist unvollständig. Bitte den vollständigen Telegram-Link erneut öffnen.</div>
         <div id="operatorTimeline" class="timeline" aria-live="polite"><div class="empty">Chatverlauf wird geladen …</div></div>
       </article>
-      <aside class="card">
+      <aside class="operator-panel">
+        <div class="compose-head">
+          <p class="eyebrow" style="margin:0">Antwort verfassen</p>
+          <span class="status-dot">Live bereit</span>
+        </div>
         <form id="replyForm" method="post" action="https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant/operator/reply">
           <input type="hidden" name="session_id" id="sessionId">
           <input type="hidden" name="operator_token" id="operatorToken">
           <label for="message">Nachricht von Patrick</label>
           <textarea id="message" name="message" autofocus required placeholder="Antwort für den Website-Besucher ..."></textarea>
-          <button id="sendButton" type="submit">Antwort senden</button>
+          <div class="review-box" data-review-boundary="no-auto-translation">
+            <strong>Nachbearbeitung / Übersetzung</strong><br>
+            Deine Nachricht wird unverändert an den Website-Chat gesendet. Aktuell gibt es live keine automatische Grammatik-Korrektur und keine automatische Übersetzung. Antwort vorher selbst prüfen, besonders bei Englisch, Spanisch oder Chinesisch.
+          </div>
+          <div class="actions-row">
+            <button id="sendButton" type="submit">Antwort senden</button>
+            <a class="secondary-link" href="/">Zur Website</a>
+          </div>
         </form>
         <p id="operatorStatus" class="status">Bereit.</p>
-        <p class="muted">Die Antwort wird in den aktuellen Website-Chat gelegt. Der Verlauf aktualisiert sich automatisch.</p>
+        <p class="fineprint">Die Antwort wird in den aktuellen Website-Chat gelegt. Der Verlauf aktualisiert sich automatisch; doppelte Polling-Antworten werden im Besucherchat clientseitig abgefangen.</p>
       </aside>
     </section>
   </div>

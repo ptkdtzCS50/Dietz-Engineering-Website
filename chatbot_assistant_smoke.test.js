@@ -94,6 +94,8 @@ assert(index.includes('guidedAssistantState.operatorActive'), 'assistant enters 
 assert(index.includes('function forwardCustomerMessageToOperator('), 'assistant forwards follow-up customer messages to Patrick while operator mode is active');
 assert(index.includes('fetch(`${base}/operator/customer-message`'), 'customer follow-up forwarding must call the canonical assistant /operator/customer-message path, not /functions/v1/operator/customer-message');
 assert(index.includes('setInterval(pollOperatorReplies, 1200)'), 'assistant polls operator replies quickly enough for local livechat testing');
+assert(index.includes('operatorReplyPollInFlight'), 'assistant prevents overlapping operator reply polls from rendering the same Patrick answer multiple times on slow mobile networks');
+assert(index.includes('renderedOperatorReplyIds') && index.includes('replyKey') && index.includes('renderedOperatorReplyIds.add(replyKey)'), 'assistant de-duplicates already rendered operator replies by stable reply id/action/message key');
 assert(index.includes('function updateGuidedSummaryFromMessageIntent('), 'assistant detects timeline/contact/price/drive-count intents from natural chat messages');
 assert(i18n.de['assistant.priceBoundary'].includes('keinen belastbaren Preis'), 'assistant answers price questions with a practical non-binding boundary instead of repeating contact prompts');
 assert(i18n.de['assistant.operatorActiveNotice'].includes('übernimmt jetzt den Chat'), 'customer sees that Patrick, not Aria, has taken over the chat');

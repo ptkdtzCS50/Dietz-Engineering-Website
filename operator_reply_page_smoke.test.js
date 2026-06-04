@@ -14,5 +14,9 @@ assert(page.includes('dietz-shell') && page.includes('Dietz Engineering'), 'oper
 assert(page.includes('new URLSearchParams(window.location.search)'), 'operator reply page must read protected query parameters from the Telegram link');
 assert(page.includes('name="session_id"') && page.includes('name="operator_token"'), 'operator reply page must forward session id and operator token');
 assert(page.includes('Der Antwort-Link ist unvollständig'), 'operator reply page must show a clear notice for incomplete links');
+assert(page.includes('operator-panel') && page.includes('operator-kpi') && page.includes('status-dot'), 'operator reply page must visually match the premium DIETZ website card system');
+assert(page.includes('Nachbearbeitung / Übersetzung') && page.includes('wird unverändert an den Website-Chat gesendet'), 'operator page must state that live replies are not silently rewritten or translated');
+assert(page.includes('data-review-boundary="no-auto-translation"'), 'operator page must expose a review boundary marker for no automatic live translation');
+assert(page.includes('Antwort vorher selbst prüfen'), 'operator page must remind Patrick to manually review grammar/translation before sending');
 
 console.log('operator_reply_page_smoke.test.js: OK');
