@@ -4963,25 +4963,37 @@ document.querySelectorAll('.faq-item').forEach(item => {
     return { ok: false, skipped: true, reason: 'outside_availability_window' };
   }
 
-  function appendHandoffQuickActions() {
+  function buildLocalizedHandoffExampleMessage(summary = {}) {
+    const dict = assistantDict();
+    const scope = summary.scope && summary.scope !== dict['assistant.scopeFallback'] ? summary.scope : dict['assistant.handoffExampleTopicFallback'];
+    return [
+      `${dict['assistant.handoffExampleName']}: Max Mustermann`,
+      `${dict['assistant.handoffExampleContact']}: max@example.de ${dict['assistant.handoffExampleOr']} +49 ...`,
+      `${dict['assistant.handoffExampleTopic']}: ${scope}`,
+      dict['assistant.handoffConsentPhrase']
+    ].filter(Boolean).join('\n');
+  }
+
+  function appendHandoffQuickActions(summary = {}) {
     if (!chatLog) return null;
     const actions = document.createElement('div');
     actions.className = 'assistant-actions assistant-live-actions';
-    const addButton = (label, handler) => {
+    const addButton = (key, handler) => {
       const button = document.createElement('button');
       button.className = 'btn btn-secondary';
       button.type = 'button';
-      button.textContent = label;
+      button.setAttribute('data-i18n-key', key);
+      button.textContent = assistantDict()[key] || key;
       button.addEventListener('click', handler);
       actions.appendChild(button);
     };
-    addButton('Beispiel einfügen', () => {
+    addButton('assistant.handoffExampleInsert', () => {
       if (chatInput) {
-        chatInput.value = 'Name: Max Mustermann\nKontakt: max@example.de\nThema: kurze Projektbeschreibung\nIch stimme der Übergabe an Herrn Dietz zu.';
+        chatInput.value = buildLocalizedHandoffExampleMessage(summary);
         chatInput.focus();
       }
     });
-    addButton('Herrn Dietz informieren', () => requestLiveTakeover());
+    addButton('assistant.handoffNotifyDietz', () => requestLiveTakeover());
     chatLog.appendChild(actions);
     chatLog.scrollTop = chatLog.scrollHeight;
     return actions;
@@ -5349,7 +5361,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     guidedAssistantState.awaitingField = 'handoff_contact';
     appendChatMessage('aria', dict['assistant.handoffPrivacyNotice']);
     appendChatMessage('aria', dict['assistant.consentRequired']);
-    appendHandoffQuickActions();
+    appendHandoffQuickActions(summary);
     setOutput(`${dict['assistant.handoffPrivacyNotice']}\n\n${dict['assistant.consentRequired']}`);
     return false;
   }
@@ -5365,12 +5377,20 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     const missing = getAssistantHandoffMissing(summary);
     guidedAssistantState.takeoverRequested = true;
     guidedAssistantState.awaitingField = 'handoff_contact';
-    const privacyNotice = assistantDict()['assistant.handoffPrivacyNotice'];
+    const dict = assistantDict();
+    const privacyNotice = dict['assistant.handoffPrivacyNotice'];
+    const consentPhrase = dict['assistant.handoffConsentPhrase'];
+    const example = buildLocalizedHandoffExampleMessage(summary);
     const text = missing.length
-      ? `Gerne. Bitte schreiben Sie die fehlenden Angaben direkt hier in den Chat, zum Beispiel:\n\nName: Max Mustermann\nKontakt: max@example.de oder +49 ...\nThema: ${summary.scope && summary.scope !== assistantDict()['assistant.scopeFallback'] ? summary.scope : 'kurze Projektbeschreibung'}\n\n${privacyNotice}\n\nWenn Sie einverstanden sind, schreiben Sie dazu: „Ich stimme der Übergabe an Herrn Dietz zu.“`
-      : `${privacyNotice}\n\nDanke, die Angaben sind vollständig. Bitte bestätigen Sie noch kurz im Chat: „Ich stimme der Übergabe an Herrn Dietz zu.“`;
+      ? (dict['assistant.handoffDetailsPrompt'] || '{example}\n\n{privacy}\n\n{consent}')
+          .replace('{example}', example)
+          .replace('{privacy}', privacyNotice)
+          .replace('{consent}', consentPhrase)
+      : (dict['assistant.handoffCompletePrompt'] || '{privacy}\n\n{consent}')
+          .replace('{privacy}', privacyNotice)
+          .replace('{consent}', consentPhrase);
     appendChatMessage('aria', text);
-    appendHandoffQuickActions();
+    appendHandoffQuickActions(summary);
     setOutput(text);
   }
 
