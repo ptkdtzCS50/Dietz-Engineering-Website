@@ -57,10 +57,13 @@ assert(index.includes('assistant.takeover'), 'assistant exposes a customer-facin
 assert(index.includes('assistant-chat-log'), 'assistant is presented as a real chat log, not a form-first wizard');
 assert(index.includes('assistantChatInput'), 'assistant has a direct free-text chat input');
 
-assert(index.includes('id="assistantChatVoice"') && index.includes('SpeechRecognition || window.webkitSpeechRecognition'), 'assistant chat has a guarded speech-recognition microphone button wired to the chat input');
+assert(!index.includes('id="assistantChatVoice"') && !index.includes('SpeechRecognition') && !index.includes('webkitSpeechRecognition'), 'assistant chat must not expose microphone/speech-recognition UI');
+assert(!index.includes('assistant.voiceStart') && !index.includes('assistant.voiceUnsupported'), 'voice input i18n keys must be removed when speech input is disabled');
 assert(index.includes('function endAssistantLiveChat(') && index.includes('/operator/end'), 'visitor chat can explicitly end an operator livechat through the backend');
 assert(index.includes("assistantDict()['assistant.chatEndedThanks']") && index.includes('chatInput.disabled = true'), 'visitor sees a thank-you message and input is disabled after chat end');
 assert(index.includes('guidedAssistantState.chatEnded'), 'assistant state tracks closed chats so Aria does not continue after end_chat');
+assert(index.includes('id="privacyLanguage"') && index.includes('function syncPrivacyLanguageSelect('), 'privacy dialog exposes language choice and a real configurable details panel');
+assert(index.includes("customizeBtn.setAttribute('aria-expanded'"), 'privacy configure button updates expanded state instead of appearing dead');
 assert(i18n.de['assistant.chatEndedThanks'].includes('Vielen Dank'), 'German visitor end-chat thank-you copy exists');
 assert(i18n.en['assistant.chatEndedThanks'].includes('Thank you'), 'English visitor end-chat thank-you copy exists');
 assert(index.includes('assistantTeaser') && index.includes('assistant-teaser-close') && index.includes('aria_assistant_teaser_dismissed_v1'), 'assistant launcher has a dismissible greeting teaser bubble');

@@ -2590,6 +2590,30 @@ html[lang="es"] .trust-label {
 }
 .privacy-content p:last-child { margin-bottom: 0; }
 .privacy-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.privacy-language {
+  margin: 1rem 0 0;
+  padding: 0.9rem 1rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+.privacy-language label {
+  display: block;
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+}
+.privacy-language select {
+  width: 100%;
+  min-height: 2.45rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+}
 .privacy-details {
   margin: 1rem 0 0;
   padding: 1rem 1.1rem;
@@ -2991,13 +3015,12 @@ body[data-aria-local-test="enabled"] .assistant-panel.open {
 }
 .assistant-chat-compose {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto;
   gap: 0.65rem;
   align-items: end;
 }
 .assistant-chat-compose textarea { min-height: 48px; resize: vertical; }
-.assistant-voice-btn, .assistant-end-btn { min-width: 3rem; padding-inline: 0.85rem; }
-.assistant-voice-btn[aria-pressed="true"] { box-shadow: 0 0 0 4px rgba(240,195,106,.2); }
+.assistant-end-btn { min-width: 3rem; padding-inline: 0.85rem; }
 .assistant-end-btn { border-color: rgba(160, 64, 64, 0.34); color: #8b1f1f; }
 .assistant-live-actions .btn { flex: 1; }
 .assistant-chat-log .assistant-live-actions {
@@ -4200,7 +4223,6 @@ body.assistant-panel-open .assistant-teaser {
 
     <div class="assistant-chat-compose">
       <textarea id="assistantChatInput" maxlength="900" rows="2" placeholder="Nachricht schreiben …" data-i18n-placeholder="assistant.inputPh"></textarea>
-      <button class="btn btn-secondary assistant-voice-btn" id="assistantChatVoice" type="button" aria-pressed="false" data-i18n-aria-label="assistant.voiceStart" aria-label="Spracheingabe starten">🎙️</button>
       <button class="btn btn-primary" id="assistantChatSend" type="button" data-i18n="assistant.send">Senden</button>
     </div>
     <button class="btn btn-secondary assistant-end-btn" id="assistantChatEnd" type="button" data-i18n="assistant.endChat">Gespräch beenden</button>
@@ -4277,6 +4299,16 @@ body.assistant-panel-open .assistant-teaser {
       <p data-i18n="pv.rights">Du hast das Recht, nicht einzuwilligen oder deine Einwilligung jederzeit zu widerrufen.</p>
     </div>
 
+    <div class="privacy-language">
+      <label for="privacyLanguage" data-i18n="pv.languageLabel">Sprache der Website und Aria-Antworten</label>
+      <select id="privacyLanguage" aria-label="Sprache der Website und Aria-Antworten">
+        <option value="de">Deutsch</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="zh">中文</option>
+      </select>
+    </div>
+
     <div class="privacy-details" id="privacyDetails" hidden>
       <h3 data-i18n="pv.detailsTitle">// Was gespeichert wird</h3>
       <ul>
@@ -4349,14 +4381,6 @@ i18n.de['assistant.chatEndedThanks'] = 'Vielen Dank. Der Livechat wurde beendet.
 i18n.en['assistant.chatEndedThanks'] = 'Thank you. The live chat has been ended. Mr Dietz / DIETZ Engineering wishes you a pleasant day.';
 i18n.es['assistant.chatEndedThanks'] = 'Gracias. El chat en directo ha finalizado. El Sr. Dietz / DIETZ Engineering le desea un buen día.';
 i18n.zh['assistant.chatEndedThanks'] = '谢谢。实时聊天已结束。Dietz 先生 / DIETZ Engineering 祝您一切顺利。';
-i18n.de['assistant.voiceStart'] = 'Spracheingabe starten';
-i18n.en['assistant.voiceStart'] = 'Start voice input';
-i18n.es['assistant.voiceStart'] = 'Iniciar entrada de voz';
-i18n.zh['assistant.voiceStart'] = '开始语音输入';
-i18n.de['assistant.voiceUnsupported'] = 'Die Spracherkennung wird in diesem Browser nicht unterstützt. Bitte schreiben Sie Ihre Nachricht.';
-i18n.en['assistant.voiceUnsupported'] = 'Speech recognition is not supported in this browser. Please type your message.';
-i18n.es['assistant.voiceUnsupported'] = 'El reconocimiento de voz no está disponible en este navegador. Escriba su mensaje.';
-i18n.zh['assistant.voiceUnsupported'] = '此浏览器不支持语音识别。请直接输入消息。';
 
 /* =========================================================
    STATE  (declared up front — must exist before applyLang runs,
@@ -4612,7 +4636,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
   const chatLog = document.getElementById('assistantChatLog');
   const chatInput = document.getElementById('assistantChatInput');
   const chatSendBtn = document.getElementById('assistantChatSend');
-  const chatVoiceBtn = document.getElementById('assistantChatVoice');
   const chatEndBtn = document.getElementById('assistantChatEnd');
   const aiConsentGate = document.getElementById('assistantAiConsentGate');
   const aiConsentAccept = document.getElementById('assistantAiConsentAccept');
@@ -4787,7 +4810,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
     appendChatMessage('aria', message || assistantDict()['assistant.chatEndedThanks']);
     if (chatInput) chatInput.disabled = true;
     if (chatSendBtn) chatSendBtn.disabled = true;
-    if (chatVoiceBtn) chatVoiceBtn.disabled = true;
     if (chatEndBtn) chatEndBtn.disabled = true;
   }
 
@@ -4806,31 +4828,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
       } catch (error) { /* Chat can still close locally if network is unavailable. */ }
     }
     setChatEndedUi(message);
-  }
-
-  function setupAssistantSpeechRecognition() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!chatVoiceBtn) return;
-    if (!SpeechRecognition) {
-      chatVoiceBtn.addEventListener('click', () => appendChatMessage('aria', assistantDict()['assistant.voiceUnsupported']));
-      return;
-    }
-    const recognizer = new SpeechRecognition();
-    guidedAssistantState.speechRecognizer = recognizer;
-    recognizer.continuous = false;
-    recognizer.interimResults = false;
-    recognizer.lang = ({ de: 'de-DE', en: 'en-US', es: 'es-ES', zh: 'zh-CN' }[langSelect?.value || 'de'] || 'de-DE');
-    recognizer.onstart = () => chatVoiceBtn.setAttribute('aria-pressed', 'true');
-    recognizer.onend = () => chatVoiceBtn.setAttribute('aria-pressed', 'false');
-    recognizer.onerror = () => appendChatMessage('aria', assistantDict()['assistant.voiceUnsupported']);
-    recognizer.onresult = (event) => {
-      const transcript = Array.from(event.results || []).map(result => result?.[0]?.transcript || '').join(' ').trim();
-      if (transcript && chatInput) { chatInput.value = clean(`${chatInput.value} ${transcript}`, 900); chatInput.focus(); }
-    };
-    chatVoiceBtn.addEventListener('click', () => {
-      try { recognizer.lang = ({ de: 'de-DE', en: 'en-US', es: 'es-ES', zh: 'zh-CN' }[langSelect?.value || 'de'] || 'de-DE'); recognizer.start(); }
-      catch (error) { try { recognizer.stop(); } catch (_) {} }
-    });
   }
 
   function waitForAssistantTyping(ms) {
@@ -5698,7 +5695,6 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     await answerWithAria(summary, 'local_aria_followup', capturedField);
   }
 
-  setupAssistantSpeechRecognition();
   chatEndBtn?.addEventListener('click', () => endAssistantLiveChat('customer'));
   chatSendBtn?.addEventListener('click', handleAssistantChatSend);
   chatInput?.addEventListener('keydown', (event) => {
@@ -5737,6 +5733,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
   const continueBtn = document.getElementById('privacyContinue');
   const customizeBtn= document.getElementById('privacyCustomize');
   const detailsEl   = document.getElementById('privacyDetails');
+  const privacyLanguage = document.getElementById('privacyLanguage');
 
   let consent = null;
   try { consent = localStorage.getItem('de_privacy_v2'); } catch(e){}
@@ -5745,16 +5742,28 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     setTimeout(() => modal.classList.add('show'), 700);
   }
 
+  function syncPrivacyLanguageSelect(lang) {
+    const safeLang = i18n[lang] ? lang : 'de';
+    if (privacyLanguage) privacyLanguage.value = safeLang;
+    if (langSelect && langSelect.value !== safeLang) langSelect.value = safeLang;
+    if (langSelectMobile && langSelectMobile.value !== safeLang) langSelectMobile.value = safeLang;
+    applyLang(safeLang);
+  }
+
+  syncPrivacyLanguageSelect(langSelect?.value || storedLang || 'de');
+  privacyLanguage?.addEventListener('change', (event) => syncPrivacyLanguageSelect(event.target.value));
+
   function close(choice) {
     try { localStorage.setItem('de_privacy_v2', choice); } catch(e){}
     modal.classList.remove('show');
   }
 
-  acceptBtn.addEventListener('click', () => close('accept'));
-  continueBtn.addEventListener('click', () => close('reject'));
+  acceptBtn.addEventListener('click', () => close('necessary'));
+  continueBtn.addEventListener('click', () => close('necessary'));
   customizeBtn.addEventListener('click', () => {
-    detailsEl.hidden = !detailsEl.hidden;
-    customizeBtn.scrollIntoView({behavior:'smooth', block:'nearest'});
+    detailsEl.hidden = false;
+    customizeBtn.setAttribute('aria-expanded', 'true');
+    detailsEl.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
 })();
 </script>

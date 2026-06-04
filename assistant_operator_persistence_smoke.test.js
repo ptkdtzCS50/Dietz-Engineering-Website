@@ -33,6 +33,9 @@ assert(fn.includes('async function handleOperatorEnd'), 'Supabase function must 
 assert(fn.includes('pathname.endsWith("/operator/end")'), 'Supabase function must route operator/customer end-chat requests');
 assert(fn.includes('Vielen Dank. Der Livechat wurde beendet'), 'end-chat reply must contain a visitor-facing thank-you message');
 assert(fn.includes('Englisch') && fn.includes('The customer wrote in English'), 'operator AI prompt must keep English customer conversations in English, not translate them to German');
+
+assert(fn.includes('Always answer in the selected website language') && fn.includes('Do not switch languages just because the visitor typed one message in another language'), 'Aria backend must prioritize selected website language over detected input language');
+assert(!fn.includes("Answer in the user's language when possible"), 'Aria backend must not automatically answer in the detected user message language');
 assert(fn.includes('includes("text/html") && !(request.headers.get("accept") || "").includes("application/json")'), 'JS operator form posts must receive JSON even when using urlencoded form bodies');
 assert(!fn.includes('status: 404, headers: { ...headers, "content-type": "text/html; charset=utf-8" }'), 'invalid operator UI should not be returned as 404 text/html because Supabase may render it as text/plain');
 

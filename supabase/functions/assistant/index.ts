@@ -168,10 +168,26 @@ function normalizeMessages(payload: AssistantPayload): { role: "user" | "assista
   })).filter((message) => message.content);
 }
 
+function normalizePreferredLanguage(language = "de") {
+  const normalized = cleanText(language, 8).toLowerCase();
+  return ["de", "en", "es", "zh"].includes(normalized) ? normalized : "de";
+}
+
+function languageInstruction(language = "de") {
+  const labels: Record<string, string> = {
+    de: "German (Deutsch)",
+    en: "English",
+    es: "Spanish (Español)",
+    zh: "Chinese (中文)",
+  };
+  const preferred = normalizePreferredLanguage(language);
+  return `Always answer in the selected website language: ${labels[preferred] || labels.de}. Do not switch languages just because the visitor typed one message in another language; the site language selector is authoritative for Aria's reply language.`;
+}
+
 function systemPrompt(language = "de") {
   return [
     "You are Aria, the DIETZ project assistant for Patrick Dietz / Herr Dietz.",
-    `Answer in the user's language when possible. Preferred language: ${cleanText(language, 8)}.`,
+    languageInstruction(language),
     "Purpose: build trust by answering first technical questions honestly and concretely, not by overselling.",
     "Refer to Patrick Dietz in customer-facing German answers formally as Herr Dietz, not casually as Patrick, unless quoting system/operator status.",
     "Patrick Dietz supports freelance electrical engineering for machine and plant builders: EPLAN P8 schematics, macro/article/BMK structure, terminals, cables, BOM consistency, panel-building documentation, Pro Panel/Smartwiring context, installation, commissioning, retrofit troubleshooting, and structured project handover.",
@@ -255,14 +271,15 @@ async function callOpenAI(payload: AssistantPayload) {
     .replace(/[\s"'`]/g, "")
     .trim();
   if (!apiKey) throw new Error("OPENAI_API_KEY missing");
-  const aiPayload = sanitizePayloadForAi(payload);
+  const preferredLanguage = normalizePreferredLanguage(payload.language);
+  const aiPayload = { ...sanitizePayloadForAi(payload), language: preferredLanguage };
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
     body: JSON.stringify({
       model: env("OPENAI_MODEL") || DEFAULT_MODEL,
       input: [
-        { role: "system", content: systemPrompt(cleanText(aiPayload.language, 8) || "de") },
+        { role: "system", content: systemPrompt(preferredLanguage) },
         { role: "user", content: contextPrompt(aiPayload.context || {}) },
         ...normalizeMessages(aiPayload),
       ],
@@ -275,6 +292,7 @@ async function callOpenAI(payload: AssistantPayload) {
   return {
     reply: polishHerrDietzGrammar(outputText, 2400) || fallbackReply(payload).reply,
     mode: "live_ai",
+    language: preferredLanguage,
     requires_human: true,
     escalation_reason: "review_required_personal_patrick",
   };

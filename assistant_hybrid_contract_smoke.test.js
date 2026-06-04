@@ -110,7 +110,7 @@ assert(!fn.includes('Aria-Antwort:'), 'Telegram handoff must not include a canne
 assert(fn.includes('OPENAI_API_KEY'), 'server function supports server-side OpenAI key only');
 assert(fn.includes('redactContactData') && fn.includes('sanitizePayloadForAi'), 'server strips contact data before any external AI call');
 assert(fn.includes('[redacted-email]') && fn.includes('[redacted-phone]') && fn.includes('[redacted-company]'), 'AI sanitizer redacts email, phone and company markers');
-assert(fn.includes('const aiPayload = sanitizePayloadForAi(payload);'), 'OpenAI call uses sanitized payload only');
+assert(fn.includes('const aiPayload = { ...sanitizePayloadForAi(payload), language: preferredLanguage };'), 'OpenAI call uses sanitized payload only while preserving normalized website-selected language');
 assert(!fn.includes('contextPrompt(payload.context || {})'), 'OpenAI call must not use raw context');
 assert(!fn.includes('...normalizeMessages(payload),'), 'OpenAI call must not use raw messages');
 assert(fn.includes('rateLimit'), 'server function has basic rate-limit guard');

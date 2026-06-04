@@ -316,8 +316,7 @@
     "assistant.startQuestionProcess": "Wie läuft eine erste Anfrage ab?",
     "assistant.endChat": "Gespräch beenden",
     "assistant.chatEndedThanks": "Vielen Dank. Der Livechat wurde beendet. Herr Dietz / DIETZ Engineering wünscht Ihnen einen angenehmen Tag.",
-    "assistant.voiceStart": "Spracheingabe starten",
-    "assistant.voiceUnsupported": "Die Spracherkennung wird in diesem Browser nicht unterstützt. Bitte schreiben Sie Ihre Nachricht."
+    "pv.languageLabel": "Sprache der Website und Aria-Antworten"
   },
   "en": {
     "nav.about": "About",
@@ -636,8 +635,7 @@
     "assistant.startQuestionProcess": "How does a first inquiry work?",
     "assistant.endChat": "End chat",
     "assistant.chatEndedThanks": "Thank you. The live chat has been ended. Mr Dietz / DIETZ Engineering wishes you a pleasant day.",
-    "assistant.voiceStart": "Start voice input",
-    "assistant.voiceUnsupported": "Speech recognition is not supported in this browser. Please type your message."
+    "pv.languageLabel": "Website and Aria answer language"
   },
   "es": {
     "nav.about": "Sobre mí",
@@ -956,8 +954,7 @@
     "assistant.startQuestionProcess": "¿Cómo funciona una primera consulta?",
     "assistant.endChat": "Finalizar chat",
     "assistant.chatEndedThanks": "Gracias. El chat en directo ha finalizado. El Sr. Dietz / DIETZ Engineering le desea un buen día.",
-    "assistant.voiceStart": "Iniciar entrada de voz",
-    "assistant.voiceUnsupported": "El reconocimiento de voz no está disponible en este navegador. Escriba su mensaje."
+    "pv.languageLabel": "Idioma del sitio web y de las respuestas de Aria"
   },
   "zh": {
     "nav.about": "关于我",
@@ -1276,7 +1273,6 @@
     "assistant.startQuestionProcess": "首次咨询流程是怎样的？",
     "assistant.endChat": "结束对话",
     "assistant.chatEndedThanks": "谢谢。实时聊天已结束。Dietz 先生 / DIETZ Engineering 祝您一切顺利。",
-    "assistant.voiceStart": "开始语音输入",
-    "assistant.voiceUnsupported": "此浏览器不支持语音识别。请直接输入消息。"
+    "pv.languageLabel": "网站和 Aria 回复语言"
   }
 }
