@@ -126,7 +126,7 @@ def detect_message_language(text: str) -> str:
 def translate_for_patrick(message: str, source_language: str) -> tuple[str, str]:
     if source_language in {"de", "unknown"}:
         return message, "original_de_or_unknown"
-    return f"[Übersetzung für Patrick noch nicht lokal verfügbar — Original {LANGUAGE_LABELS.get(source_language, source_language)}:] {message}", "translation_engine_missing"
+    return f"[Übersetzung für Herrn Dietz noch nicht lokal verfügbar — Original {LANGUAGE_LABELS.get(source_language, source_language)}:] {message}", "translation_engine_missing"
 
 
 def correct_german_grammar(message: str) -> tuple[str, list[str]]:
@@ -247,7 +247,7 @@ def _format_customer_followup(payload: dict[str, Any], session_id: str) -> str:
         f"Sprache erkannt: {LANGUAGE_LABELS.get(customer_language, customer_language)}",
     ]
     if customer_language not in {"de", "unknown"}:
-        lines += ["", f"Übersetzung für Patrick: {translated_for_patrick}", f"Übersetzungsstatus: {translation_status}"]
+        lines += ["", f"Übersetzung für Herrn Dietz: {translated_for_patrick}", f"Übersetzungsstatus: {translation_status}"]
     details = []
     if name: details.append(f"Name: {name}")
     if contact: details.append(f"Kontakt: {contact}")
@@ -460,7 +460,7 @@ class Handler(BaseHTTPRequestHandler):
               <p class="meta">Session: <code>{html.escape(session_id or 'fehlt')}</code></p>
               <div class="bubble"><strong>Kunde:</strong><br>{html.escape(last_customer or 'Noch keine Kundennachricht gefunden.')}</div>
               <p class="meta">Sprache erkannt: <strong>{html.escape(LANGUAGE_LABELS.get(customer_language, customer_language))}</strong></p>
-              <div class="bubble"><strong>Übersetzung für Patrick:</strong><br>{html.escape(translated_for_patrick or last_customer or 'Keine Übersetzung erforderlich.')}</div>
+              <div class="bubble"><strong>Übersetzung für Herrn Dietz:</strong><br>{html.escape(translated_for_patrick or last_customer or 'Keine Übersetzung erforderlich.')}</div>
               <p class="hint">Übersetzungsstatus: {html.escape(translation_status)}</p>
               <div class="hint">{''.join(details) or 'Kein weiterer Kontext gespeichert.'}</div>
               <form method="post" action="/operator/prepare-reply">

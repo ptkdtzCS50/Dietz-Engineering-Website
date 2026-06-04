@@ -14,9 +14,9 @@
     "urgency",
     "desired_result"
   ],
-  "consent_text_de": "Ich stimme der Übergabe an Patrick zu.",
+  "consent_text_de": "Ich stimme der Übergabe an Herrn Dietz zu.",
   "operator_channel": "private Telegram-Gruppe",
-  "customer_copy_policy": "Kontakt nur dezent anbieten; Details erst nach Klick auf Patrick kontaktieren oder ausdrücklicher Übergabeabsicht abfragen.",
+  "customer_copy_policy": "Kontakt nur dezent anbieten; Details erst nach Klick auf Herr Dietz kontaktieren oder ausdrücklicher Übergabeabsicht abfragen.",
   "patrick_summary_sections": [
     "Kontakt",
     "Thema",

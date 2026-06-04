@@ -1,6 +1,6 @@
 {
   "durable_memory_type": "curated_requirements_knowledge",
-  "purpose": "Aria nutzt dauerhaft gepflegte DIETZ-Informationen, Anforderungen, Grenzen und Entscheidungsregeln, die Patrick oder Hermes bewusst in die Projektfiles eintragen.",
+  "purpose": "Aria nutzt dauerhaft gepflegte DIETZ-Informationen, Anforderungen, Grenzen und Entscheidungsregeln, die Herr Dietz oder Hermes bewusst in die Projektfiles eintragen.",
   "runtime_context_policy": "short_term_session_context_only",
   "allowed_storage": [
     "patrick_approved_requirements",

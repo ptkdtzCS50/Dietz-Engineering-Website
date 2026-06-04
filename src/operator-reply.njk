@@ -24,7 +24,7 @@
     .timeline{display:flex;flex-direction:column;gap:.85rem;margin-top:1.1rem;max-height:min(47dvh,540px);overflow:auto;padding-right:.15rem;overscroll-behavior:contain}.empty{border:1px dashed var(--line);border-radius:20px;padding:1rem;color:var(--muted);background:rgba(255,255,255,.035)}
     .msg{border:1px solid var(--line);border-radius:20px;padding:.85rem 1rem;background:rgba(255,255,255,.048)}.msg[data-role="customer"]{border-color:rgba(122,167,255,.4);background:rgba(122,167,255,.105)}.msg[data-role="patrick"]{border-color:rgba(240,195,106,.48);background:rgba(240,195,106,.12)}.msg-role{display:block;font-size:.76rem;color:var(--gold2);font-weight:950;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem}.msg[data-role="customer"] .msg-role{color:#a8c4ff}.msg-text{white-space:pre-wrap;color:#eef3ff}.msg-time{display:block;margin-top:.35rem;color:var(--muted);font-size:.78rem}
     label{display:block;font-weight:900;margin:.75rem 0 .45rem}.compose-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.4rem}.status-dot{display:inline-flex;align-items:center;gap:.38rem;color:var(--muted);font-size:.88rem}.status-dot::before{content:"";width:.58rem;height:.58rem;border-radius:999px;background:var(--ok);box-shadow:0 0 0 5px rgba(105,227,167,.11)}textarea{width:100%;min-height:12rem;resize:vertical;border-radius:22px;border:1px solid rgba(255,255,255,.22);background:#0b1324;color:var(--text);padding:1rem;font:inherit;outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(240,195,106,.15)}
-    button{margin-top:1rem;border:0;border-radius:999px;padding:1rem 1.35rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#17120a;font-weight:950;min-height:48px;box-shadow:0 18px 40px rgba(240,195,106,.26);cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.notice,.review-box{padding:1rem;border-radius:20px;background:rgba(240,195,106,.12);border:1px solid rgba(240,195,106,.28);margin:1rem 0}.review-box{background:rgba(122,167,255,.08);border-color:rgba(122,167,255,.24)}.review-box strong{color:#cfe0ff}.muted{color:var(--muted)}.hidden{display:none!important}.status{min-height:1.5rem;color:var(--muted);font-size:.92rem}.fineprint{font-size:.86rem;color:var(--muted);margin-top:.8rem}.actions-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.secondary-link{color:var(--gold2);text-decoration:none;font-weight:850}
+    button{margin-top:1rem;border:0;border-radius:999px;padding:1rem 1.35rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#17120a;font-weight:950;min-height:48px;box-shadow:0 18px 40px rgba(240,195,106,.26);cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.notice,.review-box{padding:1rem;border-radius:20px;background:rgba(240,195,106,.12);border:1px solid rgba(240,195,106,.28);margin:1rem 0}.review-box{background:rgba(122,167,255,.08);border-color:rgba(122,167,255,.24)}.review-box strong{color:#cfe0ff}.review-meta{margin-top:.6rem;color:var(--muted)}.suggestion-list{display:flex;flex-direction:column;gap:.5rem;margin-top:.7rem}.suggestion-choice{border-radius:16px;text-align:left;background:rgba(255,255,255,.08);color:var(--text);box-shadow:none;margin:0;padding:.75rem .9rem}.muted{color:var(--muted)}.hidden{display:none!important}.status{min-height:1.5rem;color:var(--muted);font-size:.92rem}.fineprint{font-size:.86rem;color:var(--muted);margin-top:.8rem}.actions-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.secondary-link{color:var(--gold2);text-decoration:none;font-weight:850}
     @media(max-width:860px){.dietz-shell{width:min(100% - 24px,1180px);padding-top:16px}.topbar{align-items:flex-start}.top-actions .pill:not(.gold){display:none}.hero{grid-template-columns:1fr}.operator-panel{border-radius:24px}.operator-kpis{grid-template-columns:1fr}.timeline{max-height:38dvh}h1{font-size:clamp(2.35rem,11vw,3.55rem)}}
   </style>
 </head>
@@ -41,7 +41,7 @@
       <article class="operator-panel">
         <p class="eyebrow">DIETZ Operator Console</p>
         <h1>Antwort an Website-Chat</h1>
-        <p class="lead">Aktueller Besucher-Verlauf, Patrick-Antworten und Livechat-Status in einer Oberfläche passend zur DIETZ-Website.</p>
+        <p class="lead">Aktueller Besucher-Verlauf, Antworten von Herrn Dietz und Livechat-Status in einer Oberfläche passend zur DIETZ-Website.</p>
         <div class="operator-kpis" aria-label="Operator Status">
           <div class="operator-kpi"><strong>Kanal</strong><span>Website-Chat</span></div>
           <div class="operator-kpi"><strong>Rolle</strong><span>Herr Dietz übernimmt</span></div>
@@ -58,13 +58,20 @@
         <form id="replyForm" method="post" action="https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant/operator/reply">
           <input type="hidden" name="session_id" id="sessionId">
           <input type="hidden" name="operator_token" id="operatorToken">
-          <label for="message">Nachricht von Patrick</label>
+          <label for="message">Nachricht von Herrn Dietz</label>
           <textarea id="message" name="message" autofocus required placeholder="Antwort für den Website-Besucher ..."></textarea>
-          <div class="review-box" data-review-boundary="no-auto-translation">
+          <div class="review-box" data-review-boundary="ai-review-before-send">
             <strong>Nachbearbeitung / Übersetzung</strong><br>
-            Deine Nachricht wird unverändert an den Website-Chat gesendet. Aktuell gibt es live keine automatische Grammatik-Korrektur und keine automatische Übersetzung. Antwort vorher selbst prüfen, besonders bei Englisch, Spanisch oder Chinesisch.
+            KI prüft Rechtschreibung, Ton und Kundensprache vor dem Senden. Bei Spanisch, Chinesisch oder Englisch übersetzt die Konsole die Kundenfrage für Herrn Dietz und die Antwort von Herrn Dietz zurück in die Kundensprache.
+            <div class="review-meta"><strong>Kundensprache:</strong> <span id="languageLabel">wird erkannt</span></div>
+            <div class="review-meta"><strong>Übersetzung für Herrn Dietz:</strong> <span id="translationForPatrick">Noch keine KI-Prüfung gestartet.</span></div>
+          </div>
+          <div class="review-box suggestion-box">
+            <strong>Antwortvorschläge</strong>
+            <div id="suggestionList" class="suggestion-list">KI-Vorschläge werden nach „KI prüfen“ angezeigt.</div>
           </div>
           <div class="actions-row">
+            <button id="reviewButton" type="button">KI prüfen / übersetzen</button>
             <button id="sendButton" type="submit">Antwort senden</button>
             <a class="secondary-link" href="/">Zur Website</a>
           </div>
@@ -85,13 +92,19 @@
       const form = document.getElementById('replyForm');
       const messageInput = document.getElementById('message');
       const sendButton = document.getElementById('sendButton');
+      const reviewButton = document.getElementById('reviewButton');
+      const suggestionList = document.getElementById('suggestionList');
+      const languageLabel = document.getElementById('languageLabel');
+      const translationForPatrick = document.getElementById('translationForPatrick');
       let cursor = 0;
       let hasMessages = false;
+      let reviewedMessage = '';
+      let sendInFlight = false;
       document.getElementById('sessionId').value = sessionId;
       document.getElementById('operatorToken').value = operatorToken;
       function setStatus(text){ status.textContent = text; }
       function escapeHtml(value){ return String(value || '').replace(/[&<>\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch])); }
-      function roleLabel(role){ return role === 'patrick' ? 'Patrick' : role === 'system' ? 'System' : 'Besucher'; }
+      function roleLabel(role){ return role === 'patrick' ? 'Herr Dietz' : role === 'system' ? 'System' : 'Besucher'; }
       function renderMessage(item){
         if (!hasMessages) { timeline.innerHTML = ''; hasMessages = true; }
         const div = document.createElement('div');
@@ -113,25 +126,58 @@
           setStatus('Verlauf aktuell.');
         } catch (error) { setStatus('Verlauf konnte gerade nicht aktualisiert werden.'); }
       }
+      function renderSuggestions(items){
+        const suggestions = Array.isArray(items) ? items.filter(Boolean) : [];
+        if (!suggestions.length) { suggestionList.textContent = 'Keine Vorschläge verfügbar.'; return; }
+        suggestionList.innerHTML = '';
+        suggestions.forEach((text) => {
+          const button = document.createElement('button');
+          button.type = 'button'; button.className = 'suggestion-choice'; button.textContent = text;
+          button.addEventListener('click', () => { messageInput.value = text; reviewedMessage = ''; setStatus('Vorschlag eingefügt. Bitte KI prüfen oder direkt senden.'); });
+          suggestionList.appendChild(button);
+        });
+      }
+      async function reviewOperatorDraft(){
+        const message = messageInput.value.trim();
+        reviewButton.disabled = true; setStatus('KI prüft Rechtschreibung, Ton und Übersetzung …');
+        try {
+          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, message, language: document.documentElement.lang || 'de' });
+          const response = await fetch(`${ASSISTANT_ENDPOINT}/operator/review`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || data.ok === false) throw new Error(data.error || 'review_failed');
+          reviewedMessage = data.reviewedMessage || data.final_message || data.corrected_message || message;
+          messageInput.value = reviewedMessage;
+          languageLabel.textContent = data.language_label || data.target_language || 'erkannt';
+          translationForPatrick.textContent = data.translation_for_patrick || 'Keine separate Übersetzung nötig.';
+          renderSuggestions(data.suggestions);
+          setStatus('KI-Prüfung abgeschlossen. Die geprüfte Antwort steht im Textfeld.');
+        } catch (error) { setStatus('KI-Prüfung gerade nicht erreichbar. Bitte Text manuell prüfen.'); }
+        finally { reviewButton.disabled = false; }
+      }
+      window.reviewOperatorDraft = reviewOperatorDraft;
       window.pollOperatorTimeline = pollOperatorTimeline;
       if (!sessionId || !operatorToken) {
         document.getElementById('missingNotice').classList.remove('hidden');
-        sendButton.disabled = true; setStatus('Antwort-Link unvollständig.'); return;
+        sendButton.disabled = true; reviewButton.disabled = true; setStatus('Antwort-Link unvollständig.'); return;
       }
+      reviewButton.addEventListener('click', reviewOperatorDraft);
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        if (sendInFlight) return;
         const message = messageInput.value.trim();
         if (!message) return;
+        sendInFlight = true;
         sendButton.disabled = true; setStatus('Antwort wird gesendet …');
         try {
-          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, message });
+          const outbound = reviewedMessage && reviewedMessage.trim() === message ? reviewedMessage : message;
+          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, message: outbound });
           const response = await fetch(form.action, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
           const data = await response.json().catch(() => ({ ok: response.ok }));
           if (!response.ok || data.ok === false) throw new Error(data.error || 'send_failed');
           messageInput.value = ''; setStatus('Antwort wurde an den Website-Chat übergeben.');
           await pollOperatorTimeline();
         } catch (error) { setStatus('Antwort konnte nicht gesendet werden. Bitte erneut versuchen.'); }
-        finally { sendButton.disabled = false; }
+        finally { sendInFlight = false; sendButton.disabled = false; }
       });
       pollOperatorTimeline();
       setInterval(pollOperatorTimeline, 1800);

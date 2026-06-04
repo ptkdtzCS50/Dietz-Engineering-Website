@@ -3315,7 +3315,7 @@ body.assistant-panel-open .assistant-teaser {
           <span class="accent" data-i18n="hero.h1b">nicht nur im PDF gut aussieht.</span>
         </h1>
         <p class="hero-tagline" data-i18n="hero.tagline">
-          Ich übernehme klar abgegrenzte EPLAN-P8-/Pro-Panel-Pakete, Reviews und fertigungstaugliche Elektro-Dokumentation — direkt durch Patrick Dietz, ohne Agentur-Ebene und mit externem Projektfokus.
+          Ich übernehme klar abgegrenzte EPLAN-P8-/Pro-Panel-Pakete, Reviews und fertigungstaugliche Elektro-Dokumentation — direkt durch Herrn Dietz, ohne Agentur-Ebene und mit externem Projektfokus.
         </p>
         <div class="hero-meta mono">
           <span data-i18n="hero.meta1">13+ Jahre Sondermaschinenbau</span>
@@ -4182,7 +4182,7 @@ body.assistant-panel-open .assistant-teaser {
   <div class="assistant-body assistant-livechat">
     <div class="assistant-message">
       <strong data-i18n="assistant.messageTitle">Direkt mit DIETZ Engineering chatten.</strong><br>
-      <span data-i18n="assistant.messageText">Schreiben Sie einfach Ihre Frage. Aria hilft bei der ersten technischen Einordnung. Wenn Sie Patrick direkt kontaktieren möchten, nutzen Sie den Button im Chat.</span>
+      <span data-i18n="assistant.messageText">Schreiben Sie einfach Ihre Frage. Aria hilft bei der ersten technischen Einordnung. Wenn Sie Herr Dietz direkt kontaktieren möchten, nutzen Sie den Button im Chat.</span>
     </div>
 
     <div class="assistant-ai-consent" id="assistantAiConsentGate">
@@ -4247,7 +4247,7 @@ body.assistant-panel-open .assistant-teaser {
       </div>
       <label class="assistant-consent">
         <input id="assistantConsent" type="checkbox">
-        <span data-i18n="assistant.consentLabel">Ich bin einverstanden, dass meine Angaben zur Rückmeldung an Patrick Dietz übermittelt werden. Wenn kein Auftrag zustande kommt, werden diese Daten spätestens nach 7 Tagen gelöscht.</span>
+        <span data-i18n="assistant.consentLabel">Ich bin einverstanden, dass meine Angaben zur Rückmeldung an Herrn Dietz / DIETZ Engineering übermittelt werden. Wenn kein Auftrag zustande kommt, werden diese Daten spätestens nach 7 Tagen gelöscht.</span>
       </label>
       <div class="assistant-actions">
         <button class="btn btn-secondary" id="assistantConfirm" type="button" data-i18n="assistant.confirm">Anfrage senden</button>
@@ -4316,22 +4316,22 @@ document.documentElement.classList.add('js-ready');
 document.querySelectorAll('.fade').forEach(el => el.classList.add('in'));
 /* I18N STRINGS — geladen aus src/_data/i18n.json (per Eleventy) */
 const i18n = {{ i18n | dump | safe }};
-i18n.de['assistant.consentRequired'] = 'Bitte bestätigen Sie vor dem Senden: Ihre Angaben werden an Patrick Dietz übermittelt. Wenn kein Auftrag zustande kommt, werden diese Daten spätestens nach 7 Tagen gelöscht.';
-i18n.en['assistant.consentRequired'] = 'Please confirm before sending: your details will be forwarded to Patrick Dietz. If no assignment results, this data will be deleted after 7 days at the latest.';
-i18n.es['assistant.consentRequired'] = 'Confirme antes de enviar: sus datos se enviarán a Patrick Dietz. Si no se concreta ningún encargo, estos datos se eliminarán como máximo después de 7 días.';
-i18n.zh['assistant.consentRequired'] = '发送前请确认：您的信息将转交给 Patrick Dietz。如果未形成委托，这些数据最迟将在 7 天后删除。';
+i18n.de['assistant.consentRequired'] = 'Bitte bestätigen Sie vor dem Senden: Ihre Angaben werden an Herrn Dietz / DIETZ Engineering übermittelt. Wenn kein Auftrag zustande kommt, werden diese Daten spätestens nach 7 Tagen gelöscht.';
+i18n.en['assistant.consentRequired'] = 'Please confirm before sending: your details will be forwarded to Mr Dietz / DIETZ Engineering. If no assignment results, this data will be deleted after 7 days at the latest.';
+i18n.es['assistant.consentRequired'] = 'Confirme antes de enviar: sus datos se enviarán al Sr. Dietz / DIETZ Engineering. Si no se concreta ningún encargo, estos datos se eliminarán como máximo después de 7 días.';
+i18n.zh['assistant.consentRequired'] = '发送前请确认：您的信息将转交给 Dietz 先生 / DIETZ Engineering。如果未形成委托，这些数据最迟将在 7 天后删除。';
 i18n.de['assistant.handoffFailed'] = 'Die Weitergabe ist gerade nicht erreichbar. Im lokalen Test bitte Supabase-CORS für http://127.0.0.1:8088 freigeben; online funktioniert es über die freigegebene Domain.';
 i18n.en['assistant.handoffFailed'] = 'Handoff is not reachable right now. For local testing, allow http://127.0.0.1:8088 in Supabase CORS; online it works through the approved domain.';
 i18n.es['assistant.handoffFailed'] = 'La entrega no está disponible ahora. Para pruebas locales, permita http://127.0.0.1:8088 en Supabase CORS; online funciona con el dominio autorizado.';
 i18n.zh['assistant.handoffFailed'] = '转交目前不可用。本地测试请在 Supabase CORS 中允许 http://127.0.0.1:8088；线上通过已授权域名工作。';
-i18n.de['assistant.aiUnavailable'] = 'Aria-KI ist aktuell nicht erreichbar. Bitte versuchen Sie es gleich erneut oder holen Sie Patrick über die Übergabe dazu.';
-i18n.en['assistant.aiUnavailable'] = 'Aria AI is currently unavailable. Please try again shortly or hand the conversation over to Patrick.';
-i18n.es['assistant.aiUnavailable'] = 'La IA de Aria no está disponible ahora. Inténtelo de nuevo en breve o entregue la conversación a Patrick.';
-i18n.zh['assistant.aiUnavailable'] = 'Aria AI 当前不可用。请稍后重试，或将对话转交给 Patrick。';
-i18n.de['assistant.outOfHoursContact'] = 'Patrick ist persönlich zwischen 08:00 und 17:00 Uhr erreichbar. Außerhalb dieser Zeit nutzen Sie bitte das Kontaktformular auf der Website; Aria kann Ihre technischen Punkte weiterhin vorqualifizieren.';
-i18n.en['assistant.outOfHoursContact'] = 'Patrick is personally available between 08:00 and 17:00. Outside these hours, please use the website contact form; Aria can still pre-qualify the technical points.';
-i18n.es['assistant.outOfHoursContact'] = 'Patrick está disponible personalmente entre las 08:00 y las 17:00. Fuera de este horario, utilice el formulario de contacto del sitio web; Aria puede seguir precalificando los puntos técnicos.';
-i18n.zh['assistant.outOfHoursContact'] = 'Patrick 个人可接手的时间为 08:00 至 17:00。此时间以外请使用网站联系表单；Aria 仍可继续预先整理技术要点。';
+i18n.de['assistant.aiUnavailable'] = 'Aria-KI ist aktuell nicht erreichbar. Bitte versuchen Sie es gleich erneut oder holen Sie Herrn Dietz über die Übergabe dazu.';
+i18n.en['assistant.aiUnavailable'] = 'Aria AI is currently unavailable. Please try again shortly or hand the conversation over to Mr Dietz.';
+i18n.es['assistant.aiUnavailable'] = 'La IA de Aria no está disponible ahora. Inténtelo de nuevo en breve o entregue la conversación al Sr. Dietz.';
+i18n.zh['assistant.aiUnavailable'] = 'Aria AI 当前不可用。请稍后重试，或将对话转交给 Dietz 先生。';
+i18n.de['assistant.outOfHoursContact'] = 'Herr Dietz ist persönlich zwischen 08:00 und 17:00 Uhr erreichbar. Außerhalb dieser Zeit nutzen Sie bitte das Kontaktformular auf der Website; Aria kann Ihre technischen Punkte weiterhin vorqualifizieren.';
+i18n.en['assistant.outOfHoursContact'] = 'Mr Dietz is personally available between 08:00 and 17:00. Outside these hours, please use the website contact form; Aria can still pre-qualify the technical points.';
+i18n.es['assistant.outOfHoursContact'] = 'El Sr. Dietz está disponible personalmente entre las 08:00 y las 17:00. Fuera de este horario, utilice el formulario de contacto del sitio web; Aria puede seguir precalificando los puntos técnicos.';
+i18n.zh['assistant.outOfHoursContact'] = 'Dietz 先生个人可接手的时间为 08:00 至 17:00。此时间以外请使用网站联系表单；Aria 仍可继续预先整理技术要点。';
 i18n.de['assistant.contactFormButton'] = 'Zum Kontaktformular';
 i18n.en['assistant.contactFormButton'] = 'Open contact form';
 i18n.es['assistant.contactFormButton'] = 'Abrir formulario de contacto';
@@ -4802,7 +4802,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
     const button = document.createElement('button');
     button.className = 'btn btn-secondary';
     button.type = 'button';
-    button.textContent = 'Patrick kontaktieren';
+    button.textContent = 'Herr Dietz kontaktieren';
     button.addEventListener('click', () => {
       guidedAssistantState.contactActionShown = false;
       actions.remove();
@@ -4859,7 +4859,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
     guidedAssistantState.operatorWindowActive = false;
     guidedAssistantState.ariaActive = false;
     fillBookingForm(summary);
-    const message = assistantDict()['assistant.outOfHoursContact'] || 'Patrick ist persönlich zwischen 08:00 und 17:00 Uhr erreichbar. Außerhalb dieser Zeit nutzen Sie bitte das Kontaktformular auf der Website.';
+    const message = assistantDict()['assistant.outOfHoursContact'] || 'Herr Dietz ist persönlich zwischen 08:00 und 17:00 Uhr erreichbar. Außerhalb dieser Zeit nutzen Sie bitte das Kontaktformular auf der Website.';
     if (!guidedAssistantState.outOfHoursNoticeShown) {
       appendChatMessage('aria', message);
       guidedAssistantState.outOfHoursNoticeShown = true;
@@ -4883,11 +4883,11 @@ document.querySelectorAll('.faq-item').forEach(item => {
     };
     addButton('Beispiel einfügen', () => {
       if (chatInput) {
-        chatInput.value = 'Name: Max Mustermann\nKontakt: max@example.de\nThema: kurze Projektbeschreibung\nIch stimme der Übergabe an Patrick zu.';
+        chatInput.value = 'Name: Max Mustermann\nKontakt: max@example.de\nThema: kurze Projektbeschreibung\nIch stimme der Übergabe an Herrn Dietz zu.';
         chatInput.focus();
       }
     });
-    addButton('Patrick informieren', () => requestLiveTakeover());
+    addButton('Herrn Dietz informieren', () => requestLiveTakeover());
     chatLog.appendChild(actions);
     chatLog.scrollTop = chatLog.scrollHeight;
     return actions;
@@ -4934,7 +4934,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
     stopOperatorWindowCountdown();
     let remaining = seconds;
     const render = () => {
-      const text = (dict['assistant.operatorCountdown'] || 'Falls Patrick nicht direkt verfügbar ist, übernimmt Aria automatisch in {seconds} Sekunden.').replace('{seconds}', String(remaining));
+      const text = (dict['assistant.operatorCountdown'] || 'Falls Herr Dietz nicht direkt verfügbar ist, übernimmt Aria automatisch in {seconds} Sekunden.').replace('{seconds}', String(remaining));
       if (!guidedAssistantState.operatorCountdownBubble) {
         guidedAssistantState.operatorCountdownBubble = appendChatMessage('aria', text);
       } else {
@@ -5122,7 +5122,7 @@ ${value}` : value;
     }
     if (capturedField === 'contact_name') {
       guidedAssistantState.awaitingField = 'contact';
-      return dict['assistant.askContactChannel'] || 'Danke. Bitte ergänzen Sie noch E-Mail oder Telefonnummer, falls Patrick außerhalb dieses Chats antworten soll.';
+      return dict['assistant.askContactChannel'] || 'Danke. Bitte ergänzen Sie noch E-Mail oder Telefonnummer, falls Herr Dietz außerhalb dieses Chats antworten soll.';
     }
     if (capturedField === 'contact_channel_question') {
       guidedAssistantState.awaitingField = 'contact';
@@ -5130,7 +5130,7 @@ ${value}` : value;
     }
     if (capturedField === 'contact') {
       guidedAssistantState.awaitingField = '';
-      return dict['assistant.contactComplete'] || 'Danke, Kontakt ist notiert. Ich kann Patrick die Einordnung damit sauber übergeben.';
+      return dict['assistant.contactComplete'] || 'Danke, Kontakt ist notiert. Ich kann Herrn Dietz die Einordnung damit sauber übergeben.';
     }
     if (capturedField === 'scope' || capturedField === 'eplan_specific') {
       guidedAssistantState.awaitingField = summary.timeline === dict['assistant.timelineOpen'] ? 'timeline' : 'contact';
@@ -5200,7 +5200,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
           if (guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
           stopOperatorWindowCountdown();
           if (!guidedAssistantState.operatorActiveNoticeShown) {
-            appendChatMessage('aria', assistantDict()['assistant.operatorActiveNotice'] || 'Patrick übernimmt jetzt den Chat. Aria hält sich zurück.');
+            appendChatMessage('aria', assistantDict()['assistant.operatorActiveNotice'] || 'Herr Dietz übernimmt jetzt den Chat. Aria hält sich zurück.');
             guidedAssistantState.operatorActiveNoticeShown = true;
           }
         }
@@ -5208,7 +5208,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
         if (reply?.action === 'end_chat') {
           guidedAssistantState.operatorActive = false;
           if (guidedAssistantState.replyPollTimer) clearInterval(guidedAssistantState.replyPollTimer);
-          appendChatMessage('aria', assistantDict()['assistant.operatorClosedNotice'] || 'Patrick hat den Livechat beendet. Aria kann wieder bei der Einordnung helfen.');
+          appendChatMessage('aria', assistantDict()['assistant.operatorClosedNotice'] || 'Herr Dietz hat den Livechat beendet. Aria kann wieder bei der Einordnung helfen.');
         }
       });
       guidedAssistantState.replyCursor = Number(data.next || guidedAssistantState.replyCursor);
@@ -5240,7 +5240,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     const text = clean(message, 900).toLowerCase();
     const explicitConsent = /(ich\s+)?stimme\s+(der\s+)?(weitergabe|übergabe|uebergabe|kontaktaufnahme)(\s+an\s+patrick)?\s+zu/.test(text)
       || /(ich\s+bin\s+)?(einverstanden|zustimmung|freigabe)\b/.test(text)
-      || /(ja|bitte|ich stimme).{0,80}(weiterleiten|an patrick|patrick informieren|patrick benachrichtigen|patrick dazuholen|übergabe|uebergabe)/.test(text);
+      || /(ja|bitte|ich stimme).{0,80}(weiterleiten|an patrick|patrick informieren|herrn dietz benachrichtigen|patrick dazuholen|übergabe|uebergabe)/.test(text);
     if (!explicitConsent) return false;
     const consent = document.getElementById('assistantConsent');
     if (consent) {
@@ -5274,8 +5274,8 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     guidedAssistantState.awaitingField = 'handoff_contact';
     const privacyNotice = assistantDict()['assistant.handoffPrivacyNotice'];
     const text = missing.length
-      ? `Gerne. Bitte schreiben Sie die fehlenden Angaben direkt hier in den Chat, zum Beispiel:\n\nName: Max Mustermann\nKontakt: max@example.de oder +49 ...\nThema: ${summary.scope && summary.scope !== assistantDict()['assistant.scopeFallback'] ? summary.scope : 'kurze Projektbeschreibung'}\n\n${privacyNotice}\n\nWenn Sie einverstanden sind, schreiben Sie dazu: „Ich stimme der Übergabe an Patrick zu.“`
-      : `${privacyNotice}\n\nDanke, die Angaben sind vollständig. Bitte bestätigen Sie noch kurz im Chat: „Ich stimme der Übergabe an Patrick zu.“`;
+      ? `Gerne. Bitte schreiben Sie die fehlenden Angaben direkt hier in den Chat, zum Beispiel:\n\nName: Max Mustermann\nKontakt: max@example.de oder +49 ...\nThema: ${summary.scope && summary.scope !== assistantDict()['assistant.scopeFallback'] ? summary.scope : 'kurze Projektbeschreibung'}\n\n${privacyNotice}\n\nWenn Sie einverstanden sind, schreiben Sie dazu: „Ich stimme der Übergabe an Herrn Dietz zu.“`
+      : `${privacyNotice}\n\nDanke, die Angaben sind vollständig. Bitte bestätigen Sie noch kurz im Chat: „Ich stimme der Übergabe an Herrn Dietz zu.“`;
     appendChatMessage('aria', text);
     appendHandoffQuickActions();
     setOutput(text);
@@ -5346,7 +5346,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
   function buildDietzAssistantPersona() {
     return {
       role: DIETZ_ASSISTANT_KNOWLEDGE.identity,
-      purpose: 'Vertrauen schaffen, erste technische Fragen ehrlich beantworten und verbindliche Themen an Patrick übergeben.',
+      purpose: 'Vertrauen schaffen, erste technische Fragen ehrlich beantworten und verbindliche Themen an Herrn Dietz übergeben.',
       knowledge: DIETZ_ASSISTANT_KNOWLEDGE,
       project_files: DIETZ_ASSISTANT_PROJECT_FILES,
       memory_policy: DIETZ_ASSISTANT_PROJECT_FILES.memory_policy,

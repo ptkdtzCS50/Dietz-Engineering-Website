@@ -16,6 +16,11 @@ assert(fn.includes('assistant_operator_messages'), 'customer/operator chat histo
 assert(fn.includes('async function appendOperatorMessage'), 'operator console must persist both visitor and Patrick messages for chat history');
 assert(fn.includes('async function handleOperatorMessages'), 'operator console must expose a protected polling endpoint for chat history');
 assert(fn.includes('async function handleCustomerMessage'), 'website visitor follow-up messages must be accepted after Patrick takes over');
+assert(fn.includes('async function handleOperatorReview'), 'operator console must provide AI correction, suggestions and translation before Patrick sends');
+assert(fn.includes('async function callOperatorReviewAI'), 'operator review must use server-side AI with secrets kept out of the browser');
+assert(fn.includes('pathname.endsWith("/operator/review")'), 'Supabase function must route protected operator review requests');
+assert(fn.includes('target_language') && fn.includes('suggestions') && fn.includes('translation_for_patrick'), 'operator review response must include customer language, answer suggestions and inbound translation for Patrick');
+assert(fn.includes('Korrigiere Patricks Rechtschreibung') && fn.includes('Spanish') && fn.includes('Chinese'), 'operator AI prompt must explicitly cover correction and Spanish/Chinese translation');
 assert(fn.includes('pathname.endsWith("/operator/customer-message")'), 'Supabase function must route customer follow-up messages to the operator channel');
 assert(fn.includes('pathname.endsWith("/operator/messages")'), 'Supabase function must route operator history polling');
 assert(fn.includes('function htmlResponse('), 'operator UI must return explicit text/html responses');

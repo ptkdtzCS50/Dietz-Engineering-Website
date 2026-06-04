@@ -18,6 +18,7 @@ type AssistantPayload = {
 
 type OperatorReply = { id: number; action: string; message: string; created_at: string };
 type OperatorMessage = { id: number; role: string; message: string; created_at: string };
+type OperatorReview = { target_language: string; language_label: string; translation_for_patrick: string; corrected_message: string; final_message: string; suggestions: string[]; review_status: string; notes: string[] };
 type OperatorSession = { token: string; replies: OperatorReply[]; nextId: number; createdAt: number };
 
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
@@ -152,7 +153,7 @@ function normalizeMessages(payload: AssistantPayload): { role: "user" | "assista
 
 function systemPrompt(language = "de") {
   return [
-    "You are Aria, the DIETZ project assistant for Patrick Dietz.",
+    "You are Aria, the DIETZ project assistant for Patrick Dietz / Herr Dietz.",
     `Answer in the user's language when possible. Preferred language: ${cleanText(language, 8)}.`,
     "Purpose: build trust by answering first technical questions honestly and concretely, not by overselling.",
     "Refer to Patrick Dietz in customer-facing German answers formally as Herr Dietz, not casually as Patrick, unless quoting system/operator status.",
@@ -161,11 +162,11 @@ function systemPrompt(language = "de") {
     "Never claim certifications, guaranteed CE/Safety/legal compliance, fixed prices, fixed delivery dates, or final engineering release.",
     "Never invent email addresses, phone numbers, employee counts, customer names, references, discounts, hourly rates, or other contact/company facts. If a contact route is needed, refer to the official website contact details or the website handoff form only.",
     "Do not store or imply persistent visitor chat memory. Aria's durable knowledge is curated DIETZ requirements, service knowledge, boundaries, and handoff rules explicitly maintained by Patrick/Hermes; visitor chat history is only short-term session context.",
-    "Do not promise a callback time, same-day response, or any concrete response time. You may say Patrick checks customer inquiries personally and a handoff can be prepared.",
-    "Do not say you cannot contact Patrick directly. Instead: explain that the website can prepare a handoff to Patrick via the private Telegram operator channel after explicit consent and sufficient contact/project details.",
+    "Do not promise a callback time, same-day response, or any concrete response time. You may say Herr Dietz checks customer inquiries personally and a handoff can be prepared.",
+    "Do not say you cannot contact Herr Dietz directly. Instead: explain that the website can prepare a handoff to Herr Dietz via the private Telegram operator channel after explicit consent and sufficient contact/project details.",
     "Never ask for passwords, secrets, sensitive customer data, or confidential internal details in chat. Recommend a suitable secure channel after first contact when needed.",
-    "For handoff requests: ask for name, preferred contact route, topic, urgency, and explicit consent; explain that contact details are forwarded to Patrick only after consent.",
-    "Patrick prüft verbindliche Fragen persönlich.",
+    "For handoff requests: ask for name, preferred contact route, topic, urgency, and explicit consent; explain that contact details are forwarded to Herr Dietz only after consent.",
+    "Herr Dietz prüft verbindliche Fragen persönlich.",
     "Keep answers compact, calm, practical, and customer-facing.",
   ].join("\n");
 }
@@ -222,7 +223,7 @@ function fallbackReply(payload: AssistantPayload, fallback_reason = "token_or_en
 function unavailableReply(error: unknown, fallback_reason = fallbackReasonForError(error)) {
   return {
     ok: false,
-    reply: "Aria-KI ist aktuell nicht erreichbar. Bitte versuchen Sie es gleich erneut oder holen Sie Patrick über die Übergabe dazu.",
+    reply: "Aria-KI ist aktuell nicht erreichbar. Bitte versuchen Sie es gleich erneut oder holen Sie Herrn Dietz über die Übergabe dazu.",
     mode: "ai_unavailable",
     fallback_reason,
     requires_human: true,
@@ -280,11 +281,11 @@ function formatLead(payload: AssistantPayload, result: Record<string, unknown>, 
     "",
     `Frage: ${normalizeMessages(payload).map((m) => m.content).join(" | ") || "nicht angegeben"}`,
     "",
-    `Status: Patrick-Review angefordert (${cleanText(result.mode, 80) || "handoff"})`,
+    `Status: Herr-Dietz-Review angefordert (${cleanText(result.mode, 80) || "handoff"})`,
     sessionId ? `Chat-Session: ${sessionId}` : "",
     operatorUrl ? `Antwort an Chat: ${operatorUrl}` : "",
     "",
-    "Patrick prüft verbindliche Fragen persönlich.",
+    "Herr Dietz prüft verbindliche Fragen persönlich.",
   ].join("\n");
 }
 
@@ -468,7 +469,7 @@ function operatorPublicUiUrl(sessionId: string, token: string) {
 }
 
 function operatorUiHtml(sessionId: string, token: string, actionUrl: string, notice = "") {
-  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DIETZ Operator Antwort</title><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:2rem;max-width:760px;line-height:1.5;background:#0d1320;color:#f5f7fb}textarea{width:100%;min-height:9rem;border-radius:14px;border:1px solid #39445c;background:#111a2d;color:#f5f7fb;padding:1rem;font:inherit}button{margin-top:1rem;border:0;border-radius:999px;padding:.85rem 1.25rem;background:#f0c36a;color:#17120a;font-weight:700}.notice{padding:1rem;border-radius:14px;background:#16233a;margin-bottom:1rem}.muted{color:#aeb8ce}</style></head><body><h1>Antwort an Website-Chat</h1>${notice ? `<div class="notice">${escapeHtml(notice)}</div>` : ""}<form method="post" action="${escapeHtml(actionUrl)}"><input type="hidden" name="session_id" value="${escapeHtml(sessionId)}"><input type="hidden" name="operator_token" value="${escapeHtml(token)}"><label for="message">Nachricht von Patrick</label><textarea id="message" name="message" autofocus required placeholder="Antwort für den Website-Besucher ..."></textarea><br><button type="submit">Antwort senden</button></form><p class="muted">Die Antwort wird in den aktuellen Website-Chat gelegt. Dieser Kurzzeit-Kanal läuft automatisch ab.</p></body></html>`;
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DIETZ Operator Antwort</title><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:2rem;max-width:760px;line-height:1.5;background:#0d1320;color:#f5f7fb}textarea{width:100%;min-height:9rem;border-radius:14px;border:1px solid #39445c;background:#111a2d;color:#f5f7fb;padding:1rem;font:inherit}button{margin-top:1rem;border:0;border-radius:999px;padding:.85rem 1.25rem;background:#f0c36a;color:#17120a;font-weight:700}.notice{padding:1rem;border-radius:14px;background:#16233a;margin-bottom:1rem}.muted{color:#aeb8ce}</style></head><body><h1>Antwort an Website-Chat</h1>${notice ? `<div class="notice">${escapeHtml(notice)}</div>` : ""}<form method="post" action="${escapeHtml(actionUrl)}"><input type="hidden" name="session_id" value="${escapeHtml(sessionId)}"><input type="hidden" name="operator_token" value="${escapeHtml(token)}"><label for="message">Nachricht von Herrn Dietz</label><textarea id="message" name="message" autofocus required placeholder="Antwort für den Website-Besucher ..."></textarea><br><button type="submit">Antwort senden</button></form><p class="muted">Die Antwort wird in den aktuellen Website-Chat gelegt. Dieser Kurzzeit-Kanal läuft automatisch ab.</p></body></html>`;
 }
 
 function parseFormBody(raw: string): Record<string, string> {
@@ -530,6 +531,93 @@ async function handleOperatorMessages(request: Request, headers: Record<string, 
   const messages = await loadOperatorMessages(sessionId, after);
   const next = messages.length ? messages[messages.length - 1].id : after || 0;
   return jsonResponse({ ok: true, messages, next }, 200, headers);
+}
+
+
+function parseOperatorReviewJson(value: string): Partial<OperatorReview> {
+  try { return JSON.parse(value); } catch (_) {
+    const match = value.match(/\{[\s\S]*\}/);
+    if (!match) return {};
+    try { return JSON.parse(match[0]); } catch (_) { return {}; }
+  }
+}
+
+function operatorReviewFallback(message: string, customerText: string, language = "de"): OperatorReview {
+  const target = cleanText(language, 8) || "de";
+  return {
+    target_language: target,
+    language_label: target === "es" ? "Spanisch" : target === "zh" ? "Chinesisch" : target === "en" ? "Englisch" : "Deutsch",
+    translation_for_patrick: customerText || "Keine aktuelle Kundennachricht im Verlauf.",
+    corrected_message: message,
+    final_message: message,
+    suggestions: [
+      "Guten Tag, vielen Dank für Ihre Nachricht. Ich schaue mir Ihr Anliegen gern an. Können Sie mir bitte kurz Maschine/Anlage, aktuellen Dokumentationsstand und den gewünschten Zeitraum nennen?",
+      "Vielen Dank für die Informationen. Für eine erste Einordnung helfen mir Projektart, EPLAN-/Dokumentationsstand und die wichtigsten offenen Punkte.",
+      "Gerne unterstütze ich Sie bei der technischen Klärung. Bitte senden Sie zunächst nur die groben Eckdaten; sensible Daten können wir danach über einen passenden Kanal abstimmen."
+    ],
+    review_status: "fallback_no_ai",
+    notes: ["KI-Review war nicht erreichbar; Text wurde nicht übersetzt."],
+  };
+}
+
+async function callOperatorReviewAI(message: string, customerText: string, language = "de"): Promise<OperatorReview> {
+  if (!assistantAiEnabled()) throw new Error("ASSISTANT_ENABLED is false");
+  const apiKey = env("OPENAI_API_KEY").replace(/[\s\"'`]/g, "").trim();
+  if (!apiKey) throw new Error("OPENAI_API_KEY missing");
+  const response = await fetch("https://api.openai.com/v1/responses", {
+    method: "POST",
+    headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
+    body: JSON.stringify({
+      model: env("OPENAI_MODEL") || DEFAULT_MODEL,
+      input: [
+        { role: "system", content: [
+          "Du bist der geschützte Operator-Review für Patrick Dietz / DIETZ Engineering.",
+          "Korrigiere Patricks Rechtschreibung und Grammatik, ohne fachliche Zusagen zu erfinden.",
+          "Erkenne die Kundensprache. Wenn der Kunde Spanish oder Chinese schreibt, übersetze für Patrick ins Deutsche und übersetze Patricks Antwort zurück in die Kundensprache.",
+          "Bei Deutsch/Englisch ebenfalls Ton professionell, ruhig und kunden-facing machen.",
+          "Keine Preise, festen Termine, Zertifikate, Rechts-/CE-Garantien oder Kontaktdaten erfinden.",
+          "Gib ausschließlich valides JSON zurück: target_language, language_label, translation_for_patrick, corrected_message, final_message, suggestions (3 kurze Optionen), review_status, notes."
+        ].join("\n") },
+        { role: "user", content: JSON.stringify({ preferred_language: cleanText(language, 8) || "de", latest_customer_message: customerText, patrick_draft: message }) },
+      ],
+      max_output_tokens: 900,
+    }),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error?.message || "operator review model unavailable");
+  const outputText = data.output_text || data.output?.flatMap((item: { content?: { text?: string }[] }) => item.content || []).find((item: { text?: string }) => item.text)?.text || "{}";
+  const parsed = parseOperatorReviewJson(outputText);
+  const fallback = operatorReviewFallback(message, customerText, language);
+  return {
+    target_language: cleanText(parsed.target_language, 16) || fallback.target_language,
+    language_label: cleanText(parsed.language_label, 80) || fallback.language_label,
+    translation_for_patrick: cleanText(parsed.translation_for_patrick, 1600) || fallback.translation_for_patrick,
+    corrected_message: cleanText(parsed.corrected_message, 1600) || fallback.corrected_message,
+    final_message: cleanText(parsed.final_message, 1600) || cleanText(parsed.corrected_message, 1600) || fallback.final_message,
+    suggestions: Array.isArray(parsed.suggestions) ? parsed.suggestions.map((item) => cleanText(item, 700)).filter(Boolean).slice(0, 3) : fallback.suggestions,
+    review_status: cleanText(parsed.review_status, 80) || "ai_reviewed",
+    notes: Array.isArray(parsed.notes) ? parsed.notes.map((item) => cleanText(item, 220)).filter(Boolean).slice(0, 4) : [],
+  };
+}
+
+async function handleOperatorReview(request: Request, raw: string, headers: Record<string, string>) {
+  const payload = getRequestPayload(request, raw);
+  const sessionId = cleanText(payload.session_id, 120);
+  const token = cleanText(payload.operator_token, 120);
+  const message = cleanText(payload.message, 1200);
+  const language = cleanText(payload.language, 8) || "de";
+  const session = await loadOperatorSession(sessionId);
+  if (!session || session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
+  const messages = await loadOperatorMessages(sessionId, 0);
+  const latestCustomer = [...messages].reverse().find((item) => item.role === "customer")?.message || "";
+  const draft = message || "Guten Tag, vielen Dank für Ihre Nachricht. Ich schaue mir Ihr Anliegen gerne an.";
+  try {
+    const review = await callOperatorReviewAI(draft, latestCustomer, language);
+    return jsonResponse({ ok: true, reviewedMessage: review.final_message, ...review }, 200, headers);
+  } catch (error) {
+    const review = operatorReviewFallback(draft, latestCustomer, language);
+    return jsonResponse({ ok: true, reviewedMessage: review.final_message, ...review, diagnostic: assistantDiagnostic(error) }, 200, headers);
+  }
 }
 
 async function handleCustomerMessage(request: Request, raw: string, headers: Record<string, string>) {
@@ -595,6 +683,7 @@ Deno.serve(async (request) => {
   }
   if (request.method !== "POST") return jsonResponse({ error: "method not allowed" }, 405, headers);
   const raw = await request.text();
+  if (pathname.endsWith("/operator/review")) return await handleOperatorReview(request, raw, headers);
   if (pathname.endsWith("/operator/reply")) return await handleOperatorReply(request, raw, headers);
   if (pathname.endsWith("/operator/customer-message")) return await handleCustomerMessage(request, raw, headers);
   let payload: AssistantPayload | null = null;

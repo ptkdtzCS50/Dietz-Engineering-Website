@@ -52,7 +52,7 @@ assert(index.includes('getAssistantNextQuestion'), 'assistant guides customers w
 assert(index.includes('isAssistantQuestionInScope'), 'assistant filters unrelated/off-topic questions');
 assert(i18n.de['assistant.outOfScope'].includes('Aria beantwortet Fragen zu Herrn Dietz'), 'assistant has polished formal off-topic reply copy');
 assert(index.includes('fillCustomerFieldsFromAssistant'), 'assistant can transfer contact details into the booking form');
-assert(index.includes('requestLiveTakeover'), 'assistant has a live takeover request path for Patrick');
+assert(index.includes('requestLiveTakeover'), 'assistant has a live takeover request path for Herr Dietz');
 assert(index.includes('assistant.takeover'), 'assistant exposes a customer-facing takeover action');
 assert(index.includes('assistant-chat-log'), 'assistant is presented as a real chat log, not a form-first wizard');
 assert(index.includes('assistantChatInput'), 'assistant has a direct free-text chat input');
@@ -67,14 +67,14 @@ assert(index.includes("if (assistantConfig.liveAiEnabled && result.mode !== 'liv
 assert(index.includes("if (!assistantConfig.liveAiEnabled && result.mode !== 'live_ai') result.reply = buildConversationalAriaReply(summary, capturedField);"), 'static conversational fallback is limited to explicit offline mode only');
 assert(index.includes('function syncFreeTextToSummary('), 'assistant chat send can sync free text before building a summary');
 assert(index.includes('function notifyPatrickForLiveChat('), 'assistant notifies Patrick before AI fallback');
-assert(index.includes('function startOperatorReplyPolling('), 'assistant starts polling for Patrick operator replies');
+assert(index.includes('function startOperatorReplyPolling('), 'assistant starts polling for Herr Dietz operator replies');
 assert(index.includes('function pollOperatorReplies('), 'assistant can render Patrick replies from the local bridge');
 assert(index.includes('function requestAiFallbackAfterOperatorWindow('), 'assistant defines the delayed Aria fallback callback');
 assert(index.includes('function startOperatorWindowCountdown('), 'assistant shows a visible operator countdown before Aria takes over');
 assert(index.includes('setTimeout(requestAiFallbackAfterOperatorWindow, 60000)'), 'assistant uses a practical 60-second operator window before Aria takes over');
 assert(index.includes('guidedAssistantState.ariaActive'), 'assistant keeps Aria in the conversation after timeout instead of notifying Patrick every message');
 assert(index.includes('guidedAssistantState.operatorWindowActive'), 'assistant collects follow-up customer messages during the 60-second operator window without repeating Patrick notifications');
-assert(index.includes('shouldRequestPatrickFromMessage'), 'assistant only re-adds Patrick when the customer explicitly asks for Patrick or human takeover');
+assert(index.includes('shouldRequestPatrickFromMessage'), 'assistant only re-adds Patrick when the customer explicitly asks for Herr Dietz or human takeover');
 assert(index.includes("const initialWantsPatrick = shouldRequestPatrickFromMessage(message)") && index.includes('const wantsPatrick = initialWantsPatrick'), 'assistant separates Patrick-handoff intent from normal chat detail capture');
 assert(index.includes("if (!wantsPatrick && !assistantConfig.liveAiEnabled && !capturedField) capturedField = updateGuidedSummaryFromExpectedField(message);"), 'Patrick handoff commands and live-AI chat turns are not stored as machine/scope answers');
 assert(!index.includes("shouldRequestPatrickFromMessage(message) || !guidedAssistantState.patrickNotified"), 'assistant does not force a Patrick handoff on the first ordinary chat message');
@@ -102,7 +102,7 @@ assert(i18n.de['assistant.operatorActiveNotice'].includes('übernimmt jetzt den 
 const assistantConfig = fs.readFileSync(path.join(root, 'src/static/assistant-config.js'), 'utf8');
 assert(assistantConfig.includes('endpoint: "https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant"'), 'public assistant config points to the Supabase Aria endpoint by default');
 assert(assistantConfig.includes('liveAiEnabled: true'), 'public assistant config enables Aria as the primary AI');
-assert(assistantConfig.includes('localDevEndpoint: "http://127.0.0.1:8790/assistant"'), 'local assistant config keeps the localhost bridge for Patrick testing');
+assert(assistantConfig.includes('localDevEndpoint: "http://127.0.0.1:8790/assistant"'), 'local assistant config keeps the localhost bridge for Herr Dietz testing');
 assert(assistantConfig.includes('localProxyEndpoint: "http://127.0.0.1:8790/assistant"'), 'local assistant config exposes the same-origin-friendly AI proxy for localhost website tests');
 assert(assistantConfig.includes('remoteTestEndpoint: "https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant"'), 'local assistant config exposes the Supabase assistant endpoint for ?aria=remote tests');
 assert(fs.existsSync(path.join(root, 'scripts/local_assistant_bridge.py')), 'local assistant Telegram bridge script exists for dev handoff testing');
@@ -113,9 +113,9 @@ assert(localBridge.includes('REMOTE_ASSISTANT_ENDPOINT') && localBridge.includes
 assert(localBridge.includes('"mode": "ai_unavailable"') && localBridge.includes('Aria-KI ist aktuell nicht erreichbar'), 'local assistant bridge turns remote fallback into AI-unavailable instead of fake chat answers');
 assert(localBridge.includes('/operator/customer-message'), 'local bridge accepts live customer follow-up messages after Patrick has taken over');
 assert(localBridge.includes('Antwort an Chat') && localBridge.includes('Direkt antworten'), 'local bridge sends Patrick a copyable direct-reply prompt for each customer message');
-assert(localBridge.includes('/operator/ui') && localBridge.includes('Antwort senden'), 'local bridge exposes a clickable browser reply UI for Patrick');
+assert(localBridge.includes('/operator/ui') && localBridge.includes('Antwort senden'), 'local bridge exposes a clickable browser reply UI for Herr Dietz');
 assert(localBridge.includes('Antworten öffnen') && localBridge.includes('reply_url'), 'operator notification includes a direct answer link so Patrick does not have to copy prompts');
-assert(localBridge.includes('detect_message_language') && localBridge.includes('zh') && localBridge.includes('es'), 'operator bridge detects Spanish and Chinese customer messages for Patrick');
+assert(localBridge.includes('detect_message_language') && localBridge.includes('zh') && localBridge.includes('es'), 'operator bridge detects Spanish and Chinese customer messages for Herr Dietz');
 const languageSmoke = execFileSync(pythonBin, ['-c', `
 import importlib.util
 spec = importlib.util.spec_from_file_location('bridge', 'scripts/local_assistant_bridge.py')
@@ -129,7 +129,7 @@ assert bridge.detect_message_language('我有一个EPLAN问题') == 'zh'
 assert(languageSmoke !== null, 'local bridge language detector classifies Spanish tengo/Hola, German and Chinese correctly');
 assert(localBridge.includes('prepare_operator_reply') && localBridge.includes('corrected_message') && localBridge.includes('translated_message'), 'operator bridge prepares grammar-corrected and translated operator replies before delivery');
 assert(localBridge.includes('/operator/prepare-reply') && localBridge.includes('Entwurf prüfen'), 'operator UI has a draft review step before sending translated replies');
-assert(localBridge.includes('Übersetzung für Patrick') && localBridge.includes('Antwortsprache'), 'operator UI shows inbound translation context and outbound language mode');
+assert(localBridge.includes('Übersetzung für Herrn Dietz') && localBridge.includes('Antwortsprache'), 'operator UI shows inbound translation context and outbound language mode');
 assert(/Herrn? Dietz/.test(i18n.de['assistant.greeting']), 'assistant has a warm formal livechat greeting about Herr Dietz');
 assert(/Herrn? Dietz/.test(i18n.de['assistant.waitingPatrick']), 'assistant tells customer Herr Dietz is being notified without exposing internals');
 assert(i18n.de['assistant.aiFallback'].includes('nicht direkt verfügbar'), 'assistant has polished AI fallback after Patrick timeout');
