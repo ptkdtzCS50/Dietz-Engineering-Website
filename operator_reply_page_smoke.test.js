@@ -28,5 +28,9 @@ assert(page.includes('id="endChatButton"') && page.includes('endOperatorChat'), 
 assert(page.includes('/operator/end') && page.includes("action: 'end_chat'"), 'operator end button must call the protected backend end-chat action');
 assert(page.includes('Vielen Dank. Der Chat wurde beendet'), 'operator page must explain the thank-you/closure result after ending');
 assert(page.includes('let detectedCustomerLanguage') && page.includes('customer_language'), 'operator review must use the detected customer language instead of the German UI language');
+assert(page.includes('function normalizeCustomerLanguage(') && page.includes('function languageLabelForOperator('), 'operator page must normalize language codes and show readable customer language labels');
+assert(page.includes('function explicitLanguageFromMessage(') && page.includes('Kundensprache:'), 'operator page must prefer explicit handoff/customer language metadata over mixed German lead text');
+assert(page.includes('data-suggestion-i18n-key') && page.includes('renderDefaultSuggestionsForLanguage'), 'operator answer suggestion buttons must be localized to the customer language before AI review');
+assert(page.includes('if (!reviewedMessage && detectedCustomerLanguage !== \'de\')') && page.includes('await reviewOperatorDraft()'), 'operator submit must run translation review automatically before sending non-German customer replies');
 
 console.log('operator_reply_page_smoke.test.js: OK');

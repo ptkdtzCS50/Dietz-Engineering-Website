@@ -57,10 +57,27 @@ function detectCustomerLanguage(value: unknown): string {
   const text = cleanText(value, 1800).toLowerCase();
   if (!text) return "unknown";
   if (/[\u4e00-\u9fff]/.test(text)) return "zh";
-  if (/\b(hola|gracias|tengo|pregunta|dónde|donde|idioma|botón|boton|necesito)\b/.test(text)) return "es";
-  if (/\b(where|language|button|hello|thank you|thanks|project|question|support|need|please)\b/.test(text)) return "en";
-  if (/\b(hallo|danke|frage|sprache|projekt|unterstütz|unterstuetz|herr dietz|bitte)\b/.test(text)) return "de";
+  const score = {
+    en: (text.match(/\b(where|language|button|hello|thank you|thanks|project|question|support|need|please|contact|mr\.?|not specified|initial clarification)\b/g) || []).length,
+    de: (text.match(/\b(hallo|danke|frage|sprache|projekt|unterstütz|unterstuetz|herr dietz|bitte|übergabe|uebergabe)\b/g) || []).length,
+    es: (text.match(/\b(hola|gracias|tengo|pregunta|dónde|donde|idioma|botón|boton|necesito)\b/g) || []).length,
+  };
+  if (score.en >= score.de && score.en >= score.es && score.en > 0) return "en";
+  if (score.es >= score.de && score.es > 0) return "es";
+  if (score.de > 0) return "de";
   return "unknown";
+}
+
+function explicitCustomerLanguageFromText(value: unknown): string {
+  const text = cleanText(value, 1800);
+  const match = text.match(/(?:Kundensprache|Sprache|Website-Sprache|Customer language)\s*:\s*([^\n|]+)/i);
+  const lang = cleanText(match?.[1], 40).toLowerCase();
+  if (["de", "en", "es", "zh"].includes(lang)) return lang;
+  if (/english|englisch/.test(lang)) return "en";
+  if (/spanish|spanisch|español/.test(lang)) return "es";
+  if (/chinese|chinesisch|中文/.test(lang)) return "zh";
+  if (/german|deutsch/.test(lang)) return "de";
+  return "";
 }
 
 function polishHerrDietzGrammar(value: unknown, max = 4000): string {
@@ -447,6 +464,7 @@ function operatorInitialMessage(payload: AssistantPayload) {
   return [
     cleanText(payload.customer?.name, 140) ? `Name: ${cleanText(payload.customer?.name, 140)}` : "",
     cleanText(payload.customer?.contact, 180) ? `Kontakt: ${cleanText(payload.customer?.contact, 180)}` : "",
+    `Kundensprache: ${normalizePreferredLanguage(payload.language)}`,
     cleanText(context.project_type, 220) ? `Projekttyp: ${cleanText(context.project_type, 220)}` : "",
     cleanText(context.machine, 260) ? `Maschine/Anlage: ${cleanText(context.machine, 260)}` : "",
     cleanText(context.timeline, 180) ? `Zeitrahmen: ${cleanText(context.timeline, 180)}` : "",
@@ -649,7 +667,7 @@ async function handleOperatorReview(request: Request, raw: string, headers: Reco
   if (!session || session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
   const messages = await loadOperatorMessages(sessionId, 0);
   const latestCustomer = [...messages].reverse().find((item) => item.role === "customer")?.message || "";
-  const customerLanguage = detectCustomerLanguage(latestCustomer);
+  const customerLanguage = explicitCustomerLanguageFromText(latestCustomer) || detectCustomerLanguage(latestCustomer);
   const requestedCustomerLanguage = cleanText(payload.customer_language, 8);
   const targetLanguage = requestedCustomerLanguage || (customerLanguage === "unknown" ? language : customerLanguage) || language;
   const draft = message || "Guten Tag, vielen Dank für Ihre Nachricht. Ich schaue mir Ihr Anliegen gerne an.";

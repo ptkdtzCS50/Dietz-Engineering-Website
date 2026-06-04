@@ -109,12 +109,37 @@
       function setStatus(text){ status.textContent = text; }
       function escapeHtml(value){ return String(value || '').replace(/[&<>\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch])); }
       function roleLabel(role){ return role === 'patrick' ? 'Herr Dietz' : role === 'system' ? 'System' : 'Besucher'; }
+      function normalizeCustomerLanguage(value){
+        const lang = String(value || '').trim().toLowerCase();
+        if (['de', 'en', 'es', 'zh'].includes(lang)) return lang;
+        if (/english|englisch/.test(lang)) return 'en';
+        if (/spanish|spanisch|español/.test(lang)) return 'es';
+        if (/chinese|chinesisch|中文/.test(lang)) return 'zh';
+        if (/german|deutsch/.test(lang)) return 'de';
+        return '';
+      }
+      function languageLabelForOperator(language){
+        const labels = { de: 'Deutsch', en: 'Englisch', es: 'Spanisch', zh: 'Chinesisch' };
+        return labels[normalizeCustomerLanguage(language) || language] || 'wird erkannt';
+      }
+      function explicitLanguageFromMessage(value){
+        const text = String(value || '');
+        const match = text.match(/(?:Kundensprache|Sprache|Website-Sprache|Customer language)\s*:\s*([^\n|]+)/i);
+        return normalizeCustomerLanguage(match && match[1]);
+      }
       function detectLanguageFromText(value){
+        const explicit = explicitLanguageFromMessage(value);
+        if (explicit) return explicit;
         const text = String(value || '').toLowerCase();
         if(/[\u4e00-\u9fff]/.test(text)) return 'zh';
-        if(/\b(hola|gracias|tengo|pregunta|dónde|donde|idioma|botón|boton)\b/.test(text)) return 'es';
-        if(/\b(where|language|button|hello|thank you|project|question|support)\b/.test(text)) return 'en';
-        if(/\b(hallo|danke|frage|sprache|projekt|unterstütz|unterstuetz|herr dietz)\b/.test(text)) return 'de';
+        const score = {
+          en: (text.match(/\b(where|language|button|hello|thank you|thanks|project|question|support|need|please|contact|mr\.?|not specified|initial clarification)\b/g) || []).length,
+          de: (text.match(/\b(hallo|danke|frage|sprache|projekt|unterstütz|unterstuetz|herr dietz|bitte|übergabe|uebergabe)\b/g) || []).length,
+          es: (text.match(/\b(hola|gracias|tengo|pregunta|dónde|donde|idioma|botón|boton|necesito)\b/g) || []).length,
+        };
+        if (score.en >= score.de && score.en >= score.es && score.en > 0) return 'en';
+        if (score.es >= score.de && score.es > 0) return 'es';
+        if (score.de > 0) return 'de';
         return detectedCustomerLanguage || 'de';
       }
       function renderMessage(item){
@@ -123,8 +148,9 @@
         div.className = 'msg'; div.dataset.role = item.role || 'customer';
         const time = item.created_at ? new Date(item.created_at).toLocaleString('de-DE') : '';
         if ((item.role || 'customer') === 'customer') {
-          detectedCustomerLanguage = item.customer_language || detectLanguageFromText(item.message);
-          languageLabel.textContent = detectedCustomerLanguage;
+          detectedCustomerLanguage = normalizeCustomerLanguage(item.customer_language) || detectLanguageFromText(item.message);
+          languageLabel.textContent = languageLabelForOperator(detectedCustomerLanguage);
+          renderDefaultSuggestionsForLanguage(detectedCustomerLanguage);
         }
         if ((item.action || '') === 'end_chat' || /Livechat wurde beendet/i.test(item.message || '')) chatEnded = true;
         div.innerHTML = `<span class="msg-role">${roleLabel(item.role)}</span><div class="msg-text">${escapeHtml(item.message)}</div>${time ? `<span class="msg-time">${escapeHtml(time)}</span>` : ''}`;
@@ -154,6 +180,40 @@
           suggestionList.appendChild(button);
         });
       }
+      function renderDefaultSuggestionsForLanguage(language){
+        if (!suggestionList || suggestionList.dataset.aiReviewed === 'true') return;
+        const lang = normalizeCustomerLanguage(language) || 'de';
+        const suggestions = {
+          de: [
+            'Hallo Herr Mustermann, vielen Dank für Ihre Nachricht. Wie kann ich Sie unterstützen?',
+            'Guten Tag Herr Mustermann, ich schaue mir Ihr Anliegen gern an. Können Sie mir bitte kurz die wichtigsten Eckdaten nennen?',
+            'Vielen Dank für Ihre Anfrage. Ich unterstütze Sie gerne bei der ersten technischen Klärung.'
+          ],
+          en: [
+            'Hello Mr Mustermann, thank you for your message. How can I support you?',
+            'Good afternoon Mr Mustermann, I will gladly take a look at your request. Could you briefly share the key details?',
+            'Thank you for your inquiry. I will be happy to support the initial technical clarification.'
+          ],
+          es: [
+            'Hola Sr. Mustermann, gracias por su mensaje. ¿Cómo puedo ayudarle?',
+            'Buenos días Sr. Mustermann, revisaré con gusto su solicitud. ¿Podría indicar brevemente los datos principales?',
+            'Gracias por su consulta. Con gusto le ayudo con la primera aclaración técnica.'
+          ],
+          zh: [
+            '您好，Mustermann 先生，感谢您的留言。请问我可以如何协助您？',
+            '您好，Mustermann 先生，我很乐意查看您的需求。能否简要说明关键项目数据？',
+            '感谢您的咨询。我很乐意协助进行初步技术澄清。'
+          ]
+        };
+        suggestionList.innerHTML = '';
+        (suggestions[lang] || suggestions.de).forEach((text, index) => {
+          const button = document.createElement('button');
+          button.type = 'button'; button.className = 'suggestion-choice'; button.textContent = text;
+          button.setAttribute('data-suggestion-i18n-key', `${lang}:${index}`);
+          button.addEventListener('click', () => { messageInput.value = text; reviewedMessage = ''; setStatus('Vorschlag eingefügt. Bitte KI prüfen oder direkt senden.'); });
+          suggestionList.appendChild(button);
+        });
+      }
       async function reviewOperatorDraft(){
         const message = messageInput.value.trim();
         reviewButton.disabled = true; setStatus('KI prüft Rechtschreibung, Ton und Übersetzung …');
@@ -164,8 +224,10 @@
           if (!response.ok || data.ok === false) throw new Error(data.error || 'review_failed');
           reviewedMessage = data.reviewedMessage || data.final_message || data.corrected_message || message;
           messageInput.value = reviewedMessage;
-          languageLabel.textContent = data.language_label || data.target_language || 'erkannt';
+          detectedCustomerLanguage = normalizeCustomerLanguage(data.target_language) || detectedCustomerLanguage;
+          languageLabel.textContent = data.language_label || languageLabelForOperator(detectedCustomerLanguage);
           translationForPatrick.textContent = data.translation_for_patrick || 'Keine separate Übersetzung nötig.';
+          suggestionList.dataset.aiReviewed = 'true';
           renderSuggestions(data.suggestions);
           setStatus('KI-Prüfung abgeschlossen. Die geprüfte Antwort steht im Textfeld.');
         } catch (error) { setStatus('KI-Prüfung gerade nicht erreichbar. Bitte Text manuell prüfen.'); }
@@ -211,7 +273,11 @@
         sendInFlight = true;
         sendButton.disabled = true; setStatus('Antwort wird gesendet …');
         try {
-          const outbound = reviewedMessage && reviewedMessage.trim() === message ? reviewedMessage : message;
+          if (!reviewedMessage && detectedCustomerLanguage !== 'de') {
+            await reviewOperatorDraft();
+          }
+          const currentMessage = messageInput.value.trim() || message;
+          const outbound = reviewedMessage && reviewedMessage.trim() === currentMessage ? reviewedMessage : currentMessage;
           const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, message: outbound });
           const response = await fetch(form.action, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
           const data = await response.json().catch(() => ({ ok: response.ok }));

@@ -28,7 +28,10 @@ assert(fn.includes('function htmlResponse('), 'operator UI must return explicit 
 assert(fn.includes('headers: { ...headers, "content-type": "text/html; charset=utf-8" }'), 'text/html must override CORS headers so mobile browsers render the form');
 
 assert(fn.includes('function detectCustomerLanguage'), 'Supabase operator review must detect the latest customer language server-side');
-assert(fn.includes('customerLanguage = detectCustomerLanguage(latestCustomer)') && fn.includes('payload.customer_language'), 'operator review must prefer the customer language over the German operator UI language');
+assert(fn.includes('function explicitCustomerLanguageFromText') && fn.includes('Kundensprache:'), 'Supabase operator review must prefer explicit handoff language metadata before guessing from mixed German lead text');
+assert(fn.includes('operatorInitialMessage(payload: AssistantPayload)') && fn.includes('Kundensprache: ${normalizePreferredLanguage(payload.language)}'), 'operator initial handoff message must persist selected customer language for the static operator page and review endpoint');
+assert(fn.includes('customerLanguage = explicitCustomerLanguageFromText(latestCustomer) || detectCustomerLanguage(latestCustomer)'), 'operator review must use explicit customer language metadata when available');
+assert(fn.includes('payload.customer_language') && fn.includes('targetLanguage'), 'operator review must prefer an explicit customer language over the German operator UI language');
 assert(fn.includes('async function appendOperatorReply') && fn.includes('action = "operator_reply"'), 'operator replies must persist explicit actions such as operator_reply/end_chat');
 assert(fn.includes('async function handleOperatorEnd'), 'Supabase function must expose an explicit livechat end endpoint');
 assert(fn.includes('pathname.endsWith("/operator/end")'), 'Supabase function must route operator/customer end-chat requests');

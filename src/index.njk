@@ -4719,6 +4719,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
       const button = document.createElement('button');
       button.className = 'btn btn-secondary';
       button.type = 'button';
+      button.setAttribute('data-i18n-key', key);
       button.textContent = dict[key] || key;
       button.addEventListener('click', () => {
         if (!chatInput) return;
