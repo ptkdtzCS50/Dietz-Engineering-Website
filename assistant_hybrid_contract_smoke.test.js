@@ -73,6 +73,11 @@ assert(index.includes('.assistant-panel {') && index.includes('z-index: 140;') &
 assert(index.includes('assistant-fieldless-hidden') && index.includes('assistant-lead-details assistant-fieldless-hidden'), 'legacy lower assistant menu/details are hidden for chat-first UX');
 assert(index.includes('const handoffIntentText = /(?:weitergabe|weiterleiten|übergabe|uebergabe|kontaktaufnahme') && index.includes('const wantsPatrick = initialWantsPatrick || chatConsentGiven'), 'explicit chat consent immediately triggers handoff instead of another AI answer');
 assert(index.includes('appendPatrickContactAction()') && !index.includes('Für die Übergabe können Sie die Angaben direkt hier im Chat senden'), 'normal AI answers should offer a non-pushy Patrick contact button instead of repeatedly asking for contact details');
+assert(index.includes("button.textContent = assistantDict()['assistant.contactDietzButton']"), 'dynamic contact CTA must use i18n instead of hardcoded German text');
+assert(!index.includes("button.textContent = 'Herr Dietz kontaktieren'"), 'dynamic contact CTA must not hardcode German text');
+assert(index.includes('function acceptHandoffConsentFromButton(') && index.includes('consent.checked = true;'), 'handoff quick action button gives explicit consent without requiring a typed consent sentence');
+assert(index.includes("addButton('assistant.handoffSendDietz'"), 'handoff quick actions expose a single clear send-to-Dietz button');
+assert(!JSON.stringify(i18n.en).includes('Please briefly confirm in the chat'), 'English handoff copy should not force a typed confirmation loop');
 assert(index.includes('if (!hasAssistantHandoffConsent()) return { ok: false, skipped: true, reason: \'consent_required\' };'), 'lead endpoint call is blocked before consent');
 assert(!index.includes('<body data-chatbase-live="enabled">'), 'production page no longer hides Aria behind Chatbase by default');
 assert(index.includes('params.get(\'chatbase\')===\'fallback\'') && index.includes('https://www.chatbase.co/embed.min.js'), 'Chatbase remains available only as explicit fallback override');

@@ -4896,7 +4896,8 @@ document.querySelectorAll('.faq-item').forEach(item => {
     const button = document.createElement('button');
     button.className = 'btn btn-secondary';
     button.type = 'button';
-    button.textContent = 'Herr Dietz kontaktieren';
+    button.setAttribute('data-i18n-key', 'assistant.contactDietzButton');
+    button.textContent = assistantDict()['assistant.contactDietzButton'] || assistantDict()['assistant.takeover'] || 'Herr Dietz kontaktieren';
     button.addEventListener('click', () => {
       guidedAssistantState.contactActionShown = false;
       actions.remove();
@@ -4974,6 +4975,15 @@ document.querySelectorAll('.faq-item').forEach(item => {
     ].filter(Boolean).join('\n');
   }
 
+  function acceptHandoffConsentFromButton() {
+    const consent = document.getElementById('assistantConsent');
+    if (consent) {
+      consent.checked = true;
+      consent.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    return true;
+  }
+
   function appendHandoffQuickActions(summary = {}) {
     if (!chatLog) return null;
     const actions = document.createElement('div');
@@ -4993,7 +5003,10 @@ document.querySelectorAll('.faq-item').forEach(item => {
         chatInput.focus();
       }
     });
-    addButton('assistant.handoffNotifyDietz', () => requestLiveTakeover());
+    addButton('assistant.handoffSendDietz', () => {
+      acceptHandoffConsentFromButton();
+      requestLiveTakeover();
+    });
     chatLog.appendChild(actions);
     chatLog.scrollTop = chatLog.scrollHeight;
     return actions;
@@ -5386,9 +5399,13 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
           .replace('{example}', example)
           .replace('{privacy}', privacyNotice)
           .replace('{consent}', consentPhrase)
+          .replace('{insert}', dict['assistant.handoffExampleInsert'])
+          .replace('{send}', dict['assistant.handoffSendDietz'])
       : (dict['assistant.handoffCompletePrompt'] || '{privacy}\n\n{consent}')
           .replace('{privacy}', privacyNotice)
-          .replace('{consent}', consentPhrase);
+          .replace('{consent}', consentPhrase)
+          .replace('{insert}', dict['assistant.handoffExampleInsert'])
+          .replace('{send}', dict['assistant.handoffSendDietz']);
     appendChatMessage('aria', text);
     appendHandoffQuickActions(summary);
     setOutput(text);

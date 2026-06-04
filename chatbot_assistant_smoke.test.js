@@ -93,12 +93,12 @@ assert(index.includes("if (!wantsPatrick && !assistantConfig.liveAiEnabled && !c
 assert(!index.includes("shouldRequestPatrickFromMessage(message) || !guidedAssistantState.patrickNotified"), 'assistant does not force a Patrick handoff on the first ordinary chat message');
 assert(index.includes("patrick dazuholen") && !index.includes("return ['patrick', 'herr dietz', 'dietz'"), 'questions merely mentioning Patrick do not trigger human handoff');
 assert(index.includes('function askForChatHandoffDetails(') && index.includes('appendHandoffQuickActions(summary)'), 'missing consent/details stays in chat and shows handoff quick actions');
-assert(index.includes("addButton('assistant.handoffExampleInsert'") && index.includes("addButton('assistant.handoffNotifyDietz'") && index.includes("button.setAttribute('data-i18n-key', key)"), 'handoff quick-action buttons must use translated i18n labels');
+assert(index.includes("addButton('assistant.handoffExampleInsert'") && index.includes("addButton('assistant.handoffSendDietz'") && index.includes("button.setAttribute('data-i18n-key', key)"), 'handoff quick-action buttons must use translated i18n labels');
 assert(index.includes('buildLocalizedHandoffExampleMessage') && index.includes('assistant.handoffExampleName') && index.includes('assistant.handoffConsentPhrase'), 'handoff example text must be generated from translated i18n keys');
 assert(!index.includes("addButton('Beispiel einfügen'") && !index.includes("addButton('Herrn Dietz informieren'"), 'handoff actions must not hard-code German labels');
 assert(!index.includes('Gerne. Bitte schreiben Sie die fehlenden Angaben direkt hier in den Chat') && !index.includes('kurze Projektbeschreibung') && !index.includes('Ich stimme der Übergabe an Herrn Dietz zu.'), 'handoff detail prompt must not hard-code German example copy');
 ['de','en','es','zh'].forEach((lang) => {
-  ['assistant.handoffDetailsPrompt','assistant.handoffCompletePrompt','assistant.handoffExampleInsert','assistant.handoffNotifyDietz','assistant.handoffExampleName','assistant.handoffExampleContact','assistant.handoffExampleTopic','assistant.handoffExampleOr','assistant.handoffConsentPhrase'].forEach((key) => {
+  ['assistant.handoffDetailsPrompt','assistant.handoffCompletePrompt','assistant.handoffExampleInsert','assistant.handoffSendDietz','assistant.handoffNotifyDietz','assistant.handoffExampleName','assistant.handoffExampleContact','assistant.handoffExampleTopic','assistant.handoffExampleOr','assistant.handoffConsentPhrase'].forEach((key) => {
     assert(i18n[lang][key], `${lang} has ${key}`);
   });
 });
