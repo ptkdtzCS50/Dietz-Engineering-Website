@@ -53,6 +53,13 @@ function cleanText(value: unknown, max = 4000): string {
   return String(value || "").replace(/\s+/g, " ").trim().slice(0, max);
 }
 
+function polishHerrDietzGrammar(value: unknown, max = 4000): string {
+  return cleanText(value, max)
+    .replace(/\b(an|zu|bei|mit|von|für|ueber|über)\s+Herr\s+Dietz\b/g, "$1 Herrn Dietz")
+    .replace(/\b(kontaktieren|informieren|benachrichtigen|dazuholen|erreichen|fragen|anrufen|einbinden)\s+Herr\s+Dietz\b/g, "$1 Herrn Dietz")
+    .replace(/\bÜbergabe\s+an\s+Herr\s+Dietz\b/g, "Übergabe an Herrn Dietz");
+}
+
 function redactContactData(value: unknown, max = 4000): string {
   return cleanText(value, max)
     .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[redacted-email]")
@@ -256,7 +263,7 @@ async function callOpenAI(payload: AssistantPayload) {
   if (!response.ok) throw new Error(data.error?.message || "assistant model unavailable");
   const outputText = data.output_text || data.output?.flatMap((item: { content?: { text?: string }[] }) => item.content || []).find((item: { text?: string }) => item.text)?.text;
   return {
-    reply: cleanText(outputText, 2400) || fallbackReply(payload).reply,
+    reply: polishHerrDietzGrammar(outputText, 2400) || fallbackReply(payload).reply,
     mode: "live_ai",
     requires_human: true,
     escalation_reason: "review_required_personal_patrick",

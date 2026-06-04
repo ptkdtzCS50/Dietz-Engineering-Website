@@ -35,6 +35,7 @@ assert(visibleGerman.includes('Rückmeldung an Herrn Dietz'), 'German consent la
 assert(assistantFunction.includes('Herr Dietz prüft verbindliche Fragen persönlich.'), 'Supabase fallback/prompt copy should use Herr Dietz for customer-facing German status');
 assert(!assistantFunction.includes('holen Sie Patrick über die Übergabe dazu'), 'Supabase fallback copy must not casually tell customers to bring in Patrick');
 
+assert(assistantFunction.includes('function polishHerrDietzGrammar') && assistantFunction.includes('bei|mit|von|für') && assistantFunction.includes('kontaktieren|informieren'), 'Supabase live AI replies should post-process common Herr/Herrn Dietz grammar mistakes');
 assert(operatorPage.includes('Nachricht von Herr Dietz') || operatorPage.includes('Nachricht von Herrn Dietz'), 'Operator page label should also present the sender formally');
 
 for (const lang of ['de', 'en', 'es', 'zh']) {
