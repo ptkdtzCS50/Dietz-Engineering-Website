@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>DIETZ Operator Antwort</title>
+  <style>
+    :root { color-scheme: dark; }
+    body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:0;min-height:100dvh;display:grid;place-items:center;background:#0d1320;color:#f5f7fb;line-height:1.5}
+    main{width:min(100% - 2rem,760px);padding:2rem 0}
+    textarea{box-sizing:border-box;width:100%;min-height:10rem;border-radius:14px;border:1px solid #39445c;background:#111a2d;color:#f5f7fb;padding:1rem;font:inherit}
+    button{margin-top:1rem;border:0;border-radius:999px;padding:.85rem 1.25rem;background:#f0c36a;color:#17120a;font-weight:800;min-height:44px}
+    .notice{padding:1rem;border-radius:14px;background:#16233a;margin:1rem 0}
+    .muted{color:#aeb8ce}.hidden{display:none!important}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Antwort an Website-Chat</h1>
+    <p class="muted">Diese Seite ist nur für den privaten DIETZ-Operator-Link gedacht.</p>
+    <div id="missingNotice" class="notice hidden">Der Antwort-Link ist unvollständig. Bitte den vollständigen Telegram-Link erneut öffnen.</div>
+    <form id="replyForm" method="post" action="https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant/operator/reply">
+      <input type="hidden" name="session_id" id="sessionId">
+      <input type="hidden" name="operator_token" id="operatorToken">
+      <label for="message">Nachricht von Patrick</label>
+      <textarea id="message" name="message" autofocus required placeholder="Antwort für den Website-Besucher ..."></textarea><br>
+      <button type="submit">Antwort senden</button>
+    </form>
+    <p class="muted">Die Antwort wird in den aktuellen Website-Chat gelegt. Dieser Kurzzeit-Kanal läuft automatisch ab.</p>
+  </main>
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id') || '';
+      const operatorToken = params.get('operator_token') || '';
+      document.getElementById('sessionId').value = sessionId;
+      document.getElementById('operatorToken').value = operatorToken;
+      if (!sessionId || !operatorToken) {
+        document.getElementById('missingNotice').classList.remove('hidden');
+        document.getElementById('replyForm').querySelector('button').disabled = true;
+      }
+    })();
+  </script>
+</body>
+</html>

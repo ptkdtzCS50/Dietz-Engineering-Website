@@ -16,12 +16,35 @@ type AssistantPayload = {
   fallback_reason?: string;
 };
 
+type OperatorReply = { id: number; action: string; message: string; created_at: string };
+type OperatorSession = { token: string; replies: OperatorReply[]; nextId: number; createdAt: number };
+
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 const OPERATOR_SESSION_TTL_MS = 2 * 60 * 60 * 1000;
-const operatorSessions = new Map<string, { token: string; replies: { id: number; action: string; message: string; created_at: string }[]; nextId: number; createdAt: number }>();
+const operatorSessions = new Map<string, OperatorSession>();
 
 function env(name: string): string {
   return Deno.env.get(name) || "";
+}
+
+function supabaseRestHeaders() {
+  const key = env("SUPABASE_SERVICE_ROLE_KEY") || env("SERVICE_ROLE_KEY");
+  if (!env("SUPABASE_URL") || !key) return null;
+  return {
+    "apikey": key,
+    "authorization": `Bearer ${key}`,
+    "content-type": "application/json",
+  };
+}
+
+async function supabaseRest(path: string, init: RequestInit = {}) {
+  const headers = supabaseRestHeaders();
+  const base = env("SUPABASE_URL").replace(/\/$/, "");
+  if (!headers || !base) throw new Error("supabase_rest_unavailable");
+  return await fetch(`${base}/rest/v1/${path}`, {
+    ...init,
+    headers: { ...headers, ...(init.headers || {}) },
+  });
 }
 
 function cleanText(value: unknown, max = 4000): string {
@@ -63,6 +86,13 @@ function jsonResponse(payload: unknown, status = 200, headers: Record<string, st
   return new Response(JSON.stringify(payload), {
     status,
     headers: { "content-type": "application/json; charset=utf-8", ...headers },
+  });
+}
+
+function htmlResponse(html: string, status = 200, headers: Record<string, string> = {}) {
+  return new Response(html, {
+    status,
+    headers: { ...headers, "content-type": "text/html; charset=utf-8" },
   });
 }
 
@@ -284,20 +314,111 @@ function cleanupOperatorSessions() {
   }
 }
 
-function createOperatorSession() {
+async function saveOperatorSession(sessionId: string, session: OperatorSession) {
+  operatorSessions.set(sessionId, session);
+  try {
+    const response = await supabaseRest("assistant_operator_sessions", {
+      method: "POST",
+      headers: { "prefer": "resolution=merge-duplicates" },
+      body: JSON.stringify({
+        session_id: sessionId,
+        token: session.token,
+        next_id: session.nextId,
+        created_at: new Date(session.createdAt).toISOString(),
+        expires_at: new Date(session.createdAt + OPERATOR_SESSION_TTL_MS).toISOString(),
+      }),
+    });
+    if (!response.ok) throw new Error(`session_save_failed_${response.status}`);
+  } catch (_) {
+    // Fallback keeps local development working; production uses Supabase DB for cross-isolate persistence.
+  }
+}
+
+async function loadOperatorSession(sessionId: string): Promise<OperatorSession | null> {
+  cleanupOperatorSessions();
+  if (!sessionId) return null;
+  try {
+    const response = await supabaseRest(`assistant_operator_sessions?session_id=eq.${encodeURIComponent(sessionId)}&select=session_id,token,next_id,created_at,expires_at&limit=1`);
+    if (response.ok) {
+      const rows = await response.json().catch(() => []);
+      const row = Array.isArray(rows) ? rows[0] : null;
+      if (row && (!row.expires_at || Date.parse(row.expires_at) > Date.now())) {
+        const session = {
+          token: cleanText(row.token, 120),
+          replies: [],
+          nextId: Number(row.next_id || 1),
+          createdAt: Date.parse(row.created_at) || Date.now(),
+        };
+        operatorSessions.set(sessionId, session);
+        return session;
+      }
+    }
+  } catch (_) {}
+  return operatorSessions.get(sessionId) || null;
+}
+
+async function loadOperatorReplies(sessionId: string, after = 0): Promise<OperatorReply[]> {
+  try {
+    const response = await supabaseRest(`assistant_operator_replies?session_id=eq.${encodeURIComponent(sessionId)}&reply_id=gt.${Number(after) || 0}&select=reply_id,action,message,created_at&order=reply_id.asc`);
+    if (response.ok) {
+      const rows = await response.json().catch(() => []);
+      if (Array.isArray(rows)) return rows.map((row) => ({
+        id: Number(row.reply_id || 0),
+        action: cleanText(row.action, 80) || "operator_reply",
+        message: cleanText(row.message, 1200),
+        created_at: cleanText(row.created_at, 80),
+      })).filter((reply) => reply.id > 0 && reply.message);
+    }
+  } catch (_) {}
+  const session = operatorSessions.get(sessionId);
+  return session ? session.replies.filter((reply) => reply.id > after) : [];
+}
+
+async function appendOperatorReply(sessionId: string, session: OperatorSession, message: string): Promise<number> {
+  const replyId = session.nextId++;
+  const reply = { id: replyId, action: "operator_reply", message, created_at: new Date().toISOString() };
+  session.replies.push(reply);
+  operatorSessions.set(sessionId, session);
+  try {
+    await supabaseRest("assistant_operator_replies", {
+      method: "POST",
+      body: JSON.stringify({ session_id: sessionId, reply_id: reply.id, action: reply.action, message: reply.message, created_at: reply.created_at }),
+    });
+    await supabaseRest(`assistant_operator_sessions?session_id=eq.${encodeURIComponent(sessionId)}`, {
+      method: "PATCH",
+      body: JSON.stringify({ next_id: session.nextId }),
+    });
+  } catch (_) {}
+  return replyId;
+}
+
+async function createOperatorSession() {
   cleanupOperatorSessions();
   const sessionId = crypto.randomUUID();
   const token = crypto.randomUUID().replace(/-/g, "");
-  operatorSessions.set(sessionId, { token, replies: [], nextId: 1, createdAt: Date.now() });
+  const session = { token, replies: [], nextId: 1, createdAt: Date.now() };
+  await saveOperatorSession(sessionId, session);
   return { sessionId, token };
+}
+
+function publicFunctionOrigin(request: Request) {
+  const url = new URL(request.url);
+  return `${url.protocol === "http:" ? "https:" : url.protocol}//${url.host}`;
 }
 
 function operatorBaseUrl(request: Request) {
   const url = new URL(request.url);
   const canonicalFunctionPath = "/functions/v1/assistant";
   const normalizedPath = url.pathname.replace(/\/?(?:lead|escalate|replies|operator\/(?:ui|reply))?$/, "").replace(/\/$/, "");
-  if (normalizedPath.endsWith(canonicalFunctionPath)) return `${url.origin}${normalizedPath}`;
-  return `${url.origin}${canonicalFunctionPath}`;
+  const origin = publicFunctionOrigin(request);
+  if (normalizedPath.endsWith(canonicalFunctionPath)) return `${origin}${normalizedPath}`;
+  return `${origin}${canonicalFunctionPath}`;
+}
+
+function operatorPublicUiUrl(sessionId: string, token: string) {
+  const configured = env("OPERATOR_UI_BASE_URL") || "https://dietz-engineering.com/operator-reply/";
+  const base = configured.replace(/\/$/, "/");
+  return `${base}?session_id=${encodeURIComponent(sessionId)}&operator_token=${encodeURIComponent(token)}`;
 }
 
 function operatorUiHtml(sessionId: string, token: string, actionUrl: string, notice = "") {
@@ -330,46 +451,43 @@ async function handleChat(request: Request, payload: AssistantPayload, headers: 
 }
 
 async function handleReplies(request: Request, headers: Record<string, string>) {
-  cleanupOperatorSessions();
   const url = new URL(request.url);
   const sessionId = cleanText(url.searchParams.get("session_id"), 120);
   const after = Number(url.searchParams.get("after") || 0);
-  const session = operatorSessions.get(sessionId);
+  const session = await loadOperatorSession(sessionId);
   if (!session) return jsonResponse({ ok: true, replies: [], next: after || 0, expired: true }, 200, headers);
-  const replies = session.replies.filter((reply) => reply.id > after);
-  const next = session.replies.length ? session.replies[session.replies.length - 1].id : after || 0;
+  const replies = await loadOperatorReplies(sessionId, after);
+  const next = replies.length ? replies[replies.length - 1].id : after || 0;
   return jsonResponse({ ok: true, replies, next }, 200, headers);
 }
 
-function handleOperatorUi(request: Request, headers: Record<string, string>) {
-  cleanupOperatorSessions();
+async function handleOperatorUi(request: Request, headers: Record<string, string>) {
   const url = new URL(request.url);
   const sessionId = cleanText(url.searchParams.get("session_id"), 120);
   const token = cleanText(url.searchParams.get("operator_token"), 120);
-  const session = operatorSessions.get(sessionId);
+  const session = await loadOperatorSession(sessionId);
   const base = operatorBaseUrl(request);
   const actionUrl = `${base}/operator/reply`;
   if (!session || session.token !== token) {
-    return new Response(operatorUiHtml(sessionId, token, actionUrl, "Dieser Antwort-Link ist abgelaufen oder ungültig."), { status: 404, headers: { ...headers, "content-type": "text/html; charset=utf-8" } });
+    return htmlResponse(operatorUiHtml(sessionId, token, actionUrl, "Dieser Antwort-Link ist abgelaufen oder ungültig."), 200, headers);
   }
-  return new Response(operatorUiHtml(sessionId, token, actionUrl), { status: 200, headers: { ...headers, "content-type": "text/html; charset=utf-8" } });
+  return htmlResponse(operatorUiHtml(sessionId, token, actionUrl), 200, headers);
 }
 
 async function handleOperatorReply(request: Request, raw: string, headers: Record<string, string>) {
-  cleanupOperatorSessions();
   const payload = getRequestPayload(request, raw);
   const sessionId = cleanText(payload.session_id, 120);
   const token = cleanText(payload.operator_token, 120);
   const message = cleanText(payload.message, 1200);
-  const session = operatorSessions.get(sessionId);
+  const session = await loadOperatorSession(sessionId);
   if (!session || session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
   if (!message) return jsonResponse({ ok: false, error: "message_required" }, 400, headers);
-  session.replies.push({ id: session.nextId++, action: "operator_reply", message, created_at: new Date().toISOString() });
+  const next = await appendOperatorReply(sessionId, session, message);
   const acceptsHtml = (request.headers.get("accept") || "").includes("text/html") || (request.headers.get("content-type") || "").includes("application/x-www-form-urlencoded");
   if (acceptsHtml) {
-    return new Response(operatorUiHtml(sessionId, token, `${operatorBaseUrl(request)}/operator/reply`, "Antwort wurde an den Website-Chat übergeben."), { status: 200, headers: { ...headers, "content-type": "text/html; charset=utf-8" } });
+    return htmlResponse(operatorUiHtml(sessionId, token, `${operatorBaseUrl(request)}/operator/reply`, "Antwort wurde an den Website-Chat übergeben."), 200, headers);
   }
-  return jsonResponse({ ok: true, delivered: true, session_id: sessionId, next: session.nextId - 1 }, 200, headers);
+  return jsonResponse({ ok: true, delivered: true, session_id: sessionId, next }, 200, headers);
 }
 
 async function handleLead(request: Request, payload: AssistantPayload, headers: Record<string, string>) {
@@ -379,8 +497,8 @@ async function handleLead(request: Request, payload: AssistantPayload, headers: 
   const limited = rateLimit(request);
   if (!limited.ok) return jsonResponse({ ok: false, fallback_reason: limited.fallback_reason }, 429, headers);
   const result = fallbackReply(payload, payload.fallback_reason || "confirmed_handoff");
-  const { sessionId, token } = createOperatorSession();
-  const replyUrl = `${operatorBaseUrl(request)}/operator/ui?session_id=${encodeURIComponent(sessionId)}&operator_token=${encodeURIComponent(token)}`;
+  const { sessionId, token } = await createOperatorSession();
+  const replyUrl = operatorPublicUiUrl(sessionId, token);
   const telegram = await notifyTelegram(formatLead(payload, result, sessionId, replyUrl));
   return jsonResponse({ ok: true, delivered: !telegram.skipped, telegram, fallback_reason: result.fallback_reason, session_id: sessionId, operator_token: token, reply_url: replyUrl }, 200, headers);
 }
@@ -392,7 +510,7 @@ Deno.serve(async (request) => {
   const pathname = new URL(request.url).pathname;
   if (request.method === "GET") {
     if (pathname.endsWith("/replies")) return await handleReplies(request, headers);
-    if (pathname.endsWith("/operator/ui")) return handleOperatorUi(request, headers);
+    if (pathname.endsWith("/operator/ui")) return await handleOperatorUi(request, headers);
     return jsonResponse({ error: "method not allowed" }, 405, headers);
   }
   if (request.method !== "POST") return jsonResponse({ error: "method not allowed" }, 405, headers);

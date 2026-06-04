@@ -125,7 +125,7 @@ assert(fn.includes('customer-facing German answers formally as Herr Dietz') && f
 assert(fn.includes('Do not store or imply persistent visitor chat memory') && fn.includes('durable knowledge is curated DIETZ requirements'), 'server prompt separates durable curated knowledge from persistent chat memory');
 assert(fn.includes('Do not say you cannot contact Patrick directly') && fn.includes('private Telegram operator channel'), 'server prompt aligns Aria handoff wording with the configured Telegram operator channel');
 assert(fn.includes('operatorSessions') && fn.includes('handleOperatorReply') && fn.includes('handleReplies'), 'server function exposes production operator reply polling instead of routing Patrick replies back into AI chat');
-assert(fn.includes('session_id') && fn.includes('operator_token') && fn.includes('/operator/ui'), 'handoff response includes session id and protected operator UI link for Patrick replies');
+assert(fn.includes('session_id') && fn.includes('operator_token') && fn.includes('operatorPublicUiUrl'), 'handoff response includes session id and protected public operator UI link for Patrick replies');
 assert(fn.includes('POST, GET, OPTIONS'), 'CORS allows website reply polling GET requests');
 assert(fn.includes('Do not promise a callback time') && fn.includes('concrete response time'), 'server prompt forbids binding callback promises');
 assert(!/patrick\.dietz@elektroengineering\.de/i.test(fn + index + JSON.stringify(i18n)), 'assistant must not contain the previously invented email address');

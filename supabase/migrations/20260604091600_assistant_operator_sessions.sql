@@ -1,0 +1,25 @@
+create table if not exists public.assistant_operator_sessions (
+  session_id text primary key,
+  token text not null,
+  next_id integer not null default 1,
+  created_at timestamptz not null default now(),
+  expires_at timestamptz not null
+);
+
+create table if not exists public.assistant_operator_replies (
+  session_id text not null references public.assistant_operator_sessions(session_id) on delete cascade,
+  reply_id integer not null,
+  action text not null default 'operator_reply',
+  message text not null,
+  created_at timestamptz not null default now(),
+  primary key (session_id, reply_id)
+);
+
+create index if not exists assistant_operator_sessions_expires_at_idx
+  on public.assistant_operator_sessions (expires_at);
+
+create index if not exists assistant_operator_replies_session_created_idx
+  on public.assistant_operator_replies (session_id, reply_id);
+
+alter table public.assistant_operator_sessions enable row level security;
+alter table public.assistant_operator_replies enable row level security;
