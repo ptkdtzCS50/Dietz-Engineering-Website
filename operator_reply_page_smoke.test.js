@@ -21,6 +21,8 @@ assert(page.includes('Antwortvorschläge') && page.includes('id="suggestionList"
 assert(page.includes('id="reviewButton"') && page.includes('reviewOperatorDraft'), 'operator page must provide a correction/translation review action');
 assert(page.includes('/operator/review') && page.includes('reviewedMessage'), 'operator page must call the protected operator review endpoint and send the reviewed message');
 assert(page.includes('Übersetzung für Herrn Dietz') && page.includes('Kundensprache'), 'operator page must surface inbound translation for Herr Dietz and target customer language');
+assert(page.includes('function endChatMessageForLanguage(') && page.includes('detectedCustomerLanguage'), 'operator end-chat message must use the detected customer language, not a hard-coded German text');
+assert(page.includes('Thank you for chatting with DIETZ Engineering') && page.includes('Gracias por conversar con DIETZ Engineering') && page.includes('感谢您与 DIETZ Engineering 沟通'), 'operator end-chat has friendly localized customer-service closing copy');
 
 assert(page.includes('id="endChatButton"') && page.includes('endOperatorChat'), 'operator page must offer Herr Dietz an explicit button to end the website chat');
 assert(page.includes('/operator/end') && page.includes("action: 'end_chat'"), 'operator end button must call the protected backend end-chat action');

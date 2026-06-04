@@ -21,6 +21,7 @@ assert(fn.includes('async function callOperatorReviewAI'), 'operator review must
 assert(fn.includes('pathname.endsWith("/operator/review")'), 'Supabase function must route protected operator review requests');
 assert(fn.includes('target_language') && fn.includes('suggestions') && fn.includes('translation_for_patrick'), 'operator review response must include customer language, answer suggestions and inbound translation for Patrick');
 assert(fn.includes('Korrigiere Patricks Rechtschreibung') && fn.includes('Spanish') && fn.includes('Chinese'), 'operator AI prompt must explicitly cover correction and Spanish/Chinese translation');
+assert(fn.includes('freundlicher Customer-Service-Ton') && fn.includes('nah an Patricks Eingabe'), 'operator AI prompt must make translations warmer and preserve Patrick\'s intent/style');
 assert(fn.includes('pathname.endsWith("/operator/customer-message")'), 'Supabase function must route customer follow-up messages to the operator channel');
 assert(fn.includes('pathname.endsWith("/operator/messages")'), 'Supabase function must route operator history polling');
 assert(fn.includes('function htmlResponse('), 'operator UI must return explicit text/html responses');
@@ -31,7 +32,7 @@ assert(fn.includes('customerLanguage = detectCustomerLanguage(latestCustomer)') 
 assert(fn.includes('async function appendOperatorReply') && fn.includes('action = "operator_reply"'), 'operator replies must persist explicit actions such as operator_reply/end_chat');
 assert(fn.includes('async function handleOperatorEnd'), 'Supabase function must expose an explicit livechat end endpoint');
 assert(fn.includes('pathname.endsWith("/operator/end")'), 'Supabase function must route operator/customer end-chat requests');
-assert(fn.includes('Vielen Dank. Der Livechat wurde beendet'), 'end-chat reply must contain a visitor-facing thank-you message');
+assert(fn.includes('Vielen Dank für den Chat mit DIETZ Engineering'), 'end-chat reply must contain a friendly visitor-facing thank-you message');
 assert(fn.includes('Englisch') && fn.includes('The customer wrote in English'), 'operator AI prompt must keep English customer conversations in English, not translate them to German');
 
 assert(fn.includes('Always answer in the selected website language') && fn.includes('Do not switch languages just because the visitor typed one message in another language'), 'Aria backend must prioritize selected website language over detected input language');

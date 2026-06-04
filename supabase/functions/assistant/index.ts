@@ -608,6 +608,9 @@ async function callOperatorReviewAI(message: string, customerText: string, langu
         { role: "system", content: [
           "Du bist der geschützte Operator-Review für Patrick Dietz / DIETZ Engineering.",
           "Korrigiere Patricks Rechtschreibung und Grammatik, ohne fachliche Zusagen zu erfinden.",
+          "Formuliere die finale Kundenantwort in einem freundlicher Customer-Service-Ton: ruhig, wertschätzend, hilfsbereit und professionell.",
+          "Bleibe nah an Patricks Eingabe: Inhalt, Absicht, Detailgrad und persönliche Nuance erhalten; nicht unnötig erweitern, nicht steifer machen.",
+          "Orientiere die Übersetzung an der letzten Kundennachricht: kurze Bestätigungen dürfen kurz bleiben, technische Fragen sollen konkret und natürlich beantwortet werden.",
           "Erkenne die Kundensprache. Wenn der Kunde Spanish oder Chinese schreibt, übersetze für Patrick ins Deutsche und übersetze Patricks Antwort zurück in die Kundensprache.",
           "The customer wrote in English: keep the final customer-facing answer in English unless Patrick explicitly asks for German.",
           "Bei Deutsch/Englisch ebenfalls Ton professionell, ruhig und kunden-facing machen; Englisch bleibt Englisch, Deutsch bleibt Deutsch.",
@@ -687,7 +690,7 @@ async function handleOperatorEnd(request: Request, raw: string, headers: Record<
   const session = await loadOperatorSession(sessionId);
   if (!session) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
   if (token && session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
-  const message = cleanText(payload.message, 1200) || "Vielen Dank. Der Livechat wurde beendet. Herr Dietz / DIETZ Engineering wünscht Ihnen einen angenehmen Tag.";
+  const message = cleanText(payload.message, 1200) || "Vielen Dank für den Chat mit DIETZ Engineering. Das Gespräch ist jetzt beendet. Wenn Sie später noch Fragen haben, können Sie sich jederzeit wieder melden.";
   const next = await appendOperatorReply(sessionId, session, message, "end_chat");
   if (source === "customer") {
     await notifyTelegram([

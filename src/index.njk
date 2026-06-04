@@ -4377,10 +4377,10 @@ i18n.de['assistant.endChat'] = 'Gespräch beenden';
 i18n.en['assistant.endChat'] = 'End chat';
 i18n.es['assistant.endChat'] = 'Finalizar chat';
 i18n.zh['assistant.endChat'] = '结束对话';
-i18n.de['assistant.chatEndedThanks'] = 'Vielen Dank. Der Livechat wurde beendet. Herr Dietz / DIETZ Engineering wünscht Ihnen einen angenehmen Tag.';
-i18n.en['assistant.chatEndedThanks'] = 'Thank you. The live chat has been ended. Mr Dietz / DIETZ Engineering wishes you a pleasant day.';
-i18n.es['assistant.chatEndedThanks'] = 'Gracias. El chat en directo ha finalizado. El Sr. Dietz / DIETZ Engineering le desea un buen día.';
-i18n.zh['assistant.chatEndedThanks'] = '谢谢。实时聊天已结束。Dietz 先生 / DIETZ Engineering 祝您一切顺利。';
+i18n.de['assistant.chatEndedThanks'] = 'Vielen Dank für den Chat mit DIETZ Engineering. Das Gespräch ist jetzt beendet. Wenn Sie später noch Fragen haben, können Sie sich jederzeit wieder melden.';
+i18n.en['assistant.chatEndedThanks'] = 'Thank you for chatting with DIETZ Engineering. The chat is now closed. If you have any further questions later, you are welcome to contact us again at any time.';
+i18n.es['assistant.chatEndedThanks'] = 'Gracias por conversar con DIETZ Engineering. El chat queda cerrado. Si más adelante tiene alguna otra pregunta, puede volver a contactarnos en cualquier momento.';
+i18n.zh['assistant.chatEndedThanks'] = '感谢您与 DIETZ Engineering 沟通。本次聊天现已结束。如稍后还有其他问题，欢迎随时再次联系我们。';
 
 /* =========================================================
    STATE  (declared up front — must exist before applyLang runs,
@@ -4451,6 +4451,7 @@ function applyLang(lang) {
   });
 
   refreshSelectedPackage();
+  if (typeof window.refreshChatI18nMessages === 'function') window.refreshChatI18nMessages();
   try { localStorage.setItem('de_lang', lang); } catch(e){}
 }
 
@@ -4799,6 +4800,16 @@ document.querySelectorAll('.faq-item').forEach(item => {
   }
   function setOutput(message, detail) { output.textContent = detail ? `${message}\n\n${detail}` : message; output.classList.add('active'); }
 
+  function refreshChatI18nMessages() {
+    if (!chatLog) return;
+    const dict = assistantDict();
+    chatLog.querySelectorAll('[data-i18n-key]').forEach((bubble) => {
+      const key = bubble.getAttribute('data-i18n-key');
+      if (key && dict[key]) bubble.textContent = dict[key];
+    });
+  }
+  window.refreshChatI18nMessages = refreshChatI18nMessages;
+
   function setChatEndedUi(message) {
     guidedAssistantState.chatEnded = true;
     guidedAssistantState.operatorActive = false;
@@ -4807,7 +4818,9 @@ document.querySelectorAll('.faq-item').forEach(item => {
     if (guidedAssistantState.operatorTimer) clearTimeout(guidedAssistantState.operatorTimer);
     if (guidedAssistantState.replyPollTimer) clearInterval(guidedAssistantState.replyPollTimer);
     stopOperatorWindowCountdown();
-    appendChatMessage('aria', message || assistantDict()['assistant.chatEndedThanks']);
+    output.textContent = '';
+    output.classList.remove('active');
+    appendChatMessage('aria', assistantDict()['assistant.chatEndedThanks'], { i18nKey: 'assistant.chatEndedThanks' });
     if (chatInput) chatInput.disabled = true;
     if (chatSendBtn) chatSendBtn.disabled = true;
     if (chatEndBtn) chatEndBtn.disabled = true;
@@ -4856,11 +4869,14 @@ document.querySelectorAll('.faq-item').forEach(item => {
     chatLog.scrollTop = chatLog.scrollHeight;
   }
 
-  function appendChatMessage(role, message) {
+  function appendChatMessage(role, message, options = {}) {
     if (!chatLog || !message) return null;
     const bubble = document.createElement('div');
     bubble.className = `assistant-chat-bubble assistant-chat-bubble-${role === 'user' ? 'user' : 'aria'}`;
+    if (options.i18nKey) bubble.setAttribute('data-i18n-key', options.i18nKey);
     if (role === 'user') {
+      bubble.textContent = message;
+    } else if (options.i18nKey) {
       bubble.textContent = message;
     } else {
       bubble.textContent = '';

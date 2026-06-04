@@ -171,13 +171,22 @@
         } catch (error) { setStatus('KI-Prüfung gerade nicht erreichbar. Bitte Text manuell prüfen.'); }
         finally { reviewButton.disabled = false; }
       }
+      function endChatMessageForLanguage(language){
+        const messages = {
+          de: 'Vielen Dank für den Chat mit DIETZ Engineering. Das Gespräch ist jetzt beendet. Wenn Sie später noch Fragen haben, können Sie sich jederzeit wieder melden.',
+          en: 'Thank you for chatting with DIETZ Engineering. The chat is now closed. If you have any further questions later, you are welcome to contact us again at any time.',
+          es: 'Gracias por conversar con DIETZ Engineering. El chat queda cerrado. Si más adelante tiene alguna otra pregunta, puede volver a contactarnos en cualquier momento.',
+          zh: '感谢您与 DIETZ Engineering 沟通。本次聊天现已结束。如稍后还有其他问题，欢迎随时再次联系我们。'
+        };
+        return messages[language] || messages.de;
+      }
       async function endOperatorChat(){
         if (chatEnded) return;
         chatEnded = true;
         endChatButton.disabled = true; sendButton.disabled = true; reviewButton.disabled = true;
         setStatus('Gespräch wird beendet …');
         try {
-          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, action: 'end_chat', source: 'operator', message: 'Vielen Dank. Der Chat wurde beendet. DIETZ Engineering wünscht Ihnen einen angenehmen Tag.' });
+          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, action: 'end_chat', source: 'operator', message: endChatMessageForLanguage(detectedCustomerLanguage) });
           const response = await fetch(`${ASSISTANT_ENDPOINT}/operator/end`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
           const data = await response.json().catch(() => ({ ok: response.ok }));
           if (!response.ok || data.ok === false) throw new Error(data.error || 'end_failed');

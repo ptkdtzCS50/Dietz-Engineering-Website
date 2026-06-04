@@ -61,6 +61,8 @@ assert(!index.includes('id="assistantChatVoice"') && !index.includes('SpeechReco
 assert(!index.includes('assistant.voiceStart') && !index.includes('assistant.voiceUnsupported'), 'voice input i18n keys must be removed when speech input is disabled');
 assert(index.includes('function endAssistantLiveChat(') && index.includes('/operator/end'), 'visitor chat can explicitly end an operator livechat through the backend');
 assert(index.includes("assistantDict()['assistant.chatEndedThanks']") && index.includes('chatInput.disabled = true'), 'visitor sees a thank-you message and input is disabled after chat end');
+assert(index.includes('data-i18n-key') && index.includes('refreshChatI18nMessages'), 'visitor chat system bubbles are re-localized when the website language changes');
+assert(index.includes("output.classList.remove('active')"), 'visitor chat hides stale assistant output cards after the chat is ended');
 assert(index.includes('guidedAssistantState.chatEnded'), 'assistant state tracks closed chats so Aria does not continue after end_chat');
 assert(index.includes('id="privacyLanguage"') && index.includes('function syncPrivacyLanguageSelect('), 'privacy dialog exposes language choice and a real configurable details panel');
 assert(index.includes("customizeBtn.setAttribute('aria-expanded'"), 'privacy configure button updates expanded state instead of appearing dead');
