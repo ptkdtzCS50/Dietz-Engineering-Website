@@ -17,6 +17,7 @@ type AssistantPayload = {
 };
 
 type OperatorReply = { id: number; action: string; message: string; created_at: string };
+type OperatorMessage = { id: number; role: string; message: string; created_at: string };
 type OperatorSession = { token: string; replies: OperatorReply[]; nextId: number; createdAt: number };
 
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
@@ -374,6 +375,50 @@ async function loadOperatorReplies(sessionId: string, after = 0): Promise<Operat
   return session ? session.replies.filter((reply) => reply.id > after) : [];
 }
 
+async function appendOperatorMessage(sessionId: string, role: string, message: string) {
+  const safeRole = cleanText(role, 40) || "customer";
+  const safeMessage = cleanText(message, 1400);
+  if (!sessionId || !safeMessage) return { ok: false, skipped: true };
+  try {
+    const response = await supabaseRest("assistant_operator_messages", {
+      method: "POST",
+      body: JSON.stringify({ session_id: sessionId, role: safeRole, message: safeMessage, created_at: new Date().toISOString() }),
+    });
+    return { ok: response.ok, status: response.status };
+  } catch (_) {
+    return { ok: false, skipped: true };
+  }
+}
+
+async function loadOperatorMessages(sessionId: string, after = 0): Promise<OperatorMessage[]> {
+  try {
+    const response = await supabaseRest(`assistant_operator_messages?session_id=eq.${encodeURIComponent(sessionId)}&id=gt.${Number(after) || 0}&select=id,role,message,created_at&order=id.asc`);
+    if (response.ok) {
+      const rows = await response.json().catch(() => []);
+      if (Array.isArray(rows)) return rows.map((row) => ({
+        id: Number(row.id || 0),
+        role: cleanText(row.role, 40),
+        message: cleanText(row.message, 1400),
+        created_at: cleanText(row.created_at, 80),
+      })).filter((item) => item.id > 0 && item.message);
+    }
+  } catch (_) {}
+  return [];
+}
+
+function operatorInitialMessage(payload: AssistantPayload) {
+  const context = payload.context || {};
+  return [
+    cleanText(payload.customer?.name, 140) ? `Name: ${cleanText(payload.customer?.name, 140)}` : "",
+    cleanText(payload.customer?.contact, 180) ? `Kontakt: ${cleanText(payload.customer?.contact, 180)}` : "",
+    cleanText(context.project_type, 220) ? `Projekttyp: ${cleanText(context.project_type, 220)}` : "",
+    cleanText(context.machine, 260) ? `Maschine/Anlage: ${cleanText(context.machine, 260)}` : "",
+    cleanText(context.timeline, 180) ? `Zeitrahmen: ${cleanText(context.timeline, 180)}` : "",
+    cleanText(context.scope, 1200) ? `Kurzbeschreibung: ${cleanText(context.scope, 1200)}` : "",
+    normalizeMessages(payload).map((m) => m.content).join(" | ") ? `Frage: ${normalizeMessages(payload).map((m) => m.content).join(" | ")}` : "",
+  ].filter(Boolean).join("\n");
+}
+
 async function appendOperatorReply(sessionId: string, session: OperatorSession, message: string): Promise<number> {
   const replyId = session.nextId++;
   const reply = { id: replyId, action: "operator_reply", message, created_at: new Date().toISOString() };
@@ -389,6 +434,7 @@ async function appendOperatorReply(sessionId: string, session: OperatorSession, 
       body: JSON.stringify({ next_id: session.nextId }),
     });
   } catch (_) {}
+  await appendOperatorMessage(sessionId, "patrick", message);
   return replyId;
 }
 
@@ -474,6 +520,38 @@ async function handleOperatorUi(request: Request, headers: Record<string, string
   return htmlResponse(operatorUiHtml(sessionId, token, actionUrl), 200, headers);
 }
 
+async function handleOperatorMessages(request: Request, headers: Record<string, string>) {
+  const url = new URL(request.url);
+  const sessionId = cleanText(url.searchParams.get("session_id"), 120);
+  const token = cleanText(url.searchParams.get("operator_token"), 120);
+  const after = Number(url.searchParams.get("after") || 0);
+  const session = await loadOperatorSession(sessionId);
+  if (!session || session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session", messages: [] }, 404, headers);
+  const messages = await loadOperatorMessages(sessionId, after);
+  const next = messages.length ? messages[messages.length - 1].id : after || 0;
+  return jsonResponse({ ok: true, messages, next }, 200, headers);
+}
+
+async function handleCustomerMessage(request: Request, raw: string, headers: Record<string, string>) {
+  const payload = getRequestPayload(request, raw);
+  const sessionId = cleanText(payload.session_id, 120);
+  const message = cleanText(payload.message, 1200);
+  const language = cleanText(payload.language, 8) || "de";
+  const session = await loadOperatorSession(sessionId);
+  if (!session) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
+  if (!message) return jsonResponse({ ok: false, error: "message_required" }, 400, headers);
+  await appendOperatorMessage(sessionId, "customer", message);
+  await notifyTelegram([
+    "Neue Kundenantwort im DIETZ Website-Chat",
+    "Operator-Kanal: private Telegram-Gruppe",
+    `Sprache: ${language}`,
+    `Chat-Session: ${sessionId}`,
+    `Nachricht: ${message}`,
+    `Antwort an Chat: ${operatorPublicUiUrl(sessionId, session.token)}`,
+  ].join("\n"));
+  return jsonResponse({ ok: true, delivered: true, session_id: sessionId }, 200, headers);
+}
+
 async function handleOperatorReply(request: Request, raw: string, headers: Record<string, string>) {
   const payload = getRequestPayload(request, raw);
   const sessionId = cleanText(payload.session_id, 120);
@@ -483,7 +561,7 @@ async function handleOperatorReply(request: Request, raw: string, headers: Recor
   if (!session || session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
   if (!message) return jsonResponse({ ok: false, error: "message_required" }, 400, headers);
   const next = await appendOperatorReply(sessionId, session, message);
-  const acceptsHtml = (request.headers.get("accept") || "").includes("text/html") || (request.headers.get("content-type") || "").includes("application/x-www-form-urlencoded");
+  const acceptsHtml = (request.headers.get("accept") || "").includes("text/html") && !(request.headers.get("accept") || "").includes("application/json");
   if (acceptsHtml) {
     return htmlResponse(operatorUiHtml(sessionId, token, `${operatorBaseUrl(request)}/operator/reply`, "Antwort wurde an den Website-Chat übergeben."), 200, headers);
   }
@@ -498,6 +576,7 @@ async function handleLead(request: Request, payload: AssistantPayload, headers: 
   if (!limited.ok) return jsonResponse({ ok: false, fallback_reason: limited.fallback_reason }, 429, headers);
   const result = fallbackReply(payload, payload.fallback_reason || "confirmed_handoff");
   const { sessionId, token } = await createOperatorSession();
+  await appendOperatorMessage(sessionId, "customer", operatorInitialMessage(payload));
   const replyUrl = operatorPublicUiUrl(sessionId, token);
   const telegram = await notifyTelegram(formatLead(payload, result, sessionId, replyUrl));
   return jsonResponse({ ok: true, delivered: !telegram.skipped, telegram, fallback_reason: result.fallback_reason, session_id: sessionId, operator_token: token, reply_url: replyUrl }, 200, headers);
@@ -510,12 +589,14 @@ Deno.serve(async (request) => {
   const pathname = new URL(request.url).pathname;
   if (request.method === "GET") {
     if (pathname.endsWith("/replies")) return await handleReplies(request, headers);
+    if (pathname.endsWith("/operator/messages")) return await handleOperatorMessages(request, headers);
     if (pathname.endsWith("/operator/ui")) return await handleOperatorUi(request, headers);
     return jsonResponse({ error: "method not allowed" }, 405, headers);
   }
   if (request.method !== "POST") return jsonResponse({ error: "method not allowed" }, 405, headers);
   const raw = await request.text();
   if (pathname.endsWith("/operator/reply")) return await handleOperatorReply(request, raw, headers);
+  if (pathname.endsWith("/operator/customer-message")) return await handleCustomerMessage(request, raw, headers);
   let payload: AssistantPayload | null = null;
   try { payload = JSON.parse(raw); } catch { payload = null; }
   if (!payload) return jsonResponse({ error: "invalid json" }, 400, headers);

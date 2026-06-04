@@ -5299,7 +5299,7 @@ ${dict['assistant.askSpecificEplan'] || dict['assistant.nextScope']}`;
     if (!endpoint || !sessionId) return { ok: false, skipped: true, reason: 'operator_endpoint_missing' };
     const base = endpoint.replace(/\/?$/, '');
     try {
-      const response = await fetch(`${base.replace(/\/assistant$/, '')}/operator/customer-message`, {
+      const response = await fetch(`${base}/operator/customer-message`, {
         method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ session_id: sessionId, message, language: langSelect?.value || 'de', context: summary })
       });
