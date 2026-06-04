@@ -53,6 +53,16 @@ function cleanText(value: unknown, max = 4000): string {
   return String(value || "").replace(/\s+/g, " ").trim().slice(0, max);
 }
 
+function detectCustomerLanguage(value: unknown): string {
+  const text = cleanText(value, 1800).toLowerCase();
+  if (!text) return "unknown";
+  if (/[\u4e00-\u9fff]/.test(text)) return "zh";
+  if (/\b(hola|gracias|tengo|pregunta|dónde|donde|idioma|botón|boton|necesito)\b/.test(text)) return "es";
+  if (/\b(where|language|button|hello|thank you|thanks|project|question|support|need|please)\b/.test(text)) return "en";
+  if (/\b(hallo|danke|frage|sprache|projekt|unterstütz|unterstuetz|herr dietz|bitte)\b/.test(text)) return "de";
+  return "unknown";
+}
+
 function polishHerrDietzGrammar(value: unknown, max = 4000): string {
   return cleanText(value, max)
     .replace(/\b(an|zu|bei|mit|von|für|ueber|über)\s+Herr\s+Dietz\b/g, "$1 Herrn Dietz")
@@ -427,9 +437,9 @@ function operatorInitialMessage(payload: AssistantPayload) {
   ].filter(Boolean).join("\n");
 }
 
-async function appendOperatorReply(sessionId: string, session: OperatorSession, message: string): Promise<number> {
+async function appendOperatorReply(sessionId: string, session: OperatorSession, message: string, action = "operator_reply"): Promise<number> {
   const replyId = session.nextId++;
-  const reply = { id: replyId, action: "operator_reply", message, created_at: new Date().toISOString() };
+  const reply = { id: replyId, action, message, created_at: new Date().toISOString() };
   session.replies.push(reply);
   operatorSessions.set(sessionId, session);
   try {
@@ -442,7 +452,7 @@ async function appendOperatorReply(sessionId: string, session: OperatorSession, 
       body: JSON.stringify({ next_id: session.nextId }),
     });
   } catch (_) {}
-  await appendOperatorMessage(sessionId, "patrick", message);
+  await appendOperatorMessage(sessionId, action === "end_chat" ? "system" : "patrick", message);
   return replyId;
 }
 
@@ -581,7 +591,8 @@ async function callOperatorReviewAI(message: string, customerText: string, langu
           "Du bist der geschützte Operator-Review für Patrick Dietz / DIETZ Engineering.",
           "Korrigiere Patricks Rechtschreibung und Grammatik, ohne fachliche Zusagen zu erfinden.",
           "Erkenne die Kundensprache. Wenn der Kunde Spanish oder Chinese schreibt, übersetze für Patrick ins Deutsche und übersetze Patricks Antwort zurück in die Kundensprache.",
-          "Bei Deutsch/Englisch ebenfalls Ton professionell, ruhig und kunden-facing machen.",
+          "The customer wrote in English: keep the final customer-facing answer in English unless Patrick explicitly asks for German.",
+          "Bei Deutsch/Englisch ebenfalls Ton professionell, ruhig und kunden-facing machen; Englisch bleibt Englisch, Deutsch bleibt Deutsch.",
           "Keine Preise, festen Termine, Zertifikate, Rechts-/CE-Garantien oder Kontaktdaten erfinden.",
           "Gib ausschließlich valides JSON zurück: target_language, language_label, translation_for_patrick, corrected_message, final_message, suggestions (3 kurze Optionen), review_status, notes."
         ].join("\n") },
@@ -617,12 +628,15 @@ async function handleOperatorReview(request: Request, raw: string, headers: Reco
   if (!session || session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
   const messages = await loadOperatorMessages(sessionId, 0);
   const latestCustomer = [...messages].reverse().find((item) => item.role === "customer")?.message || "";
+  const customerLanguage = detectCustomerLanguage(latestCustomer);
+  const requestedCustomerLanguage = cleanText(payload.customer_language, 8);
+  const targetLanguage = requestedCustomerLanguage || (customerLanguage === "unknown" ? language : customerLanguage) || language;
   const draft = message || "Guten Tag, vielen Dank für Ihre Nachricht. Ich schaue mir Ihr Anliegen gerne an.";
   try {
-    const review = await callOperatorReviewAI(draft, latestCustomer, language);
+    const review = await callOperatorReviewAI(draft, latestCustomer, targetLanguage);
     return jsonResponse({ ok: true, reviewedMessage: review.final_message, ...review }, 200, headers);
   } catch (error) {
-    const review = operatorReviewFallback(draft, latestCustomer, language);
+    const review = operatorReviewFallback(draft, latestCustomer, targetLanguage);
     return jsonResponse({ ok: true, reviewedMessage: review.final_message, ...review, diagnostic: assistantDiagnostic(error) }, 200, headers);
   }
 }
@@ -645,6 +659,26 @@ async function handleCustomerMessage(request: Request, raw: string, headers: Rec
     `Antwort an Chat: ${operatorPublicUiUrl(sessionId, session.token)}`,
   ].join("\n"));
   return jsonResponse({ ok: true, delivered: true, session_id: sessionId }, 200, headers);
+}
+
+async function handleOperatorEnd(request: Request, raw: string, headers: Record<string, string>) {
+  const payload = getRequestPayload(request, raw);
+  const sessionId = cleanText(payload.session_id, 120);
+  const token = cleanText(payload.operator_token, 120);
+  const source = cleanText(payload.source, 40) || "customer";
+  const session = await loadOperatorSession(sessionId);
+  if (!session) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
+  if (token && session.token !== token) return jsonResponse({ ok: false, error: "invalid_or_expired_operator_session" }, 404, headers);
+  const message = cleanText(payload.message, 1200) || "Vielen Dank. Der Livechat wurde beendet. Herr Dietz / DIETZ Engineering wünscht Ihnen einen angenehmen Tag.";
+  const next = await appendOperatorReply(sessionId, session, message, "end_chat");
+  if (source === "customer") {
+    await notifyTelegram([
+      "DIETZ Website-Chat beendet",
+      `Chat-Session: ${sessionId}`,
+      "Der Besucher hat das Gespräch beendet.",
+    ].join("\n"));
+  }
+  return jsonResponse({ ok: true, delivered: true, session_id: sessionId, action: "end_chat", next, message }, 200, headers);
 }
 
 async function handleOperatorReply(request: Request, raw: string, headers: Record<string, string>) {
@@ -692,6 +726,7 @@ Deno.serve(async (request) => {
   const raw = await request.text();
   if (pathname.endsWith("/operator/review")) return await handleOperatorReview(request, raw, headers);
   if (pathname.endsWith("/operator/reply")) return await handleOperatorReply(request, raw, headers);
+  if (pathname.endsWith("/operator/end")) return await handleOperatorEnd(request, raw, headers);
   if (pathname.endsWith("/operator/customer-message")) return await handleCustomerMessage(request, raw, headers);
   let payload: AssistantPayload | null = null;
   try { payload = JSON.parse(raw); } catch { payload = null; }

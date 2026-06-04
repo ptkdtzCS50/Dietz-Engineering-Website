@@ -56,6 +56,13 @@ assert(index.includes('requestLiveTakeover'), 'assistant has a live takeover req
 assert(index.includes('assistant.takeover'), 'assistant exposes a customer-facing takeover action');
 assert(index.includes('assistant-chat-log'), 'assistant is presented as a real chat log, not a form-first wizard');
 assert(index.includes('assistantChatInput'), 'assistant has a direct free-text chat input');
+
+assert(index.includes('id="assistantChatVoice"') && index.includes('SpeechRecognition || window.webkitSpeechRecognition'), 'assistant chat has a guarded speech-recognition microphone button wired to the chat input');
+assert(index.includes('function endAssistantLiveChat(') && index.includes('/operator/end'), 'visitor chat can explicitly end an operator livechat through the backend');
+assert(index.includes("assistantDict()['assistant.chatEndedThanks']") && index.includes('chatInput.disabled = true'), 'visitor sees a thank-you message and input is disabled after chat end');
+assert(index.includes('guidedAssistantState.chatEnded'), 'assistant state tracks closed chats so Aria does not continue after end_chat');
+assert(i18n.de['assistant.chatEndedThanks'].includes('Vielen Dank'), 'German visitor end-chat thank-you copy exists');
+assert(i18n.en['assistant.chatEndedThanks'].includes('Thank you'), 'English visitor end-chat thank-you copy exists');
 assert(index.includes('assistantTeaser') && index.includes('assistant-teaser-close') && index.includes('aria_assistant_teaser_dismissed_v1'), 'assistant launcher has a dismissible greeting teaser bubble');
 assert(index.includes('assistant-launcher-icon') && index.includes('<svg') && index.includes('aria-label="Chat mit DIETZ öffnen"') && index.includes('M7.5 17.5'), 'assistant launcher uses a Chatbase-like circular chat/message bubble icon');
 assert(index.includes('width: 3.9rem;') && index.includes('height: 3.9rem;') && index.includes('.assistant-launcher-text { display: none; }'), 'assistant launcher is icon-first/circular instead of a wide text pill');

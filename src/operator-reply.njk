@@ -24,7 +24,7 @@
     .timeline{display:flex;flex-direction:column;gap:.85rem;margin-top:1.1rem;max-height:min(47dvh,540px);overflow:auto;padding-right:.15rem;overscroll-behavior:contain}.empty{border:1px dashed var(--line);border-radius:20px;padding:1rem;color:var(--muted);background:rgba(255,255,255,.035)}
     .msg{border:1px solid var(--line);border-radius:20px;padding:.85rem 1rem;background:rgba(255,255,255,.048)}.msg[data-role="customer"]{border-color:rgba(122,167,255,.4);background:rgba(122,167,255,.105)}.msg[data-role="patrick"]{border-color:rgba(240,195,106,.48);background:rgba(240,195,106,.12)}.msg-role{display:block;font-size:.76rem;color:var(--gold2);font-weight:950;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem}.msg[data-role="customer"] .msg-role{color:#a8c4ff}.msg-text{white-space:pre-wrap;color:#eef3ff}.msg-time{display:block;margin-top:.35rem;color:var(--muted);font-size:.78rem}
     label{display:block;font-weight:900;margin:.75rem 0 .45rem}.compose-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.4rem}.status-dot{display:inline-flex;align-items:center;gap:.38rem;color:var(--muted);font-size:.88rem}.status-dot::before{content:"";width:.58rem;height:.58rem;border-radius:999px;background:var(--ok);box-shadow:0 0 0 5px rgba(105,227,167,.11)}textarea{width:100%;min-height:12rem;resize:vertical;border-radius:22px;border:1px solid rgba(255,255,255,.22);background:#0b1324;color:var(--text);padding:1rem;font:inherit;outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(240,195,106,.15)}
-    button{margin-top:1rem;border:0;border-radius:999px;padding:1rem 1.35rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#17120a;font-weight:950;min-height:48px;box-shadow:0 18px 40px rgba(240,195,106,.26);cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.notice,.review-box{padding:1rem;border-radius:20px;background:rgba(240,195,106,.12);border:1px solid rgba(240,195,106,.28);margin:1rem 0}.review-box{background:rgba(122,167,255,.08);border-color:rgba(122,167,255,.24)}.review-box strong{color:#cfe0ff}.review-meta{margin-top:.6rem;color:var(--muted)}.suggestion-list{display:flex;flex-direction:column;gap:.5rem;margin-top:.7rem}.suggestion-choice{border-radius:16px;text-align:left;background:rgba(255,255,255,.08);color:var(--text);box-shadow:none;margin:0;padding:.75rem .9rem}.muted{color:var(--muted)}.hidden{display:none!important}.status{min-height:1.5rem;color:var(--muted);font-size:.92rem}.fineprint{font-size:.86rem;color:var(--muted);margin-top:.8rem}.actions-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.secondary-link{color:var(--gold2);text-decoration:none;font-weight:850}
+    button{margin-top:1rem;border:0;border-radius:999px;padding:1rem 1.35rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#17120a;font-weight:950;min-height:48px;box-shadow:0 18px 40px rgba(240,195,106,.26);cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.notice,.review-box{padding:1rem;border-radius:20px;background:rgba(240,195,106,.12);border:1px solid rgba(240,195,106,.28);margin:1rem 0}.review-box{background:rgba(122,167,255,.08);border-color:rgba(122,167,255,.24)}.review-box strong{color:#cfe0ff}.review-meta{margin-top:.6rem;color:var(--muted)}.suggestion-list{display:flex;flex-direction:column;gap:.5rem;margin-top:.7rem}.suggestion-choice{border-radius:16px;text-align:left;background:rgba(255,255,255,.08);color:var(--text);box-shadow:none;margin:0;padding:.75rem .9rem}.muted{color:var(--muted)}.hidden{display:none!important}.status{min-height:1.5rem;color:var(--muted);font-size:.92rem}.fineprint{font-size:.86rem;color:var(--muted);margin-top:.8rem}.actions-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.danger-button{background:rgba(255,255,255,.08);color:#ffd2d2;border:1px solid rgba(255,128,128,.36);box-shadow:none}.secondary-link{color:var(--gold2);text-decoration:none;font-weight:850}
     @media(max-width:860px){.dietz-shell{width:min(100% - 24px,1180px);padding-top:16px}.topbar{align-items:flex-start}.top-actions .pill:not(.gold){display:none}.hero{grid-template-columns:1fr}.operator-panel{border-radius:24px}.operator-kpis{grid-template-columns:1fr}.timeline{max-height:38dvh}h1{font-size:clamp(2.35rem,11vw,3.55rem)}}
   </style>
 </head>
@@ -73,6 +73,7 @@
           <div class="actions-row">
             <button id="reviewButton" type="button">KI prüfen / übersetzen</button>
             <button id="sendButton" type="submit">Antwort senden</button>
+            <button id="endChatButton" class="danger-button" type="button">Gespräch beenden</button>
             <a class="secondary-link" href="/">Zur Website</a>
           </div>
         </form>
@@ -93,23 +94,39 @@
       const messageInput = document.getElementById('message');
       const sendButton = document.getElementById('sendButton');
       const reviewButton = document.getElementById('reviewButton');
+      const endChatButton = document.getElementById('endChatButton');
       const suggestionList = document.getElementById('suggestionList');
       const languageLabel = document.getElementById('languageLabel');
       const translationForPatrick = document.getElementById('translationForPatrick');
       let cursor = 0;
       let hasMessages = false;
       let reviewedMessage = '';
+      let detectedCustomerLanguage = 'de';
+      let chatEnded = false;
       let sendInFlight = false;
       document.getElementById('sessionId').value = sessionId;
       document.getElementById('operatorToken').value = operatorToken;
       function setStatus(text){ status.textContent = text; }
       function escapeHtml(value){ return String(value || '').replace(/[&<>\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch])); }
       function roleLabel(role){ return role === 'patrick' ? 'Herr Dietz' : role === 'system' ? 'System' : 'Besucher'; }
+      function detectLanguageFromText(value){
+        const text = String(value || '').toLowerCase();
+        if(/[\u4e00-\u9fff]/.test(text)) return 'zh';
+        if(/\b(hola|gracias|tengo|pregunta|dónde|donde|idioma|botón|boton)\b/.test(text)) return 'es';
+        if(/\b(where|language|button|hello|thank you|project|question|support)\b/.test(text)) return 'en';
+        if(/\b(hallo|danke|frage|sprache|projekt|unterstütz|unterstuetz|herr dietz)\b/.test(text)) return 'de';
+        return detectedCustomerLanguage || 'de';
+      }
       function renderMessage(item){
         if (!hasMessages) { timeline.innerHTML = ''; hasMessages = true; }
         const div = document.createElement('div');
         div.className = 'msg'; div.dataset.role = item.role || 'customer';
         const time = item.created_at ? new Date(item.created_at).toLocaleString('de-DE') : '';
+        if ((item.role || 'customer') === 'customer') {
+          detectedCustomerLanguage = item.customer_language || detectLanguageFromText(item.message);
+          languageLabel.textContent = detectedCustomerLanguage;
+        }
+        if ((item.action || '') === 'end_chat' || /Livechat wurde beendet/i.test(item.message || '')) chatEnded = true;
         div.innerHTML = `<span class="msg-role">${roleLabel(item.role)}</span><div class="msg-text">${escapeHtml(item.message)}</div>${time ? `<span class="msg-time">${escapeHtml(time)}</span>` : ''}`;
         timeline.appendChild(div); timeline.scrollTop = timeline.scrollHeight;
       }
@@ -141,7 +158,7 @@
         const message = messageInput.value.trim();
         reviewButton.disabled = true; setStatus('KI prüft Rechtschreibung, Ton und Übersetzung …');
         try {
-          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, message, language: document.documentElement.lang || 'de' });
+          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, message, customer_language: detectedCustomerLanguage, language: detectedCustomerLanguage });
           const response = await fetch(`${ASSISTANT_ENDPOINT}/operator/review`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
           const data = await response.json().catch(() => ({}));
           if (!response.ok || data.ok === false) throw new Error(data.error || 'review_failed');
@@ -154,13 +171,29 @@
         } catch (error) { setStatus('KI-Prüfung gerade nicht erreichbar. Bitte Text manuell prüfen.'); }
         finally { reviewButton.disabled = false; }
       }
+      async function endOperatorChat(){
+        if (chatEnded) return;
+        chatEnded = true;
+        endChatButton.disabled = true; sendButton.disabled = true; reviewButton.disabled = true;
+        setStatus('Gespräch wird beendet …');
+        try {
+          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, action: 'end_chat', source: 'operator', message: 'Vielen Dank. Der Chat wurde beendet. DIETZ Engineering wünscht Ihnen einen angenehmen Tag.' });
+          const response = await fetch(`${ASSISTANT_ENDPOINT}/operator/end`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
+          const data = await response.json().catch(() => ({ ok: response.ok }));
+          if (!response.ok || data.ok === false) throw new Error(data.error || 'end_failed');
+          messageInput.value = ''; setStatus('Vielen Dank. Der Chat wurde beendet und der Besucher sieht die Abschlussnachricht.');
+          await pollOperatorTimeline();
+        } catch (error) { chatEnded = false; endChatButton.disabled = false; sendButton.disabled = false; reviewButton.disabled = false; setStatus('Gespräch konnte nicht beendet werden. Bitte erneut versuchen.'); }
+      }
       window.reviewOperatorDraft = reviewOperatorDraft;
       window.pollOperatorTimeline = pollOperatorTimeline;
+      window.endOperatorChat = endOperatorChat;
       if (!sessionId || !operatorToken) {
         document.getElementById('missingNotice').classList.remove('hidden');
         sendButton.disabled = true; reviewButton.disabled = true; setStatus('Antwort-Link unvollständig.'); return;
       }
       reviewButton.addEventListener('click', reviewOperatorDraft);
+      endChatButton.addEventListener('click', endOperatorChat);
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
         if (sendInFlight) return;

@@ -25,6 +25,14 @@ assert(fn.includes('pathname.endsWith("/operator/customer-message")'), 'Supabase
 assert(fn.includes('pathname.endsWith("/operator/messages")'), 'Supabase function must route operator history polling');
 assert(fn.includes('function htmlResponse('), 'operator UI must return explicit text/html responses');
 assert(fn.includes('headers: { ...headers, "content-type": "text/html; charset=utf-8" }'), 'text/html must override CORS headers so mobile browsers render the form');
+
+assert(fn.includes('function detectCustomerLanguage'), 'Supabase operator review must detect the latest customer language server-side');
+assert(fn.includes('customerLanguage = detectCustomerLanguage(latestCustomer)') && fn.includes('payload.customer_language'), 'operator review must prefer the customer language over the German operator UI language');
+assert(fn.includes('async function appendOperatorReply') && fn.includes('action = "operator_reply"'), 'operator replies must persist explicit actions such as operator_reply/end_chat');
+assert(fn.includes('async function handleOperatorEnd'), 'Supabase function must expose an explicit livechat end endpoint');
+assert(fn.includes('pathname.endsWith("/operator/end")'), 'Supabase function must route operator/customer end-chat requests');
+assert(fn.includes('Vielen Dank. Der Livechat wurde beendet'), 'end-chat reply must contain a visitor-facing thank-you message');
+assert(fn.includes('Englisch') && fn.includes('The customer wrote in English'), 'operator AI prompt must keep English customer conversations in English, not translate them to German');
 assert(fn.includes('includes("text/html") && !(request.headers.get("accept") || "").includes("application/json")'), 'JS operator form posts must receive JSON even when using urlencoded form bodies');
 assert(!fn.includes('status: 404, headers: { ...headers, "content-type": "text/html; charset=utf-8" }'), 'invalid operator UI should not be returned as 404 text/html because Supabase may render it as text/plain');
 

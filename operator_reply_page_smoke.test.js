@@ -22,4 +22,9 @@ assert(page.includes('id="reviewButton"') && page.includes('reviewOperatorDraft'
 assert(page.includes('/operator/review') && page.includes('reviewedMessage'), 'operator page must call the protected operator review endpoint and send the reviewed message');
 assert(page.includes('Übersetzung für Herrn Dietz') && page.includes('Kundensprache'), 'operator page must surface inbound translation for Herr Dietz and target customer language');
 
+assert(page.includes('id="endChatButton"') && page.includes('endOperatorChat'), 'operator page must offer Herr Dietz an explicit button to end the website chat');
+assert(page.includes('/operator/end') && page.includes("action: 'end_chat'"), 'operator end button must call the protected backend end-chat action');
+assert(page.includes('Vielen Dank. Der Chat wurde beendet'), 'operator page must explain the thank-you/closure result after ending');
+assert(page.includes('let detectedCustomerLanguage') && page.includes('customer_language'), 'operator review must use the detected customer language instead of the German UI language');
+
 console.log('operator_reply_page_smoke.test.js: OK');
