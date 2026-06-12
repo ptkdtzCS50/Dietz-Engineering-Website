@@ -88,3 +88,16 @@ PY
 ```
 
 Wenn die Seiten laden, aber Chat/Handoff fehlschlägt: zuerst `ASSISTANT_ALLOWED_ORIGIN` in Supabase ergänzen und die Function neu deployen bzw. Env aktualisieren.
+
+Für die öffentliche Website muss die Assistant Edge Function ohne Supabase-JWT-Prüfung deployt werden, sonst blockt Supabase Browser-POSTs mit `UNAUTHORIZED_NO_AUTH_HEADER`. Lokal abgesichert in `supabase/config.toml`:
+
+```toml
+[functions.assistant]
+verify_jwt = false
+```
+
+Bei manuellem Deploy äquivalent:
+
+```bash
+npx supabase functions deploy assistant --project-ref syngygsidzrwrnjrxlbt --no-verify-jwt
+```
