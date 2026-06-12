@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>DIETZ Operator Antwort</title>
+  <style>
+    :root{
+      color-scheme:dark;
+      --bg:#050914;--bg2:#0c1323;--panel:#101a2e;--panel2:#142039;--text:#f7f9fc;--muted:#aeb8ce;
+      --gold:#f0c36a;--gold2:#ffd985;--line:rgba(255,255,255,.14);--blue:#7aa7ff;--ok:#69e3a7;
+      --shadow:0 28px 90px rgba(0,0,0,.46);--radius:30px;--radius2:20px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100dvh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 8% -8%,rgba(240,195,106,.23),transparent 26rem),radial-gradient(circle at 88% 2%,rgba(122,167,255,.14),transparent 28rem),linear-gradient(145deg,var(--bg) 0%,var(--bg2) 52%,#101827 100%);color:var(--text);line-height:1.55}
+    .dietz-shell{width:min(1180px,100% - 32px);margin:0 auto;padding:22px 0 46px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:clamp(1.5rem,4vw,3.8rem)}
+    .brand{display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--text);font-weight:950;letter-spacing:.02em}.mark{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,var(--gold),#fff1ba);color:#15100a;display:grid;place-items:center;font-weight:950;box-shadow:0 12px 30px rgba(240,195,106,.24)}
+    .top-actions{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;justify-content:flex-end}.pill{border:1px solid var(--line);border-radius:999px;padding:.58rem .9rem;color:var(--muted);font-size:.9rem;background:rgba(255,255,255,.045)}.pill.gold{color:var(--gold2);border-color:rgba(240,195,106,.34);background:rgba(240,195,106,.08)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(320px,.84fr);gap:1.15rem;align-items:stretch}.operator-panel{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(20,32,57,.94),rgba(9,15,29,.97));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1.1rem,3.2vw,2rem)}
+    .operator-panel::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(240,195,106,.14),transparent 34%,rgba(122,167,255,.08));opacity:.9}.operator-panel>*{position:relative}.eyebrow{color:var(--gold2);font-weight:900;text-transform:uppercase;letter-spacing:.13em;font-size:.78rem;margin:0 0 .7rem}h1{font-size:clamp(2.15rem,5.8vw,4.5rem);line-height:.96;margin:.1rem 0 1rem;letter-spacing:-.05em}.lead{color:var(--muted);font-size:clamp(1rem,2vw,1.16rem);max-width:66ch;margin:0}
+    .operator-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem;margin-top:1.1rem}.operator-kpi{border:1px solid var(--line);border-radius:18px;padding:.78rem .85rem;background:rgba(255,255,255,.045)}.operator-kpi strong{display:block;font-size:.8rem;color:var(--gold2);letter-spacing:.08em;text-transform:uppercase}.operator-kpi span{display:block;color:var(--muted);font-size:.9rem;margin-top:.18rem}
+    .timeline{display:flex;flex-direction:column;gap:.85rem;margin-top:1.1rem;max-height:min(47dvh,540px);overflow:auto;padding-right:.15rem;overscroll-behavior:contain}.empty{border:1px dashed var(--line);border-radius:20px;padding:1rem;color:var(--muted);background:rgba(255,255,255,.035)}
+    .msg{border:1px solid var(--line);border-radius:20px;padding:.85rem 1rem;background:rgba(255,255,255,.048)}.msg[data-role="customer"]{border-color:rgba(122,167,255,.4);background:rgba(122,167,255,.105)}.msg[data-role="patrick"]{border-color:rgba(240,195,106,.48);background:rgba(240,195,106,.12)}.msg-role{display:block;font-size:.76rem;color:var(--gold2);font-weight:950;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem}.msg[data-role="customer"] .msg-role{color:#a8c4ff}.msg-text{white-space:pre-wrap;color:#eef3ff}.msg-time{display:block;margin-top:.35rem;color:var(--muted);font-size:.78rem}
+    label{display:block;font-weight:900;margin:.75rem 0 .45rem}.compose-head{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.4rem}.status-dot{display:inline-flex;align-items:center;gap:.38rem;color:var(--muted);font-size:.88rem}.status-dot::before{content:"";width:.58rem;height:.58rem;border-radius:999px;background:var(--ok);box-shadow:0 0 0 5px rgba(105,227,167,.11)}textarea{width:100%;min-height:12rem;resize:vertical;border-radius:22px;border:1px solid rgba(255,255,255,.22);background:#0b1324;color:var(--text);padding:1rem;font:inherit;outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(240,195,106,.15)}
+    button{margin-top:1rem;border:0;border-radius:999px;padding:1rem 1.35rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#17120a;font-weight:950;min-height:48px;box-shadow:0 18px 40px rgba(240,195,106,.26);cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.notice,.review-box{padding:1rem;border-radius:20px;background:rgba(240,195,106,.12);border:1px solid rgba(240,195,106,.28);margin:1rem 0}.review-box{background:rgba(122,167,255,.08);border-color:rgba(122,167,255,.24)}.review-box strong{color:#cfe0ff}.review-meta{margin-top:.6rem;color:var(--muted)}.suggestion-list{display:flex;flex-direction:column;gap:.5rem;margin-top:.7rem}.suggestion-choice{border-radius:16px;text-align:left;background:rgba(255,255,255,.08);color:var(--text);box-shadow:none;margin:0;padding:.75rem .9rem}.muted{color:var(--muted)}.hidden{display:none!important}.status{min-height:1.5rem;color:var(--muted);font-size:.92rem}.fineprint{font-size:.86rem;color:var(--muted);margin-top:.8rem}.actions-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.danger-button{background:rgba(255,255,255,.08);color:#ffd2d2;border:1px solid rgba(255,128,128,.36);box-shadow:none}.secondary-link{color:var(--gold2);text-decoration:none;font-weight:850}
+    @media(max-width:860px){.dietz-shell{width:min(100% - 24px,1180px);padding-top:16px}.topbar{align-items:flex-start}.top-actions .pill:not(.gold){display:none}.hero{grid-template-columns:1fr}.operator-panel{border-radius:24px}.operator-kpis{grid-template-columns:1fr}.timeline{max-height:38dvh}h1{font-size:clamp(2.35rem,11vw,3.55rem)}}
+  </style>
+</head>
+<body>
+  <div class="dietz-shell" data-operator-console>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Dietz Engineering"><span class="mark">D</span><span>Dietz Engineering</span></a>
+      <div class="top-actions">
+        <span class="pill gold">Aria Livechat</span>
+        <span class="pill">Privater Operator-Kanal</span>
+      </div>
+    </header>
+    <section class="hero">
+      <article class="operator-panel">
+        <p class="eyebrow">DIETZ Operator Console</p>
+        <h1>Antwort an Website-Chat</h1>
+        <p class="lead">Aktueller Besucher-Verlauf, Antworten von Herrn Dietz und Livechat-Status in einer Oberfläche passend zur DIETZ-Website.</p>
+        <div class="operator-kpis" aria-label="Operator Status">
+          <div class="operator-kpi"><strong>Kanal</strong><span>Website-Chat</span></div>
+          <div class="operator-kpi"><strong>Rolle</strong><span>Herr Dietz übernimmt</span></div>
+          <div class="operator-kpi"><strong>Status</strong><span>Verlauf pollt automatisch</span></div>
+        </div>
+        <div id="missingNotice" class="notice hidden">Der Antwort-Link ist unvollständig. Bitte den vollständigen Telegram-Link erneut öffnen.</div>
+        <div id="operatorTimeline" class="timeline" aria-live="polite"><div class="empty">Chatverlauf wird geladen …</div></div>
+      </article>
+      <aside class="operator-panel">
+        <div class="compose-head">
+          <p class="eyebrow" style="margin:0">Antwort verfassen</p>
+          <span class="status-dot">Live bereit</span>
+        </div>
+        <form id="replyForm" method="post" action="https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant/operator/reply">
+          <input type="hidden" name="session_id" id="sessionId">
+          <input type="hidden" name="operator_token" id="operatorToken">
+          <label for="message">Nachricht von Herrn Dietz</label>
+          <textarea id="message" name="message" autofocus required placeholder="Antwort für den Website-Besucher ..."></textarea>
+          <div class="review-box" data-review-boundary="ai-review-before-send">
+            <strong>Nachbearbeitung / Übersetzung</strong><br>
+            KI prüft Rechtschreibung, Ton und Kundensprache vor dem Senden. Bei Spanisch, Chinesisch oder Englisch übersetzt die Konsole die Kundenfrage für Herrn Dietz und die Antwort von Herrn Dietz zurück in die Kundensprache.
+            <div class="review-meta"><strong>Kundensprache:</strong> <span id="languageLabel">wird erkannt</span></div>
+            <div class="review-meta"><strong>Übersetzung für Herrn Dietz:</strong> <span id="translationForPatrick">Noch keine KI-Prüfung gestartet.</span></div>
+          </div>
+          <div class="review-box suggestion-box">
+            <strong>Antwortvorschläge</strong>
+            <div id="suggestionList" class="suggestion-list">KI-Vorschläge werden nach „KI prüfen“ angezeigt.</div>
+          </div>
+          <div class="actions-row">
+            <button id="reviewButton" type="button">KI prüfen / übersetzen</button>
+            <button id="sendButton" type="submit">Antwort senden</button>
+            <button id="endChatButton" class="danger-button" type="button">Gespräch beenden</button>
+            <a class="secondary-link" href="/">Zur Website</a>
+          </div>
+        </form>
+        <p id="operatorStatus" class="status">Bereit.</p>
+        <p class="fineprint">Die Antwort wird in den aktuellen Website-Chat gelegt. Der Verlauf aktualisiert sich automatisch; doppelte Polling-Antworten werden im Besucherchat clientseitig abgefangen.</p>
+      </aside>
+    </section>
+  </div>
+  <script>
+    const ASSISTANT_ENDPOINT = "https://syngygsidzrwrnjrxlbt.supabase.co/functions/v1/assistant";
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id') || '';
+      const operatorToken = params.get('operator_token') || '';
+      const timeline = document.getElementById('operatorTimeline');
+      const status = document.getElementById('operatorStatus');
+      const form = document.getElementById('replyForm');
+      const messageInput = document.getElementById('message');
+      const sendButton = document.getElementById('sendButton');
+      const reviewButton = document.getElementById('reviewButton');
+      const endChatButton = document.getElementById('endChatButton');
+      const suggestionList = document.getElementById('suggestionList');
+      const languageLabel = document.getElementById('languageLabel');
+      const translationForPatrick = document.getElementById('translationForPatrick');
+      let cursor = 0;
+      let hasMessages = false;
+      let reviewedMessage = '';
+      let detectedCustomerLanguage = 'de';
+      let chatEnded = false;
+      let sendInFlight = false;
+      document.getElementById('sessionId').value = sessionId;
+      document.getElementById('operatorToken').value = operatorToken;
+      function setStatus(text){ status.textContent = text; }
+      function escapeHtml(value){ return String(value || '').replace(/[&<>\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch])); }
+      function roleLabel(role){ return role === 'patrick' ? 'Herr Dietz' : role === 'system' ? 'System' : 'Besucher'; }
+      function normalizeCustomerLanguage(value){
+        const lang = String(value || '').trim().toLowerCase();
+        if (['de', 'en', 'es', 'zh'].includes(lang)) return lang;
+        if (/english|englisch/.test(lang)) return 'en';
+        if (/spanish|spanisch|español/.test(lang)) return 'es';
+        if (/chinese|chinesisch|中文/.test(lang)) return 'zh';
+        if (/german|deutsch/.test(lang)) return 'de';
+        return '';
+      }
+      function languageLabelForOperator(language){
+        const labels = { de: 'Deutsch', en: 'Englisch', es: 'Spanisch', zh: 'Chinesisch' };
+        return labels[normalizeCustomerLanguage(language) || language] || 'wird erkannt';
+      }
+      function explicitLanguageFromMessage(value){
+        const text = String(value || '');
+        const match = text.match(/(?:Kundensprache|Sprache|Website-Sprache|Customer language)\s*:\s*([^\n|]+)/i);
+        return normalizeCustomerLanguage(match && match[1]);
+      }
+      function detectLanguageFromText(value){
+        const explicit = explicitLanguageFromMessage(value);
+        if (explicit) return explicit;
+        const text = String(value || '').toLowerCase();
+        if(/[\u4e00-\u9fff]/.test(text)) return 'zh';
+        const score = {
+          en: (text.match(/\b(where|language|button|hello|thank you|thanks|project|question|support|need|please|contact|mr\.?|not specified|initial clarification)\b/g) || []).length,
+          de: (text.match(/\b(hallo|danke|frage|sprache|projekt|unterstütz|unterstuetz|herr dietz|bitte|übergabe|uebergabe)\b/g) || []).length,
+          es: (text.match(/\b(hola|gracias|tengo|pregunta|dónde|donde|idioma|botón|boton|necesito)\b/g) || []).length,
+        };
+        if (score.en >= score.de && score.en >= score.es && score.en > 0) return 'en';
+        if (score.es >= score.de && score.es > 0) return 'es';
+        if (score.de > 0) return 'de';
+        return detectedCustomerLanguage || 'de';
+      }
+      function renderMessage(item){
+        if (!hasMessages) { timeline.innerHTML = ''; hasMessages = true; }
+        const div = document.createElement('div');
+        div.className = 'msg'; div.dataset.role = item.role || 'customer';
+        const time = item.created_at ? new Date(item.created_at).toLocaleString('de-DE') : '';
+        if ((item.role || 'customer') === 'customer') {
+          detectedCustomerLanguage = normalizeCustomerLanguage(item.customer_language) || detectLanguageFromText(item.message);
+          languageLabel.textContent = languageLabelForOperator(detectedCustomerLanguage);
+          renderDefaultSuggestionsForLanguage(detectedCustomerLanguage);
+        }
+        if ((item.action || '') === 'end_chat' || /Livechat wurde beendet/i.test(item.message || '')) chatEnded = true;
+        div.innerHTML = `<span class="msg-role">${roleLabel(item.role)}</span><div class="msg-text">${escapeHtml(item.message)}</div>${time ? `<span class="msg-time">${escapeHtml(time)}</span>` : ''}`;
+        timeline.appendChild(div); timeline.scrollTop = timeline.scrollHeight;
+      }
+      async function pollOperatorTimeline(){
+        if (!sessionId || !operatorToken) return;
+        try {
+          const qs = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, after: String(cursor) });
+          const response = await fetch(`${ASSISTANT_ENDPOINT}/operator/messages?${qs}`);
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || !data.ok) { setStatus('Link ungültig oder abgelaufen.'); return; }
+          (data.messages || []).forEach(renderMessage);
+          cursor = Number(data.next || cursor);
+          if (!hasMessages) timeline.innerHTML = '<div class="empty">Noch keine Besucher-Nachricht im Verlauf.</div>';
+          setStatus('Verlauf aktuell.');
+        } catch (error) { setStatus('Verlauf konnte gerade nicht aktualisiert werden.'); }
+      }
+      function renderSuggestions(items){
+        const suggestions = Array.isArray(items) ? items.filter(Boolean) : [];
+        if (!suggestions.length) { suggestionList.textContent = 'Keine Vorschläge verfügbar.'; return; }
+        suggestionList.innerHTML = '';
+        suggestions.forEach((text) => {
+          const button = document.createElement('button');
+          button.type = 'button'; button.className = 'suggestion-choice'; button.textContent = text;
+          button.addEventListener('click', () => { messageInput.value = text; reviewedMessage = ''; setStatus('Vorschlag eingefügt. Bitte KI prüfen oder direkt senden.'); });
+          suggestionList.appendChild(button);
+        });
+      }
+      function renderDefaultSuggestionsForLanguage(language){
+        if (!suggestionList || suggestionList.dataset.aiReviewed === 'true') return;
+        const lang = normalizeCustomerLanguage(language) || 'de';
+        const suggestions = {
+          de: [
+            'Hallo Herr Mustermann, vielen Dank für Ihre Nachricht. Wie kann ich Sie unterstützen?',
+            'Guten Tag Herr Mustermann, ich schaue mir Ihr Anliegen gern an. Können Sie mir bitte kurz die wichtigsten Eckdaten nennen?',
+            'Vielen Dank für Ihre Anfrage. Ich unterstütze Sie gerne bei der ersten technischen Klärung.'
+          ],
+          en: [
+            'Hello Mr Mustermann, thank you for your message. How can I support you?',
+            'Good afternoon Mr Mustermann, I will gladly take a look at your request. Could you briefly share the key details?',
+            'Thank you for your inquiry. I will be happy to support the initial technical clarification.'
+          ],
+          es: [
+            'Hola Sr. Mustermann, gracias por su mensaje. ¿Cómo puedo ayudarle?',
+            'Buenos días Sr. Mustermann, revisaré con gusto su solicitud. ¿Podría indicar brevemente los datos principales?',
+            'Gracias por su consulta. Con gusto le ayudo con la primera aclaración técnica.'
+          ],
+          zh: [
+            '您好，Mustermann 先生，感谢您的留言。请问我可以如何协助您？',
+            '您好，Mustermann 先生，我很乐意查看您的需求。能否简要说明关键项目数据？',
+            '感谢您的咨询。我很乐意协助进行初步技术澄清。'
+          ]
+        };
+        suggestionList.innerHTML = '';
+        (suggestions[lang] || suggestions.de).forEach((text, index) => {
+          const button = document.createElement('button');
+          button.type = 'button'; button.className = 'suggestion-choice'; button.textContent = text;
+          button.setAttribute('data-suggestion-i18n-key', `${lang}:${index}`);
+          button.addEventListener('click', () => { messageInput.value = text; reviewedMessage = ''; setStatus('Vorschlag eingefügt. Bitte KI prüfen oder direkt senden.'); });
+          suggestionList.appendChild(button);
+        });
+      }
+      async function reviewOperatorDraft(){
+        const message = messageInput.value.trim();
+        reviewButton.disabled = true; setStatus('KI prüft Rechtschreibung, Ton und Übersetzung …');
+        try {
+          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, message, customer_language: detectedCustomerLanguage, language: detectedCustomerLanguage });
+          const response = await fetch(`${ASSISTANT_ENDPOINT}/operator/review`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || data.ok === false) throw new Error(data.error || 'review_failed');
+          reviewedMessage = data.reviewedMessage || data.final_message || data.corrected_message || message;
+          messageInput.value = reviewedMessage;
+          detectedCustomerLanguage = normalizeCustomerLanguage(data.target_language) || detectedCustomerLanguage;
+          languageLabel.textContent = data.language_label || languageLabelForOperator(detectedCustomerLanguage);
+          translationForPatrick.textContent = data.translation_for_patrick || 'Keine separate Übersetzung nötig.';
+          suggestionList.dataset.aiReviewed = 'true';
+          renderSuggestions(data.suggestions);
+          setStatus('KI-Prüfung abgeschlossen. Die geprüfte Antwort steht im Textfeld.');
+        } catch (error) { setStatus('KI-Prüfung gerade nicht erreichbar. Bitte Text manuell prüfen.'); }
+        finally { reviewButton.disabled = false; }
+      }
+      function endChatMessageForLanguage(language){
+        const messages = {
+          de: 'Vielen Dank für den Chat mit DIETZ Engineering. Das Gespräch ist jetzt beendet. Wenn Sie später noch Fragen haben, können Sie sich jederzeit wieder melden.',
+          en: 'Thank you for chatting with DIETZ Engineering. The chat is now closed. If you have any further questions later, you are welcome to contact us again at any time.',
+          es: 'Gracias por conversar con DIETZ Engineering. El chat queda cerrado. Si más adelante tiene alguna otra pregunta, puede volver a contactarnos en cualquier momento.',
+          zh: '感谢您与 DIETZ Engineering 沟通。本次聊天现已结束。如稍后还有其他问题，欢迎随时再次联系我们。'
+        };
+        return messages[language] || messages.de;
+      }
+      async function endOperatorChat(){
+        if (chatEnded) return;
+        chatEnded = true;
+        endChatButton.disabled = true; sendButton.disabled = true; reviewButton.disabled = true;
+        setStatus('Gespräch wird beendet …');
+        try {
+          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, action: 'end_chat', source: 'operator', message: endChatMessageForLanguage(detectedCustomerLanguage) });
+          const response = await fetch(`${ASSISTANT_ENDPOINT}/operator/end`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
+          const data = await response.json().catch(() => ({ ok: response.ok }));
+          if (!response.ok || data.ok === false) throw new Error(data.error || 'end_failed');
+          messageInput.value = ''; setStatus('Vielen Dank. Der Chat wurde beendet und der Besucher sieht die Abschlussnachricht.');
+          await pollOperatorTimeline();
+        } catch (error) { chatEnded = false; endChatButton.disabled = false; sendButton.disabled = false; reviewButton.disabled = false; setStatus('Gespräch konnte nicht beendet werden. Bitte erneut versuchen.'); }
+      }
+      window.reviewOperatorDraft = reviewOperatorDraft;
+      window.pollOperatorTimeline = pollOperatorTimeline;
+      window.endOperatorChat = endOperatorChat;
+      if (!sessionId || !operatorToken) {
+        document.getElementById('missingNotice').classList.remove('hidden');
+        sendButton.disabled = true; reviewButton.disabled = true; setStatus('Antwort-Link unvollständig.'); return;
+      }
+      reviewButton.addEventListener('click', reviewOperatorDraft);
+      endChatButton.addEventListener('click', endOperatorChat);
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (sendInFlight) return;
+        const message = messageInput.value.trim();
+        if (!message) return;
+        sendInFlight = true;
+        sendButton.disabled = true; setStatus('Antwort wird gesendet …');
+        try {
+          if (!reviewedMessage && detectedCustomerLanguage !== 'de') {
+            await reviewOperatorDraft();
+          }
+          const currentMessage = messageInput.value.trim() || message;
+          const outbound = reviewedMessage && reviewedMessage.trim() === currentMessage ? reviewedMessage : currentMessage;
+          const body = new URLSearchParams({ session_id: sessionId, operator_token: operatorToken, message: outbound });
+          const response = await fetch(form.action, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' }, body });
+          const data = await response.json().catch(() => ({ ok: response.ok }));
+          if (!response.ok || data.ok === false) throw new Error(data.error || 'send_failed');
+          messageInput.value = ''; setStatus('Antwort wurde an den Website-Chat übergeben.');
+          await pollOperatorTimeline();
+        } catch (error) { setStatus('Antwort konnte nicht gesendet werden. Bitte erneut versuchen.'); }
+        finally { sendInFlight = false; sendButton.disabled = false; }
+      });
+      pollOperatorTimeline();
+      setInterval(pollOperatorTimeline, 1800);
+    })();
+  </script>
+</body>
+</html>
